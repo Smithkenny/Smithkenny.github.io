@@ -1,0 +1,443 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>wsl2搭建全过程 | Peng's Blog</title><meta name="author" content="Haipeng"><meta name="copyright" content="Haipeng"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="什么是 WSLWSL 的全称叫做：Windows Subsystem for Linux，即「适用于 Linux 的 Windows 子系统」。WSL 的诞生让 Windows 用户（开发人员）按原样运行 GNU&#x2F;Linux 环境 —— 包括大多数命令行工具、实用工具和应用程序 —— 且不会产生虚拟机开销。 用 WSL 可以做什么？好的，在 Windows 上用 WSL 我们到底能干什么">
+<meta property="og:type" content="article">
+<meta property="og:title" content="wsl2搭建全过程">
+<meta property="og:url" content="https://blog.haipengv.com/2022/02/05/wsl2%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/index.html">
+<meta property="og:site_name" content="Peng&#39;s Blog">
+<meta property="og:description" content="什么是 WSLWSL 的全称叫做：Windows Subsystem for Linux，即「适用于 Linux 的 Windows 子系统」。WSL 的诞生让 Windows 用户（开发人员）按原样运行 GNU&#x2F;Linux 环境 —— 包括大多数命令行工具、实用工具和应用程序 —— 且不会产生虚拟机开销。 用 WSL 可以做什么？好的，在 Windows 上用 WSL 我们到底能干什么">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.haipengv.com/img/postimages/lighthouse.webp">
+<meta property="article:published_time" content="2022-02-05T14:10:00.000Z">
+<meta property="article:modified_time" content="2023-07-18T02:25:05.210Z">
+<meta property="article:author" content="Haipeng">
+<meta property="article:tag" content="wsl2">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.haipengv.com/img/postimages/lighthouse.webp"><link rel="shortcut icon" href="/img/favicon.webp"><link rel="canonical" href="https://blog.haipengv.com/2022/02/05/wsl2%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":1,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'wsl2搭建全过程',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-07-18 10:25:05'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = url => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      link.onload = () => resolve()
+      link.onerror = () => reject()
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.0.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/logo.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">109</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">31</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/Analytics/"><i class="fa-fw fas fa-video"></i><span> 统计</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/postimages/lighthouse.webp')"><nav id="nav"><span id="blog-info"><a href="/" title="Peng's Blog"><span class="site-name">Peng's Blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/Analytics/"><i class="fa-fw fas fa-video"></i><span> 统计</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">wsl2搭建全过程</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-02-05T14:10:00.000Z" title="发表于 2022-02-05 22:10:00">2022-02-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-07-18T02:25:05.210Z" title="更新于 2023-07-18 10:25:05">2023-07-18</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/linux/">linux</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">4.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>17分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="wsl2搭建全过程"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="什么是-WSL"><a href="#什么是-WSL" class="headerlink" title="什么是 WSL"></a>什么是 WSL</h2><p>WSL 的全称叫做：Windows Subsystem for Linux，即「适用于 Linux 的 Windows 子系统」。WSL 的诞生让 Windows 用户（开发人员）按原样运行 GNU&#x2F;Linux 环境 —— 包括大多数命令行工具、实用工具和应用程序 —— 且不会产生虚拟机开销。</p>
+<h2 id="用-WSL-可以做什么？"><a href="#用-WSL-可以做什么？" class="headerlink" title="用 WSL 可以做什么？"></a>用 WSL 可以做什么？</h2><p>好的，在 Windows 上用 WSL 我们到底能干什么呢？</p>
+<ul>
+<li>你可以在 Windows 上「安装」你喜欢的 GNU&#x2F;Linux 发行版</li>
+<li>你可以直接在 Windows 上运行 <code>grep</code>、<code>awk</code>、<code>sed</code> 等 Linux 原生可执行文件</li>
+<li>你可以在 Windows 上直接使用 Vim、Emacs 等工具，直接使用 Linux 版本的 Javascript&#x2F;Node.js、Ruby、Python、C&#x2F;C++、Rust、Go 等语言进行开发，直接运行 MySQL、Apache 等 Linux 原生应用和服务等</li>
+</ul>
+<p>最为重要的是，利用 WSL 我们可以直接在 <strong>不抛弃 Windows 全部优秀工具的前提下</strong>，<strong>在没有因为虚拟机开销而牺牲太多性能的情况下</strong>，直接运行使用完整的 Linux 系统。</p>
+<h2 id="WSL-2-中采用的新措施"><a href="#WSL-2-中采用的新措施" class="headerlink" title="WSL 2 中采用的新措施"></a>WSL 2 中采用的新措施</h2><ul>
+<li>在 Windows 上实现完整的 Linux 原生系统调用（Full System Call Compatibility）</li>
+<li>用 WSL 执行曾经 1.0 版本无法运行的 Linux 原生程序，比如依赖虚拟化技术的 Docker 容器。</li>
+<li>极大的突破了 WSL 1.0 中出现的 I&#x2F;O 性能瓶颈：WSL 2 中，<code>git clone</code>、<code>npm install</code>、<code>apt update</code>、<code>apt upgrade</code> 等依赖文件系统性能的操作和命令的速度都有显著提高。</li>
+<li>如果你在 WSL 2 中运行 Web 服务器，你会发现映射到 Windows 中的端口并不一样。不过这一不同并无大碍。</li>
+<li>你会发现 WSL 2 中在 Windows 侧和 Linux 侧之间相互移动文件的速度会比 WSL 的 1.0 版本慢。因此，为了尽可能保证我们 WSL 文件系统的存储速度，<strong>我们应该将在 Linux 中使用的文件全部放在 Linux 文件系统下</strong>。</li>
+<li>WSL 2 目前对硬件的支持有限，因此你可能无法直接通过 WSL 2 访问外设。不过，WSL 2 目前已经支持了 GPU 的连接,同时，我们也可以通过一些 hacky 的手段让 WSL 2 能够访问 USB 接口.</li>
+<li>WSL 2 对 VMware 等虚拟机软件也有一些要求，也就是：你无法在运行 WSL 2 的情况下直接运行 VMware 或旧版本的 Virtual Box。这是因为 WSL 2 中的虚拟化技术依赖于 Hyper-V，而 VMware 和 6.0 版本之前的 Virtual Box 都和 Hyper-V 不兼容.</li>
+</ul>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>只有 Windows 10 才能安装使用 WSL。Windows 7、8 或之前的任何版本都无法使用，请及时将系统版本更新至最新。</p>
+<p>只有 Windows 10 版本 16215 或以后的版本才能够正常运行 WSL。你可以在「Windows 设置 &gt; 系统 &gt; 关于」处找到你的 Windows 10 操作系统版本。</p>
+<p><strong>只有 Windows 10 版本 18362 或 18363 以及以后的版本，或小版本号为 1049 的版本，才能够正常运行 WSL 2</strong>。需要明确，WSL 2 目前只能在 Windows 10 版本 1903、1909 和 2004 中使用（其中 1903 和 1909 仅支持 <strong>x64 系统</strong>），因此你需要将自己的 Windows 系统进行升级至合适的版本，才能使用正确的 Windows 10 版本安装 WSL 2。</p>
+<h3 id="开启「适用于-Linux-的-Windows-子系统」的附加功能"><a href="#开启「适用于-Linux-的-Windows-子系统」的附加功能" class="headerlink" title="开启「适用于 Linux 的 Windows 子系统」的附加功能"></a>开启「适用于 Linux 的 Windows 子系统」的附加功能</h3><p>无论使用 WSL 1 还是 WSL 2，我们都需要开启「适用于 Linux 的 Windows 子系统」的附加功能：</p>
+<ul>
+<li>以管理员身份打开 PowerShell 终端</li>
+<li>运行下面的命令：</li>
+</ul>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Enable-WindowsOptionalFeature</span> <span class="literal">-Online</span> <span class="literal">-FeatureName</span> Microsoft<span class="literal">-Windows-Subsystem-Linux</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>按照提示重启电脑</li>
+</ul>
+<h3 id="官方版本-WSL"><a href="#官方版本-WSL" class="headerlink" title="官方版本 WSL"></a>官方版本 WSL</h3><p>微软官方支持的 WSL Linux 发行版可以直接从微软商店下载。</p>
+<p>官方支持的 Linux 发行版有：</p>
+<ul>
+<li>Ubuntu: <a target="_blank" rel="noopener" href="https://www.microsoft.com/store/productId/9NBLGGH4MSV6">最新版</a>，<a target="_blank" rel="noopener" href="https://www.microsoft.com/store/productId/9PJN388HP8C9">16.04 LTS</a>，<a target="_blank" rel="noopener" href="https://www.microsoft.com/store/productId/9N9TNGVNDL3Q">18.04 LTS</a>，和 <a target="_blank" rel="noopener" href="https://www.microsoft.com/p/ubuntu-2004-lts/9n6svws3rx71">20.04 LTS</a></li>
+<li>OpenSUSE Leap: <a target="_blank" rel="noopener" href="https://www.microsoft.com/store/productId/9NJVJTS82TJX">42</a>, <a target="_blank" rel="noopener" href="https://www.microsoft.com/store/productId/9N1TB6FPVJ8C">15.0</a></li>
+<li>SUSE Linux Enterprise Server: <a target="_blank" rel="noopener" href="https://www.microsoft.com/store/productId/9P32MWBH6CNS">12</a>, <a target="_blank" rel="noopener" href="https://www.microsoft.com/store/productId/9PMW35D7FNLX">15</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.microsoft.com/store/productId/9MSVKQC78PK6">Debian GNU&#x2F;Linux</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.microsoft.com/store/productId/9PKR34TNCV07">Kali Linux</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.microsoft.com/store/productId/9NV1GV1PXZ6P">Pengwin</a> - <a target="_blank" rel="noopener" href="https://github.com/WhitewaterFoundry/Pengwin">GitHub | WhitewaterFoundry&#x2F;Pengwin</a>付费</li>
+<li><a target="_blank" rel="noopener" href="https://www.microsoft.com/store/productId/9P804CRF0395">Alpine WSL</a> - <a target="_blank" rel="noopener" href="https://github.com/agowa338/WSL-DistroLauncher-Alpine">GitHub | agowa338&#x2F;WSL-DistroLauncher-Alpine</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/p/fedora-remix-for-wsl/9n6gdm4k2hnc">Fedora Remix for WSL</a> - <a target="_blank" rel="noopener" href="https://github.com/WhitewaterFoundry/Fedora-Remix-for-WSL">GitHub | WhitewaterFoundry&#x2F;Fedora-Remix-for-WSL</a> 付费</li>
+</ul>
+<h3 id="社区支持的-WSL"><a href="#社区支持的-WSL" class="headerlink" title="社区支持的 WSL"></a>社区支持的 WSL</h3><p>另外也有社区支持的 WSL Linux 发行版，社区支持的第三方 WSL 发行版：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/yuk7/ArchWSL">Arch Linux</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/yuk7/AlpineWSL">Alpine Linux</a></li>
+</ul>
+<p>第三方支持的发行版需要按照其官方使用说明进行安装。</p>
+<p>下载成功后，我们需要对刚刚这一发行版进行初始化。在开始菜单中，没有意外的话，你应该看到刚刚下载完成的 Ubuntu 快捷方式，我们点击打开 Ubuntu，等待初始化完成即可。（初始化过程会将下载好的 Linux 发行版的文件解压缩，并存储在电脑上供你使用，往往会需要 1 分钟甚至更多。）</p>
+<p>初始化完成之后，Linux 会提示你输入一个 UNIX 用户名并为之设置一个 UNIX 密码。这一用户名和密码与你的 Windows 登录账号密码完全无关，你可以任意设置。完成之后，你的 Ubuntu 发行版就安装成功了。</p>
+<h2 id="WSL-2-的安装"><a href="#WSL-2-的安装" class="headerlink" title="WSL 2 的安装"></a>WSL 2 的安装</h2><p>WSL 2 需要在 WSL 已经安装完毕的基础之上才能进行安装。</p>
+<h3 id="开启支持-WSL-2-的可选组件"><a href="#开启支持-WSL-2-的可选组件" class="headerlink" title="开启支持 WSL 2 的可选组件"></a>开启支持 WSL 2 的可选组件</h3><p>如果你希望安装 WSL 2，你需要确保你已安装「适用于 Linux 的 Windows 子系统」和「虚拟机平台」这两个可选组件。[<a target="_blank" rel="noopener" href="https://dowww.spencerwoo.com/1-preparations/1-1-installation.html#fn1">1]</a>同样：</p>
+<ul>
+<li>以管理员身份打开 PowerShell 终端</li>
+<li>运行下面的命令：</li>
+</ul>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dism.exe /online /<span class="built_in">enable-feature</span> /featurename:Microsoft<span class="literal">-Windows-Subsystem-Linux</span> /all /norestart</span><br><span class="line">dism.exe /online /<span class="built_in">enable-feature</span> /featurename:VirtualMachinePlatform /all /norestart</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>根据提示重启电脑</li>
+</ul>
+<h3 id="使用命令行设置需要由-WSL-2-支持的发行版"><a href="#使用命令行设置需要由-WSL-2-支持的发行版" class="headerlink" title="使用命令行设置需要由 WSL 2 支持的发行版"></a>使用命令行设置需要由 WSL 2 支持的发行版</h3><p>同样，用管理员身份打开 PowerShell 终端：</p>
+<ul>
+<li><p>执行下面命令找到你当前安装的 Linux 发行版及其名字：</p>
+  <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wsl <span class="literal">--list</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>之后，执行下面的命令将你需要的发行版设置为由 WSL 2 支持，将其中的 <code>&lt;Distro&gt;</code> 修改为 Linux 发行版名称：</p>
+  <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wsl <span class="literal">--set-version</span> &lt;Distro&gt; <span class="number">2</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>另外，你也可以通过下面的命令将之后新安装的发行版均设置为默认由 WSL 2 支持：</p>
+  <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wsl <span class="literal">--set-default-version</span> <span class="number">2</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>执行下面的命令，如果发现最后一列的 <code>VERSION</code> 数为 2，说明你的配置是成功的：</p>
+  <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wsl <span class="literal">--list</span> <span class="literal">--verbose</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>如果查询到的版本还是1，并且提示当前windows需要升级内核。则使用wsl_update_x64.rar工具升级并重启电脑。再次尝试，直到版本为2.</p>
+<h2 id="安装Fluent-Terminal"><a href="#安装Fluent-Terminal" class="headerlink" title="安装Fluent Terminal"></a>安装Fluent Terminal</h2><p>Fluent Terminal 是目前相对稳定的非 Electron 构建的终端。得益于 UWP 技术，Fluent Terminal 能够同样拥有美丽的亚克力半透明背景，同时也支持 iTerm2 色彩主题。</p>
+<p>安装Fluent Terminal之前先安装Scoop.</p>
+<h3 id="自定义路径安装Scoop"><a href="#自定义路径安装Scoop" class="headerlink" title="自定义路径安装Scoop"></a>自定义路径安装Scoop</h3><p>用管理员运行powershell,创建scoop环境变量.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">env</span>:SCOOP=<span class="string">&#x27;D:\Applications\Scoop&#x27;</span></span><br><span class="line">[Environment]::SetEnvironmentVariable(<span class="string">&#x27;SCOOP&#x27;</span>,<span class="variable">$env</span>:SCOOP,<span class="string">&#x27;User&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">env</span>:SCOOP_GLOBAL=<span class="string">&#x27;D:\GlobalScoopApps&#x27;</span></span><br><span class="line">[Environment]::SetEnvironmentVariable(<span class="string">&#x27;SCOOP_GLOBAL&#x27;</span>,<span class="variable">$env</span>:SCOOP_GLOBAL,<span class="string">&#x27;User&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>windows环境变量查看方式：</p>
+<p>设置-系统设置-高级系统设置-环境变量</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F.webp" alt="环境变量"></p>
+<h4 id="安装Scoop-包管理工具"><a href="#安装Scoop-包管理工具" class="headerlink" title="安装Scoop(包管理工具)"></a>安装Scoop(包管理工具)</h4><p><a target="_blank" rel="noopener" href="https://scoop.sh/">Scoop官网</a></p>
+<p><a target="_blank" rel="noopener" href="https://sspai.com/post/52496">参考</a></p>
+<p>需要设置代理才能安装：</p>
+<p>暂时先用以下方法设置代理</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">使用下面的命令将当前 session（会话）的代理进行配置：</span><br><span class="line"><span class="built_in">export</span> http_proxy=http://&lt;Windows 主机的 IP 地址&gt;:&lt;代理端口&gt;</span><br><span class="line"><span class="built_in">export</span> https_proxy=http://&lt;Windows 主机的 IP 地址&gt;:&lt;代理端口&gt;</span><br><span class="line">使用下面的命令取消代理：</span><br><span class="line"><span class="built_in">unset</span> http_proxy https_proxy</span><br><span class="line">我们可以使用下面的命令检测自己的对外端口：</span><br><span class="line"><span class="comment"># 一个接口</span></span><br><span class="line">curl ipinfo.io</span><br><span class="line"><span class="comment"># 另一个接口</span></span><br><span class="line">curl cip.cc</span><br></pre></td></tr></table></figure>
+
+<p>安装命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">iex (new-object net.webclient).downloadstring(<span class="string">&#x27;https://get.scoop.sh&#x27;</span>)</span><br><span class="line"><span class="comment">## 或者</span></span><br><span class="line">iwr-useb get.scoop.sh|iex</span><br></pre></td></tr></table></figure>
+
+<p>卸载命令：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scoop uninstall scoop</span><br><span class="line">这个卸载，会删除你配置的scoop下面的所有软件，非常危险。</span><br></pre></td></tr></table></figure>
+
+<p>安装 Scoop 之后，我们在 PowerShell 中执行下面的命令，即可安装 Fluent Terminal：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scoop bucket add nonportable</span><br><span class="line">scoop install fluent-terminal-np</span><br></pre></td></tr></table></figure>
+
+<h2 id="Shell-环境"><a href="#Shell-环境" class="headerlink" title="Shell 环境"></a>Shell 环境</h2><p>为了加速 Ubuntu 软件包在中国大陆的下载速度，我们将包管理工具 <code>apt</code> 源更换至清华 TUNA 软件源镜像。Ubuntu 的软件源配置文件是 <code>/etc/apt/sources.list</code>。将系统自带的该文件做个备份，将该文件替换为下面内容，即可使用 TUNA 的软件源镜像。</p>
+<ul>
+<li><p>备份原文件：</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">cp</span> /etc/apt/sources.list /etc/apt/sources.list.bac</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在配置文件 <code>/etc/apt/sources.list</code> 最前面添加下面的内容（下面内容为默认 Ubuntu 20.04 LTS 版本的内容）：</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 默认注释了源码镜像以提高 apt update 速度，如有需要可自行取消注释</span></span><br><span class="line">deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal main restricted universe multiverse</span><br><span class="line"><span class="comment"># deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal main restricted universe multiverse</span></span><br><span class="line">deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-updates main restricted universe multiverse</span><br><span class="line"><span class="comment"># deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-updates main restricted universe multiverse</span></span><br><span class="line">deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-backports main restricted universe multiverse</span><br><span class="line"><span class="comment"># deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-backports main restricted universe multiverse</span></span><br><span class="line">deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-security main restricted universe multiverse</span><br><span class="line"><span class="comment"># deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-security main restricted universe multiverse</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 预发布软件源，不建议启用</span></span><br><span class="line"><span class="comment"># deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-proposed main restricted universe multiverse</span></span><br><span class="line"><span class="comment"># deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-proposed main restricted universe multiverse</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>更新缓存：</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update &amp;&amp; sudo apt upgrade</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>更多内容请参考：<a target="_blank" rel="noopener" href="https://mirror.tuna.tsinghua.edu.cn/help/ubuntu/">Ubuntu 镜像使用帮助 - 清华大学开源软件镜像站</a></p>
+<h3 id="zsh"><a href="#zsh" class="headerlink" title="zsh"></a>zsh</h3><h3 id="安装、配置"><a href="#安装、配置" class="headerlink" title="安装、配置"></a>安装、配置</h3><p>安装 <code>zsh</code> 并将之设置为默认 Shell：</p>
+<ul>
+<li><p>利用 apt 安装 <code>zsh</code></p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install zsh</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>下载安装 <a target="_blank" rel="noopener" href="https://ohmyz.sh/">oh-my-zsh</a>，可能是市面上最好的 <code>zsh</code> 配置管理工具：</p>
+<ul>
+<li><p>运行命令下载安装</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh -c <span class="string">&quot;<span class="subst">$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)</span>&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将 <code>zsh</code> 作为默认的 Shell 环境（如果刚刚安装脚本没有这样做的话）：</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chsh -s $(<span class="built_in">which</span> zsh)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>安装zsh时如果报以下错误：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chsh always asking a password , and get `PAM: Authentication failure`</span><br></pre></td></tr></table></figure>
+
+<p>解决方法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">将/etc/pam.d/chsh中</span><br><span class="line">auth       required   pam_shells.so </span><br><span class="line">改成</span><br><span class="line">auth       sufficient   pam_shells.so </span><br></pre></td></tr></table></figure>
+
+<p>重新进入当前用户并重新安装zsh。</p>
+<h3 id="插件、主题模板推荐"><a href="#插件、主题模板推荐" class="headerlink" title="插件、主题模板推荐"></a>插件、主题模板推荐</h3><p><code>zsh</code> 拥有相当丰富的主题、插件等拓展内容，这里我仅列举一些我常用的配置插件和主题模板：</p>
+<h4 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h4><p>在.zshrc中设置</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/zsh%E6%8F%92%E4%BB%B6.webp" alt="zsh插件"></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/zsh-users/zsh-autosuggestions">zsh-autosuggestions</a>：为 <code>zsh</code> 提供基于输入历史的自动命令提示</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/wting/autojump">autojump</a>：快速跳转不同的目录、路径、文件夹</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/zsh-users/zsh-syntax-highlighting">zsh-syntax-highlighting</a>：为 <code>zsh</code> 命令提供色彩高亮</li>
+</ul>
+<p>退出当前登录用户并重新进，如果发现提示插件需要重新安装。则用以下命令安装。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/wting/autojump ~/.oh-my-zsh/custom/plugins/autojump</span><br></pre></td></tr></table></figure>
+
+<p>autojump代码仓库克隆后需要进入到autojump 手动安装</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">安装</span><br><span class="line"><span class="built_in">cd</span> autojump</span><br><span class="line">./install.py </span><br><span class="line">卸载</span><br><span class="line">./uninstall.py</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装git进行版本控制"><a href="#安装git进行版本控制" class="headerlink" title="安装git进行版本控制"></a>安装git进行版本控制</h2><p><a target="_blank" rel="noopener" href="https://dowww.spencerwoo.com/2-cli/2-3-cli-tools.html#%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6">参考</a></p>
+<h3 id="使用脚本自动执行代理配置"><a href="#使用脚本自动执行代理配置" class="headerlink" title="使用脚本自动执行代理配置"></a>使用脚本自动执行代理配置</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">WINDOWS_IP=$(ip route | grep default | awk <span class="string">&#x27;&#123;print $3&#125;&#x27;</span>)</span><br><span class="line">PROXY_HTTP=<span class="string">&quot;http://<span class="variable">$&#123;WINDOWS_IP&#125;</span>:7890&quot;</span></span><br><span class="line">PROXY_SOCKS5=<span class="string">&quot;<span class="variable">$&#123;WINDOWS_IP&#125;</span>:7890&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set proxy</span></span><br><span class="line"><span class="function"><span class="title">set_proxy</span></span> () &#123;</span><br><span class="line">  <span class="built_in">export</span> http_proxy=<span class="string">&quot;<span class="variable">$&#123;PROXY_HTTP&#125;</span>&quot;</span></span><br><span class="line">  <span class="built_in">export</span> https_proxy=<span class="string">&quot;<span class="variable">$&#123;PROXY_HTTP&#125;</span>&quot;</span></span><br><span class="line">  proxy_git</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Unset proxy</span></span><br><span class="line"><span class="function"><span class="title">unset_proxy</span></span> () &#123;</span><br><span class="line">  <span class="built_in">unset</span> http_proxy</span><br><span class="line">  <span class="built_in">unset</span> https_proxy</span><br><span class="line">  git config --global --<span class="built_in">unset</span> http.https://github.com.proxy</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set alias</span></span><br><span class="line"><span class="built_in">alias</span> proxy=set_proxy</span><br><span class="line"><span class="built_in">alias</span> deproxy=unset_proxy</span><br></pre></td></tr></table></figure>
+
+<p>实际上是先获取到网关IP，自动设置代理。</p>
+<h3 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h3><p>开启代理：proxy</p>
+<p>关闭代理：deproxy</p>
+<p>IP检测：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">我们可以使用下面的命令检测自己的对外端口：</span><br><span class="line"><span class="comment"># 一个接口</span></span><br><span class="line">curl ipinfo.io</span><br><span class="line"><span class="comment"># 另一个接口</span></span><br><span class="line">curl cip.cc</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装-Python"><a href="#安装-Python" class="headerlink" title="安装 Python"></a>安装 Python</h2><p>在 WSL 环境中安装 Python：</p>
+<ul>
+<li><p>使用 APT 安装最新版本的 Python 3：</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装最新版本的 Python 3</span></span><br><span class="line">sudo apt install python-is-python3</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装 Python 包管理 <code>pip</code> 工具：</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install python3-pip</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>更新 <code>pip</code> 包管理源为清华大学 TUNA 镜像源：[<a target="_blank" rel="noopener" href="https://dowww.spencerwoo.com/3-vscode/3-3-python.html#fn1">1]</a></p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 TUNA 镜像源更新 pip</span></span><br><span class="line">pip install -i https://pypi.tuna.tsinghua.edu.cn/simple pip -U</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将 pip 源设置为 TUNA</span></span><br><span class="line">pip config <span class="built_in">set</span> global.index-url https://pypi.tuna.tsinghua.edu.cn/simple</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="安装代码优化工具"><a href="#安装代码优化工具" class="headerlink" title="安装代码优化工具"></a>安装代码优化工具</h2><p>在上面安装完成 VS Code 的 Python 插件之后，如果顺利，那么 VS Code 应该提示你缺少 Python 代码检查工具（Python linter），如果你尝试格式化文档，那么 VS Code 还会提示你缺少 Python 代码格式化工具（Python code formatter）。我们需要手动安装这些组件。</p>
+<ul>
+<li><p>安装 Python 代码检查工具，VS Code 支持 Pylint（默认）、Flake8、mypy 等多个 Python linter，我更推荐大家使用 <a target="_blank" rel="noopener" href="https://flake8.pycqa.org/en/latest/">Flake8</a>：</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install flake8</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装 Python 格式化代码工具，VS Code 支持 autopep8（默认）、yapf 和 black，我更推荐大家使用 <a target="_blank" rel="noopener" href="https://black.readthedocs.io/en/stable/">black</a> 来格式化代码：</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install black</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="用-Poetry-管理-Python-项目"><a href="#用-Poetry-管理-Python-项目" class="headerlink" title="用 Poetry 管理 Python 项目"></a>用 Poetry 管理 Python 项目</h2><blockquote>
+<p>Poetry – Python packaging and dependency management made easy.[<a target="_blank" rel="noopener" href="https://dowww.spencerwoo.com/3-vscode/3-3-python.html#fn2">2]</a></p>
+</blockquote>
+<p>熟悉 Python 项目开发的同学可能知道，Python 需要利用虚拟环境工具 <code>virtualenv</code> 来创建虚拟环境运行 Python 项目，也需要 <code>pip</code> 包管理工具来安装 Python 依赖。使用两个单独的工具管理一个项目可能会出现诸多问题，同时 <code>requirements.txt</code> 的管理也相当不优雅。因此我们用 Poetry 作为统一管理 Python 环境和依赖的工具。Poetry 之于 Python 就如 yarn &#x2F; npm 之于 Node.js、cargo 之于 Rust、composer 之于 PHP……</p>
+<h3 id="安装-Poetry"><a href="#安装-Poetry" class="headerlink" title="安装 Poetry"></a>安装 Poetry</h3><p>在 WSL 中安装 Poetry：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python</span><br></pre></td></tr></table></figure>
+
+<p>将 Tab 补全加入我们所使用的 Shell 环境，比如 zsh 中：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">poetry completions zsh &gt; ~/.zfunc/_poetry</span><br></pre></td></tr></table></figure>
+
+<h3 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h3><p>我们可以用 Poetry 直接新建一个模板 Python 项目，比如叫做 <code>poetry-demo</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">poetry new poetry-demo</span><br></pre></td></tr></table></figure>
+
+<p>这一命令会在 <code>poetry-demo</code> 目录下生成如下的文件内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">poetry-demo</span><br><span class="line">├── pyproject.toml</span><br><span class="line">├── README.rst</span><br><span class="line">├── poetry_demo</span><br><span class="line">│   └── __init__.py</span><br><span class="line">└── tests</span><br><span class="line">    ├── __init__.py</span><br><span class="line">    └── test_poetry_demo.py</span><br></pre></td></tr></table></figure>
+
+<p>其中的 <code>pyproject.toml</code> 文件就是定义我们当前 Python 项目所使用依赖库的文件。</p>
+<p>我们可以用下面的命令安装一个新的 Python 依赖：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装一个依赖</span></span><br><span class="line">poetry add requests</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装一个仅在开发中使用的依赖（比如格式化工具 black）</span></span><br><span class="line">poetry add black --dev <span class="comment"># 或 -D</span></span><br></pre></td></tr></table></figure>
+
+<p>对于一个已定义 <code>pyproject.toml</code> 的项目，我们可以用下面的命令安装所有依赖：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装所有依赖</span></span><br><span class="line">poetry install</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装除了仅限开发使用的依赖外的所有依赖库</span></span><br><span class="line">poetry install --no-dev</span><br></pre></td></tr></table></figure>
+
+<p>使用 remove 关键词来移除某个依赖：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">poetry remove requests</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>更多 Poetry 命令行工具的使用，推荐大家参考 Poetry 官方文档：<a target="_blank" rel="noopener" href="https://python-poetry.org/docs/cli/">Poetry - Commands</a>.</p>
+</blockquote>
+<h2 id="Node-js"><a href="#Node-js" class="headerlink" title="Node.js"></a>Node.js</h2><p>版本更新</p>
+<p>在开始之前，我先来介绍几个 Node.js 相关的概念：</p>
+<ul>
+<li>Node.js - A JavaScript runtime built on Chrome’s V8 JavaScript engine 是一个不依赖浏览器的 JavaScript 运行环境，大部分前端项目比如 Vue、React 和后端项目比如 Express、Koa 均依赖于 Node.js 生态系统；</li>
+<li><code>n</code> - Interactively Manage Your Node.js Versions：是一个 Node.js 版本管理工具，我们可以使用 <code>n</code> 来安装不同版本的 Node.js 环境；</li>
+<li>npm 和 yarn，分别是 Node.js 的包管理工具，其中我更推荐大家使用后者（yarn）来管理安装 Node.js 依赖；</li>
+</ul>
+<p>接下来，我们将在 WSL 中使用 <code>n</code> 来安装 Node.js 环境，并配置包管理工具 yarn 来管理 Node.js 环境中的依赖。</p>
+<h2 id="安装-Node-js"><a href="#安装-Node-js" class="headerlink" title="安装 Node.js"></a>安装 Node.js</h2><p>建议大家使用 <a target="_blank" rel="noopener" href="https://github.com/tj/n"><code>n</code></a> 来管理与安装 Node.js，便于切换版本和快捷安装。首先，我们使用 <a target="_blank" rel="noopener" href="https://github.com/mklement0/n-install">n-install</a> 安装 <code>n</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -L https://git.io/n-install | bash</span><br></pre></td></tr></table></figure>
+
+<p>n-install（也就是上面的命令）默认会自动帮我们将 <code>n</code> 的重要环境变量 <code>PREFIX</code> 和 <code>N_PREFIX</code> 设置到 <code>$HOME/n</code>，并将 <code>n</code> 安装到 <code>$HOME/n/bin</code>。同时，n-install 会帮助我们更新当前我们所使用的 Shell（比如 zsh），在相应的配置文件中将 <code>$HOME/n/bin</code> 添加到 <code>PATH</code> 中。最后，n-install 会帮我们安装最新的 LTS 版本的 Node.js 环境。</p>
+<blockquote>
+<p>更多关于 n-install 的使用，请参考 <a target="_blank" rel="noopener" href="https://github.com/mklement0/n-install">n-install 的 README 文档</a>。</p>
+</blockquote>
+<p>使用 n-install 安装好 <code>n</code> 以及 Node.js 之后，我们可以通过下面的命令进行验证：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 验证 n 的安装情况</span></span><br><span class="line">n --version</span><br><span class="line">6.7.0</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证 Node.js 的安装情况</span></span><br><span class="line">node --version</span><br><span class="line">v12.18.3</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证 npm 的安装情况</span></span><br><span class="line">npm --version</span><br><span class="line">6.14.6</span><br></pre></td></tr></table></figure>
+
+<p>另外，我们也可以用 <code>n</code> 下载其他版本的 Node.js：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下载最新的 LTS 版本 Node.js</span></span><br><span class="line">n lts</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下载特定版本的 Node.js</span></span><br><span class="line">n 10.16.0</span><br></pre></td></tr></table></figure>
+
+<p>直接运行命令 <code>n</code> 也可以进入 interactive 界面，让我们选择使用某个版本的 Node.js。</p>
+<blockquote>
+<p>有关使用 <code>n</code> 下载安装与使用 Node.js 的命令和方法，请参考 <a target="_blank" rel="noopener" href="https://github.com/tj/n">n 的官方 README 文档</a>。</p>
+</blockquote>
+<h2 id="配置-Node-js-包管理工具"><a href="#配置-Node-js-包管理工具" class="headerlink" title="配置 Node.js 包管理工具"></a>配置 Node.js 包管理工具</h2><p>接下来，我们安装 <a target="_blank" rel="noopener" href="https://yarnpkg.com/">yarn</a>，推荐大家安装使用 yarn：这个更加现代、科学的 Node.js 包管理工具。刚刚下载的 Node.js 中包含有 npm，因此我们可以直接用 npm 来安装 yarn：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g yarn</span><br></pre></td></tr></table></figure>
+
+<p>此时我们安装的 yarn 实际上是 1.22.0：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yarn --version</span><br><span class="line"></span><br><span class="line">1.22.4</span><br></pre></td></tr></table></figure>
+
+<p>此时我们安装的是 yarn 1.0 版本，也就是比较传统的管理安装 Node.js 依赖的工具，跟 npm 比较类似。yarn 在 2.0+ 版本中经历了重大的变化，因此如果我们需要对某个项目开启 yarn 的 2.0 版本，需要使用下面的命令手动开启：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn <span class="built_in">set</span> version berry</span><br></pre></td></tr></table></figure>
+
+<p>其中，yarn 2.0 所支持的 Plug and play - Plug’n’Play 功能是 yarn 2.0 的重磅功能，也是我们使用 yarn 2.0 的主要原因，Plug’n’Play 重点解决了 Node.js 的 <code>node_modules</code> 存在于每个项目中的问题，更多内容请见：<a target="_blank" rel="noopener" href="https://yarnpkg.com/features/pnp">yarn - Plug’n’Play</a>。需要注意的是，并非不是所有的 Node.js 库均支持 yarn 2.0，因此推荐预先查看你所使用的库是否支持 yarn 2.0：<a target="_blank" rel="noopener" href="https://yarnpkg.com/features/pnp#compatibility-table">Compatibility Table</a>。</p>
+<blockquote>
+<p>如果你之前使用 yarn 1.0 版本，推荐查看 yarn 官方的 1.0 至 2.0 版本迁移指南：<a target="_blank" rel="noopener" href="https://yarnpkg.com/advanced/migration">Migrating from Yarn 1</a>。</p>
+</blockquote>
+<p>有关在 VS Code 中开发 Node.js 项目的方法，更多请参考：<a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/nodejs/working-with-javascript">Node.js tutorial in Visual Studio Code - Visual Studio Code Docs</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://blog.haipengv.com">Haipeng</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://blog.haipengv.com/2022/02/05/wsl2%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/">https://blog.haipengv.com/2022/02/05/wsl2搭建过程/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.haipengv.com" target="_blank">Peng's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/wsl2/">wsl2</a></div><div class="post_share"><div class="social-share" data-image="/img/postimages/lighthouse.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/02/06/hexo%E6%96%87%E7%AB%A0%E5%8F%91%E5%B8%83%E5%92%8C%E5%88%A0%E9%99%A4/" title="hexo文章发布和删除"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/cat.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">hexo文章发布和删除</div></div></a></div><div class="next-post pull-right"><a href="/2022/01/31/2022happynewyear/" title="2022"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/blue.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">2022</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/02/17/wsl2%E4%B8%ADPortainer%E5%AE%B9%E5%99%A8%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" title="wsl2中Portainer容器可视化管理工具的安装与使用"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/swan.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-17</div><div class="title">wsl2中Portainer容器可视化管理工具的安装与使用</div></div></a></div><div><a href="/2022/02/21/%E5%B1%80%E5%9F%9F%E7%BD%91%E4%B8%AD%E5%85%B6%E4%BB%96%E4%B8%BB%E6%9C%BA%E8%AE%BF%E9%97%AE%E6%9C%AC%E6%9C%BAwsl2%E4%B8%AD%E7%9A%84%E6%9C%8D%E5%8A%A1/" title="局域网中其他主机访问本机wsl2中的服务"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/article1.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-21</div><div class="title">局域网中其他主机访问本机wsl2中的服务</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/logo.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Haipeng</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">109</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">31</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Smithkenny"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Smithkenny" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-WSL"><span class="toc-number">1.</span> <span class="toc-text">什么是 WSL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8-WSL-%E5%8F%AF%E4%BB%A5%E5%81%9A%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">2.</span> <span class="toc-text">用 WSL 可以做什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WSL-2-%E4%B8%AD%E9%87%87%E7%94%A8%E7%9A%84%E6%96%B0%E6%8E%AA%E6%96%BD"><span class="toc-number">3.</span> <span class="toc-text">WSL 2 中采用的新措施</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">4.</span> <span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%90%AF%E3%80%8C%E9%80%82%E7%94%A8%E4%BA%8E-Linux-%E7%9A%84-Windows-%E5%AD%90%E7%B3%BB%E7%BB%9F%E3%80%8D%E7%9A%84%E9%99%84%E5%8A%A0%E5%8A%9F%E8%83%BD"><span class="toc-number">4.1.</span> <span class="toc-text">开启「适用于 Linux 的 Windows 子系统」的附加功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%98%E6%96%B9%E7%89%88%E6%9C%AC-WSL"><span class="toc-number">4.2.</span> <span class="toc-text">官方版本 WSL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A4%BE%E5%8C%BA%E6%94%AF%E6%8C%81%E7%9A%84-WSL"><span class="toc-number">4.3.</span> <span class="toc-text">社区支持的 WSL</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WSL-2-%E7%9A%84%E5%AE%89%E8%A3%85"><span class="toc-number">5.</span> <span class="toc-text">WSL 2 的安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%90%AF%E6%94%AF%E6%8C%81-WSL-2-%E7%9A%84%E5%8F%AF%E9%80%89%E7%BB%84%E4%BB%B6"><span class="toc-number">5.1.</span> <span class="toc-text">开启支持 WSL 2 的可选组件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%91%BD%E4%BB%A4%E8%A1%8C%E8%AE%BE%E7%BD%AE%E9%9C%80%E8%A6%81%E7%94%B1-WSL-2-%E6%94%AF%E6%8C%81%E7%9A%84%E5%8F%91%E8%A1%8C%E7%89%88"><span class="toc-number">5.2.</span> <span class="toc-text">使用命令行设置需要由 WSL 2 支持的发行版</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Fluent-Terminal"><span class="toc-number">6.</span> <span class="toc-text">安装Fluent Terminal</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E8%B7%AF%E5%BE%84%E5%AE%89%E8%A3%85Scoop"><span class="toc-number">6.1.</span> <span class="toc-text">自定义路径安装Scoop</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Scoop-%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7"><span class="toc-number">6.1.1.</span> <span class="toc-text">安装Scoop(包管理工具)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Shell-%E7%8E%AF%E5%A2%83"><span class="toc-number">7.</span> <span class="toc-text">Shell 环境</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#zsh"><span class="toc-number">7.1.</span> <span class="toc-text">zsh</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E3%80%81%E9%85%8D%E7%BD%AE"><span class="toc-number">7.2.</span> <span class="toc-text">安装、配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%92%E4%BB%B6%E3%80%81%E4%B8%BB%E9%A2%98%E6%A8%A1%E6%9D%BF%E6%8E%A8%E8%8D%90"><span class="toc-number">7.3.</span> <span class="toc-text">插件、主题模板推荐</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8F%92%E4%BB%B6"><span class="toc-number">7.3.1.</span> <span class="toc-text">插件</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85git%E8%BF%9B%E8%A1%8C%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6"><span class="toc-number">8.</span> <span class="toc-text">安装git进行版本控制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E8%84%9A%E6%9C%AC%E8%87%AA%E5%8A%A8%E6%89%A7%E8%A1%8C%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE"><span class="toc-number">8.1.</span> <span class="toc-text">使用脚本自动执行代理配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="toc-number">8.2.</span> <span class="toc-text">使用方式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Python"><span class="toc-number">9.</span> <span class="toc-text">安装 Python</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E4%BB%A3%E7%A0%81%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B7"><span class="toc-number">10.</span> <span class="toc-text">安装代码优化工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8-Poetry-%E7%AE%A1%E7%90%86-Python-%E9%A1%B9%E7%9B%AE"><span class="toc-number">11.</span> <span class="toc-text">用 Poetry 管理 Python 项目</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Poetry"><span class="toc-number">11.1.</span> <span class="toc-text">安装 Poetry</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="toc-number">11.2.</span> <span class="toc-text">基本使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Node-js"><span class="toc-number">12.</span> <span class="toc-text">Node.js</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Node-js"><span class="toc-number">13.</span> <span class="toc-text">安装 Node.js</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE-Node-js-%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7"><span class="toc-number">14.</span> <span class="toc-text">配置 Node.js 包管理工具</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/05/11/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/" title="前端框架"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/lighthouse.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="前端框架"/></a><div class="content"><a class="title" href="/2023/05/11/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/" title="前端框架">前端框架</a><time datetime="2023-05-11T07:15:44.000Z" title="发表于 2023-05-11 15:15:44">2023-05-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/02/22/docker%E5%88%9B%E5%BB%BA%E4%B8%93%E6%9C%89%E7%BD%91%E5%8D%A1/" title="docker创建专有网卡"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/cat.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="docker创建专有网卡"/></a><div class="content"><a class="title" href="/2023/02/22/docker%E5%88%9B%E5%BB%BA%E4%B8%93%E6%9C%89%E7%BD%91%E5%8D%A1/" title="docker创建专有网卡">docker创建专有网卡</a><time datetime="2023-02-22T01:18:44.000Z" title="发表于 2023-02-22 09:18:44">2023-02-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/02/21/docker%E9%85%8D%E7%BD%AEtab%E8%A1%A5%E5%85%A8%E5%91%BD%E4%BB%A4/" title="docker使用tab自动补全命令"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/article4.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="docker使用tab自动补全命令"/></a><div class="content"><a class="title" href="/2023/02/21/docker%E9%85%8D%E7%BD%AEtab%E8%A1%A5%E5%85%A8%E5%91%BD%E4%BB%A4/" title="docker使用tab自动补全命令">docker使用tab自动补全命令</a><time datetime="2023-02-21T02:38:44.000Z" title="发表于 2023-02-21 10:38:44">2023-02-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/02/20/%E4%BD%BF%E7%94%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E7%99%BB%E5%BD%95linux%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="使用浏览器登录linux服务器"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/article5.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="使用浏览器登录linux服务器"/></a><div class="content"><a class="title" href="/2023/02/20/%E4%BD%BF%E7%94%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E7%99%BB%E5%BD%95linux%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="使用浏览器登录linux服务器">使用浏览器登录linux服务器</a><time datetime="2023-02-20T01:38:44.000Z" title="发表于 2023-02-20 09:38:44">2023-02-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/02/17/centos7.3%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85docker/" title="centos7.3离线安装docker"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/blue.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="centos7.3离线安装docker"/></a><div class="content"><a class="title" href="/2023/02/17/centos7.3%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85docker/" title="centos7.3离线安装docker">centos7.3离线安装docker</a><time datetime="2023-02-17T05:38:44.000Z" title="发表于 2023-02-17 13:38:44">2023-02-17</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/postimages/lighthouse.webp')"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2023 By Haipeng</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">生命在于折腾!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">简</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="true"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

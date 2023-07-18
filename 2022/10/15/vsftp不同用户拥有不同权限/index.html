@@ -1,0 +1,274 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>VSFTP不同用户拥有不同权限 | Peng's Blog</title><meta name="author" content="Haipeng"><meta name="copyright" content="Haipeng"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="VSFTP不同用户拥有不同权限安装篇操作系统环境1centos 7.9 mini  安装vsftp服务123456yum install –y vsftpd ftp –安装systemctl start vsftpd.service –启动systemctl enable vsftpd.service –开机自启vi &#x2F;etc&#x2F;selinux&#x2F;confSELINUX&#x3D;enforce 改成 SELI">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VSFTP不同用户拥有不同权限">
+<meta property="og:url" content="https://blog.haipengv.com/2022/10/15/vsftp%E4%B8%8D%E5%90%8C%E7%94%A8%E6%88%B7%E6%8B%A5%E6%9C%89%E4%B8%8D%E5%90%8C%E6%9D%83%E9%99%90/index.html">
+<meta property="og:site_name" content="Peng&#39;s Blog">
+<meta property="og:description" content="VSFTP不同用户拥有不同权限安装篇操作系统环境1centos 7.9 mini  安装vsftp服务123456yum install –y vsftpd ftp –安装systemctl start vsftpd.service –启动systemctl enable vsftpd.service –开机自启vi &#x2F;etc&#x2F;selinux&#x2F;confSELINUX&#x3D;enforce 改成 SELI">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.haipengv.com/img/postimages/article8.webp">
+<meta property="article:published_time" content="2022-10-15T08:10:12.000Z">
+<meta property="article:modified_time" content="2023-07-18T02:25:05.210Z">
+<meta property="article:author" content="Haipeng">
+<meta property="article:tag" content="linux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.haipengv.com/img/postimages/article8.webp"><link rel="shortcut icon" href="/img/favicon.webp"><link rel="canonical" href="https://blog.haipengv.com/2022/10/15/vsftp%E4%B8%8D%E5%90%8C%E7%94%A8%E6%88%B7%E6%8B%A5%E6%9C%89%E4%B8%8D%E5%90%8C%E6%9D%83%E9%99%90/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":1,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'VSFTP不同用户拥有不同权限',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-07-18 10:25:05'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = url => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      link.onload = () => resolve()
+      link.onerror = () => reject()
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.0.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/logo.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">109</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">31</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/Analytics/"><i class="fa-fw fas fa-video"></i><span> 统计</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/postimages/article8.webp')"><nav id="nav"><span id="blog-info"><a href="/" title="Peng's Blog"><span class="site-name">Peng's Blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/Analytics/"><i class="fa-fw fas fa-video"></i><span> 统计</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">VSFTP不同用户拥有不同权限</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-10-15T08:10:12.000Z" title="发表于 2022-10-15 16:10:12">2022-10-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-07-18T02:25:05.210Z" title="更新于 2023-07-18 10:25:05">2023-07-18</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Linux%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/">Linux系统服务</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="VSFTP不同用户拥有不同权限"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h3 id="VSFTP不同用户拥有不同权限"><a href="#VSFTP不同用户拥有不同权限" class="headerlink" title="VSFTP不同用户拥有不同权限"></a>VSFTP不同用户拥有不同权限</h3><h2 id="安装篇"><a href="#安装篇" class="headerlink" title="安装篇"></a>安装篇</h2><h4 id="操作系统环境"><a href="#操作系统环境" class="headerlink" title="操作系统环境"></a>操作系统环境</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">centos 7.9 mini</span><br></pre></td></tr></table></figure>
+
+<h4 id="安装vsftp服务"><a href="#安装vsftp服务" class="headerlink" title="安装vsftp服务"></a>安装vsftp服务</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">yum install –y vsftpd ftp –安装</span><br><span class="line">systemctl start vsftpd.service –启动</span><br><span class="line">systemctl enable vsftpd.service –开机自启</span><br><span class="line">vi /etc/selinux/conf</span><br><span class="line">SELINUX=enforce 改成 SELINUX=disabled</span><br><span class="line">getenforce - 查看是否为Disabled</span><br></pre></td></tr></table></figure>
+
+<h2 id="实现篇"><a href="#实现篇" class="headerlink" title="实现篇"></a>实现篇</h2><h3 id="1-要实现的功能"><a href="#1-要实现的功能" class="headerlink" title="1.要实现的功能"></a>1.要实现的功能</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">admin_root：/home/download/下的所有文件夹及文件具有上传、下载、删除权限</span><br><span class="line">admin_001：/home/download/admin_001/下的文件具有上传、下载、删除权限</span><br><span class="line"></span><br><span class="line">download_root：/home/download/下的所有文件夹及文件具有下载权限</span><br><span class="line">download_001：/home/download/admin_001/下的文件具有下载权限</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-首先创建一个本地系统用户abcde并指定其家目录，并建立相应的子目录"><a href="#2-首先创建一个本地系统用户abcde并指定其家目录，并建立相应的子目录" class="headerlink" title="2.首先创建一个本地系统用户abcde并指定其家目录，并建立相应的子目录"></a>2.首先创建一个本地系统用户<code>abcde</code>并指定其家目录，并建立相应的子目录</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">useradd -d /home/download abcde -s /sbin/nologin</span><br><span class="line">mkdir -p /home/download/admin_001</span><br><span class="line">chown -R abcde: /home/download</span><br><span class="line">chmod 755 /home/download</span><br><span class="line">chmod 755 /home/download/*</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-创建用户数据文件：（一行账号一行密码，不要有空行，不要有空格）"><a href="#3-创建用户数据文件：（一行账号一行密码，不要有空行，不要有空格）" class="headerlink" title="3.创建用户数据文件：（一行账号一行密码，不要有空行，不要有空格）"></a>3.创建用户数据文件：（一行账号一行密码，不要有空行，不要有空格）</h3><p><strong>所有密码此处示例设为123456。</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/vsftpd/userlist.txt</span><br><span class="line">admin_root</span><br><span class="line">123456</span><br><span class="line">admin_001</span><br><span class="line">123456</span><br><span class="line">download_root</span><br><span class="line">123456</span><br><span class="line">download_001</span><br><span class="line">123456</span><br></pre></td></tr></table></figure>
+
+<p><strong>然后生成数据文件</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">db_load：一般系统都有安装，db4，db4-devel，db4-utils ，如果没有的话可以安装：</span><br><span class="line">yum -y install db4*</span><br><span class="line"></span><br><span class="line">db_load -T -t hash -f /etc/vsftpd/userlist.txt /etc/vsftpd/userlist.db</span><br></pre></td></tr></table></figure>
+
+<h4 id="4、修改pam配置"><a href="#4、修改pam配置" class="headerlink" title="4、修改pam配置"></a>4、修改pam配置</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/pam.d/vsftpd</span><br></pre></td></tr></table></figure>
+
+<p><strong>将原来的全部注释掉，加入</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">auth sufficient /lib64/security/pam_userdb.so db=/etc/vsftpd/userlist</span><br><span class="line">account sufficient /lib64/security/pam_userdb.so db=/etc/vsftpd/userlist</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：<code>db=/etc/vsftpd/userlist</code> 后面的<code>.db</code>必须去掉，默认会自动匹配<code>*.db</code>文件，</strong><br><strong>这里只需要给数据文件名，就行了。</strong><br><strong>64位机需要使用<code>lib64</code>（这里折腾了好久，有的是<code>lib</code>有的是<code>lib64</code>）;</strong></p>
+<h3 id="5、创建本地系统用户abcde对应的虚拟账户"><a href="#5、创建本地系统用户abcde对应的虚拟账户" class="headerlink" title="5、创建本地系统用户abcde对应的虚拟账户"></a>5、创建本地系统用户abcde对应的虚拟账户</h3><p><strong>虚拟用户需要通过本地系统用户来实现各种操作,因此要放在系统用户的同名文件夹下。</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /etc/vfstpd/abcde</span><br><span class="line">cd /etc/vfstpd/abcde</span><br></pre></td></tr></table></figure>
+
+<p><strong>每一个虚拟用户都要有一个同名的文件，文件里记载其权限以及可操作的目录；</strong><br><strong>本例如下执行，两个&gt;&gt;和&lt;&lt;之间不要有空格</strong></p>
+<p><strong>创建有上传下载权限的用户</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">cat &gt;&gt;admin_root&lt;&lt;EOF</span><br><span class="line">anon_world_readable_only=NO</span><br><span class="line">write_enable=YES</span><br><span class="line">anon_mkdir_write_enable=YES</span><br><span class="line">anon_upload_enable=YES</span><br><span class="line">anon_other_write_enable=YES</span><br><span class="line">local_root=/home/download</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">cat &gt;&gt;admin_001&lt;&lt;EOF</span><br><span class="line">anon_world_readable_only=NO</span><br><span class="line">write_enable=YES</span><br><span class="line">anon_mkdir_write_enable=YES</span><br><span class="line">anon_upload_enable=YES</span><br><span class="line">anon_other_write_enable=YES</span><br><span class="line">local_root=/home/download/admin_001</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+
+<p><strong>创建只有下载权限的用户</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">cat &gt;&gt;download_root&lt;&lt;EOF</span><br><span class="line">anon_world_readable_only=NO</span><br><span class="line">local_root=/home/download</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">cat &gt;&gt;download_001&lt;&lt;EOF</span><br><span class="line">anon_world_readable_only=NO</span><br><span class="line">local_root=/home/download/admin_001</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+
+<h3 id="6、设置配置文件vsftpd-conf"><a href="#6、设置配置文件vsftpd-conf" class="headerlink" title="6、设置配置文件vsftpd.conf"></a>6、设置配置文件vsftpd.conf</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/vsftpd/vsftpd.conf</span><br></pre></td></tr></table></figure>
+
+<p><strong>修改内容如下：</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">listen=YES</span><br><span class="line">connect_from_port_20=YES</span><br><span class="line">anonymous_enable=NO</span><br><span class="line">local_enable=YES</span><br><span class="line">write_enable=NO</span><br><span class="line">anon_upload_enable=NO</span><br><span class="line">anon_mkdir_write_enable=NO</span><br><span class="line">anon_other_write_enable=NO</span><br><span class="line">chroot_local_user=YES</span><br><span class="line">chroot_list_enable=YES</span><br><span class="line">chroot_list_file=/etc/vsftpd/chroot_list</span><br><span class="line">guest_enable=YES</span><br><span class="line">guest_username=abcde</span><br><span class="line">virtual_use_local_privs=YES</span><br><span class="line">allow_writeable_chroot=YES</span><br><span class="line">pam_service_name=vsftpd</span><br><span class="line">user_config_dir=/etc/vsftpd/abcde</span><br><span class="line">local_umask=022</span><br><span class="line">xferlog_enable=YES</span><br><span class="line">xferlog_file=/var/log/vsftpd.log</span><br><span class="line">pasv_promiscuous=YES</span><br></pre></td></tr></table></figure>
+
+<p><strong>touch  &#x2F;etc&#x2F;vsftp&#x2F;chroot_list</strong><br><strong>里面啥也不写。</strong></p>
+<h3 id="7、重新启动vsftpd"><a href="#7、重新启动vsftpd" class="headerlink" title="7、重新启动vsftpd"></a>7、重新启动vsftpd</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service vsftpd restart</span><br></pre></td></tr></table></figure>
+
+<h3 id="8-测试"><a href="#8-测试" class="headerlink" title="8.测试"></a>8.测试</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">所有用户只能进入自己家目录不能进入上一级目录；</span><br><span class="line">admin_root对于/home/download下的所有文件夹具有上传、下载、删除权限；</span><br><span class="line">admin_001对于/home/download/下的同名文件夹具有上传、删除权限，无其他权限；</span><br><span class="line">download_root对于/home/download下的所有文件夹具有下载权限，不能上传或删除任何内容，不能对其他任何文件夹操作；</span><br><span class="line">download_001对于/home/download/下的admin_001文件夹分别具有下载权限，不能上传或删除任何内容，不能对其他任何文件夹操作。</span><br></pre></td></tr></table></figure>
+
+<h3 id="9-日常维护"><a href="#9-日常维护" class="headerlink" title="9.日常维护"></a>9.日常维护</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">（1）更新帐号，先修改userlist.txt，再执行db_load</span><br><span class="line">db_load -T -t hash -f /etc/vsftpd/userlist.txt /etc/vsftpd/userlist.db</span><br><span class="line">（2）更新/etc/vsftpd/abcde/下不同用户对应的权限</span><br><span class="line">（3）重启vsftpd</span><br><span class="line"></span><br><span class="line">systemctl start  vsftpd.service</span><br></pre></td></tr></table></figure>
+
+<h3 id="10-加密连接"><a href="#10-加密连接" class="headerlink" title="10.加密连接"></a>10.加密连接</h3><p><strong>生成证书</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">openssl req -x509 -nodes -days 365 -newkey rsa:1024 \</span><br><span class="line"> -keyout /etc/vsftpd/vsftpd.pem \</span><br><span class="line"> -out /etc/vsftpd/vsftpd.pem</span><br></pre></td></tr></table></figure>
+
+<p><strong>其中”-days 365”声明证书的有效期是一年。</strong></p>
+<p><strong>接下来的过程需要你输入一些相关的国家，地区，位置，组织名称，common name等信息。</strong></p>
+<p><strong>回答这些信息以后系统会将生成完的证书vsftpd.pem文件保存在&#x2F;etc&#x2F;vsftpd目录下。</strong></p>
+<p><strong>修改<code>/etc/vsftpd/vsftpd.conf</code>文件,增加以下内容</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ssl_enable=YES</span><br><span class="line">allow_anon_ssl=NO</span><br><span class="line">force_local_data_ssl=NO</span><br><span class="line">force_local_logins_ssl=NO</span><br><span class="line">ssl_tlsv1=YES</span><br><span class="line">ssl_sslv2=NO</span><br><span class="line">ssl_sslv3=NO</span><br><span class="line">rsa_cert_file=/etc/vsftpd/vsftpd.pem</span><br></pre></td></tr></table></figure>
+
+<p><strong>如果设置force_local_logins_ssl&#x3D;YES，那么会强制用户登录时采用支持TLS&#x2F;SSL认证的ftp客户端。如果设置为NO的话，则用户可以选择使用ssl加密或者不加密。</strong></p>
+<p><strong>此时选择不加密登录会有失败提示</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Non-anonymous sessions must use encryption.</span><br></pre></td></tr></table></figure>
+
+<p><strong>重启服务</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart vsftpd</span><br></pre></td></tr></table></figure>
+
+<p><strong>修改为其他端口</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">listen_port=10021</span><br></pre></td></tr></table></figure>
+
+<h3 id="vsftpd-425-Security-Bad-IP-connecting解决方法"><a href="#vsftpd-425-Security-Bad-IP-connecting解决方法" class="headerlink" title="vsftpd 425 Security: Bad IP connecting解决方法"></a>vsftpd 425 Security: Bad IP connecting解决方法</h3><p><strong>问题分析:</strong><br>FTP客户端软件连接<code>vsftpd</code>服务报此错误，大概原因是在连接中变换了IP地址。</p>
+<p><strong>问题解决</strong></p>
+<p><strong>服务端添加：</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/vsftpd/vsftpd.conf</span><br><span class="line">pasv_promiscuous=YES</span><br></pre></td></tr></table></figure>
+
+<p><strong>重启服务</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart vsftpd</span><br></pre></td></tr></table></figure>
+
+<p><strong>pasv_promiscuous选项参数说明</strong><br>此选项激活时，将关闭PASV模式的安全检查。该检查确保数据连接和控制连接是来自同一个IP地址。小心打开此选项。此选项唯一合理的用法是存在于由安全隧道方案构成的组织中。默认值为NO。<br>合理的用法是：在一些安全隧道配置环境下，或者更好地支持FXP时(才启用它)。</p>
+<p><strong>FTP模式与数据端口</strong></p>
+<p>FTP 分为两类，PORT FTP和PASV FTP，PORT FTP是一般形式的FTP。这两种FTP在建立控制连接时操作是一样的，都是由客户端首先和FTP服务器的控制端口(默认值为21)建立控制链接，并通过此链接进行传输操作指令。它们的区别在于使用数据传输端口(ftp- data)的方式。PORT FTP由FTP服务器指定数据传输所使用的端口，默认值为20。PASV FTP由FTP客户端决定数据传输的端口。 PASV FTP这种做法，主要是考虑到存在防火墙的环境下，由客户端与服务器进行沟通(客户端向服务器发出数据传输请求中包含了数据传输端口)，决定两者之间的数据传输端口更为方便一些。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://blog.haipengv.com">Haipeng</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://blog.haipengv.com/2022/10/15/vsftp%E4%B8%8D%E5%90%8C%E7%94%A8%E6%88%B7%E6%8B%A5%E6%9C%89%E4%B8%8D%E5%90%8C%E6%9D%83%E9%99%90/">https://blog.haipengv.com/2022/10/15/vsftp不同用户拥有不同权限/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.haipengv.com" target="_blank">Peng's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/linux/">linux</a></div><div class="post_share"><div class="social-share" data-image="/img/postimages/article8.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/10/21/%E5%8A%9F%E8%83%BD%E5%BC%BA%E5%A4%A7%E7%9A%84%E7%A1%AC%E4%BB%B6%E4%BF%A1%E6%81%AF%E8%8E%B7%E5%8F%96%E5%B7%A5%E5%85%B7-inxi/" title="功能强大的硬件信息获取工具-inxi"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/article12.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">功能强大的硬件信息获取工具-inxi</div></div></a></div><div class="next-post pull-right"><a href="/2022/10/08/linux%E5%B0%8F%E6%8A%80%E5%B7%A7%E6%B1%87%E6%80%BB/" title="linux小技巧汇总"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/article8.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">linux小技巧汇总</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/02/25/CentOS7-%E5%8D%87%E7%BA%A7%E5%86%85%E6%A0%B8/" title="CentOS7 升级内核"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/article3.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-25</div><div class="title">CentOS7 升级内核</div></div></a></div><div><a href="/2022/02/25/CentOS7-%E5%B8%B8%E8%A7%84%E5%91%BD%E4%BB%A4/" title="CentOS7 常规命令"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/lighthouse.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-25</div><div class="title">CentOS7 常规命令</div></div></a></div><div><a href="/2022/08/08/CentOS8%E9%85%8D%E7%BD%AEyum%E6%BA%90/" title="CentOS8配置yum源"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/cat.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-08</div><div class="title">CentOS8配置yum源</div></div></a></div><div><a href="/2022/02/25/Linux-%E4%BF%A1%E6%81%AF%E6%9F%A5%E8%AF%A2%E5%91%BD%E4%BB%A4/" title="Linux 信息查询命令"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/finch.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-25</div><div class="title">Linux 信息查询命令</div></div></a></div><div><a href="/2022/04/15/ansible%E7%9B%B8%E5%85%B3%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99/" title="ansible相关参考资料"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/article4.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-04-15</div><div class="title">ansible相关参考资料</div></div></a></div><div><a href="/2022/11/01/centos7.9%E6%9B%B4%E6%8D%A2%E7%BD%91%E5%8D%A1%E5%90%8D%E7%A7%B0/" title="centos7.9更换网卡名称"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/blue.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-11-01</div><div class="title">centos7.9更换网卡名称</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/logo.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Haipeng</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">109</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">31</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Smithkenny"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Smithkenny" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#VSFTP%E4%B8%8D%E5%90%8C%E7%94%A8%E6%88%B7%E6%8B%A5%E6%9C%89%E4%B8%8D%E5%90%8C%E6%9D%83%E9%99%90"><span class="toc-number">1.</span> <span class="toc-text">VSFTP不同用户拥有不同权限</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E7%AF%87"><span class="toc-number"></span> <span class="toc-text">安装篇</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%8E%AF%E5%A2%83"><span class="toc-number">0.1.</span> <span class="toc-text">操作系统环境</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85vsftp%E6%9C%8D%E5%8A%A1"><span class="toc-number">0.2.</span> <span class="toc-text">安装vsftp服务</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E7%AF%87"><span class="toc-number"></span> <span class="toc-text">实现篇</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%A6%81%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%8A%9F%E8%83%BD"><span class="toc-number">1.</span> <span class="toc-text">1.要实现的功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%A6%96%E5%85%88%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%9C%AC%E5%9C%B0%E7%B3%BB%E7%BB%9F%E7%94%A8%E6%88%B7abcde%E5%B9%B6%E6%8C%87%E5%AE%9A%E5%85%B6%E5%AE%B6%E7%9B%AE%E5%BD%95%EF%BC%8C%E5%B9%B6%E5%BB%BA%E7%AB%8B%E7%9B%B8%E5%BA%94%E7%9A%84%E5%AD%90%E7%9B%AE%E5%BD%95"><span class="toc-number">2.</span> <span class="toc-text">2.首先创建一个本地系统用户abcde并指定其家目录，并建立相应的子目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%E6%95%B0%E6%8D%AE%E6%96%87%E4%BB%B6%EF%BC%9A%EF%BC%88%E4%B8%80%E8%A1%8C%E8%B4%A6%E5%8F%B7%E4%B8%80%E8%A1%8C%E5%AF%86%E7%A0%81%EF%BC%8C%E4%B8%8D%E8%A6%81%E6%9C%89%E7%A9%BA%E8%A1%8C%EF%BC%8C%E4%B8%8D%E8%A6%81%E6%9C%89%E7%A9%BA%E6%A0%BC%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">3.创建用户数据文件：（一行账号一行密码，不要有空行，不要有空格）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4%E3%80%81%E4%BF%AE%E6%94%B9pam%E9%85%8D%E7%BD%AE"><span class="toc-number">3.1.</span> <span class="toc-text">4、修改pam配置</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5%E3%80%81%E5%88%9B%E5%BB%BA%E6%9C%AC%E5%9C%B0%E7%B3%BB%E7%BB%9F%E7%94%A8%E6%88%B7abcde%E5%AF%B9%E5%BA%94%E7%9A%84%E8%99%9A%E6%8B%9F%E8%B4%A6%E6%88%B7"><span class="toc-number">4.</span> <span class="toc-text">5、创建本地系统用户abcde对应的虚拟账户</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6%E3%80%81%E8%AE%BE%E7%BD%AE%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6vsftpd-conf"><span class="toc-number">5.</span> <span class="toc-text">6、设置配置文件vsftpd.conf</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7%E3%80%81%E9%87%8D%E6%96%B0%E5%90%AF%E5%8A%A8vsftpd"><span class="toc-number">6.</span> <span class="toc-text">7、重新启动vsftpd</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E6%B5%8B%E8%AF%95"><span class="toc-number">7.</span> <span class="toc-text">8.测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-%E6%97%A5%E5%B8%B8%E7%BB%B4%E6%8A%A4"><span class="toc-number">8.</span> <span class="toc-text">9.日常维护</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-%E5%8A%A0%E5%AF%86%E8%BF%9E%E6%8E%A5"><span class="toc-number">9.</span> <span class="toc-text">10.加密连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#vsftpd-425-Security-Bad-IP-connecting%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="toc-number">10.</span> <span class="toc-text">vsftpd 425 Security: Bad IP connecting解决方法</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/05/11/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/" title="前端框架"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/lighthouse.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="前端框架"/></a><div class="content"><a class="title" href="/2023/05/11/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/" title="前端框架">前端框架</a><time datetime="2023-05-11T07:15:44.000Z" title="发表于 2023-05-11 15:15:44">2023-05-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/02/22/docker%E5%88%9B%E5%BB%BA%E4%B8%93%E6%9C%89%E7%BD%91%E5%8D%A1/" title="docker创建专有网卡"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/cat.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="docker创建专有网卡"/></a><div class="content"><a class="title" href="/2023/02/22/docker%E5%88%9B%E5%BB%BA%E4%B8%93%E6%9C%89%E7%BD%91%E5%8D%A1/" title="docker创建专有网卡">docker创建专有网卡</a><time datetime="2023-02-22T01:18:44.000Z" title="发表于 2023-02-22 09:18:44">2023-02-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/02/21/docker%E9%85%8D%E7%BD%AEtab%E8%A1%A5%E5%85%A8%E5%91%BD%E4%BB%A4/" title="docker使用tab自动补全命令"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/article4.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="docker使用tab自动补全命令"/></a><div class="content"><a class="title" href="/2023/02/21/docker%E9%85%8D%E7%BD%AEtab%E8%A1%A5%E5%85%A8%E5%91%BD%E4%BB%A4/" title="docker使用tab自动补全命令">docker使用tab自动补全命令</a><time datetime="2023-02-21T02:38:44.000Z" title="发表于 2023-02-21 10:38:44">2023-02-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/02/20/%E4%BD%BF%E7%94%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E7%99%BB%E5%BD%95linux%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="使用浏览器登录linux服务器"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/article5.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="使用浏览器登录linux服务器"/></a><div class="content"><a class="title" href="/2023/02/20/%E4%BD%BF%E7%94%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E7%99%BB%E5%BD%95linux%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="使用浏览器登录linux服务器">使用浏览器登录linux服务器</a><time datetime="2023-02-20T01:38:44.000Z" title="发表于 2023-02-20 09:38:44">2023-02-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/02/17/centos7.3%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85docker/" title="centos7.3离线安装docker"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/blue.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="centos7.3离线安装docker"/></a><div class="content"><a class="title" href="/2023/02/17/centos7.3%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85docker/" title="centos7.3离线安装docker">centos7.3离线安装docker</a><time datetime="2023-02-17T05:38:44.000Z" title="发表于 2023-02-17 13:38:44">2023-02-17</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/postimages/article8.webp')"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2023 By Haipeng</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">生命在于折腾!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">简</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="true"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

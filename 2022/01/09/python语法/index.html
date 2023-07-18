@@ -1,0 +1,474 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>python语法 | Peng's Blog</title><meta name="author" content="Haipeng"><meta name="copyright" content="Haipeng"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="python 语法if、elif、else 语句嘿，如果发生这种情况，请执行一些操作。否则，如果发生其他情况，请执行其他操作。否则，如果上述情况均未发生，请执行此操作。 123456if case1:    perform action1elif case2:    perform action2else:     perform action3  例如 1234567x &#x3D; Falseif x:">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python语法">
+<meta property="og:url" content="https://blog.haipengv.com/2022/01/09/python%E8%AF%AD%E6%B3%95/index.html">
+<meta property="og:site_name" content="Peng&#39;s Blog">
+<meta property="og:description" content="python 语法if、elif、else 语句嘿，如果发生这种情况，请执行一些操作。否则，如果发生其他情况，请执行其他操作。否则，如果上述情况均未发生，请执行此操作。 123456if case1:    perform action1elif case2:    perform action2else:     perform action3  例如 1234567x &#x3D; Falseif x:">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.haipengv.com/img/postimages/coffee.webp">
+<meta property="article:published_time" content="2022-01-09T13:43:40.000Z">
+<meta property="article:modified_time" content="2023-07-18T02:25:05.206Z">
+<meta property="article:author" content="Haipeng">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.haipengv.com/img/postimages/coffee.webp"><link rel="shortcut icon" href="/img/favicon.webp"><link rel="canonical" href="https://blog.haipengv.com/2022/01/09/python%E8%AF%AD%E6%B3%95/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":1,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'python语法',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-07-18 10:25:05'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = url => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      link.onload = () => resolve()
+      link.onerror = () => reject()
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.0.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/logo.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">109</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">31</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/Analytics/"><i class="fa-fw fas fa-video"></i><span> 统计</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/postimages/coffee.webp')"><nav id="nav"><span id="blog-info"><a href="/" title="Peng's Blog"><span class="site-name">Peng's Blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/Analytics/"><i class="fa-fw fas fa-video"></i><span> 统计</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">python语法</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-01-09T13:43:40.000Z" title="发表于 2022-01-09 21:43:40">2022-01-09</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-07-18T02:25:05.206Z" title="更新于 2023-07-18 10:25:05">2023-07-18</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BC%96%E7%A8%8B/">编程</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>14分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="python语法"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h3 id="python-语法"><a href="#python-语法" class="headerlink" title="python 语法"></a>python 语法</h3><h4 id="if、elif、else-语句"><a href="#if、elif、else-语句" class="headerlink" title="if、elif、else 语句"></a>if、elif、else 语句</h4><p>嘿，如果发生这种情况，请执行一些操作。否则，如果发生其他情况，请执行其他操作。否则，如果上述情况均未发生，请执行此操作。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">if case1:</span><br><span class="line">    perform action1</span><br><span class="line">elif case2:</span><br><span class="line">    perform action2</span><br><span class="line">else: </span><br><span class="line">    perform action3</span><br></pre></td></tr></table></figure>
+
+<p>例如</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">x = False</span><br><span class="line"></span><br><span class="line">if x:</span><br><span class="line">    print(&#x27;x was True!&#x27;)</span><br><span class="line">else:</span><br><span class="line">    print(&#x27;I will be printed in any case where x is not true&#x27;)</span><br><span class="line">#I will be printed in any case where x is not true</span><br></pre></td></tr></table></figure>
+
+<h4 id="多分支结构"><a href="#多分支结构" class="headerlink" title="多分支结构"></a>多分支结构</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">loc = &#x27;Bank&#x27;</span><br><span class="line"></span><br><span class="line">if loc == &#x27;Auto Shop&#x27;:</span><br><span class="line">    print(&#x27;Welcome to the Auto Shop!&#x27;)</span><br><span class="line">elif loc == &#x27;Bank&#x27;:</span><br><span class="line">    print(&#x27;Welcome to the bank!&#x27;)</span><br><span class="line">else:</span><br><span class="line">    print(&#x27;Where are you?&#x27;)</span><br><span class="line"></span><br><span class="line">#Welcome to the bank!</span><br></pre></td></tr></table></figure>
+
+<h4 id="for-循环"><a href="#for-循环" class="headerlink" title="for 循环"></a>for 循环</h4><p>for 循环在 Python 中充当迭代器；它遍历序列中的项目或任何其他可迭代项目。我们了解的可以迭代的对象包括字符串、列表、元组，甚至是字典的内置可迭代对象，例如键或值。</p>
+<p>这是 Python 中 for 循环的一般格式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">for item in object:</span><br><span class="line">    statements to do stuff</span><br></pre></td></tr></table></figure>
+
+<h5 id="遍历列表"><a href="#遍历列表" class="headerlink" title="遍历列表"></a>遍历列表</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">list1 = [1,2,3,4,5,6,7,8,9,10]</span><br><span class="line">for num in list1:</span><br><span class="line">    print(num)</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td></tr></table></figure>
+
+<p>取余</p>
+<p>用 % 来获取余数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 3 Remainder 1</span><br><span class="line">10 % 3</span><br><span class="line"># 1</span><br><span class="line"># 2 Remainder 4</span><br><span class="line">18 % 7</span><br><span class="line">#4</span><br><span class="line"># 2 no remainder</span><br><span class="line">4 % 2</span><br><span class="line">#0</span><br></pre></td></tr></table></figure>
+
+<p>请注意，如果一个数可以完全整除且没有余数，则模调用的结果为 0。我们可以使用它来测试偶数，因为如果一个数模 2 等于 0，则意味着它是偶数！</p>
+<h5 id="打印出list1中所有的偶数"><a href="#打印出list1中所有的偶数" class="headerlink" title="打印出list1中所有的偶数"></a>打印出list1中所有的偶数</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for num in list1:</span><br><span class="line">    if num % 2 == 0:</span><br><span class="line">        print(num)</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">2</span><br><span class="line">4</span><br><span class="line">6</span><br><span class="line">8</span><br><span class="line">10</span><br></pre></td></tr></table></figure>
+
+<p>也可以加上else语句</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">for num in list1:</span><br><span class="line">    if num % 2 == 0:</span><br><span class="line">        print(num)</span><br><span class="line">    else:</span><br><span class="line">        print(&#x27;Odd number&#x27;)</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Odd number</span><br><span class="line">2</span><br><span class="line">Odd number</span><br><span class="line">4</span><br><span class="line">Odd number</span><br><span class="line">6</span><br><span class="line">Odd number</span><br><span class="line">8</span><br><span class="line">Odd number</span><br><span class="line">10</span><br></pre></td></tr></table></figure>
+
+<p>例如</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># Start sum at zero</span><br><span class="line">list_sum = 0 </span><br><span class="line"></span><br><span class="line">for num in list1:</span><br><span class="line">    list_sum = list_sum + num</span><br><span class="line"></span><br><span class="line">print(list_sum)</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">55</span><br></pre></td></tr></table></figure>
+
+<p>另一种写法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># Start sum at zero</span><br><span class="line">list_sum = 0 </span><br><span class="line"></span><br><span class="line">for num in list1:</span><br><span class="line">    list_sum += num</span><br><span class="line"></span><br><span class="line">print(list_sum)</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">55</span><br></pre></td></tr></table></figure>
+
+<p>我们已经在列表中使用了 for 循环，那么使用字符串呢？请记住字符串是一个序列，因此当我们遍历它们时，我们将访问该字符串中的每个项目。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">for letter in &#x27;This is a string.&#x27;:</span><br><span class="line">    print(letter)</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">T</span><br><span class="line">h</span><br><span class="line">i</span><br><span class="line">s</span><br><span class="line"> </span><br><span class="line">i</span><br><span class="line">s</span><br><span class="line"> </span><br><span class="line">a</span><br><span class="line"> </span><br><span class="line">s</span><br><span class="line">t</span><br><span class="line">r</span><br><span class="line">i</span><br><span class="line">n</span><br><span class="line">g</span><br><span class="line">.</span><br></pre></td></tr></table></figure>
+
+<h5 id="现在让我们看看如何将-for-循环与元组一起使用"><a href="#现在让我们看看如何将-for-循环与元组一起使用" class="headerlink" title="现在让我们看看如何将 for 循环与元组一起使用."></a>现在让我们看看如何将 for 循环与元组一起使用.</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tup = (1,2,3,4,5)</span><br><span class="line"></span><br><span class="line">for t in tup:</span><br><span class="line">    print(t)</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td></tr></table></figure>
+
+<p>当涉及到 for 循环时，元组具有特殊的品质。如果您正在遍历包含元组的序列，则该项目实际上可以是元组本身，这是元组解包的示例。在 for 循环中，我们将解压缩序列中的元组，我们可以访问该元组中的各个项目！</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">list2 = [(2,4),(6,8),(10,12)]</span><br><span class="line">for tup in list2:</span><br><span class="line">    print(tup)</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(2, 4)</span><br><span class="line">(6, 8)</span><br><span class="line">(10, 12)</span><br></pre></td></tr></table></figure>
+
+<p>拆包</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">for (t1,t2) in list2:</span><br><span class="line">    print(t1)</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">2</span><br><span class="line">6</span><br><span class="line">10</span><br></pre></td></tr></table></figure>
+
+<p>使用序列中的元组，我们可以通过解包访问其中的项目！这是因为许多对象将通过元组传递它们的迭代。</p>
+<h5 id="在字典中使用for循环"><a href="#在字典中使用for循环" class="headerlink" title="在字典中使用for循环"></a>在字典中使用for循环</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">d = &#123;&#x27;k1&#x27;:1,&#x27;k2&#x27;:2,&#x27;k3&#x27;:3&#125;</span><br><span class="line">for item in d:</span><br><span class="line">    print(item)</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">k1</span><br><span class="line">k2</span><br><span class="line">k3</span><br></pre></td></tr></table></figure>
+
+<h5 id="关于字典的新方法-keys-values-and-items-的使用"><a href="#关于字典的新方法-keys-values-and-items-的使用" class="headerlink" title="关于字典的新方法 .keys(), .values() and .items() 的使用"></a>关于字典的新方法 <strong>.keys()</strong>, <strong>.values()</strong> and <strong>.items()</strong> 的使用</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># Create a dictionary view object</span><br><span class="line">d.items()</span><br><span class="line">dict_items([(&#x27;k1&#x27;, 1), (&#x27;k2&#x27;, 2), (&#x27;k3&#x27;, 3)])	</span><br></pre></td></tr></table></figure>
+
+<p>由于 .items() 方法支持迭代，我们可以执行字典解包以分离键和值。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 字典拆包</span><br><span class="line">for k,v in d.items():</span><br><span class="line">    print(k)</span><br><span class="line">    print(v) </span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">k1</span><br><span class="line">1</span><br><span class="line">k2</span><br><span class="line">2</span><br><span class="line">k3</span><br><span class="line">3</span><br></pre></td></tr></table></figure>
+
+<p>如果你想获得一个真正的键、值或键&#x2F;值元组的列表，你可以将视图转换为一个列表。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list(d.keys())</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#x27;k1&#x27;, &#x27;k2&#x27;, &#x27;k3&#x27;]</span><br></pre></td></tr></table></figure>
+
+<p>请记住，字典是无序的，键和值以任意顺序返回。您可以使用 sorted() 获取排序列表。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sorted(d.values())</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[1, 2, 3]</span><br></pre></td></tr></table></figure>
+
+<p>更多内容<a target="_blank" rel="noopener" href="https://www.tutorialspoint.com/python/python_for_loop.htm">参考</a></p>
+<h4 id="while-循环"><a href="#while-循环" class="headerlink" title="while 循环"></a>while 循环</h4><p>Python 中的 while 语句是执行迭代的最常用方法之一。只要条件为真，while 语句就会重复执行单个语句或一组语句。之所以称为“循环”，是因为代码语句一遍又一遍地循环，直到不再满足条件。</p>
+<h5 id="常用格式"><a href="#常用格式" class="headerlink" title="常用格式"></a>常用格式</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">while test:</span><br><span class="line">    code statements</span><br><span class="line">else:</span><br><span class="line">    final code statements</span><br></pre></td></tr></table></figure>
+
+<p>例如</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">x = 0</span><br><span class="line"></span><br><span class="line">while x &lt; 10:</span><br><span class="line">    print(&#x27;x is currently: &#x27;,x)</span><br><span class="line">    print(&#x27; x is still less than 10, adding 1 to x&#x27;)</span><br><span class="line">    x+=1</span><br><span class="line">    </span><br><span class="line">else:</span><br><span class="line">    print(&#x27;All Done!&#x27;)</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">x is currently:  0</span><br><span class="line"> x is still less than 10, adding 1 to x</span><br><span class="line">x is currently:  1</span><br><span class="line"> x is still less than 10, adding 1 to x</span><br><span class="line">x is currently:  2</span><br><span class="line"> x is still less than 10, adding 1 to x</span><br><span class="line">x is currently:  3</span><br><span class="line"> x is still less than 10, adding 1 to x</span><br><span class="line">x is currently:  4</span><br><span class="line"> x is still less than 10, adding 1 to x</span><br><span class="line">x is currently:  5</span><br><span class="line"> x is still less than 10, adding 1 to x</span><br><span class="line">x is currently:  6</span><br><span class="line"> x is still less than 10, adding 1 to x</span><br><span class="line">x is currently:  7</span><br><span class="line"> x is still less than 10, adding 1 to x</span><br><span class="line">x is currently:  8</span><br><span class="line"> x is still less than 10, adding 1 to x</span><br><span class="line">x is currently:  9</span><br><span class="line"> x is still less than 10, adding 1 to x</span><br><span class="line">All Done!</span><br></pre></td></tr></table></figure>
+
+<p>注意一共执行10次循环，当x&#x3D;10时，while后条件为假，跳出循环，执行else语句。</p>
+<h5 id="关键字break-continue-pass"><a href="#关键字break-continue-pass" class="headerlink" title="关键字break, continue,pass"></a>关键字break, continue,pass</h5><p>我们可以在循环中使用 break、continue 和 pass 语句来为各种情况添加额外的功能。这三个语句定义为</p>
+<p>break：跳出当前最近的封闭循环。<br>continue：转到最近的封闭循环的顶部。<br>pass：什么都不做。</p>
+<p>考虑 break 和 continue 语句，while 循环的一般格式如下所示</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">while test: </span><br><span class="line">    code statement</span><br><span class="line">    if test: </span><br><span class="line">        break</span><br><span class="line">    if test: </span><br><span class="line">        continue </span><br><span class="line">else:</span><br></pre></td></tr></table></figure>
+
+<h5 id="break-和-continue-语句可以出现在循环体内的任何位置，但我们通常会将它们与-if-语句一起进一步嵌套，以根据某些条件执行操作。"><a href="#break-和-continue-语句可以出现在循环体内的任何位置，但我们通常会将它们与-if-语句一起进一步嵌套，以根据某些条件执行操作。" class="headerlink" title="break 和 continue 语句可以出现在循环体内的任何位置，但我们通常会将它们与 if 语句一起进一步嵌套，以根据某些条件执行操作。"></a>break 和 continue 语句可以出现在循环体内的任何位置，但我们通常会将它们与 if 语句一起进一步嵌套，以根据某些条件执行操作。</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">x = 0</span><br><span class="line"></span><br><span class="line">while x &lt; 10:</span><br><span class="line">    print(&#x27;x is currently: &#x27;,x)</span><br><span class="line">    print(&#x27; x is still less than 10, adding 1 to x&#x27;)</span><br><span class="line">    x+=1</span><br><span class="line">    if x==3:</span><br><span class="line">        print(&#x27;x==3&#x27;)</span><br><span class="line">    else:</span><br><span class="line">        print(&#x27;continuing...&#x27;)</span><br><span class="line">        continue</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">x is currently:  0</span><br><span class="line"> x is still less than 10, adding 1 to x</span><br><span class="line">continuing...</span><br><span class="line">x is currently:  1</span><br><span class="line"> x is still less than 10, adding 1 to x</span><br><span class="line">continuing...</span><br><span class="line">x is currently:  2</span><br><span class="line"> x is still less than 10, adding 1 to x</span><br><span class="line">x==3</span><br><span class="line">x is currently:  3</span><br><span class="line"> x is still less than 10, adding 1 to x</span><br><span class="line">continuing...</span><br><span class="line">x is currently:  4</span><br><span class="line"> x is still less than 10, adding 1 to x</span><br><span class="line">continuing...</span><br><span class="line">x is currently:  5</span><br><span class="line"> x is still less than 10, adding 1 to x</span><br><span class="line">continuing...</span><br><span class="line">x is currently:  6</span><br><span class="line"> x is still less than 10, adding 1 to x</span><br><span class="line">continuing...</span><br><span class="line">x is currently:  7</span><br><span class="line"> x is still less than 10, adding 1 to x</span><br><span class="line">continuing...</span><br><span class="line">x is currently:  8</span><br><span class="line"> x is still less than 10, adding 1 to x</span><br><span class="line">continuing...</span><br><span class="line">x is currently:  9</span><br><span class="line"> x is still less than 10, adding 1 to x</span><br><span class="line">continuing...</span><br></pre></td></tr></table></figure>
+
+<p>请注意当 x&#x3D;&#x3D;3 时我们如何打印语句，并且当我们继续通过外部 while 循环时打印出 continue。让我们在 x &#x3D;&#x3D;3 时暂停一下。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">x = 0</span><br><span class="line"></span><br><span class="line">while x &lt; 10:</span><br><span class="line">    print(&#x27;x is currently: &#x27;,x)</span><br><span class="line">    print(&#x27; x is still less than 10, adding 1 to x&#x27;)</span><br><span class="line">    x+=1</span><br><span class="line">    if x==3:</span><br><span class="line">        print(&#x27;Breaking because x==3&#x27;)</span><br><span class="line">        break</span><br><span class="line">    else:</span><br><span class="line">        print(&#x27;continuing...&#x27;)</span><br><span class="line">        continue</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">x is currently:  0</span><br><span class="line"> x is still less than 10, adding 1 to x</span><br><span class="line">continuing...</span><br><span class="line">x is currently:  1</span><br><span class="line"> x is still less than 10, adding 1 to x</span><br><span class="line">continuing...</span><br><span class="line">x is currently:  2</span><br><span class="line"> x is still less than 10, adding 1 to x</span><br><span class="line">Breaking because x==3</span><br></pre></td></tr></table></figure>
+
+<p>请注意，当条件成立时，遇到break后会立刻跳出当前循环，即使后面有任何语句也不会执行。</p>
+<h5 id="不过要注意一点！可以使用-while-语句创建一个无限运行的循环。例如"><a href="#不过要注意一点！可以使用-while-语句创建一个无限运行的循环。例如" class="headerlink" title="不过要注意一点！可以使用 while 语句创建一个无限运行的循环。例如"></a>不过要注意一点！可以使用 while 语句创建一个无限运行的循环。例如</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># DO NOT RUN THIS CODE!!!! </span><br><span class="line">while True:</span><br><span class="line">    print(&quot;I&#x27;m stuck in an infinite loop!&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>不要执行这个语句，不然只能重启机器。</p>
+<h4 id="一些有用的操作"><a href="#一些有用的操作" class="headerlink" title="一些有用的操作"></a>一些有用的操作</h4><h5 id="range"><a href="#range" class="headerlink" title="range"></a>range</h5><p>range 函数可以让你快速生成一个整数列表，这个很方便，所以要注意如何使用它！您可以传递 3 个参数：开始、停止和步长。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">range(0,11)</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">range(0, 11)</span><br></pre></td></tr></table></figure>
+
+<p>请注意，这是一个生成器函数，因此要实际从中获取列表，我们需要将其转换为具有list（）的列表。什么是生成器？它是一种特殊类型的函数，可以生成信息，而无需将其保存到内存中。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 从0到11 但不包含11，和切片一样。</span><br><span class="line">list(range(0,11))</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 第三个参数是步长，它表示从开始的数字到下一个数字有多长。</span><br><span class="line">list(range(0,11,2))</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[0, 2, 4, 6, 8, 10]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list(range(0,101,10))</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]</span><br></pre></td></tr></table></figure>
+
+<h5 id="枚举函数"><a href="#枚举函数" class="headerlink" title="枚举函数"></a>枚举函数</h5><p>枚举函数是一个与循环一起使用的非常有用的函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">index_count = 0</span><br><span class="line"></span><br><span class="line">for letter in &#x27;abcde&#x27;:</span><br><span class="line">    print(&quot;At index &#123;&#125; the letter is &#123;&#125;&quot;.format(index_count,letter))</span><br><span class="line">    index_count += 1</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">At index 0 the letter is a</span><br><span class="line">At index 1 the letter is b</span><br><span class="line">At index 2 the letter is c</span><br><span class="line">At index 3 the letter is d</span><br><span class="line">At index 4 the letter is e</span><br></pre></td></tr></table></figure>
+
+<p>用枚举函数来追踪有多少循环是很常见的，这样就不用担心创建和更新index_count或letter变量了。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># Notice the tuple unpacking!</span><br><span class="line"></span><br><span class="line">for i,letter in enumerate(&#x27;abcde&#x27;):</span><br><span class="line">    print(&quot;At index &#123;&#125; the letter is &#123;&#125;&quot;.format(i,letter))</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">At index 0 the letter is a</span><br><span class="line">At index 1 the letter is b</span><br><span class="line">At index 2 the letter is c</span><br><span class="line">At index 3 the letter is d</span><br><span class="line">At index 4 the letter is e</span><br></pre></td></tr></table></figure>
+
+<h5 id="zip函数"><a href="#zip函数" class="headerlink" title="zip函数"></a>zip函数</h5><p>注意enumerate实际返回的格式，让我们通过将其转换为list()来看一下。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list(enumerate(&#x27;abcde&#x27;))</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[(0, &#x27;a&#x27;), (1, &#x27;b&#x27;), (2, &#x27;c&#x27;), (3, &#x27;d&#x27;), (4, &#x27;e&#x27;)]</span><br></pre></td></tr></table></figure>
+
+<p>它是一个元组的列表，意味着我们可以在for循环中使用元组解包。这种数据结构实际上在 Python 中非常常见，特别是在与外部库一起工作时。你可以使用 zip() 函数，通过将两个列表 “压缩 “起来，快速创建一个元组列表。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mylist1 = [1,2,3,4,5]</span><br><span class="line">mylist2 = [&#x27;a&#x27;,&#x27;b&#x27;,&#x27;c&#x27;,&#x27;d&#x27;,&#x27;e&#x27;]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 这个也是一个生成器! 我们稍后将对此进行解释，但现在让我们把它转化为一个列表。</span><br><span class="line">zip(mylist1,mylist2)</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;zip at 0x1d205086f08&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list(zip(mylist1,mylist2))</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[(1, &#x27;a&#x27;), (2, &#x27;b&#x27;), (3, &#x27;c&#x27;), (4, &#x27;d&#x27;), (5, &#x27;e&#x27;)]</span><br></pre></td></tr></table></figure>
+
+<p>为了使用生成器，我们可以只使用一个for循环。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">for item1, item2 in zip(mylist1,mylist2):</span><br><span class="line">    print(&#x27;For this tuple, first item was &#123;&#125; and second item was &#123;&#125;&#x27;.format(item1,item2))</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">For this tuple, first item was 1 and second item was a</span><br><span class="line">For this tuple, first item was 2 and second item was b</span><br><span class="line">For this tuple, first item was 3 and second item was c</span><br><span class="line">For this tuple, first item was 4 and second item was d</span><br><span class="line">For this tuple, first item was 5 and second item was e</span><br></pre></td></tr></table></figure>
+
+<h5 id="in-操作符"><a href="#in-操作符" class="headerlink" title="in 操作符"></a>in 操作符</h5><p>我们已经在for循环中看到了in关键字，但我们也可以用它来快速检查一个对象是否在一个列表中。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x27;x&#x27; in [&#x27;x&#x27;,&#x27;y&#x27;,&#x27;z&#x27;]</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">True</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x27;x&#x27; in [1,2,3]</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">False</span><br></pre></td></tr></table></figure>
+
+<h5 id="not-in"><a href="#not-in" class="headerlink" title="not in"></a>not in</h5><p>我们可以将 in 与 not 运算符结合使用，以检查列表中是否不存在某个对象或变量。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x27;x&#x27; not in [&#x27;x&#x27;,&#x27;y&#x27;,&#x27;z&#x27;]</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">False</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x27;x&#x27; not in [1,2,3]</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">True</span><br></pre></td></tr></table></figure>
+
+<h5 id="min-和-max"><a href="#min-和-max" class="headerlink" title="min 和 max"></a>min 和 max</h5><p>用这些函数快速检查一个列表的最小值或最大值。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mylist = [10,20,30,40,100]</span><br><span class="line">min(mylist)</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">10</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">max(mylist)</span><br><span class="line"># 100</span><br></pre></td></tr></table></figure>
+
+<h5 id="random"><a href="#random" class="headerlink" title="random"></a>random</h5><p>Python有一个内置的随机库。这个随机库中包括很多函数，所以我们现在只向你展示两个有用的函数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">from random import shuffle</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 随机打乱顺序</span><br><span class="line">shuffle(mylist)</span><br><span class="line">mylist</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[40, 10, 100, 30, 20]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">from random import randint</span><br><span class="line">randint(0,100)</span><br></pre></td></tr></table></figure>
+
+<p>返回 [a, b] 范围内的随机整数，包括两个端点。</p>
+<p>结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">25</span><br></pre></td></tr></table></figure>
+
+<h5 id="input"><a href="#input" class="headerlink" title="input"></a>input</h5><p>交互</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">input(&#x27;Enter Something into this box: &#x27;)</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Enter Something into this box: great job!</span><br><span class="line">&#x27;great job!&#x27;</span><br></pre></td></tr></table></figure>
+
+<h4 id="列表推导"><a href="#列表推导" class="headerlink" title="列表推导"></a>列表推导</h4><p>列表推导允许我们使用不同的符号构建列表。您可以将其本质上视为在括号内构建的单行 for 循环。举个简单的例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 抓取字符串中每一个字母</span><br><span class="line">list = [x for x in &#x27;word&#x27;]</span><br><span class="line">list</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#x27;w&#x27;, &#x27;o&#x27;, &#x27;r&#x27;, &#x27;d&#x27;]</span><br></pre></td></tr></table></figure>
+
+<h5 id="for-前面可以是表达式"><a href="#for-前面可以是表达式" class="headerlink" title="for 前面可以是表达式"></a>for 前面可以是表达式</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 在范围内的平方数并变成列表</span><br><span class="line">lst = [x**2 for x in range(0,11)]</span><br><span class="line">lst</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[0, 1, 4, 9, 16, 25, 36, 49, 64, 81, 100]</span><br></pre></td></tr></table></figure>
+
+<h5 id="另一种写法如下"><a href="#另一种写法如下" class="headerlink" title="另一种写法如下"></a>另一种写法如下</h5><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">list = []</span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> range(0,11):</span><br><span class="line">	list.append(x**2)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[0, 1, 4, 9, 16, 25, 36, 49, 64, 81, 100]</span><br></pre></td></tr></table></figure>
+
+<h5 id="在if-语句中使用"><a href="#在if-语句中使用" class="headerlink" title="在if 语句中使用"></a>在if 语句中使用</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 检查范围内的偶数</span><br><span class="line">lst = [x for x in range(11) if x % 2 == 0]</span><br><span class="line">lst</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[0, 2, 4, 6, 8, 10]</span><br></pre></td></tr></table></figure>
+
+<p>摄氏度和华氏度转换</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 摄氏度转华氏度</span><br><span class="line">celsius = [0,10,20.1,34.5]</span><br><span class="line"></span><br><span class="line">fahrenheit = [((9/5)*temp + 32) for temp in celsius ]</span><br><span class="line"></span><br><span class="line">fahrenheit</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[32.0, 50.0, 68.18, 94.1]</span><br></pre></td></tr></table></figure>
+
+<h5 id="在嵌套中用列表推导"><a href="#在嵌套中用列表推导" class="headerlink" title="在嵌套中用列表推导"></a>在嵌套中用列表推导</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lst = [ x**2 for x in [x**2 for x in range(11)]]</span><br><span class="line">lst</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[0, 1, 16, 81, 256, 625, 1296, 2401, 4096, 6561, 10000]</span><br></pre></td></tr></table></figure>
+
+<p>使用列表推导创建语句可读性不是很好，可以使用另一种写法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">list1 = []</span><br><span class="line">for x in range(11):</span><br><span class="line">    list1.append((x**2)**2)</span><br><span class="line">list1</span><br></pre></td></tr></table></figure>
+
+<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p>for 前面可以是表达式，后面是要遍历的对象。in后面跟要遍历的语句。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://blog.haipengv.com">Haipeng</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://blog.haipengv.com/2022/01/09/python%E8%AF%AD%E6%B3%95/">https://blog.haipengv.com/2022/01/09/python语法/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.haipengv.com" target="_blank">Peng's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/python/">python</a></div><div class="post_share"><div class="social-share" data-image="/img/postimages/coffee.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/01/15/python%E6%96%B9%E6%B3%95%E5%92%8C%E5%87%BD%E6%95%B0/" title="python方法和函数"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/article10.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">python方法和函数</div></div></a></div><div class="next-post pull-right"><a href="/2022/01/06/python%E5%AF%B9%E8%B1%A1%E5%92%8C%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/" title="python对象和数据结构基础"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/article2.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">python对象和数据结构基础</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/07/17/Bs4%E3%80%81%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E3%80%81Re%E6%A8%A1%E5%9D%97/" title="Bs4-正则表达式-Re模块"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/article8.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-07-17</div><div class="title">Bs4-正则表达式-Re模块</div></div></a></div><div><a href="/2022/06/13/Python%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E6%80%BB%E7%BB%93/" title="Python数据结构总结"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/article9.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-13</div><div class="title">Python数据结构总结</div></div></a></div><div><a href="/2022/07/21/flask%E5%85%A5%E9%97%A8/" title="Flask入门"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/animal.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-07-21</div><div class="title">Flask入门</div></div></a></div><div><a href="/2022/07/03/python%E5%9B%9E%E7%82%89%E9%87%8D%E9%80%A0-%E5%85%83%E7%BB%84/" title="python回炉重造-元组"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/article10.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-07-03</div><div class="title">python回炉重造-元组</div></div></a></div><div><a href="/2022/07/03/python%E5%9B%9E%E7%82%89%E9%87%8D%E9%80%A0-%E5%87%BD%E6%95%B0/" title="python回炉重造-函数"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/article10.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-07-03</div><div class="title">python回炉重造-函数</div></div></a></div><div><a href="/2022/07/03/python%E5%9B%9E%E7%82%89%E9%87%8D%E9%80%A0-%E5%88%97%E8%A1%A8/" title="python回炉重造-列表"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/article6.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-07-03</div><div class="title">python回炉重造-列表</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/logo.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Haipeng</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">109</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">31</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Smithkenny"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Smithkenny" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#python-%E8%AF%AD%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text">python 语法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#if%E3%80%81elif%E3%80%81else-%E8%AF%AD%E5%8F%A5"><span class="toc-number">1.1.</span> <span class="toc-text">if、elif、else 语句</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%9A%E5%88%86%E6%94%AF%E7%BB%93%E6%9E%84"><span class="toc-number">1.2.</span> <span class="toc-text">多分支结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#for-%E5%BE%AA%E7%8E%AF"><span class="toc-number">1.3.</span> <span class="toc-text">for 循环</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%81%8D%E5%8E%86%E5%88%97%E8%A1%A8"><span class="toc-number">1.3.1.</span> <span class="toc-text">遍历列表</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%89%93%E5%8D%B0%E5%87%BAlist1%E4%B8%AD%E6%89%80%E6%9C%89%E7%9A%84%E5%81%B6%E6%95%B0"><span class="toc-number">1.3.2.</span> <span class="toc-text">打印出list1中所有的偶数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%8E%B0%E5%9C%A8%E8%AE%A9%E6%88%91%E4%BB%AC%E7%9C%8B%E7%9C%8B%E5%A6%82%E4%BD%95%E5%B0%86-for-%E5%BE%AA%E7%8E%AF%E4%B8%8E%E5%85%83%E7%BB%84%E4%B8%80%E8%B5%B7%E4%BD%BF%E7%94%A8"><span class="toc-number">1.3.3.</span> <span class="toc-text">现在让我们看看如何将 for 循环与元组一起使用.</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9C%A8%E5%AD%97%E5%85%B8%E4%B8%AD%E4%BD%BF%E7%94%A8for%E5%BE%AA%E7%8E%AF"><span class="toc-number">1.3.4.</span> <span class="toc-text">在字典中使用for循环</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E5%AD%97%E5%85%B8%E7%9A%84%E6%96%B0%E6%96%B9%E6%B3%95-keys-values-and-items-%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">1.3.5.</span> <span class="toc-text">关于字典的新方法 .keys(), .values() and .items() 的使用</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#while-%E5%BE%AA%E7%8E%AF"><span class="toc-number">1.4.</span> <span class="toc-text">while 循环</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E6%A0%BC%E5%BC%8F"><span class="toc-number">1.4.1.</span> <span class="toc-text">常用格式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E5%AD%97break-continue-pass"><span class="toc-number">1.4.2.</span> <span class="toc-text">关键字break, continue,pass</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#break-%E5%92%8C-continue-%E8%AF%AD%E5%8F%A5%E5%8F%AF%E4%BB%A5%E5%87%BA%E7%8E%B0%E5%9C%A8%E5%BE%AA%E7%8E%AF%E4%BD%93%E5%86%85%E7%9A%84%E4%BB%BB%E4%BD%95%E4%BD%8D%E7%BD%AE%EF%BC%8C%E4%BD%86%E6%88%91%E4%BB%AC%E9%80%9A%E5%B8%B8%E4%BC%9A%E5%B0%86%E5%AE%83%E4%BB%AC%E4%B8%8E-if-%E8%AF%AD%E5%8F%A5%E4%B8%80%E8%B5%B7%E8%BF%9B%E4%B8%80%E6%AD%A5%E5%B5%8C%E5%A5%97%EF%BC%8C%E4%BB%A5%E6%A0%B9%E6%8D%AE%E6%9F%90%E4%BA%9B%E6%9D%A1%E4%BB%B6%E6%89%A7%E8%A1%8C%E6%93%8D%E4%BD%9C%E3%80%82"><span class="toc-number">1.4.3.</span> <span class="toc-text">break 和 continue 语句可以出现在循环体内的任何位置，但我们通常会将它们与 if 语句一起进一步嵌套，以根据某些条件执行操作。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%8D%E8%BF%87%E8%A6%81%E6%B3%A8%E6%84%8F%E4%B8%80%E7%82%B9%EF%BC%81%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8-while-%E8%AF%AD%E5%8F%A5%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%97%A0%E9%99%90%E8%BF%90%E8%A1%8C%E7%9A%84%E5%BE%AA%E7%8E%AF%E3%80%82%E4%BE%8B%E5%A6%82"><span class="toc-number">1.4.4.</span> <span class="toc-text">不过要注意一点！可以使用 while 语句创建一个无限运行的循环。例如</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80%E4%BA%9B%E6%9C%89%E7%94%A8%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="toc-number">1.5.</span> <span class="toc-text">一些有用的操作</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#range"><span class="toc-number">1.5.1.</span> <span class="toc-text">range</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9E%9A%E4%B8%BE%E5%87%BD%E6%95%B0"><span class="toc-number">1.5.2.</span> <span class="toc-text">枚举函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#zip%E5%87%BD%E6%95%B0"><span class="toc-number">1.5.3.</span> <span class="toc-text">zip函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#in-%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="toc-number">1.5.4.</span> <span class="toc-text">in 操作符</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#not-in"><span class="toc-number">1.5.5.</span> <span class="toc-text">not in</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#min-%E5%92%8C-max"><span class="toc-number">1.5.6.</span> <span class="toc-text">min 和 max</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#random"><span class="toc-number">1.5.7.</span> <span class="toc-text">random</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#input"><span class="toc-number">1.5.8.</span> <span class="toc-text">input</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%97%E8%A1%A8%E6%8E%A8%E5%AF%BC"><span class="toc-number">1.6.</span> <span class="toc-text">列表推导</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#for-%E5%89%8D%E9%9D%A2%E5%8F%AF%E4%BB%A5%E6%98%AF%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-number">1.6.1.</span> <span class="toc-text">for 前面可以是表达式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8F%A6%E4%B8%80%E7%A7%8D%E5%86%99%E6%B3%95%E5%A6%82%E4%B8%8B"><span class="toc-number">1.6.2.</span> <span class="toc-text">另一种写法如下</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9C%A8if-%E8%AF%AD%E5%8F%A5%E4%B8%AD%E4%BD%BF%E7%94%A8"><span class="toc-number">1.6.3.</span> <span class="toc-text">在if 语句中使用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9C%A8%E5%B5%8C%E5%A5%97%E4%B8%AD%E7%94%A8%E5%88%97%E8%A1%A8%E6%8E%A8%E5%AF%BC"><span class="toc-number">1.6.4.</span> <span class="toc-text">在嵌套中用列表推导</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.6.5.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/05/11/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/" title="前端框架"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/lighthouse.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="前端框架"/></a><div class="content"><a class="title" href="/2023/05/11/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/" title="前端框架">前端框架</a><time datetime="2023-05-11T07:15:44.000Z" title="发表于 2023-05-11 15:15:44">2023-05-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/02/22/docker%E5%88%9B%E5%BB%BA%E4%B8%93%E6%9C%89%E7%BD%91%E5%8D%A1/" title="docker创建专有网卡"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/cat.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="docker创建专有网卡"/></a><div class="content"><a class="title" href="/2023/02/22/docker%E5%88%9B%E5%BB%BA%E4%B8%93%E6%9C%89%E7%BD%91%E5%8D%A1/" title="docker创建专有网卡">docker创建专有网卡</a><time datetime="2023-02-22T01:18:44.000Z" title="发表于 2023-02-22 09:18:44">2023-02-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/02/21/docker%E9%85%8D%E7%BD%AEtab%E8%A1%A5%E5%85%A8%E5%91%BD%E4%BB%A4/" title="docker使用tab自动补全命令"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/article4.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="docker使用tab自动补全命令"/></a><div class="content"><a class="title" href="/2023/02/21/docker%E9%85%8D%E7%BD%AEtab%E8%A1%A5%E5%85%A8%E5%91%BD%E4%BB%A4/" title="docker使用tab自动补全命令">docker使用tab自动补全命令</a><time datetime="2023-02-21T02:38:44.000Z" title="发表于 2023-02-21 10:38:44">2023-02-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/02/20/%E4%BD%BF%E7%94%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E7%99%BB%E5%BD%95linux%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="使用浏览器登录linux服务器"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/article5.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="使用浏览器登录linux服务器"/></a><div class="content"><a class="title" href="/2023/02/20/%E4%BD%BF%E7%94%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E7%99%BB%E5%BD%95linux%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="使用浏览器登录linux服务器">使用浏览器登录linux服务器</a><time datetime="2023-02-20T01:38:44.000Z" title="发表于 2023-02-20 09:38:44">2023-02-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/02/17/centos7.3%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85docker/" title="centos7.3离线安装docker"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/blue.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="centos7.3离线安装docker"/></a><div class="content"><a class="title" href="/2023/02/17/centos7.3%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85docker/" title="centos7.3离线安装docker">centos7.3离线安装docker</a><time datetime="2023-02-17T05:38:44.000Z" title="发表于 2023-02-17 13:38:44">2023-02-17</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/postimages/coffee.webp')"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2023 By Haipeng</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">生命在于折腾!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">简</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="true"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

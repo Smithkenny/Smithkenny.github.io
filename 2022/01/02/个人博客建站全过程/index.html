@@ -1,0 +1,511 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>个人博客建站全过程 | Peng's Blog</title><meta name="author" content="Haipeng"><meta name="copyright" content="Haipeng"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="技术选型使用Hexo+keep+Github Actions+jsdelivr这一套技术实现blog搭建及自动化部署 开始搭建安装node下载地址：node下载 .安装LTS版本。 安装 Hexo1npm install hexo-cli -g  我们强烈建议永远安装最新版本的 Hexo，以及 推荐的 Node.js 版本。    Hexo 版本 最低兼容 Node.js 版本    5.0+ 1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="个人博客建站全过程">
+<meta property="og:url" content="https://blog.haipengv.com/2022/01/02/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E5%BB%BA%E7%AB%99%E5%85%A8%E8%BF%87%E7%A8%8B/index.html">
+<meta property="og:site_name" content="Peng&#39;s Blog">
+<meta property="og:description" content="技术选型使用Hexo+keep+Github Actions+jsdelivr这一套技术实现blog搭建及自动化部署 开始搭建安装node下载地址：node下载 .安装LTS版本。 安装 Hexo1npm install hexo-cli -g  我们强烈建议永远安装最新版本的 Hexo，以及 推荐的 Node.js 版本。    Hexo 版本 最低兼容 Node.js 版本    5.0+ 1">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.haipengv.com/img/postimages/article5.webp">
+<meta property="article:published_time" content="2022-01-02T04:31:13.000Z">
+<meta property="article:modified_time" content="2023-07-18T02:25:05.210Z">
+<meta property="article:author" content="Haipeng">
+<meta property="article:tag" content="建站过程">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.haipengv.com/img/postimages/article5.webp"><link rel="shortcut icon" href="/img/favicon.webp"><link rel="canonical" href="https://blog.haipengv.com/2022/01/02/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E5%BB%BA%E7%AB%99%E5%85%A8%E8%BF%87%E7%A8%8B/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":1,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '个人博客建站全过程',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-07-18 10:25:05'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = url => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      link.onload = () => resolve()
+      link.onerror = () => reject()
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.0.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/logo.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">109</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">31</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/Analytics/"><i class="fa-fw fas fa-video"></i><span> 统计</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/postimages/article5.webp')"><nav id="nav"><span id="blog-info"><a href="/" title="Peng's Blog"><span class="site-name">Peng's Blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/Analytics/"><i class="fa-fw fas fa-video"></i><span> 统计</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">个人博客建站全过程</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-01-02T04:31:13.000Z" title="发表于 2022-01-02 12:31:13">2022-01-02</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-07-18T02:25:05.210Z" title="更新于 2023-07-18 10:25:05">2023-07-18</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%BB%BA%E7%AB%99%E7%9B%B8%E5%85%B3/">建站相关</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">4.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>17分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="个人博客建站全过程"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="技术选型"><a href="#技术选型" class="headerlink" title="技术选型"></a>技术选型</h2><p>使用Hexo+keep+Github Actions+jsdelivr这一套技术实现blog搭建及自动化部署</p>
+<h3 id="开始搭建"><a href="#开始搭建" class="headerlink" title="开始搭建"></a>开始搭建</h3><h4 id="安装node"><a href="#安装node" class="headerlink" title="安装node"></a>安装node</h4><p>下载地址：<a target="_blank" rel="noopener" href="https://nodejs.org/en">node下载</a> .安装LTS版本。</p>
+<h4 id="安装-Hexo"><a href="#安装-Hexo" class="headerlink" title="安装 Hexo"></a>安装 Hexo</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br></pre></td></tr></table></figure>
+
+<p><strong>我们强烈建议永远安装最新版本的 Hexo，以及 <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/#%E5%AE%89%E8%A3%85%E5%89%8D%E6%8F%90">推荐的 Node.js 版本</a>。</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">Hexo 版本</th>
+<th align="left">最低兼容 Node.js 版本</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">5.0+</td>
+<td align="left">10.13.0</td>
+</tr>
+<tr>
+<td align="left">4.1 - 4.2</td>
+<td align="left">8.10</td>
+</tr>
+<tr>
+<td align="left">4.0</td>
+<td align="left">8.6</td>
+</tr>
+<tr>
+<td align="left">3.3 - 3.9</td>
+<td align="left">6.9</td>
+</tr>
+<tr>
+<td align="left">3.2 - 3.3</td>
+<td align="left">0.12</td>
+</tr>
+<tr>
+<td align="left">3.0 - 3.1</td>
+<td align="left">0.10 or iojs</td>
+</tr>
+<tr>
+<td align="left">0.0.1 - 2.8</td>
+<td align="left">0.10</td>
+</tr>
+</tbody></table>
+<h4 id="初始化博客目录"><a href="#初始化博客目录" class="headerlink" title="初始化博客目录"></a>初始化博客目录</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo init Smithkenny.github.io </span><br><span class="line"><span class="comment"># 这里的Smithkenny换成你自己的英文名</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="初始化完成后，我们就进入我们的目录"><a href="#初始化完成后，我们就进入我们的目录" class="headerlink" title="初始化完成后，我们就进入我们的目录"></a>初始化完成后，我们就进入我们的目录</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> Smithkenny.github.io</span><br></pre></td></tr></table></figure>
+
+<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
+
+<h4 id="clean一下，然后生成静态页面"><a href="#clean一下，然后生成静态页面" class="headerlink" title="clean一下，然后生成静态页面"></a>clean一下，然后生成静态页面</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br></pre></td></tr></table></figure>
+
+<h4 id="把你的网站运行起来"><a href="#把你的网站运行起来" class="headerlink" title="把你的网站运行起来"></a>把你的网站运行起来</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+
+<p>打开你的浏览器，输入 <code>localhost:4000</code> 。</p>
+<p>自此，你的个人网站就这么速度的搭建起来了！</p>
+<h2 id="主题选择"><a href="#主题选择" class="headerlink" title="主题选择"></a>主题选择</h2><p>初始化博客后，指定文件夹的目录如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── _config.yml</span><br><span class="line">├── package.json</span><br><span class="line">├── scaffolds</span><br><span class="line">├── source</span><br><span class="line">|   ├── _drafts</span><br><span class="line">|   └── _posts</span><br><span class="line">└── themes</span><br></pre></td></tr></table></figure>
+
+<p><strong>_config.yml</strong></p>
+<p>网站的 <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/configuration">配置</a> 信息，您可以在此配置大部分的参数。</p>
+<p>我的配置如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Site</span></span><br><span class="line">title: Peng<span class="string">&#x27;s Blog</span></span><br><span class="line"><span class="string">subtitle: Peng 的个人博客</span></span><br><span class="line"><span class="string">description: &#x27;</span><span class="string">&#x27;</span></span><br><span class="line"><span class="string">keywords:</span></span><br><span class="line"><span class="string">author: Haipeng</span></span><br><span class="line"><span class="string">language: zh-CN</span></span><br><span class="line"><span class="string">timezone: Asia/Shanghai</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># URL</span></span><br><span class="line"><span class="string">## Set your site url here. For example, if you use GitHub Page, set url as &#x27;</span>https://username.github.io/project<span class="string">&#x27;</span></span><br><span class="line"><span class="string">url: https://www.haipengv.com</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>package.json</strong></p>
+<p>应用程序的信息。<a target="_blank" rel="noopener" href="https://ejs.co/">EJS</a>, <a target="_blank" rel="noopener" href="http://learnboost.github.io/stylus/">Stylus</a> 和 <a target="_blank" rel="noopener" href="http://daringfireball.net/projects/markdown/">Markdown</a> renderer 已默认安装，您可以自由移除。</p>
+<p><strong>scaffolds</strong></p>
+<p><a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/writing">模版</a> 文件夹。当您新建文章时，Hexo 会根据 scaffold 来建立文件。</p>
+<p>Hexo的模板是指在新建的文章文件中默认填充的内容。例如，如果您修改scaffold&#x2F;post.md中的Front-matter内容，那么每次新建一篇文章时都会包含这个修改。</p>
+<p><strong>source</strong></p>
+<p>资源文件夹是存放用户资源的地方。除 <code>_posts</code> 文件夹之外，开头命名为 <code>_</code> (下划线)的文件 &#x2F; 文件夹和隐藏的文件将会被忽略。Markdown 和 HTML 文件会被解析并放到 <code>public</code> 文件夹，而其他文件会被拷贝过去。</p>
+<p><strong>themes</strong></p>
+<p><a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/themes">主题</a> 文件夹。Hexo 会根据主题来生成静态页面。</p>
+<h3 id="选择一个主题"><a href="#选择一个主题" class="headerlink" title="选择一个主题"></a><strong>选择一个主题</strong></h3><p>这里可以选择你要的<a target="_blank" rel="noopener" href="https://hexo.io/themes/">主题</a>，我选择的是、keep主题，因为它很简洁。</p>
+<h4 id="下载主题"><a href="#下载主题" class="headerlink" title="下载主题"></a><strong>下载主题</strong></h4><p>keep主题github地址：<a target="_blank" rel="noopener" href="https://github.com/XPoet/hexo-theme-keep">https://github.com/XPoet/hexo-theme-keep</a></p>
+<p><code>keep </code>主题官方文档：<a target="_blank" rel="noopener" href="https://keep-docs.xpoet.cn/">https://keep-docs.xpoet.cn/</a></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这里使用npm方式安装方便后期进行代码托管维护</span></span><br><span class="line">npm install hexo-theme-keep</span><br></pre></td></tr></table></figure>
+
+<h4 id="配置主题"><a href="#配置主题" class="headerlink" title="配置主题"></a><strong>配置主题</strong></h4><ul>
+<li><p>主题下载完之后，在你根目录下的 _config.yml 文件中，修改 theme 为你的主题名字</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">theme: keep</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>我这里选择自定义<code>hexo-theme-keep</code>主题，可以参考keep主题<a target="_blank" rel="noopener" href="https://keep-docs.xpoet.cn/usage-tutorial/advanced.html#%E5%B9%B3%E6%BB%91%E5%8D%87%E7%BA%A7">平滑升级</a></p>
+<p>在博客根目录下的 <code>source</code>目录中新建文件夹<code>_data</code></p>
+<p>将<code>node_modules</code>下的<code>hexo-theme-keep</code>目录中复制出<code>_config.yml</code>文件到<code>source/_data/</code>中，并重命名为<code>keep.yml</code>。</p>
+<p>在<code>keep.yml</code>可根据文档配置对应的属性。</p>
+<h4 id="重新生成和运行"><a href="#重新生成和运行" class="headerlink" title="重新生成和运行"></a><strong>重新生成和运行</strong></h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+
+<p><strong>keep主题</strong></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/keep%E4%B8%BB%E9%A2%98.webp" alt="keep主题"></p>
+<h2 id="博客文章创建"><a href="#博客文章创建" class="headerlink" title="博客文章创建"></a>博客文章创建</h2><p>有两种方式来新建你的博文</p>
+<h3 id="命令形式"><a href="#命令形式" class="headerlink" title="命令形式"></a><strong>命令形式</strong></h3><p>在你的blog目录下使用如下命令：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new hello <span class="comment"># 这里的article写上你的文章的名称</span></span><br></pre></td></tr></table></figure>
+
+<p>你的source&#x2F;_posts下就会生成一个 <code>hello.md</code>文件，在这个文件下就可以写上你的博客内容了。用 Markdown 的语法去写。</p>
+<h3 id="直接新建方式"><a href="#直接新建方式" class="headerlink" title="直接新建方式"></a><strong>直接新建方式</strong></h3><p>直接点的方式就是直接在<code>source/_posts</code>新建一个 Markdown 文件。</p>
+<h4 id="打上标签"><a href="#打上标签" class="headerlink" title="打上标签"></a><strong>打上标签</strong></h4><p>打标签能让你的文章方便检索。</p>
+<p>打开标签功能：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page tags</span><br></pre></td></tr></table></figure>
+
+<p>这时候你的source&#x2F;下生成 tags&#x2F;index.md 文件，我们将其打开，然后把它改成：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">type</span>: <span class="string">&quot;tags&quot;</span> comments: <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<p>这时候你要为你的文章打上标签就可以在文章的头部写上</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: Java 安装与使用</span><br><span class="line"><span class="built_in">date</span>: 2021-12-28 15:36:27</span><br><span class="line">tags: Java</span><br><span class="line">tags: &lt;&lt;其他你想打的标签&gt;&gt;</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<h4 id="添加分类"><a href="#添加分类" class="headerlink" title="添加分类"></a><strong>添加分类</strong></h4><p>分类，归档，是你博客的特性之一。</p>
+<p>打开分类功能：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page categories</span><br></pre></td></tr></table></figure>
+
+<p>这说你的source目录下生成 categories&#x2F;index.md 文件，我们将其打开，把它改成：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">type</span>: <span class="string">&quot;categories&quot;</span></span><br><span class="line">comments: <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<p>这时候你就可以给你的文章归类存档了，使用方式就是在你的文章的头部加上</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: Java 安装与使用</span><br><span class="line"><span class="built_in">date</span>: 2021-12-28 15:36:27</span><br><span class="line">tags: Java</span><br><span class="line">categories: Java</span><br><span class="line">categories: &lt;&lt;其他你想分的类&gt;&gt;</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<p>注意：标签和分类要确定你的配置文件 _config.yml 是否有打开了 tag_dir: tags 和 category_dir: categories。另外，Markdown 的语法是写作最优雅最简洁最简单的，如果之前没用过的建议去学一下<a target="_blank" rel="noopener" href="https://www.appinn.com/markdown/">Markdown 语法说明</a>，一般一个钟左右就能掌握。因为它和HTML那样简单。</p>
+<h4 id="添加评论系统"><a href="#添加评论系统" class="headerlink" title="添加评论系统"></a><strong>添加评论系统</strong></h4><p>keep主题提供评论系统，详情见<a target="_blank" rel="noopener" href="https://keep-docs.xpoet.cn/usage-tutorial/configuration-guide.html#comment">keep comment</a></p>
+<p>这里先暂时不开启评论了。因为发现创建完之后还是无法评论。</p>
+<h4 id="部署到线上"><a href="#部署到线上" class="headerlink" title="部署到线上"></a><strong>部署到线上</strong></h4><p>可以通过<code>GitHub Pages</code>来创建免费的线上访问地址。</p>
+<h2 id="安装-Git"><a href="#安装-Git" class="headerlink" title="安装 Git"></a>安装 Git</h2><ul>
+<li>Windows：下载并安装 <a target="_blank" rel="noopener" href="https://git-scm.com/download/win">git</a>.</li>
+<li>Mac：使用 <a target="_blank" rel="noopener" href="http://mxcl.github.com/homebrew/">Homebrew</a>, <a target="_blank" rel="noopener" href="http://www.macports.org/">MacPorts</a> 或者下载 <a target="_blank" rel="noopener" href="http://sourceforge.net/projects/git-osx-installer/">安装程序</a>。</li>
+<li>Linux (Ubuntu, Debian)：<code>sudo apt-get install git-core</code></li>
+<li>Linux (Fedora, Red Hat, CentOS)：<code>sudo yum install git-core</code></li>
+</ul>
+<blockquote>
+<p>Mac 用户</p>
+<p>如果在编译时可能会遇到问题，请先到 App Store 安装 Xcode，Xcode 完成后，启动并进入 <strong>Preferences -&gt; Download -&gt; Command Line Tools -&gt; Install</strong> 安装命令行工具。</p>
+</blockquote>
+<blockquote>
+<p>Windows 用户</p>
+<p>对于中国大陆地区用户，可以前往 <a target="_blank" rel="noopener" href="https://npm.taobao.org/mirrors/git-for-windows/">淘宝 Git for Windows 镜像</a> 下载 git 安装包。</p>
+</blockquote>
+<h2 id="创建Github-pages-仓库"><a href="#创建Github-pages-仓库" class="headerlink" title="创建Github pages 仓库"></a>创建Github pages 仓库</h2><p>创建一个<code>xxx.github.io</code>的 public 仓库，这里的xxx写你的名字，比如我写的是 <a target="_blank" rel="noopener" href="https://smithkenny.github.io/">Smithkenny.github.io</a>,那么到时我就可以通过 <code>Smithkenny.github.io</code> 来访问我的网站了。 创建完成之后，那么你就有自己的 Git 地址了。</p>
+<p>安装hexo-deployer-git</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> Smithkenny.github.io</span><br><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置你的Git"><a href="#配置你的Git" class="headerlink" title="配置你的Git"></a>配置你的Git</h3><p>打开你的配置文件<code>_config.yml</code>：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  <span class="built_in">type</span>: git</span><br><span class="line">  repo: https://github.com/xxx/xxx.github.io.git // 输入你的git地址</span><br></pre></td></tr></table></figure>
+
+<p>github地址查看：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/public-%E5%9C%B0%E5%9D%80.webp" alt="public-地址"></p>
+<h3 id="推送你的网站到Github上"><a href="#推送你的网站到Github上" class="headerlink" title="推送你的网站到Github上"></a>推送你的网站到Github上</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo d</span><br><span class="line"><span class="comment"># d 就是 deploy，部署上去的意思。</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="访问你的网站"><a href="#访问你的网站" class="headerlink" title="访问你的网站"></a>访问你的网站</h3><p>直接在浏览器输入你的 <code>xxx.github.io</code> 就可以访问了。</p>
+<h4 id="绑定自己的域名"><a href="#绑定自己的域名" class="headerlink" title="绑定自己的域名"></a><strong>绑定自己的域名</strong></h4><h5 id="添加-CNAME-文件"><a href="#添加-CNAME-文件" class="headerlink" title="添加 CNAME 文件"></a>添加 CNAME 文件</h5><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 进入sources</span></span><br><span class="line"><span class="built_in">cd</span> sources</span><br><span class="line"><span class="comment"># 创建CNAME文件，写入自己的域名，如：www.haipengv.com</span></span><br><span class="line"><span class="built_in">touch</span> CNAME</span><br></pre></td></tr></table></figure>
+
+<h5 id="在你的域名商后台进行-DNS-解析添加两条记录"><a href="#在你的域名商后台进行-DNS-解析添加两条记录" class="headerlink" title="在你的域名商后台进行 DNS 解析添加两条记录"></a>在你的域名商后台进行 DNS 解析添加两条记录</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">主机记录： @</span><br><span class="line">  记录类型：A</span><br><span class="line">  记录值：ip1 或者 ip2</span><br><span class="line">主机记录： www</span><br><span class="line">  记录类型： CNAME</span><br><span class="line">  记录值： Smithkenny.github.io  (这里就是你的github仓库名称)</span><br></pre></td></tr></table></figure>
+
+<h3 id="GitHub-设置域名"><a href="#GitHub-设置域名" class="headerlink" title="GitHub 设置域名"></a>GitHub 设置域名</h3><p>在你的 GitHub 设置域名，在你的 GitHub 博客项目中点击 Settings，在 GitHub Pages 下的 Custom domain 写上你的域名，然后 save。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/github%E5%9F%9F%E5%90%8D%E7%BB%91%E5%AE%9A.webp" alt="github域名绑定"></p>
+<h3 id="自动部署"><a href="#自动部署" class="headerlink" title="自动部署"></a>自动部署</h3><p>根据之前的步骤我们使用 Hexo + <a target="_blank" rel="noopener" href="https://github.com/XPoet/hexo-theme-keep">Keep</a> 主题搭建了一个在线博客，下面教你如何使用 GitHub Actions 将博客自动部署到 GitHub Pages。以下内容参考了keep主题作者的<a target="_blank" rel="noopener" href="https://juejin.cn/post/6943895271751286821">博文</a>.</p>
+<h4 id="GitHub-Actions"><a href="#GitHub-Actions" class="headerlink" title="GitHub Actions"></a>GitHub Actions</h4><h5 id="创建-GitHub-仓库"><a href="#创建-GitHub-仓库" class="headerlink" title="创建 GitHub 仓库"></a>创建 GitHub 仓库</h5><p>创建一个<strong>私有仓库</strong>用来存储 Hexo 项目源代码。（保证你的重要信息不泄露）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">myblog-source仓库的master分支用来存放源代码</span><br></pre></td></tr></table></figure>
+
+<p>注意私有仓库默认分支已经变为main。需要更改名称为master</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93%E9%BB%98%E8%AE%A4%E5%90%8D%E7%A7%B0%E6%9B%B4%E6%94%B91.webp" alt="私有仓库默认名称更改1"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93%E9%BB%98%E8%AE%A4%E5%90%8D%E7%A7%B0%E6%9B%B4%E6%94%B92.webp" alt="私有仓库默认名称更改2"></p>
+<p><strong>创建私有仓库</strong></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93%E5%88%9B%E5%BB%BA.webp" alt="私有仓库创建"></p>
+<p><strong>公共仓库</strong>用来存储编译之后的静态页面。（这里就不用在创建仓库了，之前我们部署过github pages到xxx.github.io）</p>
+<p>xxx.github.io这个仓库的master分支用来存储静态文件</p>
+<p>当私有仓库的 <code>master</code> 有内容 <code>push</code> 进来时（例如：主题文件，文章 md 文件、图片等）， 会触发 GitHub Actions 自动编译并部署到公共仓库的 <code>master</code>分支。</p>
+<h5 id="创建-GitHub-Token"><a href="#创建-GitHub-Token" class="headerlink" title="创建 GitHub Token"></a>创建 GitHub Token</h5><ul>
+<li>创建一个有 <strong>repo</strong> 和 <strong>workflow</strong> 权限的 <a target="_blank" rel="noopener" href="https://github.com/settings/tokens/new">GitHub Token</a> 。</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/%E4%B8%AA%E4%BA%BAtoken2.webp" alt="个人token2"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/%E4%B8%AA%E4%BA%BAtoken3.webp" alt="个人token3"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/%E4%B8%AA%E4%BA%BAtoken1.webp" alt="个人token1"></p>
+<ul>
+<li>新生成的 Token 只会显示一次，如有遗失，重新生成即可。</li>
+</ul>
+<h5 id="创建-repository-secret"><a href="#创建-repository-secret" class="headerlink" title="创建 repository secret"></a>创建 repository secret</h5><ul>
+<li>将上面生成的 Token 添加到私有仓库的 <code>Secrets</code> 里，并将这个新增的 <code>secret</code> 命名为 <code>HEXO_DEPLOY</code> （名字无所谓，看你喜欢）。</li>
+<li>步骤：私有仓库 -&gt; <code>settings</code> -&gt; <code>Secrets</code> -&gt; <code>New repository secret</code>。</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93secrets.webp" alt="私有仓库secrets"></p>
+<p>新创建的 secret <code>HEXO_DEPLOY</code> 在 Actions 配置文件要用到，需跟配置文件保持一致！</p>
+<h5 id="添加-Actions-配置文件"><a href="#添加-Actions-配置文件" class="headerlink" title="添加 Actions 配置文件"></a>添加 Actions 配置文件</h5><ol>
+<li>在你的 Hexo 项目根目录下创建 <code>.github</code> 文件夹。</li>
+<li>在 <code>.github</code> 文件夹下创建 <code>workflows</code> 文件夹。</li>
+<li>在 <code>workflows</code> 文件夹下创建 <code>hexo-deploy.yml</code> 文件。</li>
+</ol>
+<p><code>hexo-deploy.yml</code> 文件配置如下：(这里是关键)</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">deploying</span> <span class="string">Hexo</span> <span class="string">project</span> <span class="string">to</span> <span class="string">GitHub</span> <span class="string">pages</span></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">master</span> <span class="comment"># master 分支有 push 行为时就触发这个 action</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">build-and-deploy:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Checkout</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/checkout@master</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Build</span> <span class="string">and</span> <span class="string">Deploy</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">theme-keep/hexo-deploy-github-pages-action@master</span> <span class="comment"># 使用专门部署 Hexo 到 GitHub pages 的 action</span></span><br><span class="line">        <span class="attr">env:</span></span><br><span class="line">          <span class="attr">PERSONAL_TOKEN:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.HEXO_DEPLOY</span> <span class="string">&#125;&#125;</span> <span class="comment"># secret 名</span></span><br><span class="line">          <span class="attr">PUBLISH_REPOSITORY:</span> <span class="string">Smithkenny/Smithkenny.github.io</span> <span class="comment"># 公共仓库，格式：GitHub 用户名/仓库名</span></span><br><span class="line">          <span class="attr">BRANCH:</span> <span class="string">master</span> <span class="comment"># 分支，我这里是推送到Smithkenny/Smithkenny.github.io仓库里的master分支(根据自己的仓库进行填写)</span></span><br><span class="line">          <span class="attr">PUBLISH_DIR:</span> <span class="string">./public</span> <span class="comment"># 部署 public 目录下的文件</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="自动部署触发流程"><a href="#自动部署触发流程" class="headerlink" title="自动部署触发流程"></a>自动部署触发流程</h5><ul>
+<li>修改你的 Hexo 博客源代码（例如：增加文章、修改文章、更改主题、修改主题配置文件等等）。</li>
+<li>把你修改过的 Hexo 项目内容（只提交修改过的那部分内容） <code>push</code> 到 GitHub 公共仓库（本例：Smithkenny.github.io）的 <code>master</code> 分支。</li>
+<li>GitHub Actions 检测到 <code>master</code> 分支有内容 <code>push</code> 进来，会自动执行 action 配置文件的命令，将 Hexo 项目编译成静态页面，然后部署到私有仓库的 <code>master</code> 分支。</li>
+<li>在私有仓库的 Actions 可以查看到你配置的 action。</li>
+<li>这样的好处是源码保存在线上私有仓库中，具有可移植性。更改源码后不用再手动重新部署、上传。</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93action.webp" alt="私有仓库action"></p>
+<h3 id="源码上传"><a href="#源码上传" class="headerlink" title="源码上传"></a><strong>源码上传</strong></h3><h4 id="上传前的准备"><a href="#上传前的准备" class="headerlink" title="上传前的准备"></a>上传前的准备</h4><h5 id="配置ssh-key"><a href="#配置ssh-key" class="headerlink" title="配置ssh key"></a>配置ssh key</h5><p>win10 ssh key 默认在当前用户的.ssh文件夹内。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;xxx@qq.com&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>密钥路径：<br>.ssh\id_rsa.pub 公钥<br>.ssh\id_rsa 私钥</p>
+<h5 id="打开你的github主页，进入个人设置-gt-SSH-and-GPG-keys-gt-New-SSH-key："><a href="#打开你的github主页，进入个人设置-gt-SSH-and-GPG-keys-gt-New-SSH-key：" class="headerlink" title="打开你的github主页，进入个人设置 -&gt; SSH and GPG keys -&gt; New SSH key："></a>打开你的github主页，进入个人设置 -&gt; SSH and GPG keys -&gt; New SSH key：</h5><p>名字：git-push<br>密钥输入<strong>公钥</strong>内容。<br>测试时是否成功：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+
+<h5 id="在网站根路径下右键Git-Bash-Here-通过git-命令来上传源码到私有仓库。"><a href="#在网站根路径下右键Git-Bash-Here-通过git-命令来上传源码到私有仓库。" class="headerlink" title="在网站根路径下右键Git Bash Here,通过git 命令来上传源码到私有仓库。"></a>在网站根路径下右键Git Bash Here,通过git 命令来上传源码到私有仓库。</h5><h5 id="还需要配置："><a href="#还需要配置：" class="headerlink" title="还需要配置："></a>还需要配置：</h5><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;Smithkenny&quot;</span>// 你的github用户名，非昵称</span><br><span class="line">git config --global user.email  <span class="string">&quot;xxx@qq.com&quot;</span>// 填写你的github注册邮箱</span><br></pre></td></tr></table></figure>
+
+<h3 id="上传源码"><a href="#上传源码" class="headerlink" title="上传源码"></a><strong>上传源码</strong></h3><h4 id="初始化git"><a href="#初始化git" class="headerlink" title="初始化git"></a>初始化git</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
+
+<h4 id="将改动添加到暂存区"><a href="#将改动添加到暂存区" class="headerlink" title="将改动添加到暂存区"></a>将改动添加到暂存区</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add . </span><br></pre></td></tr></table></figure>
+
+<h4 id="添加说明"><a href="#添加说明" class="headerlink" title="添加说明"></a>添加说明</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m <span class="string">&quot;代码上传&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="将本地更改推送到远程master分支"><a href="#将本地更改推送到远程master分支" class="headerlink" title="将本地更改推送到远程master分支"></a>将本地更改推送到远程master分支</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意</strong></p>
+<p>如果报错，说明本地仓库代码和私有仓库代码不一致，可以用以下方式解决。</p>
+<p>先从私有库（myblog-source）把代码拉下来，会自动合并的（不用操心）</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull origin master</span><br></pre></td></tr></table></figure>
+
+<p>可以通过如下命令进行代码合并</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull --rebase origin master </span><br></pre></td></tr></table></figure>
+
+<p>再将本地更改推送到远程master分支</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin master </span><br></pre></td></tr></table></figure>
+
+<p>每次新增、修改文章都需要执行以下代码一次：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add . （将改动添加到暂存区）</span><br><span class="line">git commit -m <span class="string">&quot;提交说明&quot;</span></span><br><span class="line">git push origin master 将本地更改推送到远程master分支。</span><br></pre></td></tr></table></figure>
+
+<p>然后私有仓库中的action检测到有代码改动会自动重新部署。</p>
+<h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a><strong>总结：</strong></h3><p>笔记本生成id_rsa是私钥，id_rsa.pub是公钥。公钥可以用记事本打开<br>配置路径：github网站–&gt;Settings–&gt;SSH and GPG keys 配置公钥。用于笔记本和github连接。<br>github action 执行流程，公共仓展示静态页面，私有仓保存文章，源代码等等。action检测到私有仓库内变动，会自动打包部署到公共仓。不用在笔记本本地再部署，上传。</p>
+<p>上传代码需要用笔记本创建的私钥和私有仓库中secrects 中的公钥进行匹配。</p>
+<p>hexo g 会在网站的根路径下创建public目录和db.json</p>
+<p>hexo clean 会删除hexo g 执行后所创建的内容。</p>
+<h3 id="遇到的问题："><a href="#遇到的问题：" class="headerlink" title="遇到的问题："></a><strong>遇到的问题</strong>：</h3><p>源代码上传后，页面使用的主题配置没生效，修改过的配置都没生效，logo也不显示，绑定的自定义域名也失效了。</p>
+<h4 id="解决方法："><a href="#解决方法：" class="headerlink" title="解决方法："></a><strong>解决方法</strong>：</h4><p>在网站根路径下的source文件夹内创建_data文件夹，把keep主题配置 _config.yml复制一份命名为keep.yml。</p>
+<p>如果以后配置有所更改，需要_data文件夹内的keep.yml和keep主题内的 _config.yml文件保持一致。</p>
+<p>source文件夹内新建images 文件夹，用来存放图片。再创建CNAME 文件，文件内填写个人域名。如：haiewebpv.com </p>
+<p>再次上传源码。等待部署完成后查看网站。</p>
+<p>D:\newblog\source\keep.yml 文件为D:\newblog\node_modules\hexo-theme-keep_config.yml的备份文件。平滑升级hexo后<br>_config.yml会重置，所以要备份。</p>
+<p>站点根路径：</p>
+<p>D:\newblog\</p>
+<p>D:\newblog\source 内文件夹：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">_data</span><br><span class="line">_posts</span><br><span class="line">about</span><br><span class="line">categories</span><br><span class="line">images</span><br><span class="line">links</span><br><span class="line"></span><br><span class="line">CNAME <span class="comment"># 文件</span></span><br></pre></td></tr></table></figure>
+
+<p>keep 主题配置文件路径</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">D:\newblog\node_modules\hexo-theme-keep\_config.yml</span><br></pre></td></tr></table></figure>
+
+<p>如何访问网站？</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">https://smithkenny.github.io/</span><br><span class="line">https://haipengcv.com</span><br></pre></td></tr></table></figure>
+
+<h3 id="新上传文章流程"><a href="#新上传文章流程" class="headerlink" title="新上传文章流程"></a><strong>新上传文章流程</strong></h3><h4 id="在网站根目录内，右键git-bash-here-并创建文章标题"><a href="#在网站根目录内，右键git-bash-here-并创建文章标题" class="headerlink" title="在网站根目录内，右键git bash here 并创建文章标题"></a>在网站根目录内，右键git bash here 并创建文章标题</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new title <span class="string">&quot;new-article&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>上述命令的结果是在 <code>./hexo/source/_posts</code> 路径下新建了一个 new-article.md&#96; 文件。</p>
+<h4 id="进入到-x2F-source-x2F-posts内编辑文章内容。"><a href="#进入到-x2F-source-x2F-posts内编辑文章内容。" class="headerlink" title="进入到&#x2F;source&#x2F;_posts内编辑文章内容。"></a>进入到&#x2F;source&#x2F;_posts内编辑文章内容。</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> <span class="built_in">source</span>/_posts</span><br><span class="line">vim new-article.md</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line">title: new-article</span><br><span class="line"><span class="built_in">date</span>: 2022-01-01 18:11:25</span><br><span class="line">tags:</span><br><span class="line">categories：</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<p>也可以用typora打开，直接编辑。也可以创建分类categories 便于搜索。</p>
+<h3 id="博客中的图片处理"><a href="#博客中的图片处理" class="headerlink" title="博客中的图片处理"></a><strong>博客中的图片处理</strong></h3><p>有以下两种方式保存图片：</p>
+<h4 id="将图片上传到网站根路径source-x2F-images中，在文章中引用相对路径。"><a href="#将图片上传到网站根路径source-x2F-images中，在文章中引用相对路径。" class="headerlink" title="将图片上传到网站根路径source&#x2F;images中，在文章中引用相对路径。"></a>将图片上传到网站根路径source&#x2F;images中，在文章中引用相对路径。</h4><h4 id="使用网路路径，然后在文章中引用该路径。"><a href="#使用网路路径，然后在文章中引用该路径。" class="headerlink" title="使用网路路径，然后在文章中引用该路径。"></a>使用网路路径，然后在文章中引用该路径。</h4><p><strong>下面来说明如何使用网路路径</strong>：</p>
+<p>搭建个人图床，使用github公有仓库充当云存储。新建公有仓库，起名为Myimage。</p>
+<p>并在仓库内创建一个img文件夹并加以说明。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/%E5%9B%BE%E5%BA%8A1.webp" alt="图床1"></p>
+<h5 id="创建个人访问令牌"><a href="#创建个人访问令牌" class="headerlink" title="创建个人访问令牌"></a><strong>创建个人访问令牌</strong></h5><p>获取路径</p>
+<p><strong>Settings</strong> –&gt; <strong>Developer settings</strong>–&gt; <strong>Personal access tokens</strong> –&gt; <strong>New personal access token</strong> –&gt; <strong>copy token</strong></p>
+<h5 id="jsdelivr充当cdn，使图片访问更快"><a href="#jsdelivr充当cdn，使图片访问更快" class="headerlink" title="jsdelivr充当cdn，使图片访问更快"></a><strong>jsdelivr充当cdn，使图片访问更快</strong></h5><p><a target="_blank" rel="noopener" href="https://www.jsdelivr.com/?docs=gh">https://www.jsdelivr.com/?docs=gh</a></p>
+<p>获取cdn地址</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/cdn1.webp" alt="cdn1"></p>
+<p><strong>举例：</strong></p>
+<p>我的这个图床仓库名是Smithkenny&#x2F;Myimage</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/Smithkenny/Myimage">https://github.com/Smithkenny/Myimage</a></p>
+<p><strong>cdn地址为：</strong></p>
+<p><a target="_blank" rel="noopener" href="https://fastly.jsdelivr.net/gh/Smithkenny/Myimage/img/%E5%9B%BE%E7%89%87%E5%90%8D%E7%A7%B0.webp">https://fastly.jsdelivr.net/gh/Smithkenny/Myimage/img/图片名称.webp</a></p>
+<p><strong>使用picGo充当图片git push 工具</strong></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/PicGo">https://github.com/Molunerfinn/PicGo</a></p>
+<p>安装地址：<a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/PicGo/releases">https://github.com/Molunerfinn/PicGo/releases</a></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/picgo.webp" alt="picgo"></p>
+<h4 id="配置picGo"><a href="#配置picGo" class="headerlink" title="配置picGo"></a><strong>配置picGo</strong></h4><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/picgo1.webp" alt="picgo1"></p>
+<p>将github图床设置为默认图床。</p>
+<h5 id="上传图片处理"><a href="#上传图片处理" class="headerlink" title="上传图片处理"></a><strong>上传图片处理</strong></h5><p>PicGo支持批量和单个的图片上传</p>
+<ul>
+<li>批量上传，把图片批量拖拽到大红框</li>
+<li>单个上传，复制后，点击小红框</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/picgo2.webp" alt="picgo2"></p>
+<p>文章中使用图床中的图片格式</p>
+<p>中括号小括号</p>
+<h3 id="后记"><a href="#后记" class="headerlink" title="后记"></a><strong>后记</strong></h3><p><strong>keep</strong>主题相关设置</p>
+<p>设置标题、作者、url自定义logo、背景图片。开启百分比滚动条。添加个人联系方式。增加categories、links、about。开启文章预览。字数统计、作者标签。文章中代码可复制、启用左侧目录。开启文章最下方版权所有，开启全局搜索功能、开启rss订阅、cdn、慢加载功能。</p>
+<h3 id="更换电脑如何上传文章到GitHub"><a href="#更换电脑如何上传文章到GitHub" class="headerlink" title="更换电脑如何上传文章到GitHub"></a>更换电脑如何上传文章到GitHub</h3><h4 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h4><p>新电脑需要安装git、hexo。并把旧电脑用户目录下.ssh文件夹内公钥和私钥复制出来到新电脑的用户目录的.ssh文件夹内。</p>
+<h4 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h4><p>创建myblog文件夹</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/e/myblog</span><br></pre></td></tr></table></figure>
+
+<p>右键git bush here。初始化git，会自动在&#x2F;e&#x2F;myblog目录内创建.git文件夹</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init </span><br></pre></td></tr></table></figure>
+
+<p>测试笔记本到GitHub私有仓库的连通性。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br><span class="line"></span><br><span class="line">Hi Smithkenny! You<span class="string">&#x27;ve successfully authenticated, but GitHub does not provide shell access.</span></span><br></pre></td></tr></table></figure>
+
+<p>添加信息</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;Smithkenny&quot;</span>// 你的github用户名，非昵称</span><br><span class="line">git config --global user.email  <span class="string">&quot;xxx@qq.com&quot;</span>// 填写你的github注册邮箱</span><br></pre></td></tr></table></figure>
+
+<p>配置远端仓库并远程拉取源代码到本地</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin git@github.com:Smithkenny/myblog-source.git</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">git pull origin master</span><br><span class="line"></span><br><span class="line">remote: Enumerating objects: 345, <span class="keyword">done</span>.</span><br><span class="line">remote: Counting objects: 100% (345/345), <span class="keyword">done</span>.</span><br><span class="line">remote: Compressing objects: 100% (248/248), <span class="keyword">done</span>.</span><br><span class="line">remote: Total 345 (delta 167), reused 231 (delta 71), pack-reused 0</span><br><span class="line">Receiving objects: 100% (345/345), 1.87 MiB | 105.00 KiB/s, <span class="keyword">done</span>.</span><br><span class="line">Resolving deltas: 100% (167/167), <span class="keyword">done</span>.</span><br><span class="line">From github.com:Smithkenny/myblog-source</span><br><span class="line"> * branch            master     -&gt; FETCH_HEAD</span><br><span class="line"> * [new branch]      master     -&gt; origin/master</span><br></pre></td></tr></table></figure>
+
+<p>然后就可以修改文章，最后上传文章了。步骤见新文章上传流程。</p>
+<h4 id="报错信息"><a href="#报错信息" class="headerlink" title="报错信息"></a>报错信息</h4><p>使用拉取源码到本地时，当本地的环境和远端环境中某些文件名字相同内容不同时，会出现远端部分文件拉取失败。此时只要删除提示中本地的文件，再次执行拉取命令即可。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">git pull origin master</span><br><span class="line"></span><br><span class="line">remote: Enumerating objects: 360, <span class="keyword">done</span>.</span><br><span class="line">remote: Counting objects: 100% (360/360), <span class="keyword">done</span>.</span><br><span class="line">remote: Compressing objects: 100% (256/256), <span class="keyword">done</span>.</span><br><span class="line">remote: Total 360 (delta 178), reused 242 (delta 78), pack-reused 0</span><br><span class="line">Receiving objects: 100% (360/360), 1.87 MiB | 1.33 MiB/s, <span class="keyword">done</span>.</span><br><span class="line">Resolving deltas: 100% (178/178), <span class="keyword">done</span>.</span><br><span class="line">From github.com:Smithkenny/myblog-source</span><br><span class="line"> * branch            master     -&gt; FETCH_HEAD</span><br><span class="line"> * [new branch]      master     -&gt; origin/master</span><br><span class="line">error: The following untracked working tree files would be overwritten by merge:</span><br><span class="line">        .github/dependabot.yml</span><br><span class="line">        .gitignore</span><br><span class="line">        _config.landscape.yml</span><br><span class="line">        _config.yml</span><br><span class="line">        package-lock.json</span><br><span class="line">        package.json</span><br><span class="line">        scaffolds/draft.md</span><br><span class="line">        scaffolds/page.md</span><br><span class="line">        scaffolds/post.md</span><br><span class="line">        themes/.gitkeep</span><br><span class="line">Please move or remove them before you merge.</span><br><span class="line">Aborting</span><br></pre></td></tr></table></figure>
+
+<p>清空github上私有仓库源代码，将本地重新创建好的博客源码上传到远端私有仓库。</p>
+<h4 id="github-actions报错"><a href="#github-actions报错" class="headerlink" title="github actions报错"></a>github actions报错</h4><p>需要重新创建博客源码文件夹，重复以下操作。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">1.初始化博客文件夹,如果初始化缓慢需要设置代理。</span><br><span class="line"><span class="comment">#$ export http_proxy=http://&lt;Windows 主机的 IP 地址&gt;:&lt;代理端口&gt;</span></span><br><span class="line"><span class="comment">#$ export https_proxy=http://&lt;Windows 主机的 IP 地址&gt;:&lt;代理端口&gt;</span></span><br><span class="line"><span class="comment">#使用下面的命令取消代理：</span></span><br><span class="line"><span class="comment">#$ unset http_proxy https_proxy</span></span><br><span class="line">hexo init myblog-source</span><br><span class="line">2.进入到目录</span><br><span class="line"><span class="built_in">cd</span> myblog-source</span><br><span class="line">npm install</span><br><span class="line">3.将旧文件夹内_config.yaml复制到myblog-source内</span><br><span class="line">4.下载主题，使用keep主题</span><br><span class="line">npm install hexo-theme-keep</span><br><span class="line">5.重新生成和运行</span><br><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo s</span><br><span class="line">6.创建标题、分类、归档、友联、关于，在Myblog-source\<span class="built_in">source</span>内新建images文件夹，并分别在旧文件夹下对应位置将内容复制到新博客内</span><br><span class="line">hexo new page <span class="string">&quot;categories&quot;</span></span><br><span class="line">hexo new page <span class="string">&quot;about&quot;</span></span><br><span class="line">hexo new page <span class="string">&quot;links&quot;</span></span><br><span class="line">7.将旧文件夹<span class="built_in">source</span>\_data复制到\Myblog-source\<span class="built_in">source</span>\_data内</span><br><span class="line">8.将旧文件夹\node_modules\hexo-theme-keep中_config.yml复制到新博客路径\Myblog-source\node_modules\hexo-theme-keep内</span><br><span class="line">9.将旧文件夹根路径下CNAME文件复制到新博客根路径下</span><br><span class="line">10.在新博客文件夹内初始化git，会生成.git文件夹。</span><br><span class="line">git init</span><br><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">&quot;代码上传&quot;</span></span><br><span class="line">git push origin master</span><br><span class="line">如果报以下错误：Github <span class="string">&quot;Updates were rejected because the remote contains work that you do not have locally.&quot;</span></span><br><span class="line">则：</span><br><span class="line">查看git远程仓库</span><br><span class="line">git remote -v</span><br><span class="line">没有则使用以下命令添加：</span><br><span class="line">git remote add origin [//your github url]</span><br><span class="line">拉取远程仓库镜像</span><br><span class="line">git pull origin master --allow-unrelated-histories</span><br><span class="line">10.然后再执行以下命令推送到仓库</span><br><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">&quot;代码上传&quot;</span></span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+
+<p>报错解决<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/18328800/github-updates-were-rejected-because-the-remote-contains-work-that-you-do-not-h">参考</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://blog.haipengv.com">Haipeng</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://blog.haipengv.com/2022/01/02/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E5%BB%BA%E7%AB%99%E5%85%A8%E8%BF%87%E7%A8%8B/">https://blog.haipengv.com/2022/01/02/个人博客建站全过程/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.haipengv.com" target="_blank">Peng's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%BB%BA%E7%AB%99%E8%BF%87%E7%A8%8B/">建站过程</a></div><div class="post_share"><div class="social-share" data-image="/img/postimages/article5.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/01/02/ssh%E7%9B%B8%E5%85%B3%E8%AF%B4%E6%98%8E/" title="ssh相关说明"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/lighthouse.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">ssh相关说明</div></div></a></div><div class="next-post pull-right"><a href="/2022/01/02/%E4%B8%AA%E4%BA%BA%E5%9F%9F%E5%90%8D%E6%B3%A8%E5%86%8C%E8%B4%AD%E4%B9%B0%E6%95%99%E7%A8%8B/" title="个人域名注册购买教程"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/article11.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">个人域名注册购买教程</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/logo.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Haipeng</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">109</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">31</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Smithkenny"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Smithkenny" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%80%E6%9C%AF%E9%80%89%E5%9E%8B"><span class="toc-number">1.</span> <span class="toc-text">技术选型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA"><span class="toc-number">1.1.</span> <span class="toc-text">开始搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85node"><span class="toc-number">1.1.1.</span> <span class="toc-text">安装node</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Hexo"><span class="toc-number">1.1.2.</span> <span class="toc-text">安装 Hexo</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E5%8D%9A%E5%AE%A2%E7%9B%AE%E5%BD%95"><span class="toc-number">1.1.3.</span> <span class="toc-text">初始化博客目录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E5%AE%8C%E6%88%90%E5%90%8E%EF%BC%8C%E6%88%91%E4%BB%AC%E5%B0%B1%E8%BF%9B%E5%85%A5%E6%88%91%E4%BB%AC%E7%9A%84%E7%9B%AE%E5%BD%95"><span class="toc-number">1.1.4.</span> <span class="toc-text">初始化完成后，我们就进入我们的目录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">1.1.5.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#clean%E4%B8%80%E4%B8%8B%EF%BC%8C%E7%84%B6%E5%90%8E%E7%94%9F%E6%88%90%E9%9D%99%E6%80%81%E9%A1%B5%E9%9D%A2"><span class="toc-number">1.1.6.</span> <span class="toc-text">clean一下，然后生成静态页面</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8A%8A%E4%BD%A0%E7%9A%84%E7%BD%91%E7%AB%99%E8%BF%90%E8%A1%8C%E8%B5%B7%E6%9D%A5"><span class="toc-number">1.1.7.</span> <span class="toc-text">把你的网站运行起来</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E9%A2%98%E9%80%89%E6%8B%A9"><span class="toc-number">2.</span> <span class="toc-text">主题选择</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E4%B8%80%E4%B8%AA%E4%B8%BB%E9%A2%98"><span class="toc-number">2.1.</span> <span class="toc-text">选择一个主题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E4%B8%BB%E9%A2%98"><span class="toc-number">2.1.1.</span> <span class="toc-text">下载主题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E4%B8%BB%E9%A2%98"><span class="toc-number">2.1.2.</span> <span class="toc-text">配置主题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%87%8D%E6%96%B0%E7%94%9F%E6%88%90%E5%92%8C%E8%BF%90%E8%A1%8C"><span class="toc-number">2.1.3.</span> <span class="toc-text">重新生成和运行</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0%E5%88%9B%E5%BB%BA"><span class="toc-number">3.</span> <span class="toc-text">博客文章创建</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4%E5%BD%A2%E5%BC%8F"><span class="toc-number">3.1.</span> <span class="toc-text">命令形式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B4%E6%8E%A5%E6%96%B0%E5%BB%BA%E6%96%B9%E5%BC%8F"><span class="toc-number">3.2.</span> <span class="toc-text">直接新建方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%93%E4%B8%8A%E6%A0%87%E7%AD%BE"><span class="toc-number">3.2.1.</span> <span class="toc-text">打上标签</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E5%88%86%E7%B1%BB"><span class="toc-number">3.2.2.</span> <span class="toc-text">添加分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F"><span class="toc-number">3.2.3.</span> <span class="toc-text">添加评论系统</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2%E5%88%B0%E7%BA%BF%E4%B8%8A"><span class="toc-number">3.2.4.</span> <span class="toc-text">部署到线上</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Git"><span class="toc-number">4.</span> <span class="toc-text">安装 Git</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BAGithub-pages-%E4%BB%93%E5%BA%93"><span class="toc-number">5.</span> <span class="toc-text">创建Github pages 仓库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E4%BD%A0%E7%9A%84Git"><span class="toc-number">5.1.</span> <span class="toc-text">配置你的Git</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A8%E9%80%81%E4%BD%A0%E7%9A%84%E7%BD%91%E7%AB%99%E5%88%B0Github%E4%B8%8A"><span class="toc-number">5.2.</span> <span class="toc-text">推送你的网站到Github上</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE%E4%BD%A0%E7%9A%84%E7%BD%91%E7%AB%99"><span class="toc-number">5.3.</span> <span class="toc-text">访问你的网站</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%91%E5%AE%9A%E8%87%AA%E5%B7%B1%E7%9A%84%E5%9F%9F%E5%90%8D"><span class="toc-number">5.3.1.</span> <span class="toc-text">绑定自己的域名</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0-CNAME-%E6%96%87%E4%BB%B6"><span class="toc-number">5.3.1.1.</span> <span class="toc-text">添加 CNAME 文件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9C%A8%E4%BD%A0%E7%9A%84%E5%9F%9F%E5%90%8D%E5%95%86%E5%90%8E%E5%8F%B0%E8%BF%9B%E8%A1%8C-DNS-%E8%A7%A3%E6%9E%90%E6%B7%BB%E5%8A%A0%E4%B8%A4%E6%9D%A1%E8%AE%B0%E5%BD%95"><span class="toc-number">5.3.1.2.</span> <span class="toc-text">在你的域名商后台进行 DNS 解析添加两条记录</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GitHub-%E8%AE%BE%E7%BD%AE%E5%9F%9F%E5%90%8D"><span class="toc-number">5.4.</span> <span class="toc-text">GitHub 设置域名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2"><span class="toc-number">5.5.</span> <span class="toc-text">自动部署</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#GitHub-Actions"><span class="toc-number">5.5.1.</span> <span class="toc-text">GitHub Actions</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA-GitHub-%E4%BB%93%E5%BA%93"><span class="toc-number">5.5.1.1.</span> <span class="toc-text">创建 GitHub 仓库</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA-GitHub-Token"><span class="toc-number">5.5.1.2.</span> <span class="toc-text">创建 GitHub Token</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA-repository-secret"><span class="toc-number">5.5.1.3.</span> <span class="toc-text">创建 repository secret</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0-Actions-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">5.5.1.4.</span> <span class="toc-text">添加 Actions 配置文件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E8%A7%A6%E5%8F%91%E6%B5%81%E7%A8%8B"><span class="toc-number">5.5.1.5.</span> <span class="toc-text">自动部署触发流程</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BA%90%E7%A0%81%E4%B8%8A%E4%BC%A0"><span class="toc-number">5.6.</span> <span class="toc-text">源码上传</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8A%E4%BC%A0%E5%89%8D%E7%9A%84%E5%87%86%E5%A4%87"><span class="toc-number">5.6.1.</span> <span class="toc-text">上传前的准备</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEssh-key"><span class="toc-number">5.6.1.1.</span> <span class="toc-text">配置ssh key</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%89%93%E5%BC%80%E4%BD%A0%E7%9A%84github%E4%B8%BB%E9%A1%B5%EF%BC%8C%E8%BF%9B%E5%85%A5%E4%B8%AA%E4%BA%BA%E8%AE%BE%E7%BD%AE-gt-SSH-and-GPG-keys-gt-New-SSH-key%EF%BC%9A"><span class="toc-number">5.6.1.2.</span> <span class="toc-text">打开你的github主页，进入个人设置 -&gt; SSH and GPG keys -&gt; New SSH key：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9C%A8%E7%BD%91%E7%AB%99%E6%A0%B9%E8%B7%AF%E5%BE%84%E4%B8%8B%E5%8F%B3%E9%94%AEGit-Bash-Here-%E9%80%9A%E8%BF%87git-%E5%91%BD%E4%BB%A4%E6%9D%A5%E4%B8%8A%E4%BC%A0%E6%BA%90%E7%A0%81%E5%88%B0%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93%E3%80%82"><span class="toc-number">5.6.1.3.</span> <span class="toc-text">在网站根路径下右键Git Bash Here,通过git 命令来上传源码到私有仓库。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BF%98%E9%9C%80%E8%A6%81%E9%85%8D%E7%BD%AE%EF%BC%9A"><span class="toc-number">5.6.1.4.</span> <span class="toc-text">还需要配置：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8A%E4%BC%A0%E6%BA%90%E7%A0%81"><span class="toc-number">5.7.</span> <span class="toc-text">上传源码</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96git"><span class="toc-number">5.7.1.</span> <span class="toc-text">初始化git</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B0%86%E6%94%B9%E5%8A%A8%E6%B7%BB%E5%8A%A0%E5%88%B0%E6%9A%82%E5%AD%98%E5%8C%BA"><span class="toc-number">5.7.2.</span> <span class="toc-text">将改动添加到暂存区</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E8%AF%B4%E6%98%8E"><span class="toc-number">5.7.3.</span> <span class="toc-text">添加说明</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B0%86%E6%9C%AC%E5%9C%B0%E6%9B%B4%E6%94%B9%E6%8E%A8%E9%80%81%E5%88%B0%E8%BF%9C%E7%A8%8Bmaster%E5%88%86%E6%94%AF"><span class="toc-number">5.7.4.</span> <span class="toc-text">将本地更改推送到远程master分支</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93%EF%BC%9A"><span class="toc-number">5.8.</span> <span class="toc-text">总结：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9A"><span class="toc-number">5.9.</span> <span class="toc-text">遇到的问题：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95%EF%BC%9A"><span class="toc-number">5.9.1.</span> <span class="toc-text">解决方法：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B0%E4%B8%8A%E4%BC%A0%E6%96%87%E7%AB%A0%E6%B5%81%E7%A8%8B"><span class="toc-number">5.10.</span> <span class="toc-text">新上传文章流程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%A8%E7%BD%91%E7%AB%99%E6%A0%B9%E7%9B%AE%E5%BD%95%E5%86%85%EF%BC%8C%E5%8F%B3%E9%94%AEgit-bash-here-%E5%B9%B6%E5%88%9B%E5%BB%BA%E6%96%87%E7%AB%A0%E6%A0%87%E9%A2%98"><span class="toc-number">5.10.1.</span> <span class="toc-text">在网站根目录内，右键git bash here 并创建文章标题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9B%E5%85%A5%E5%88%B0-x2F-source-x2F-posts%E5%86%85%E7%BC%96%E8%BE%91%E6%96%87%E7%AB%A0%E5%86%85%E5%AE%B9%E3%80%82"><span class="toc-number">5.10.2.</span> <span class="toc-text">进入到&#x2F;source&#x2F;_posts内编辑文章内容。</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%9A%E5%AE%A2%E4%B8%AD%E7%9A%84%E5%9B%BE%E7%89%87%E5%A4%84%E7%90%86"><span class="toc-number">5.11.</span> <span class="toc-text">博客中的图片处理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B0%86%E5%9B%BE%E7%89%87%E4%B8%8A%E4%BC%A0%E5%88%B0%E7%BD%91%E7%AB%99%E6%A0%B9%E8%B7%AF%E5%BE%84source-x2F-images%E4%B8%AD%EF%BC%8C%E5%9C%A8%E6%96%87%E7%AB%A0%E4%B8%AD%E5%BC%95%E7%94%A8%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84%E3%80%82"><span class="toc-number">5.11.1.</span> <span class="toc-text">将图片上传到网站根路径source&#x2F;images中，在文章中引用相对路径。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E7%BD%91%E8%B7%AF%E8%B7%AF%E5%BE%84%EF%BC%8C%E7%84%B6%E5%90%8E%E5%9C%A8%E6%96%87%E7%AB%A0%E4%B8%AD%E5%BC%95%E7%94%A8%E8%AF%A5%E8%B7%AF%E5%BE%84%E3%80%82"><span class="toc-number">5.11.2.</span> <span class="toc-text">使用网路路径，然后在文章中引用该路径。</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%AA%E4%BA%BA%E8%AE%BF%E9%97%AE%E4%BB%A4%E7%89%8C"><span class="toc-number">5.11.2.1.</span> <span class="toc-text">创建个人访问令牌</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#jsdelivr%E5%85%85%E5%BD%93cdn%EF%BC%8C%E4%BD%BF%E5%9B%BE%E7%89%87%E8%AE%BF%E9%97%AE%E6%9B%B4%E5%BF%AB"><span class="toc-number">5.11.2.2.</span> <span class="toc-text">jsdelivr充当cdn，使图片访问更快</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEpicGo"><span class="toc-number">5.11.3.</span> <span class="toc-text">配置picGo</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%E5%A4%84%E7%90%86"><span class="toc-number">5.11.3.1.</span> <span class="toc-text">上传图片处理</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8E%E8%AE%B0"><span class="toc-number">5.12.</span> <span class="toc-text">后记</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E6%8D%A2%E7%94%B5%E8%84%91%E5%A6%82%E4%BD%95%E4%B8%8A%E4%BC%A0%E6%96%87%E7%AB%A0%E5%88%B0GitHub"><span class="toc-number">5.13.</span> <span class="toc-text">更换电脑如何上传文章到GitHub</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87"><span class="toc-number">5.13.1.</span> <span class="toc-text">前期准备</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B7%E4%BD%93%E6%AD%A5%E9%AA%A4"><span class="toc-number">5.13.2.</span> <span class="toc-text">具体步骤</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8A%A5%E9%94%99%E4%BF%A1%E6%81%AF"><span class="toc-number">5.13.3.</span> <span class="toc-text">报错信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#github-actions%E6%8A%A5%E9%94%99"><span class="toc-number">5.13.4.</span> <span class="toc-text">github actions报错</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/05/11/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/" title="前端框架"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/lighthouse.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="前端框架"/></a><div class="content"><a class="title" href="/2023/05/11/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/" title="前端框架">前端框架</a><time datetime="2023-05-11T07:15:44.000Z" title="发表于 2023-05-11 15:15:44">2023-05-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/02/22/docker%E5%88%9B%E5%BB%BA%E4%B8%93%E6%9C%89%E7%BD%91%E5%8D%A1/" title="docker创建专有网卡"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/cat.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="docker创建专有网卡"/></a><div class="content"><a class="title" href="/2023/02/22/docker%E5%88%9B%E5%BB%BA%E4%B8%93%E6%9C%89%E7%BD%91%E5%8D%A1/" title="docker创建专有网卡">docker创建专有网卡</a><time datetime="2023-02-22T01:18:44.000Z" title="发表于 2023-02-22 09:18:44">2023-02-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/02/21/docker%E9%85%8D%E7%BD%AEtab%E8%A1%A5%E5%85%A8%E5%91%BD%E4%BB%A4/" title="docker使用tab自动补全命令"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/article4.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="docker使用tab自动补全命令"/></a><div class="content"><a class="title" href="/2023/02/21/docker%E9%85%8D%E7%BD%AEtab%E8%A1%A5%E5%85%A8%E5%91%BD%E4%BB%A4/" title="docker使用tab自动补全命令">docker使用tab自动补全命令</a><time datetime="2023-02-21T02:38:44.000Z" title="发表于 2023-02-21 10:38:44">2023-02-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/02/20/%E4%BD%BF%E7%94%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E7%99%BB%E5%BD%95linux%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="使用浏览器登录linux服务器"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/article5.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="使用浏览器登录linux服务器"/></a><div class="content"><a class="title" href="/2023/02/20/%E4%BD%BF%E7%94%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E7%99%BB%E5%BD%95linux%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="使用浏览器登录linux服务器">使用浏览器登录linux服务器</a><time datetime="2023-02-20T01:38:44.000Z" title="发表于 2023-02-20 09:38:44">2023-02-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/02/17/centos7.3%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85docker/" title="centos7.3离线安装docker"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/postimages/blue.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="centos7.3离线安装docker"/></a><div class="content"><a class="title" href="/2023/02/17/centos7.3%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85docker/" title="centos7.3离线安装docker">centos7.3离线安装docker</a><time datetime="2023-02-17T05:38:44.000Z" title="发表于 2023-02-17 13:38:44">2023-02-17</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/postimages/article5.webp')"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2023 By Haipeng</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">生命在于折腾!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">简</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="true"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
