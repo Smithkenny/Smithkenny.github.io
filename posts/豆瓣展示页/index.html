@@ -1,0 +1,876 @@
+<!doctype html><html lang=en-us><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>豆瓣电影top250展示页 - My New Hugo Site</title><meta name=Description content="This is my cool site"><meta property="og:title" content="豆瓣电影top250展示页"><meta property="og:description" content="豆瓣展示页 新建flask项目 使用pycharm新建flask项目，项目名为：douban_flask。
+将之前的爬取的movie.db文件放到该项目的根目录下。准备前端页面代码（可以到模板之家下载[http://www.cssmoban.com/cssthemes/9296.shtml]）
+前端代码 下载后解压缩放到static目录下.static目录用于存放网页相关代码。
+目录结构如下：
+douban_flask - static - assets - css - img - js - vendor - templates - test echarts.min.js index.html movie.html score.html team.html temp.html word.html - venv app.py movie.db testCloud.py 新建模板目录templates，在此目录下新建主页文件index.html.可以把temp.html中的内容复制一份到index.html。
+flask路由 开始写路由app.py
+Tips:使用flask下render_template模块可以找到templates目录内的html页面。
+from flask import Flask, render_template import sqlite3 app = Flask(__name__) @app.route('/') def index(): return render_template(&#34;index.html&#34;) @app.route('/index') def home(): # return render_template(&#34;index.html&#34;) return index() @app.route('/movie') def movie(): datalist = [] con = sqlite3."><meta property="og:type" content="article"><meta property="og:url" content="http://example.org/posts/%E8%B1%86%E7%93%A3%E5%B1%95%E7%A4%BA%E9%A1%B5/"><meta property="article:section" content="posts"><meta property="article:published_time" content="2022-08-07T16:02:12+00:00"><meta property="article:modified_time" content="2022-08-07T16:02:12+00:00"><meta property="og:site_name" content="My cool site"><meta name=twitter:card content="summary"><meta name=twitter:title content="豆瓣电影top250展示页"><meta name=twitter:description content="豆瓣展示页 新建flask项目 使用pycharm新建flask项目，项目名为：douban_flask。
+将之前的爬取的movie.db文件放到该项目的根目录下。准备前端页面代码（可以到模板之家下载[http://www.cssmoban.com/cssthemes/9296.shtml]）
+前端代码 下载后解压缩放到static目录下.static目录用于存放网页相关代码。
+目录结构如下：
+douban_flask - static - assets - css - img - js - vendor - templates - test echarts.min.js index.html movie.html score.html team.html temp.html word.html - venv app.py movie.db testCloud.py 新建模板目录templates，在此目录下新建主页文件index.html.可以把temp.html中的内容复制一份到index.html。
+flask路由 开始写路由app.py
+Tips:使用flask下render_template模块可以找到templates目录内的html页面。
+from flask import Flask, render_template import sqlite3 app = Flask(__name__) @app.route('/') def index(): return render_template(&#34;index.html&#34;) @app.route('/index') def home(): # return render_template(&#34;index.html&#34;) return index() @app.route('/movie') def movie(): datalist = [] con = sqlite3."><meta name=application-name content="My cool site"><meta name=apple-mobile-web-app-title content="My cool site"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=http://example.org/posts/%E8%B1%86%E7%93%A3%E5%B1%95%E7%A4%BA%E9%A1%B5/><link rel=prev href=http://example.org/posts/flask%E5%85%A5%E9%97%A8/><link rel=next href=http://example.org/posts/centos8%E9%85%8D%E7%BD%AEyum%E6%BA%90/><link rel=stylesheet href=/css/style.min.css><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"豆瓣电影top250展示页","inLanguage":"en-us","mainEntityOfPage":{"@type":"WebPage","@id":"http:\/\/example.org\/posts\/%E8%B1%86%E7%93%A3%E5%B1%95%E7%A4%BA%E9%A1%B5\/"},"genre":"posts","wordcount":1887,"url":"http:\/\/example.org\/posts\/%E8%B1%86%E7%93%A3%E5%B1%95%E7%A4%BA%E9%A1%B5\/","datePublished":"2022-08-07T16:02:12+00:00","dateModified":"2022-08-07T16:02:12+00:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"Author"},"description":""}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"auto"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"auto"==="dark")&&document.body.setAttribute("theme","dark")</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="My New Hugo Site">My cool site</a></div><div class=menu><div class=menu-inner><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme"><i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="My New Hugo Site">My cool site</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme"><i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>Contents</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">豆瓣电影top250展示页</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=/ title=Author rel=author class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Author</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw" aria-hidden=true></i>&nbsp;<time datetime=2022-08-07>2022-08-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden=true></i>&nbsp;1887 words&nbsp;
+<i class="far fa-clock fa-fw" aria-hidden=true></i>&nbsp;9 minutes&nbsp;</div></div><div class="details toc" id=toc-static data-kept><div class="details-summary toc-title"><span>Contents</span>
+<span><i class="details-icon fas fa-angle-right" aria-hidden=true></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#豆瓣展示页>豆瓣展示页</a><ul><li><a href=#新建flask项目>新建flask项目</a></li><li><a href=#前端代码>前端代码</a></li><li><a href=#flask路由>flask路由</a></li><li><a href=#index>index</a></li><li><a href=#movie>movie</a></li><li><a href=#score>score</a></li><li><a href=#word>word</a></li><li><a href=#team>team</a></li><li><a href=#关于echarts>关于Echarts</a></li><li><a href=#关于wordcloud>关于wordcloud</a></li></ul></li></ul></nav></div></div><div class=content id=content><h2 id=豆瓣展示页>豆瓣展示页</h2><h3 id=新建flask项目>新建flask项目</h3><p>使用<code>pycharm</code>新建<code>flask</code>项目，项目名为：<code>douban_flask</code>。</p><p>将之前的爬取的<code>movie.db</code>文件放到该项目的根目录下。准备前端页面代码（可以到模板之家下载[http://www.cssmoban.com/cssthemes/9296.shtml]）</p><h3 id=前端代码>前端代码</h3><p>下载后解压缩放到<code>static</code>目录下.<code>static</code>目录用于存放网页相关代码。</p><p>目录结构如下：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>douban_flask
+</span></span><span style=display:flex><span><span style=color:#f92672>-</span> static
+</span></span><span style=display:flex><span>  <span style=color:#f92672>-</span> assets
+</span></span><span style=display:flex><span>    <span style=color:#f92672>-</span> css
+</span></span><span style=display:flex><span>    <span style=color:#f92672>-</span> img
+</span></span><span style=display:flex><span>    <span style=color:#f92672>-</span> js
+</span></span><span style=display:flex><span>    <span style=color:#f92672>-</span> vendor
+</span></span><span style=display:flex><span><span style=color:#f92672>-</span> templates
+</span></span><span style=display:flex><span>  <span style=color:#f92672>-</span> test
+</span></span><span style=display:flex><span>    echarts<span style=color:#f92672>.</span>min<span style=color:#f92672>.</span>js
+</span></span><span style=display:flex><span>  index<span style=color:#f92672>.</span>html
+</span></span><span style=display:flex><span>  movie<span style=color:#f92672>.</span>html
+</span></span><span style=display:flex><span>  score<span style=color:#f92672>.</span>html
+</span></span><span style=display:flex><span>  team<span style=color:#f92672>.</span>html
+</span></span><span style=display:flex><span>  temp<span style=color:#f92672>.</span>html
+</span></span><span style=display:flex><span>  word<span style=color:#f92672>.</span>html
+</span></span><span style=display:flex><span><span style=color:#f92672>-</span> venv
+</span></span><span style=display:flex><span>  app<span style=color:#f92672>.</span>py
+</span></span><span style=display:flex><span>  movie<span style=color:#f92672>.</span>db
+</span></span><span style=display:flex><span>  testCloud<span style=color:#f92672>.</span>py
+</span></span></code></pre></div><p>新建模板目录<code>templates</code>，在此目录下新建主页文件<code>index.html</code>.可以把<code>temp.html</code>中的内容复制一份到<code>index.html</code>。</p><h3 id=flask路由>flask路由</h3><p>开始写路由<code>app.py</code></p><p>Tips:使用<code>flask</code>下<code>render_template</code>模块可以找到<code>templates</code>目录内的<code>html</code>页面。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>from</span> flask <span style=color:#f92672>import</span> Flask, render_template
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> sqlite3
+</span></span><span style=display:flex><span>app <span style=color:#f92672>=</span> Flask(__name__)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@app.route</span>(<span style=color:#e6db74>&#39;/&#39;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>index</span>():
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> render_template(<span style=color:#e6db74>&#34;index.html&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@app.route</span>(<span style=color:#e6db74>&#39;/index&#39;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>home</span>():
+</span></span><span style=display:flex><span>    <span style=color:#75715e># return render_template(&#34;index.html&#34;)</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> index()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@app.route</span>(<span style=color:#e6db74>&#39;/movie&#39;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>movie</span>():
+</span></span><span style=display:flex><span>    datalist <span style=color:#f92672>=</span> []
+</span></span><span style=display:flex><span>    con <span style=color:#f92672>=</span> sqlite3<span style=color:#f92672>.</span>connect(<span style=color:#e6db74>&#34;movie.db&#34;</span>)
+</span></span><span style=display:flex><span>    cur <span style=color:#f92672>=</span> con<span style=color:#f92672>.</span>cursor()
+</span></span><span style=display:flex><span>    sql <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;select * from movie250&#34;</span>
+</span></span><span style=display:flex><span>    data <span style=color:#f92672>=</span> cur<span style=color:#f92672>.</span>execute(sql)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> item <span style=color:#f92672>in</span> data:
+</span></span><span style=display:flex><span>        datalist<span style=color:#f92672>.</span>append(item)
+</span></span><span style=display:flex><span>    cur<span style=color:#f92672>.</span>close()
+</span></span><span style=display:flex><span>    con<span style=color:#f92672>.</span>close()
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> render_template(<span style=color:#e6db74>&#34;movie.html&#34;</span>, movies <span style=color:#f92672>=</span> datalist)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># return render_template(&#34;movie.html&#34;)</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@app.route</span>(<span style=color:#e6db74>&#39;/score&#39;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>score</span>():
+</span></span><span style=display:flex><span>    score <span style=color:#f92672>=</span> []  <span style=color:#75715e># 评分</span>
+</span></span><span style=display:flex><span>    num <span style=color:#f92672>=</span> []    <span style=color:#75715e># 每个评分所统计出的电影数量</span>
+</span></span><span style=display:flex><span>    con <span style=color:#f92672>=</span> sqlite3<span style=color:#f92672>.</span>connect(<span style=color:#e6db74>&#34;movie.db&#34;</span>)
+</span></span><span style=display:flex><span>    cur <span style=color:#f92672>=</span> con<span style=color:#f92672>.</span>cursor()
+</span></span><span style=display:flex><span>    sql <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;select score,count(score) from movie250 group by score&#34;</span>
+</span></span><span style=display:flex><span>    data <span style=color:#f92672>=</span> cur<span style=color:#f92672>.</span>execute(sql)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> item <span style=color:#f92672>in</span> data:
+</span></span><span style=display:flex><span>        score<span style=color:#f92672>.</span>append(str(item[<span style=color:#ae81ff>0</span>]))
+</span></span><span style=display:flex><span>        num<span style=color:#f92672>.</span>append(item[<span style=color:#ae81ff>1</span>])
+</span></span><span style=display:flex><span>    cur<span style=color:#f92672>.</span>close()
+</span></span><span style=display:flex><span>    con<span style=color:#f92672>.</span>close()
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> render_template(<span style=color:#e6db74>&#34;score.html&#34;</span>, score<span style=color:#f92672>=</span>score, num<span style=color:#f92672>=</span>num)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@app.route</span>(<span style=color:#e6db74>&#39;/word&#39;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>word</span>():
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> render_template(<span style=color:#e6db74>&#34;word.html&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@app.route</span>(<span style=color:#e6db74>&#39;/team&#39;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>team</span>():
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> render_template(<span style=color:#e6db74>&#34;team.html&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> __name__ <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;__main__&#39;</span>:
+</span></span><span style=display:flex><span>    app<span style=color:#f92672>.</span>run()
+</span></span></code></pre></div><p>开始运行<code>flask</code>(可以开启Debug模式，好处是修改的代码会实时更新。关闭则需要重启运行后更改的代码才会生效。)</p><p><strong>注意：</strong></p><p><strong>如果页面只显示文字，没有<code>css</code>效果也不显示图片，查看页面源代码。(谷歌浏览器：右键->检查)查看<code>css样式</code></strong>
+<strong>路径和图片路径是否正确。路径应该和我们的项目<code>douban_flask</code>目录结构一致。更改后，刷新浏览器再次查看效果。</strong></p><p>显示正常后，我们需要展示5个页面，分别是<code>首页</code>、<code>电影</code>、<code>评分</code>、<code>词云</code>、<code>团队</code>。所以将<code>index.html</code>复制4份，分别修改里面的内容，展示对应的数据。对应关系如下：</p><table><thead><tr><th style=text-align:center>首页</th><th style=text-align:center>电影</th><th style=text-align:center>评分</th><th style=text-align:center>词云</th><th style=text-align:center>团队</th></tr></thead><tbody><tr><td style=text-align:center>index.html</td><td style=text-align:center>movie.html</td><td style=text-align:center>score.html</td><td style=text-align:center>word.html</td><td style=text-align:center>team.html</td></tr></tbody></table><h3 id=index>index</h3><p>先做主页<code>index.html</code>，仔细观察源码发现网页的每一部分都有注释该模块的功能。由于代码太多，可以将同一种功能的代码折叠起来，使用的功能保留，不用的功能可以删除。最终<code>index.html</code>中代码如下：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span><span style=color:#75715e>&lt;!DOCTYPE html&gt;</span>
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>html</span> <span style=color:#a6e22e>lang</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;en&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>head</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>meta</span> <span style=color:#a6e22e>charset</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;utf-8&#34;</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>meta</span> <span style=color:#a6e22e>content</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;width=device-width, initial-scale=1.0&#34;</span> <span style=color:#a6e22e>name</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;viewport&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>title</span>&gt;豆瓣top250数据可视化&lt;/<span style=color:#f92672>title</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>meta</span> <span style=color:#a6e22e>content</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span> <span style=color:#a6e22e>name</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;descriptison&#34;</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>meta</span> <span style=color:#a6e22e>content</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span> <span style=color:#a6e22e>name</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;keywords&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>&lt;!-- Favicons --&gt;</span>
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/img/favicon.png&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;icon&#34;</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/img/apple-touch-icon.png&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;apple-touch-icon&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>&lt;!-- Google Fonts --&gt;</span>
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,600,600i,700,700i,900&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;stylesheet&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>&lt;!-- Vendor CSS Files --&gt;</span>
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/bootstrap/css/bootstrap.min.css&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;stylesheet&#34;</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/icofont/icofont.min.css&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;stylesheet&#34;</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/boxicons/css/boxicons.min.css&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;stylesheet&#34;</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/animate.css/animate.min.css&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;stylesheet&#34;</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/venobox/venobox.css&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;stylesheet&#34;</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/aos/aos.css&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;stylesheet&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>&lt;!-- Template Main CSS File --&gt;</span>
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/css/style.css&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;stylesheet&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>head</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>body</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>&lt;!-- ======= Top Bar ======= --&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>&lt;!-- ======= Header ======= --&gt;</span>
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>header</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;header&#34;</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;container&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>      &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;logo float-left&#34;</span>&gt;
+</span></span><span style=display:flex><span>        &lt;<span style=color:#f92672>h1</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;text-light&#34;</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;index&#34;</span>&gt;&lt;<span style=color:#f92672>span</span>&gt;豆瓣电影&lt;/<span style=color:#f92672>span</span>&gt;&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>h1</span>&gt;
+</span></span><span style=display:flex><span>        <span style=color:#75715e>&lt;!-- Uncomment below if you prefer to use an image logo --&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>&lt;!-- &lt;a href=&#34;temp.html&#34;&gt;&lt;img src=&#34;static/assets/img/logo.png&#34; alt=&#34;&#34; class=&#34;img-fluid&#34;&gt;&lt;/a&gt;--&gt;</span>
+</span></span><span style=display:flex><span>      &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>      &lt;<span style=color:#f92672>nav</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;nav-menu float-right d-none d-lg-block&#34;</span>&gt;
+</span></span><span style=display:flex><span>        &lt;<span style=color:#f92672>ul</span>&gt;
+</span></span><span style=display:flex><span>          &lt;<span style=color:#f92672>li</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;active&#34;</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/index&#34;</span>&gt;首页 &lt;<span style=color:#f92672>i</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;la la-angle-down&#34;</span>&gt;&lt;/<span style=color:#f92672>i</span>&gt;&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
+</span></span><span style=display:flex><span>          &lt;<span style=color:#f92672>li</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/movie&#34;</span>&gt;电影&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
+</span></span><span style=display:flex><span>          &lt;<span style=color:#f92672>li</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/score&#34;</span>&gt;评分&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
+</span></span><span style=display:flex><span>          &lt;<span style=color:#f92672>li</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/word&#34;</span>&gt;词云&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
+</span></span><span style=display:flex><span>          &lt;<span style=color:#f92672>li</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/team&#34;</span>&gt;团队&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        &lt;/<span style=color:#f92672>ul</span>&gt;
+</span></span><span style=display:flex><span>      &lt;/<span style=color:#f92672>nav</span>&gt;<span style=color:#75715e>&lt;!-- .nav-menu --&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>  &lt;/<span style=color:#f92672>header</span>&gt;<span style=color:#75715e>&lt;!-- End Header --&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!-- ======= Our Team Section ======= --&gt;</span>
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>section</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;team&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;team&#34;</span>&gt;
+</span></span><span style=display:flex><span>      &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;container&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;section-title&#34;</span>&gt;
+</span></span><span style=display:flex><span>          &lt;<span style=color:#f92672>h2</span>&gt;豆瓣电影top250数据分析&lt;/<span style=color:#f92672>h2</span>&gt;
+</span></span><span style=display:flex><span>          &lt;<span style=color:#f92672>p</span>&gt;应用Python爬虫Flask框架、Echarts、WordCloud等技术实现&lt;/<span style=color:#f92672>p</span>&gt;
+</span></span><span style=display:flex><span>        &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            <span style=color:#75715e>&lt;!-- ======= Counts Section ======= --&gt;</span>
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>section</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;counts section-bg&#34;</span>&gt;
+</span></span><span style=display:flex><span>      &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;container&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;row&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>          &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;col-lg-3 col-md-6 text-center&#34;</span> <span style=color:#a6e22e>data-aos</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;fade-up&#34;</span>&gt;
+</span></span><span style=display:flex><span>              &lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;/movie&#34;</span>&gt;
+</span></span><span style=display:flex><span>            &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;count-box&#34;</span>&gt;
+</span></span><span style=display:flex><span>              &lt;<span style=color:#f92672>i</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;icofont-simple-smile&#34;</span> <span style=color:#a6e22e>style</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;color: #20b38e;&#34;</span>&gt;&lt;/<span style=color:#f92672>i</span>&gt;
+</span></span><span style=display:flex><span>              &lt;<span style=color:#f92672>span</span> <span style=color:#a6e22e>data-toggle</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;counter-up&#34;</span>&gt;250&lt;/<span style=color:#f92672>span</span>&gt;
+</span></span><span style=display:flex><span>              &lt;<span style=color:#f92672>p</span>&gt;经典电影&lt;/<span style=color:#f92672>p</span>&gt;
+</span></span><span style=display:flex><span>            &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>              &lt;/<span style=color:#f92672>a</span>&gt;
+</span></span><span style=display:flex><span>          &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>          &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;col-lg-3 col-md-6 text-center&#34;</span> <span style=color:#a6e22e>data-aos</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;fade-up&#34;</span> <span style=color:#a6e22e>data-aos-delay</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;200&#34;</span>&gt;
+</span></span><span style=display:flex><span>              &lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;/score&#34;</span>&gt;
+</span></span><span style=display:flex><span>            &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;count-box&#34;</span>&gt;
+</span></span><span style=display:flex><span>              &lt;<span style=color:#f92672>i</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;icofont-document-folder&#34;</span> <span style=color:#a6e22e>style</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;color: #c042ff;&#34;</span>&gt;&lt;/<span style=color:#f92672>i</span>&gt;
+</span></span><span style=display:flex><span>              &lt;<span style=color:#f92672>span</span> <span style=color:#a6e22e>data-toggle</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;counter-up&#34;</span>&gt;1&lt;/<span style=color:#f92672>span</span>&gt;
+</span></span><span style=display:flex><span>              &lt;<span style=color:#f92672>p</span>&gt;评分统计&lt;/<span style=color:#f92672>p</span>&gt;
+</span></span><span style=display:flex><span>            &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>              &lt;/<span style=color:#f92672>a</span>&gt;
+</span></span><span style=display:flex><span>          &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>          &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;col-lg-3 col-md-6 text-center&#34;</span> <span style=color:#a6e22e>data-aos</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;fade-up&#34;</span> <span style=color:#a6e22e>data-aos-delay</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;400&#34;</span>&gt;
+</span></span><span style=display:flex><span>              &lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;/word&#34;</span>&gt;
+</span></span><span style=display:flex><span>            &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;count-box&#34;</span>&gt;
+</span></span><span style=display:flex><span>              &lt;<span style=color:#f92672>i</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;icofont-live-support&#34;</span> <span style=color:#a6e22e>style</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;color: #46d1ff;&#34;</span>&gt;&lt;/<span style=color:#f92672>i</span>&gt;
+</span></span><span style=display:flex><span>              &lt;<span style=color:#f92672>span</span> <span style=color:#a6e22e>data-toggle</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;counter-up&#34;</span>&gt;5693&lt;/<span style=color:#f92672>span</span>&gt;
+</span></span><span style=display:flex><span>              &lt;<span style=color:#f92672>p</span>&gt;词汇统计&lt;/<span style=color:#f92672>p</span>&gt;
+</span></span><span style=display:flex><span>            &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>              &lt;/<span style=color:#f92672>a</span>&gt;
+</span></span><span style=display:flex><span>          &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>          &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;col-lg-3 col-md-6 text-center&#34;</span> <span style=color:#a6e22e>data-aos</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;fade-up&#34;</span> <span style=color:#a6e22e>data-aos-delay</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;600&#34;</span>&gt;
+</span></span><span style=display:flex><span>              &lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;/team&#34;</span>&gt;
+</span></span><span style=display:flex><span>            &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;count-box&#34;</span>&gt;
+</span></span><span style=display:flex><span>              &lt;<span style=color:#f92672>i</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;icofont-users-alt-5&#34;</span> <span style=color:#a6e22e>style</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;color: #ffb459;&#34;</span>&gt;&lt;/<span style=color:#f92672>i</span>&gt;
+</span></span><span style=display:flex><span>              &lt;<span style=color:#f92672>span</span> <span style=color:#a6e22e>data-toggle</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;counter-up&#34;</span>&gt;4&lt;/<span style=color:#f92672>span</span>&gt;
+</span></span><span style=display:flex><span>              &lt;<span style=color:#f92672>p</span>&gt;团队成员&lt;/<span style=color:#f92672>p</span>&gt;
+</span></span><span style=display:flex><span>            &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>              &lt;/<span style=color:#f92672>a</span>&gt;
+</span></span><span style=display:flex><span>          &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>      &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>    &lt;/<span style=color:#f92672>section</span>&gt;<span style=color:#75715e>&lt;!-- End Counts Section --&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>      &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>    &lt;/<span style=color:#f92672>section</span>&gt;<span style=color:#75715e>&lt;!-- End Our Team Section --&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>&lt;!-- ======= Footer ======= --&gt;</span>
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>footer</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;footer&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;container&#34;</span>&gt;
+</span></span><span style=display:flex><span>      &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;copyright&#34;</span>&gt;
+</span></span><span style=display:flex><span>        &amp;copy; Copyright &lt;<span style=color:#f92672>strong</span>&gt;&lt;<span style=color:#f92672>span</span>&gt;Mr.Lee&lt;/<span style=color:#f92672>span</span>&gt;&lt;/<span style=color:#f92672>strong</span>&gt;. All Rights Reserved
+</span></span><span style=display:flex><span>      &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>      &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;credits&#34;</span>&gt;
+</span></span><span style=display:flex><span>      &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>    &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>  &lt;/<span style=color:#f92672>footer</span>&gt;<span style=color:#75715e>&lt;!-- End Footer --&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;#&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;back-to-top&#34;</span>&gt;&lt;<span style=color:#f92672>i</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;icofont-simple-up&#34;</span>&gt;&lt;/<span style=color:#f92672>i</span>&gt;&lt;/<span style=color:#f92672>a</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>&lt;!-- Vendor JS Files --&gt;</span>
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/jquery/jquery.min.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/jquery.easing/jquery.easing.min.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/php-email-form/validate.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/jquery-sticky/jquery.sticky.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/venobox/venobox.min.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/waypoints/jquery.waypoints.min.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/counterup/counterup.min.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/isotope-layout/isotope.pkgd.min.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/aos/aos.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>&lt;!-- Template Main JS File --&gt;</span>
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/js/main.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>body</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>html</span>&gt;
+</span></span></code></pre></div><h3 id=movie>movie</h3><p><code>movie.html</code>电影页面需要连接之前准备好的数据库<code>movie.db</code>，读取里面的<code>sql</code>语句，并以表格的形式显示出来。</p><p>这里使用<code>sqlite3</code>模块来连接数据库。</p><p>实现功能代码见<code>app.py</code>中<code>movie()</code>函数</p><p><code>movie.html</code>网页源码如下：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span><span style=color:#75715e>&lt;!DOCTYPE html&gt;</span>
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>html</span> <span style=color:#a6e22e>lang</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;en&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>head</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>meta</span> <span style=color:#a6e22e>charset</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;utf-8&#34;</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>meta</span> <span style=color:#a6e22e>content</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;width=device-width, initial-scale=1.0&#34;</span> <span style=color:#a6e22e>name</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;viewport&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>title</span>&gt;豆瓣top250数据可视化&lt;/<span style=color:#f92672>title</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>meta</span> <span style=color:#a6e22e>content</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span> <span style=color:#a6e22e>name</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;descriptison&#34;</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>meta</span> <span style=color:#a6e22e>content</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span> <span style=color:#a6e22e>name</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;keywords&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>&lt;!-- Favicons --&gt;</span>
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/img/favicon.png&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;icon&#34;</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/img/apple-touch-icon.png&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;apple-touch-icon&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>&lt;!-- Google Fonts --&gt;</span>
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,600,600i,700,700i,900&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;stylesheet&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>&lt;!-- Vendor CSS Files --&gt;</span>
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/bootstrap/css/bootstrap.min.css&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;stylesheet&#34;</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/icofont/icofont.min.css&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;stylesheet&#34;</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/boxicons/css/boxicons.min.css&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;stylesheet&#34;</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/animate.css/animate.min.css&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;stylesheet&#34;</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/venobox/venobox.css&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;stylesheet&#34;</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/aos/aos.css&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;stylesheet&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>&lt;!-- Template Main CSS File --&gt;</span>
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/css/style.css&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;stylesheet&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>head</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>body</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>&lt;!-- ======= Top Bar ======= --&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>&lt;!-- ======= Header ======= --&gt;</span>
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>header</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;header&#34;</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;container&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>      &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;logo float-left&#34;</span>&gt;
+</span></span><span style=display:flex><span>        &lt;<span style=color:#f92672>h1</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;text-light&#34;</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;index&#34;</span>&gt;&lt;<span style=color:#f92672>span</span>&gt;豆瓣电影&lt;/<span style=color:#f92672>span</span>&gt;&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>h1</span>&gt;
+</span></span><span style=display:flex><span>        <span style=color:#75715e>&lt;!-- Uncomment below if you prefer to use an image logo --&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>&lt;!-- &lt;a href=&#34;temp.html&#34;&gt;&lt;img src=&#34;static/assets/img/logo.png&#34; alt=&#34;&#34; class=&#34;img-fluid&#34;&gt;&lt;/a&gt;--&gt;</span>
+</span></span><span style=display:flex><span>      &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>      &lt;<span style=color:#f92672>nav</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;nav-menu float-right d-none d-lg-block&#34;</span>&gt;
+</span></span><span style=display:flex><span>        &lt;<span style=color:#f92672>ul</span>&gt;
+</span></span><span style=display:flex><span>          &lt;<span style=color:#f92672>li</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;active&#34;</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/index&#34;</span>&gt;首页 &lt;<span style=color:#f92672>i</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;la la-angle-down&#34;</span>&gt;&lt;/<span style=color:#f92672>i</span>&gt;&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
+</span></span><span style=display:flex><span>          &lt;<span style=color:#f92672>li</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/movie&#34;</span>&gt;电影&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
+</span></span><span style=display:flex><span>          &lt;<span style=color:#f92672>li</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/score&#34;</span>&gt;评分&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
+</span></span><span style=display:flex><span>          &lt;<span style=color:#f92672>li</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/word&#34;</span>&gt;词云&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
+</span></span><span style=display:flex><span>          &lt;<span style=color:#f92672>li</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/team&#34;</span>&gt;团队&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        &lt;/<span style=color:#f92672>ul</span>&gt;
+</span></span><span style=display:flex><span>      &lt;/<span style=color:#f92672>nav</span>&gt;<span style=color:#75715e>&lt;!-- .nav-menu --&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>  &lt;/<span style=color:#f92672>header</span>&gt;<span style=color:#75715e>&lt;!-- End Header --&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!-- ======= Our Team Section ======= --&gt;</span>
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>section</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;team&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;team&#34;</span>&gt;
+</span></span><span style=display:flex><span>      &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;container&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;section-title&#34;</span>&gt;
+</span></span><span style=display:flex><span>          &lt;<span style=color:#f92672>h2</span>&gt;豆瓣电影top250电影&lt;/<span style=color:#f92672>h2</span>&gt;
+</span></span><span style=display:flex><span>        &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            <span style=color:#75715e>&lt;!-- ======= Counts Section ======= --&gt;</span>
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>section</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;counts section-bg&#34;</span>&gt;
+</span></span><span style=display:flex><span>      &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;container&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        &lt;<span style=color:#f92672>table</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;table table-striped&#34;</span>&gt;
+</span></span><span style=display:flex><span>            &lt;<span style=color:#f92672>tr</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>td</span>&gt;排名&lt;/<span style=color:#f92672>td</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>td</span>&gt;电影名称&lt;/<span style=color:#f92672>td</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>td</span>&gt;外国名称&lt;/<span style=color:#f92672>td</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>td</span>&gt;评分&lt;/<span style=color:#f92672>td</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>td</span>&gt;评价人数&lt;/<span style=color:#f92672>td</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>td</span>&gt;一句话描述&lt;/<span style=color:#f92672>td</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>td</span>&gt;其他信息&lt;/<span style=color:#f92672>td</span>&gt;
+</span></span><span style=display:flex><span>            &lt;/<span style=color:#f92672>tr</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            {% for movie in movies %}
+</span></span><span style=display:flex><span>               &lt;<span style=color:#f92672>tr</span>&gt;
+</span></span><span style=display:flex><span>               &lt;<span style=color:#f92672>td</span>&gt;{{ movie[0] }}&lt;/<span style=color:#f92672>td</span>&gt;
+</span></span><span style=display:flex><span>               &lt;<span style=color:#f92672>td</span>&gt;
+</span></span><span style=display:flex><span>                    &lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;{{ movie[1] }}&#34;</span>&gt;
+</span></span><span style=display:flex><span>                    {{movie[3]}}
+</span></span><span style=display:flex><span>                    &lt;/<span style=color:#f92672>a</span>&gt;
+</span></span><span style=display:flex><span>                &lt;/<span style=color:#f92672>td</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>td</span>&gt;{{ movie[4] }}&lt;/<span style=color:#f92672>td</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>td</span>&gt;{{ movie[5] }}&lt;/<span style=color:#f92672>td</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>td</span>&gt;{{ movie[6] }}&lt;/<span style=color:#f92672>td</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>td</span>&gt;{{ movie[7] }}&lt;/<span style=color:#f92672>td</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>td</span>&gt;{{ movie[8] }}&lt;/<span style=color:#f92672>td</span>&gt;
+</span></span><span style=display:flex><span>            &lt;/<span style=color:#f92672>tr</span>&gt;
+</span></span><span style=display:flex><span>            {% endfor %}
+</span></span><span style=display:flex><span>        &lt;/<span style=color:#f92672>table</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>      &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>    &lt;/<span style=color:#f92672>section</span>&gt;<span style=color:#75715e>&lt;!-- End Counts Section --&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>      &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>    &lt;/<span style=color:#f92672>section</span>&gt;<span style=color:#75715e>&lt;!-- End Our Team Section --&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>&lt;!-- ======= Footer ======= --&gt;</span>
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>footer</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;footer&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;container&#34;</span>&gt;
+</span></span><span style=display:flex><span>      &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;copyright&#34;</span>&gt;
+</span></span><span style=display:flex><span>        &amp;copy; Copyright &lt;<span style=color:#f92672>strong</span>&gt;&lt;<span style=color:#f92672>span</span>&gt;Mr.Lee&lt;/<span style=color:#f92672>span</span>&gt;&lt;/<span style=color:#f92672>strong</span>&gt;. All Rights Reserved
+</span></span><span style=display:flex><span>      &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>      &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;credits&#34;</span>&gt;
+</span></span><span style=display:flex><span>      &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>    &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>  &lt;/<span style=color:#f92672>footer</span>&gt;<span style=color:#75715e>&lt;!-- End Footer --&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;#&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;back-to-top&#34;</span>&gt;&lt;<span style=color:#f92672>i</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;icofont-simple-up&#34;</span>&gt;&lt;/<span style=color:#f92672>i</span>&gt;&lt;/<span style=color:#f92672>a</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>&lt;!-- Vendor JS Files --&gt;</span>
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/jquery/jquery.min.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/jquery.easing/jquery.easing.min.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/php-email-form/validate.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/jquery-sticky/jquery.sticky.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/venobox/venobox.min.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/waypoints/jquery.waypoints.min.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/counterup/counterup.min.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/isotope-layout/isotope.pkgd.min.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/aos/aos.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>&lt;!-- Template Main JS File --&gt;</span>
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/js/main.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>body</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>html</span>&gt;
+</span></span></code></pre></div><h3 id=score>score</h3><p><code>score.html</code>评分，这里获取数据和电影页面类似，也是需要读取数据库，不过最终是以柱形图的形式展示出来。使用<code>Echarts</code>技术来实现。</p><p>实现功能代码见<code>app.py</code>中<code>score()</code>函数</p><p><code>score.html</code>源码如下：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span><span style=color:#75715e>&lt;!DOCTYPE html&gt;</span>
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>html</span> <span style=color:#a6e22e>lang</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;en&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>head</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>meta</span> <span style=color:#a6e22e>charset</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;utf-8&#34;</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>meta</span> <span style=color:#a6e22e>content</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;width=device-width, initial-scale=1.0&#34;</span> <span style=color:#a6e22e>name</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;viewport&#34;</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/js/echarts.min.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>title</span>&gt;豆瓣top250数据可视化&lt;/<span style=color:#f92672>title</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>meta</span> <span style=color:#a6e22e>content</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span> <span style=color:#a6e22e>name</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;descriptison&#34;</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>meta</span> <span style=color:#a6e22e>content</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span> <span style=color:#a6e22e>name</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;keywords&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>&lt;!-- Favicons --&gt;</span>
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/img/favicon.png&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;icon&#34;</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/img/apple-touch-icon.png&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;apple-touch-icon&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>&lt;!-- Google Fonts --&gt;</span>
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,600,600i,700,700i,900&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;stylesheet&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>&lt;!-- Vendor CSS Files --&gt;</span>
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/bootstrap/css/bootstrap.min.css&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;stylesheet&#34;</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/icofont/icofont.min.css&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;stylesheet&#34;</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/boxicons/css/boxicons.min.css&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;stylesheet&#34;</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/animate.css/animate.min.css&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;stylesheet&#34;</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/venobox/venobox.css&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;stylesheet&#34;</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/aos/aos.css&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;stylesheet&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>&lt;!-- Template Main CSS File --&gt;</span>
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/css/style.css&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;stylesheet&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>head</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>body</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>&lt;!-- ======= Top Bar ======= --&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>&lt;!-- ======= Header ======= --&gt;</span>
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>header</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;header&#34;</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;container&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>      &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;logo float-left&#34;</span>&gt;
+</span></span><span style=display:flex><span>        &lt;<span style=color:#f92672>h1</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;text-light&#34;</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;index&#34;</span>&gt;&lt;<span style=color:#f92672>span</span>&gt;豆瓣电影&lt;/<span style=color:#f92672>span</span>&gt;&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>h1</span>&gt;
+</span></span><span style=display:flex><span>        <span style=color:#75715e>&lt;!-- Uncomment below if you prefer to use an image logo --&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>&lt;!-- &lt;a href=&#34;temp.html&#34;&gt;&lt;img src=&#34;static/assets/img/logo.png&#34; alt=&#34;&#34; class=&#34;img-fluid&#34;&gt;&lt;/a&gt;--&gt;</span>
+</span></span><span style=display:flex><span>      &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>      &lt;<span style=color:#f92672>nav</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;nav-menu float-right d-none d-lg-block&#34;</span>&gt;
+</span></span><span style=display:flex><span>        &lt;<span style=color:#f92672>ul</span>&gt;
+</span></span><span style=display:flex><span>          &lt;<span style=color:#f92672>li</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;active&#34;</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/index&#34;</span>&gt;首页 &lt;<span style=color:#f92672>i</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;la la-angle-down&#34;</span>&gt;&lt;/<span style=color:#f92672>i</span>&gt;&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
+</span></span><span style=display:flex><span>          &lt;<span style=color:#f92672>li</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/movie&#34;</span>&gt;电影&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
+</span></span><span style=display:flex><span>          &lt;<span style=color:#f92672>li</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/score&#34;</span>&gt;评分&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
+</span></span><span style=display:flex><span>          &lt;<span style=color:#f92672>li</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/word&#34;</span>&gt;词云&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
+</span></span><span style=display:flex><span>          &lt;<span style=color:#f92672>li</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/team&#34;</span>&gt;团队&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        &lt;/<span style=color:#f92672>ul</span>&gt;
+</span></span><span style=display:flex><span>      &lt;/<span style=color:#f92672>nav</span>&gt;<span style=color:#75715e>&lt;!-- .nav-menu --&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>  &lt;/<span style=color:#f92672>header</span>&gt;<span style=color:#75715e>&lt;!-- End Header --&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!-- ======= Our Team Section ======= --&gt;</span>
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>section</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;team&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;team&#34;</span>&gt;
+</span></span><span style=display:flex><span>      &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;container&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;section-title&#34;</span>&gt;
+</span></span><span style=display:flex><span>          &lt;<span style=color:#f92672>h2</span>&gt;豆瓣电影top250评分分布图&lt;/<span style=color:#f92672>h2</span>&gt;
+</span></span><span style=display:flex><span>          &lt;<span style=color:#f92672>p</span>&gt;应用Python爬虫Flask框架、Echarts、WordCloud等技术实现&lt;/<span style=color:#f92672>p</span>&gt;
+</span></span><span style=display:flex><span>        &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            <span style=color:#75715e>&lt;!-- ======= Counts Section ======= --&gt;</span>
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>section</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;counts section-bg&#34;</span>&gt;
+</span></span><span style=display:flex><span>      &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;container&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            <span style=color:#75715e>&lt;!-- 为 ECharts 准备一个定义了宽高的 DOM --&gt;</span>
+</span></span><span style=display:flex><span>            &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;main&#34;</span> <span style=color:#a6e22e>style</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;width: 100%;height: 300px;&#34;</span>&gt;&lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>      &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>    &lt;/<span style=color:#f92672>section</span>&gt;<span style=color:#75715e>&lt;!-- End Counts Section --&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>      &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>    &lt;/<span style=color:#f92672>section</span>&gt;<span style=color:#75715e>&lt;!-- End Our Team Section --&gt;</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!-----Echarts-----------&gt;</span>
+</span></span><span style=display:flex><span> &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>type</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;text/javascript&#34;</span>&gt;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>var</span> <span style=color:#a6e22e>dom</span> <span style=color:#f92672>=</span> document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#39;main&#39;</span>);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>var</span> <span style=color:#a6e22e>myChart</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>echarts</span>.<span style=color:#a6e22e>init</span>(<span style=color:#a6e22e>dom</span>, <span style=color:#66d9ef>null</span>, {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>renderer</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;canvas&#39;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>useDirtyRect</span><span style=color:#f92672>:</span> <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>    });
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>var</span> <span style=color:#a6e22e>app</span> <span style=color:#f92672>=</span> {};
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>var</span> <span style=color:#a6e22e>option</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>option</span> <span style=color:#f92672>=</span> {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>title</span><span style=color:#f92672>:</span>{
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>text</span><span style=color:#f92672>:</span><span style=color:#e6db74>&#39;电影评分表&#39;</span>
+</span></span><span style=display:flex><span>  },
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>color</span><span style=color:#f92672>:</span>[<span style=color:#e6db74>&#39;#3398DB&#39;</span>],
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>tooltip</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>trigger</span><span style=color:#f92672>:</span><span style=color:#e6db74>&#39;axis&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>axisPointer</span><span style=color:#f92672>:</span>{
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>type</span><span style=color:#f92672>:</span><span style=color:#e6db74>&#39;shadow&#39;</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  },
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>grid</span><span style=color:#f92672>:</span>{
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>left</span><span style=color:#f92672>:</span><span style=color:#e6db74>&#39;3%&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>right</span><span style=color:#f92672>:</span><span style=color:#e6db74>&#39;4%&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>bottom</span><span style=color:#f92672>:</span><span style=color:#e6db74>&#39;3%&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>containLabel</span><span style=color:#f92672>:</span><span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>  },
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>xAxis</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>type</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;category&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>data</span><span style=color:#f92672>:</span> {{ <span style=color:#a6e22e>score</span><span style=color:#f92672>|</span><span style=color:#a6e22e>tojson</span> }}
+</span></span><span style=display:flex><span>      <span style=color:#75715e>&lt;!--</span><span style=color:#f92672>--</span>[<span style=color:#e6db74>&#39;mon&#39;</span>, <span style=color:#e6db74>&#39;Tue&#39;</span>, <span style=color:#e6db74>&#39;Wed&#39;</span>, <span style=color:#e6db74>&#39;Thu&#39;</span>, <span style=color:#e6db74>&#39;Fri&#39;</span>, <span style=color:#e6db74>&#39;Sat&#39;</span>, <span style=color:#e6db74>&#39;Sun&#39;</span>,<span style=color:#e6db74>&#39;999&#39;</span>]<span style=color:#f92672>-----&gt;</span>
+</span></span><span style=display:flex><span>  },
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>yAxis</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>type</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;value&#39;</span>
+</span></span><span style=display:flex><span>  },
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>series</span><span style=color:#f92672>:</span> [
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>data</span><span style=color:#f92672>:</span> {{ <span style=color:#a6e22e>num</span> }},
+</span></span><span style=display:flex><span>        <span style=color:#75715e>&lt;!--</span><span style=color:#f92672>-</span>[<span style=color:#ae81ff>120</span>, <span style=color:#ae81ff>20</span>, <span style=color:#ae81ff>150</span>, <span style=color:#ae81ff>80</span>, <span style=color:#ae81ff>70</span>, <span style=color:#ae81ff>110</span>, <span style=color:#ae81ff>130</span>,<span style=color:#ae81ff>200</span>],<span style=color:#f92672>-----&gt;</span>
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>barWidth</span><span style=color:#f92672>:</span><span style=color:#e6db74>&#39;60%&#39;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>type</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;bar&#39;</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  ]
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>option</span> <span style=color:#f92672>&amp;&amp;</span> <span style=color:#66d9ef>typeof</span> <span style=color:#a6e22e>option</span> <span style=color:#f92672>===</span> <span style=color:#e6db74>&#39;object&#39;</span>) {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>myChart</span>.<span style=color:#a6e22e>setOption</span>(<span style=color:#a6e22e>option</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    window.<span style=color:#a6e22e>addEventListener</span>(<span style=color:#e6db74>&#39;resize&#39;</span>, <span style=color:#a6e22e>myChart</span>.<span style=color:#a6e22e>resize</span>);
+</span></span><span style=display:flex><span>  &lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>&lt;!-- ======= Footer ======= --&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;#&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;back-to-top&#34;</span>&gt;&lt;<span style=color:#f92672>i</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;icofont-simple-up&#34;</span>&gt;&lt;/<span style=color:#f92672>i</span>&gt;&lt;/<span style=color:#f92672>a</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>&lt;!-- Vendor JS Files --&gt;</span>
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/jquery/jquery.min.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/jquery.easing/jquery.easing.min.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/php-email-form/validate.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/jquery-sticky/jquery.sticky.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/venobox/venobox.min.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/waypoints/jquery.waypoints.min.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/counterup/counterup.min.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/isotope-layout/isotope.pkgd.min.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/aos/aos.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>&lt;!-- Template Main JS File --&gt;</span>
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/js/main.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>body</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>html</span>&gt;
+</span></span></code></pre></div><h3 id=word>word</h3><p><code>word.html</code>词云。使用<code>WordCloud</code>技术，生成一张带有出现频率较高的词汇的图片。原图片是白底的树，根据它来生成词汇树。</p><p><code>word.html</code>源码如下：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span><span style=color:#75715e>&lt;!DOCTYPE html&gt;</span>
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>html</span> <span style=color:#a6e22e>lang</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;en&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>head</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>meta</span> <span style=color:#a6e22e>charset</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;utf-8&#34;</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>meta</span> <span style=color:#a6e22e>content</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;width=device-width, initial-scale=1.0&#34;</span> <span style=color:#a6e22e>name</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;viewport&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>title</span>&gt;豆瓣top250数据可视化&lt;/<span style=color:#f92672>title</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>meta</span> <span style=color:#a6e22e>content</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span> <span style=color:#a6e22e>name</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;descriptison&#34;</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>meta</span> <span style=color:#a6e22e>content</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span> <span style=color:#a6e22e>name</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;keywords&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>&lt;!-- Favicons --&gt;</span>
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/img/favicon.png&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;icon&#34;</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/img/apple-touch-icon.png&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;apple-touch-icon&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>&lt;!-- Google Fonts --&gt;</span>
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,600,600i,700,700i,900&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;stylesheet&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>&lt;!-- Vendor CSS Files --&gt;</span>
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/bootstrap/css/bootstrap.min.css&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;stylesheet&#34;</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/icofont/icofont.min.css&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;stylesheet&#34;</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/boxicons/css/boxicons.min.css&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;stylesheet&#34;</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/animate.css/animate.min.css&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;stylesheet&#34;</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/venobox/venobox.css&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;stylesheet&#34;</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/aos/aos.css&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;stylesheet&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>&lt;!-- Template Main CSS File --&gt;</span>
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/css/style.css&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;stylesheet&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>head</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>body</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>&lt;!-- ======= Header ======= --&gt;</span>
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>header</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;header&#34;</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;container&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>      &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;logo float-left&#34;</span>&gt;
+</span></span><span style=display:flex><span>        &lt;<span style=color:#f92672>h1</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;text-light&#34;</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;index&#34;</span>&gt;&lt;<span style=color:#f92672>span</span>&gt;豆瓣电影&lt;/<span style=color:#f92672>span</span>&gt;&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>h1</span>&gt;
+</span></span><span style=display:flex><span>        <span style=color:#75715e>&lt;!-- Uncomment below if you prefer to use an image logo --&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>&lt;!-- &lt;a href=&#34;temp.html&#34;&gt;&lt;img src=&#34;static/assets/img/logo.png&#34; alt=&#34;&#34; class=&#34;img-fluid&#34;&gt;&lt;/a&gt;--&gt;</span>
+</span></span><span style=display:flex><span>      &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>      &lt;<span style=color:#f92672>nav</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;nav-menu float-right d-none d-lg-block&#34;</span>&gt;
+</span></span><span style=display:flex><span>        &lt;<span style=color:#f92672>ul</span>&gt;
+</span></span><span style=display:flex><span>          &lt;<span style=color:#f92672>li</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;active&#34;</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/index&#34;</span>&gt;首页 &lt;<span style=color:#f92672>i</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;la la-angle-down&#34;</span>&gt;&lt;/<span style=color:#f92672>i</span>&gt;&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
+</span></span><span style=display:flex><span>          &lt;<span style=color:#f92672>li</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/movie&#34;</span>&gt;电影&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
+</span></span><span style=display:flex><span>          &lt;<span style=color:#f92672>li</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/score&#34;</span>&gt;评分&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
+</span></span><span style=display:flex><span>          &lt;<span style=color:#f92672>li</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/word&#34;</span>&gt;词云&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
+</span></span><span style=display:flex><span>          &lt;<span style=color:#f92672>li</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/team&#34;</span>&gt;团队&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        &lt;/<span style=color:#f92672>ul</span>&gt;
+</span></span><span style=display:flex><span>      &lt;/<span style=color:#f92672>nav</span>&gt;<span style=color:#75715e>&lt;!-- .nav-menu --&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>  &lt;/<span style=color:#f92672>header</span>&gt;<span style=color:#75715e>&lt;!-- End Header --&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            <span style=color:#75715e>&lt;!-- ======= About Us Section ======= --&gt;</span>
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>section</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;about&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;about&#34;</span>&gt;
+</span></span><span style=display:flex><span>      &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;container&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;row no-gutters&#34;</span>&gt;
+</span></span><span style=display:flex><span>          &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;col-lg-6 video-box&#34;</span>&gt;
+</span></span><span style=display:flex><span>            &lt;<span style=color:#f92672>img</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/img/word.png&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;img-fluid&#34;</span> <span style=color:#a6e22e>alt</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span>&gt;
+</span></span><span style=display:flex><span>          &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>          &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;col-lg-6 d-flex flex-column justify-content-center about-content&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;section-title&#34;</span>&gt;
+</span></span><span style=display:flex><span>              &lt;<span style=color:#f92672>h2</span>&gt;词频统计&lt;/<span style=color:#f92672>h2</span>&gt;
+</span></span><span style=display:flex><span>              &lt;<span style=color:#f92672>p</span>&gt;根据250部电影的一句话描述，提炼出词云树，可以让我们更加清晰的了解人们对于经典电影的理解&lt;/<span style=color:#f92672>p</span>&gt;
+</span></span><span style=display:flex><span>            &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;icon-box&#34;</span> <span style=color:#a6e22e>data-aos</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;fade-up&#34;</span> <span style=color:#a6e22e>data-aos-delay</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;100&#34;</span>&gt;
+</span></span><span style=display:flex><span>              &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;icon&#34;</span>&gt;&lt;<span style=color:#f92672>i</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;bx bx-gift&#34;</span>&gt;&lt;/<span style=color:#f92672>i</span>&gt;&lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>              &lt;<span style=color:#f92672>h4</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;title&#34;</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span>&gt;关于电影&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>h4</span>&gt;
+</span></span><span style=display:flex><span>              &lt;<span style=color:#f92672>p</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;description&#34;</span>&gt;不知道你从中领悟到了什么&lt;/<span style=color:#f92672>p</span>&gt;
+</span></span><span style=display:flex><span>            &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>          &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>        &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>      &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>    &lt;/<span style=color:#f92672>section</span>&gt;<span style=color:#75715e>&lt;!-- End About Us Section --&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;#&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;back-to-top&#34;</span>&gt;&lt;<span style=color:#f92672>i</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;icofont-simple-up&#34;</span>&gt;&lt;/<span style=color:#f92672>i</span>&gt;&lt;/<span style=color:#f92672>a</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>&lt;!-- Vendor JS Files --&gt;</span>
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/jquery/jquery.min.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/jquery.easing/jquery.easing.min.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/php-email-form/validate.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/jquery-sticky/jquery.sticky.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/venobox/venobox.min.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/waypoints/jquery.waypoints.min.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/counterup/counterup.min.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/isotope-layout/isotope.pkgd.min.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/aos/aos.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>&lt;!-- Template Main JS File --&gt;</span>
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/js/main.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>body</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>html</span>&gt;
+</span></span></code></pre></div><h3 id=team>team</h3><p><code>team.html</code>团队。介绍团队成员。</p><p><code>team.html</code>源码如下：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span><span style=color:#75715e>&lt;!DOCTYPE html&gt;</span>
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>html</span> <span style=color:#a6e22e>lang</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;en&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>head</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>meta</span> <span style=color:#a6e22e>charset</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;utf-8&#34;</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>meta</span> <span style=color:#a6e22e>content</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;width=device-width, initial-scale=1.0&#34;</span> <span style=color:#a6e22e>name</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;viewport&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>title</span>&gt;豆瓣top250数据可视化&lt;/<span style=color:#f92672>title</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>meta</span> <span style=color:#a6e22e>content</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span> <span style=color:#a6e22e>name</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;descriptison&#34;</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>meta</span> <span style=color:#a6e22e>content</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span> <span style=color:#a6e22e>name</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;keywords&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>&lt;!-- Favicons --&gt;</span>
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/img/favicon.png&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;icon&#34;</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/img/apple-touch-icon.png&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;apple-touch-icon&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>&lt;!-- Google Fonts --&gt;</span>
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,600,600i,700,700i,900&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;stylesheet&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>&lt;!-- Vendor CSS Files --&gt;</span>
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/bootstrap/css/bootstrap.min.css&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;stylesheet&#34;</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/icofont/icofont.min.css&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;stylesheet&#34;</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/boxicons/css/boxicons.min.css&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;stylesheet&#34;</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/animate.css/animate.min.css&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;stylesheet&#34;</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/venobox/venobox.css&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;stylesheet&#34;</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/aos/aos.css&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;stylesheet&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>&lt;!-- Template Main CSS File --&gt;</span>
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/css/style.css&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;stylesheet&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>head</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>body</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>&lt;!-- ======= Top Bar ======= --&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>&lt;!-- ======= Header ======= --&gt;</span>
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>header</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;header&#34;</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;container&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>      &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;logo float-left&#34;</span>&gt;
+</span></span><span style=display:flex><span>        &lt;<span style=color:#f92672>h1</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;text-light&#34;</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;index&#34;</span>&gt;&lt;<span style=color:#f92672>span</span>&gt;豆瓣电影&lt;/<span style=color:#f92672>span</span>&gt;&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>h1</span>&gt;
+</span></span><span style=display:flex><span>        <span style=color:#75715e>&lt;!-- Uncomment below if you prefer to use an image logo --&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>&lt;!-- &lt;a href=&#34;temp.html&#34;&gt;&lt;img src=&#34;static/assets/img/logo.png&#34; alt=&#34;&#34; class=&#34;img-fluid&#34;&gt;&lt;/a&gt;--&gt;</span>
+</span></span><span style=display:flex><span>      &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>      &lt;<span style=color:#f92672>nav</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;nav-menu float-right d-none d-lg-block&#34;</span>&gt;
+</span></span><span style=display:flex><span>        &lt;<span style=color:#f92672>ul</span>&gt;
+</span></span><span style=display:flex><span>          &lt;<span style=color:#f92672>li</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;active&#34;</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/index&#34;</span>&gt;首页 &lt;<span style=color:#f92672>i</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;la la-angle-down&#34;</span>&gt;&lt;/<span style=color:#f92672>i</span>&gt;&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
+</span></span><span style=display:flex><span>          &lt;<span style=color:#f92672>li</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/movie&#34;</span>&gt;电影&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
+</span></span><span style=display:flex><span>          &lt;<span style=color:#f92672>li</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/score&#34;</span>&gt;评分&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
+</span></span><span style=display:flex><span>          &lt;<span style=color:#f92672>li</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/word&#34;</span>&gt;词云&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
+</span></span><span style=display:flex><span>          &lt;<span style=color:#f92672>li</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/team&#34;</span>&gt;团队&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        &lt;/<span style=color:#f92672>ul</span>&gt;
+</span></span><span style=display:flex><span>      &lt;/<span style=color:#f92672>nav</span>&gt;<span style=color:#75715e>&lt;!-- .nav-menu --&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>  &lt;/<span style=color:#f92672>header</span>&gt;<span style=color:#75715e>&lt;!-- End Header --&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!-- ======= Our Team Section ======= --&gt;</span>
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>section</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;team&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;team&#34;</span>&gt;
+</span></span><span style=display:flex><span>      &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;container&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;section-title&#34;</span>&gt;
+</span></span><span style=display:flex><span>          &lt;<span style=color:#f92672>h2</span>&gt;Our Team&lt;/<span style=color:#f92672>h2</span>&gt;
+</span></span><span style=display:flex><span>          &lt;<span style=color:#f92672>p</span>&gt;Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem.&lt;/<span style=color:#f92672>p</span>&gt;
+</span></span><span style=display:flex><span>        &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;row&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>          &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;col-xl-3 col-lg-4 col-md-6&#34;</span> <span style=color:#a6e22e>data-aos</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;fade-up&#34;</span>&gt;
+</span></span><span style=display:flex><span>            &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;member&#34;</span>&gt;
+</span></span><span style=display:flex><span>              &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;pic&#34;</span>&gt;&lt;<span style=color:#f92672>img</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/img/team/team-1.jpg&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;img-fluid&#34;</span> <span style=color:#a6e22e>alt</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span>&gt;&lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>              &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;member-info&#34;</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>h4</span>&gt;Walter White&lt;/<span style=color:#f92672>h4</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>span</span>&gt;Chief Executive Officer&lt;/<span style=color:#f92672>span</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;social&#34;</span>&gt;
+</span></span><span style=display:flex><span>                  &lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span>&gt;&lt;<span style=color:#f92672>i</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;icofont-twitter&#34;</span>&gt;&lt;/<span style=color:#f92672>i</span>&gt;&lt;/<span style=color:#f92672>a</span>&gt;
+</span></span><span style=display:flex><span>                  &lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span>&gt;&lt;<span style=color:#f92672>i</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;icofont-facebook&#34;</span>&gt;&lt;/<span style=color:#f92672>i</span>&gt;&lt;/<span style=color:#f92672>a</span>&gt;
+</span></span><span style=display:flex><span>                  &lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span>&gt;&lt;<span style=color:#f92672>i</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;icofont-instagram&#34;</span>&gt;&lt;/<span style=color:#f92672>i</span>&gt;&lt;/<span style=color:#f92672>a</span>&gt;
+</span></span><span style=display:flex><span>                  &lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span>&gt;&lt;<span style=color:#f92672>i</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;icofont-linkedin&#34;</span>&gt;&lt;/<span style=color:#f92672>i</span>&gt;&lt;/<span style=color:#f92672>a</span>&gt;
+</span></span><span style=display:flex><span>                &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>              &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>            &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>          &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>          &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;col-xl-3 col-lg-4 col-md-6&#34;</span> <span style=color:#a6e22e>data-aos</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;fade-up&#34;</span> <span style=color:#a6e22e>data-aos-delay</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;100&#34;</span>&gt;
+</span></span><span style=display:flex><span>            &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;member&#34;</span>&gt;
+</span></span><span style=display:flex><span>              &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;pic&#34;</span>&gt;&lt;<span style=color:#f92672>img</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/img/team/team-2.jpg&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;img-fluid&#34;</span> <span style=color:#a6e22e>alt</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span>&gt;&lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>              &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;member-info&#34;</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>h4</span>&gt;Sarah Jhonson&lt;/<span style=color:#f92672>h4</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>span</span>&gt;Product Manager&lt;/<span style=color:#f92672>span</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;social&#34;</span>&gt;
+</span></span><span style=display:flex><span>                  &lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span>&gt;&lt;<span style=color:#f92672>i</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;icofont-twitter&#34;</span>&gt;&lt;/<span style=color:#f92672>i</span>&gt;&lt;/<span style=color:#f92672>a</span>&gt;
+</span></span><span style=display:flex><span>                  &lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span>&gt;&lt;<span style=color:#f92672>i</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;icofont-facebook&#34;</span>&gt;&lt;/<span style=color:#f92672>i</span>&gt;&lt;/<span style=color:#f92672>a</span>&gt;
+</span></span><span style=display:flex><span>                  &lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span>&gt;&lt;<span style=color:#f92672>i</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;icofont-instagram&#34;</span>&gt;&lt;/<span style=color:#f92672>i</span>&gt;&lt;/<span style=color:#f92672>a</span>&gt;
+</span></span><span style=display:flex><span>                  &lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span>&gt;&lt;<span style=color:#f92672>i</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;icofont-linkedin&#34;</span>&gt;&lt;/<span style=color:#f92672>i</span>&gt;&lt;/<span style=color:#f92672>a</span>&gt;
+</span></span><span style=display:flex><span>                &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>              &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>            &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>          &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>          &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;col-xl-3 col-lg-4 col-md-6&#34;</span> <span style=color:#a6e22e>data-aos</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;fade-up&#34;</span> <span style=color:#a6e22e>data-aos-delay</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;200&#34;</span>&gt;
+</span></span><span style=display:flex><span>            &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;member&#34;</span>&gt;
+</span></span><span style=display:flex><span>              &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;pic&#34;</span>&gt;&lt;<span style=color:#f92672>img</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/img/team/team-3.jpg&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;img-fluid&#34;</span> <span style=color:#a6e22e>alt</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span>&gt;&lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>              &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;member-info&#34;</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>h4</span>&gt;William Anderson&lt;/<span style=color:#f92672>h4</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>span</span>&gt;CTO&lt;/<span style=color:#f92672>span</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;social&#34;</span>&gt;
+</span></span><span style=display:flex><span>                  &lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span>&gt;&lt;<span style=color:#f92672>i</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;icofont-twitter&#34;</span>&gt;&lt;/<span style=color:#f92672>i</span>&gt;&lt;/<span style=color:#f92672>a</span>&gt;
+</span></span><span style=display:flex><span>                  &lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span>&gt;&lt;<span style=color:#f92672>i</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;icofont-facebook&#34;</span>&gt;&lt;/<span style=color:#f92672>i</span>&gt;&lt;/<span style=color:#f92672>a</span>&gt;
+</span></span><span style=display:flex><span>                  &lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span>&gt;&lt;<span style=color:#f92672>i</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;icofont-instagram&#34;</span>&gt;&lt;/<span style=color:#f92672>i</span>&gt;&lt;/<span style=color:#f92672>a</span>&gt;
+</span></span><span style=display:flex><span>                  &lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span>&gt;&lt;<span style=color:#f92672>i</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;icofont-linkedin&#34;</span>&gt;&lt;/<span style=color:#f92672>i</span>&gt;&lt;/<span style=color:#f92672>a</span>&gt;
+</span></span><span style=display:flex><span>                &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>              &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>            &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>          &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>          &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;col-xl-3 col-lg-4 col-md-6&#34;</span> <span style=color:#a6e22e>data-aos</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;fade-up&#34;</span> <span style=color:#a6e22e>data-aos-delay</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;300&#34;</span>&gt;
+</span></span><span style=display:flex><span>            &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;member&#34;</span>&gt;
+</span></span><span style=display:flex><span>              &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;pic&#34;</span>&gt;&lt;<span style=color:#f92672>img</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/img/team/team-4.jpg&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;img-fluid&#34;</span> <span style=color:#a6e22e>alt</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span>&gt;&lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>              &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;member-info&#34;</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>h4</span>&gt;Amanda Jepson&lt;/<span style=color:#f92672>h4</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>span</span>&gt;Accountant&lt;/<span style=color:#f92672>span</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;social&#34;</span>&gt;
+</span></span><span style=display:flex><span>                  &lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span>&gt;&lt;<span style=color:#f92672>i</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;icofont-twitter&#34;</span>&gt;&lt;/<span style=color:#f92672>i</span>&gt;&lt;/<span style=color:#f92672>a</span>&gt;
+</span></span><span style=display:flex><span>                  &lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span>&gt;&lt;<span style=color:#f92672>i</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;icofont-facebook&#34;</span>&gt;&lt;/<span style=color:#f92672>i</span>&gt;&lt;/<span style=color:#f92672>a</span>&gt;
+</span></span><span style=display:flex><span>                  &lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span>&gt;&lt;<span style=color:#f92672>i</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;icofont-instagram&#34;</span>&gt;&lt;/<span style=color:#f92672>i</span>&gt;&lt;/<span style=color:#f92672>a</span>&gt;
+</span></span><span style=display:flex><span>                  &lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span>&gt;&lt;<span style=color:#f92672>i</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;icofont-linkedin&#34;</span>&gt;&lt;/<span style=color:#f92672>i</span>&gt;&lt;/<span style=color:#f92672>a</span>&gt;
+</span></span><span style=display:flex><span>                &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>              &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>            &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>          &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>      &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>    &lt;/<span style=color:#f92672>section</span>&gt;<span style=color:#75715e>&lt;!-- End Our Team Section --&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>main</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;main&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;tlinks&#34;</span>&gt;Collect from &lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;http://www.cssmoban.com/&#34;</span>  <span style=color:#a6e22e>title</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;网站模板&#34;</span>&gt;网站模板&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>      
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  &lt;/<span style=color:#f92672>main</span>&gt;<span style=color:#75715e>&lt;!-- End #main --&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;#&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;back-to-top&#34;</span>&gt;&lt;<span style=color:#f92672>i</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;icofont-simple-up&#34;</span>&gt;&lt;/<span style=color:#f92672>i</span>&gt;&lt;/<span style=color:#f92672>a</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>&lt;!-- Vendor JS Files --&gt;</span>
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/jquery/jquery.min.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/jquery.easing/jquery.easing.min.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/php-email-form/validate.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/jquery-sticky/jquery.sticky.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/venobox/venobox.min.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/waypoints/jquery.waypoints.min.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/counterup/counterup.min.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/isotope-layout/isotope.pkgd.min.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/vendor/aos/aos.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>&lt;!-- Template Main JS File --&gt;</span>
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;static/assets/js/main.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>body</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>html</span>&gt;
+</span></span></code></pre></div><h3 id=关于echarts>关于Echarts</h3><p>使用前先下载源码</p><p><a href=https://github.com/apache/echarts/tree/master/dist/echarts.min.js target=_blank rel="noopener noreffer">地址</a></p><p>只需要这一个文件（echarts.min.js）</p><p>将文件(echarts.min.js)复制到项目test目录内</p><p>Echarts官方网站: <a href=https://echarts.apache.org/examples/zh/index.html#chart-type-line target=_blank rel="noopener noreffer">https://echarts.apache.org/examples/zh/index.html#chart-type-line</a></p><p>可以根据官方示例更改代码实现想要的结果，最后可以下载示例。</p><p>示例网址[https://echarts.apache.org/examples/zh/editor.html?c=bar-background]</p><p>下载后将代码复制一份到<code>score.html</code>中。</p><h3 id=关于wordcloud>关于wordcloud</h3><p>在项目根目录内创建文件<code>testCloud.py</code>文件，实现词云页面所需要的词云树。</p><p>需要安装几个第三方的库</p><p><code>jieba</code>: 分词</p><p><code>matplotlib</code>： 绘图、数据可视化</p><p><code>wordcloud</code>：词云</p><p><code>numpy</code>：矩阵运算</p><p><code>sqlite3</code>：数据库</p><p><code>PIL</code>：图形处理库</p><p>代码如下：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>from</span> tkinter <span style=color:#f92672>import</span> Image
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> jieba <span style=color:#75715e># 分词</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>from</span> matplotlib <span style=color:#f92672>import</span> pyplot <span style=color:#66d9ef>as</span> plt <span style=color:#75715e># 绘图，数据可视化</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>from</span> wordcloud <span style=color:#f92672>import</span> WordCloud <span style=color:#75715e># 词云</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> numpy <span style=color:#66d9ef>as</span> np <span style=color:#75715e># 矩阵运算</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> sqlite3 <span style=color:#75715e># 数据库</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>from</span> PIL <span style=color:#f92672>import</span> Image
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 准备词云所需的文字（词）</span>
+</span></span><span style=display:flex><span>con <span style=color:#f92672>=</span> sqlite3<span style=color:#f92672>.</span>connect(<span style=color:#e6db74>&#39;douban_flask\movie.db&#39;</span>)
+</span></span><span style=display:flex><span>cur <span style=color:#f92672>=</span> con<span style=color:#f92672>.</span>cursor()
+</span></span><span style=display:flex><span>sql <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;select instroduction from movie250&#39;</span>
+</span></span><span style=display:flex><span>data <span style=color:#f92672>=</span> cur<span style=color:#f92672>.</span>execute(sql)
+</span></span><span style=display:flex><span>text <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>for</span> item <span style=color:#f92672>in</span> data:
+</span></span><span style=display:flex><span>    text <span style=color:#f92672>=</span> text <span style=color:#f92672>+</span> item[<span style=color:#ae81ff>0</span>]
+</span></span><span style=display:flex><span>    <span style=color:#75715e># print(item[0])</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># print(text)</span>
+</span></span><span style=display:flex><span>cur<span style=color:#f92672>.</span>close()
+</span></span><span style=display:flex><span>con<span style=color:#f92672>.</span>close()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 分词</span>
+</span></span><span style=display:flex><span>cut <span style=color:#f92672>=</span> jieba<span style=color:#f92672>.</span>cut(text)
+</span></span><span style=display:flex><span>string <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39; &#39;</span><span style=color:#f92672>.</span>join(cut)
+</span></span><span style=display:flex><span>print(len(string))
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>img <span style=color:#f92672>=</span> Image<span style=color:#f92672>.</span>open(<span style=color:#e6db74>r</span><span style=color:#e6db74>&#39;D:\code2022\auto-work\douban_flask\static\assets\img\tree.png&#39;</span>) <span style=color:#75715e># 打开遮罩图片</span>
+</span></span><span style=display:flex><span>img_array <span style=color:#f92672>=</span> np<span style=color:#f92672>.</span>array(img)
+</span></span><span style=display:flex><span>wc <span style=color:#f92672>=</span> WordCloud(
+</span></span><span style=display:flex><span>    background_color <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;white&#39;</span>,
+</span></span><span style=display:flex><span>    mask <span style=color:#f92672>=</span> img_array,
+</span></span><span style=display:flex><span>    font_path <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;msyh.ttc&#34;</span> <span style=color:#75715e># C:\Windows\Fonts 字体所在位置。</span>
+</span></span><span style=display:flex><span>)
+</span></span><span style=display:flex><span>wc<span style=color:#f92672>.</span>generate_from_text(string)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 绘制图片</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>fig <span style=color:#f92672>=</span> plt<span style=color:#f92672>.</span>figure(<span style=color:#ae81ff>1</span>)
+</span></span><span style=display:flex><span>plt<span style=color:#f92672>.</span>imshow(wc)
+</span></span><span style=display:flex><span>plt<span style=color:#f92672>.</span>axis(<span style=color:#e6db74>&#39;off&#39;</span>) <span style=color:#75715e># 是否显示坐标轴</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># plt.show() # 显示生成的词云图片</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 输出词云图片到文件</span>
+</span></span><span style=display:flex><span>plt<span style=color:#f92672>.</span>savefig(<span style=color:#e6db74>r</span><span style=color:#e6db74>&#39;D:\code2022\auto-work\douban_flask\static\assets\img\word.png&#39;</span>,dpi<span style=color:#f92672>=</span><span style=color:#ae81ff>500</span>)
+</span></span></code></pre></div></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>Updated on 2022-08-07</span></div></div><div class=post-info-line><div class=post-info-md></div><div class=post-info-share><span><a href=javascript:void(0); title="Share on Twitter" data-sharer=twitter data-url=http://example.org/posts/%E8%B1%86%E7%93%A3%E5%B1%95%E7%A4%BA%E9%A1%B5/ data-title=豆瓣电影top250展示页><i class="fab fa-twitter fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on Facebook" data-sharer=facebook data-url=http://example.org/posts/%E8%B1%86%E7%93%A3%E5%B1%95%E7%A4%BA%E9%A1%B5/><i class="fab fa-facebook-square fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on Hacker News" data-sharer=hackernews data-url=http://example.org/posts/%E8%B1%86%E7%93%A3%E5%B1%95%E7%A4%BA%E9%A1%B5/ data-title=豆瓣电影top250展示页><i class="fab fa-hacker-news fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on Line" data-sharer=line data-url=http://example.org/posts/%E8%B1%86%E7%93%A3%E5%B1%95%E7%A4%BA%E9%A1%B5/ data-title=豆瓣电影top250展示页><i data-svg-src=https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg aria-hidden=true></i></a><a href=javascript:void(0); title="Share on 微博" data-sharer=weibo data-url=http://example.org/posts/%E8%B1%86%E7%93%A3%E5%B1%95%E7%A4%BA%E9%A1%B5/ data-title=豆瓣电影top250展示页><i class="fab fa-weibo fa-fw" aria-hidden=true></i></a></span></div></div></div><div class=post-info-more><section class=post-tags></section><section><span><a href=javascript:void(0); onclick=window.history.back()>Back</a></span>&nbsp;|&nbsp;<span><a href=/>Home</a></span></section></div><div class=post-nav><a href=/posts/flask%E5%85%A5%E9%97%A8/ class=prev rel=prev title=Flask入门><i class="fas fa-angle-left fa-fw" aria-hidden=true></i>Flask入门</a>
+<a href=/posts/centos8%E9%85%8D%E7%BD%AEyum%E6%BA%90/ class=next rel=next title=CentOS8配置yum源>CentOS8配置yum源<i class="fas fa-angle-right fa-fw" aria-hidden=true></i></a></div></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line>Powered by <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.115.3">Hugo</a> | Theme - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden=true></i> LoveIt</a></div><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2022 - 2023</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=/ target=_blank></a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top"><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:50},comment:{}}</script><script type=text/javascript src=/js/theme.min.js></script></body></html>

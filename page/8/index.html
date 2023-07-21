@@ -1,0 +1,80 @@
+<!doctype html><html lang=en-us><head><meta name=generator content="Hugo 0.115.3"><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>My New Hugo Site</title><meta name=Description content="This is my cool site"><meta property="og:title" content="My New Hugo Site"><meta property="og:description" content="This is my cool site"><meta property="og:type" content="website"><meta property="og:url" content="http://example.org/"><meta property="og:site_name" content="My cool site"><meta name=twitter:card content="summary"><meta name=twitter:title content="My New Hugo Site"><meta name=twitter:description content="This is my cool site"><meta name=application-name content="My cool site"><meta name=apple-mobile-web-app-title content="My cool site"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=http://example.org/><link rel=alternate href=/index.xml type=application/rss+xml title="My New Hugo Site"><link rel=feed href=/index.xml type=application/rss+xml title="My New Hugo Site"><link rel=stylesheet href=/css/style.min.css><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"WebSite","url":"http:\/\/example.org\/","inLanguage":"en-us","description":"This is my cool site","name":"My New Hugo Site"}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"auto"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"auto"==="dark")&&document.body.setAttribute("theme","dark")</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="My New Hugo Site">My cool site</a></div><div class=menu><div class=menu-inner><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme"><i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="My New Hugo Site">My cool site</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme"><i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><main class=main><div class=container><div class="page home" data-home=posts><div class=home-profile><div class=home-subtitle><div id=id-1 class=typeit></div></div><div class=links></div></div><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline"><a href=/posts/python%E5%9B%9E%E7%82%89%E9%87%8D%E9%80%A0-%E5%88%97%E8%A1%A8/>python回炉重造-列表</a></h1><div class=post-meta><span class=post-author><a href=/ title=Author rel=author class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Author</a></span>&nbsp;<span class=post-publish>published on <time datetime=2022-07-03>2022-07-03</time></span></div><div class=content>列表常用操作 在ipython3中定义一个列表，例如：name_list = []
+输入name_list.按下Tab键，ipython会提示能够使用的方法如下：
+name_list.append name_list.count name_list.insert name_list.reverse name_list.clear name_list.extend name_list.pop name_list.sort name_list.copy name_list.index name_list.remove 序号 分类 关键字/函数/方法 说明 1 增加 列表.insert(索引,数据) 在指定位置插入数据 列表.append(数据) 在末尾追加数据 列表.extend(列表2) 将列表2的数据追加到列表 2 修改 列表[索引] = 数据 修改指定索引的数据 3 删除 del 列表[索引] 删除指定索引的数据 列表.remove[数据] 删除第一个出现的指定数据 列表.pop 删除末尾 数据 列表.pop(索引) 删除指定索引数据 列表.clear 清空列表 4 统计 len(列表) 列表长度 列表.count(数据) 数据在列表中出现的次数 5 排序 列表.sort() 升序排序 列表.sort(reverse=True) 降序排序 列表.reverse() 逆序、反转 del关键字
+使用del关键字（delete）同样可以删除列表元素
+del关键字本质上是用来将一个变量从内存中删除的
+如果使用del关键字将变量从内存中删除，后续的代码就不能使用这个变量了
+del name_list[1] 在日常开发中，要从列表删除数据，建议用列表提供的方法。
+关键字、函数和方法</div><div class=post-footer><a href=/posts/python%E5%9B%9E%E7%82%89%E9%87%8D%E9%80%A0-%E5%88%97%E8%A1%A8/>Read More</a></div></article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline"><a href=/posts/python%E5%9B%9E%E7%82%89%E9%87%8D%E9%80%A0-%E5%AD%97%E5%85%B8/>python回炉重造-字典</a></h1><div class=post-meta><span class=post-author><a href=/ title=Author rel=author class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Author</a></span>&nbsp;<span class=post-publish>published on <time datetime=2022-07-03>2022-07-03</time></span></div><div class=content>字典的定义 dictionary（字典）是 除列表意外python之中 最灵活的数据类型
+字典同样可以用来 存储多个数据
+通常用于存储 描述一个 物体的相关信息
+和列表的区别
+列表是 有序 的对象集合
+字典是 无序的对象集合
+字典使用 键值对存储数据，键值对之间使用,分割
+键 key是索引
+值 value 是数据
+键 和 值 之间使用:分割
+键必须是唯一的
+值 可以取任何数据类型，但 键 只能使用 字符串、数字或元组
+xiaoming = { "name": "小明". "age": 18, "gender" : True "height": 1.75 } ​ len(字典) 获取字典的 键值对数量
+key value name 小明 age 18 gender true height 1.75 字典.keys() 所有 key 列表
+字典.values() 所有value 列表
+字典.items() 所有（key, value）元组列表
+字典[key] 可以从字典中取值， key 不存在会报错</div><div class=post-footer><a href=/posts/python%E5%9B%9E%E7%82%89%E9%87%8D%E9%80%A0-%E5%AD%97%E5%85%B8/>Read More</a></div></article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline"><a href=/posts/python%E5%9B%9E%E7%82%89%E9%87%8D%E9%80%A0-%E5%AD%97%E7%AC%A6%E4%B8%B2/>python回炉重造-字符串</a></h1><div class=post-meta><span class=post-author><a href=/ title=Author rel=author class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Author</a></span>&nbsp;<span class=post-publish>published on <time datetime=2022-07-03>2022-07-03</time></span></div><div class=content>字符串 定义 字符串 就是一串字符，是编程语言中表示文本的数据类型
+在 python中可以使用 一堆双引号 ""或者 一对单引号 ''定义一个字符串
+虽然可以使用\"或者\'做字符串的转义，但是在实际开发中：
+如果字符串内部需要使用"",可以使用''定义字符串。
+如果字符串内部需要使用'',可以使用""定义字符串。
+可以使用 索引 获取一个字符串中 指定位置的字符，索引计数从 0 开始
+亦可以使用 for循环遍历 字符串中每一个字符
+大多数编程语言都是用""来定义字符串
+string = 'Hello Python' for c in string: print(c) 字符串的索引值是从0 开始的
+p y t h o n ↑ len(字符串) 获取字符串的长度
+字符串.count(字符串) 小字符串在大字符串中出现的次数
+字符串[索引] 从字符串中取出单个字符。
+它也支持切片操作
+字符串[1:4:] # yth
+字符串.index(字符串) 获得小字符串第一次出现的索引
+字符串的常规操作 在 ipython3中定义一个 字符串 ，例如 ： hello_str = ""
+输入hello_str,按下Tab键，ipython会提示 字符串能够使用的方法如下：
+hello_str.capitalize hello_str.isidentifier hello_str.rindex hello_str.casefold hello_str.islower hello_str.rjust hello_str.</div><div class=post-footer><a href=/posts/python%E5%9B%9E%E7%82%89%E9%87%8D%E9%80%A0-%E5%AD%97%E7%AC%A6%E4%B8%B2/>Read More</a></div></article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline"><a href=/posts/python%E5%9B%9E%E7%82%89%E9%87%8D%E9%80%A0-%E9%9B%86%E5%90%88/>python回炉重造-集合</a></h1><div class=post-meta><span class=post-author><a href=/ title=Author rel=author class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Author</a></span>&nbsp;<span class=post-publish>published on <time datetime=2022-07-03>2022-07-03</time></span></div><div class=content>集合 特性：
+1.无序性： 一个集合中，每个元素的地位都是相同的，元素之间是无序的
+2.互异性： 一个集合中，任何两个元素都是不同的，即元素在集合中只能出现一次
+3.确定性： 给定一个集合和一个任意元素，给袁思要么属于这个集合，要么不属于这个集合，二者必居其一，不允许有模棱两可的情况出现。
+集合的成员运算在性能上要优于列表的成员 运算，这是集合的底层存储特性（哈希存储）决定的。
+创建集合 用set()创建，或者用 {}定义一个空集合，但{}中至少要有一个元素，没有元素就不是空集合而是空字典了。也可以将其他序列转换成集合，例如：set('hello')会得到一个包含4个字符的集合（重复的l会被去掉）。还可以用生成式语法来创建集合，和用生成式创建列表一样。要知道集合中有多少个元素，还是使用内置函数len。使用for循环可以实现对集合元素的遍历。
+# 创建集合（重复元素不会出现在集合中，因此常用集合这一特性去重！！） set1 = {1, 2, 3, 3, 3, 2} print(set1) # {1, 2, 3} print(len(set1)) # 3 # 创建集合构造器语法 set2 = set('hello') print(set2) # {'o', 'l', 'e', 'h'} # 将列表转换成集合（可以去掉列表中重复的元素） set3 = set([1,2,3,3,2,1]) print(set3) # {1, 2, 3} # 创建集合的生成式语法（将列表生成式的[] 换成{}） set4 = {num for num in range(1,20) if num % 3 == 0 or num % 5 == 0} print(set4) # {3, 5, 6, 9, 10, 12, 15, 18} # 集合元素的循环遍历 for elem in set4: print(elem) 注意：集合中的元素必须是hashable类型。hashable类型指的是能够计算出哈希码的数据类型。可以暂时将哈希码理解为和变量对应的唯一的ID值。**通常不可变类型都是hashable类型。**如整数、浮点、字符串、元组等。而可变类型都不是hashable类型，因为可变类型无法确定唯一的ID值，所以也就不能放到集合中。集合本身也是可变类型，所以集合不能作为集合中的元素。</div><div class=post-footer><a href=/posts/python%E5%9B%9E%E7%82%89%E9%87%8D%E9%80%A0-%E9%9B%86%E5%90%88/>Read More</a></div></article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline"><a href=/posts/python%E5%9B%9E%E7%82%89%E9%87%8D%E9%80%A0-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B%E5%85%A5%E9%97%A8/>python回炉重造-面向对象编程入门</a></h1><div class=post-meta><span class=post-author><a href=/ title=Author rel=author class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Author</a></span>&nbsp;<span class=post-publish>published on <time datetime=2022-07-03>2022-07-03</time></span></div><div class=content>面向对象编程入门 程序是指令的集合
+函数： 把相互独立且经常重复使用的代码放置到函数中，在需要使用这些代码的时候调用函数即可。
+在面向对象编程的世界里，程序中的数据和操作数据的函数是一个逻辑上的整体，我们称之为对象。对象可以接收消息。解决问题的方法是创建对象并向对象发出各种各样的消息。通过消息的传递，程序中的多个对象可以协同工作，这样就能构造出复杂的系统并解决现实中的问题。
+类和对象 面向对象编程：把一组数据和处理数据的方法组成对象，把行为相同的对象归纳为类，通过封装隐藏对象的内部细节，通过继承实现类的特化和泛化，通过多态实现基于对象类型的动态分派。
+对象（object）
+类（class）
+封装（encapsulation）
+继承（inheritance）
+多态（polymorphism）
+在面向对象编程中，**类是一个抽象的概念，对象是一个具体的概念。**我们把同一类对象的共同特征抽出来就是一个类。比如 人类 就是一个抽象概念，我们每个人就是人类的这个抽象概念下的实实在在的存在，也就是一个对象。简而言之，类是对象的蓝图和模板，对象是类的实例，是可以接收消息的实体。
+类属性和类方法 术语&ndash;实例
+1.使用面向对象开发， 先设计类
+2.使用 **类名()**创建对象，创建对象 的动作有两步
+​ 1.在内存空间中为对象 分配空间
+2. 调用初始化方法`__init__`为对象初始化 3.对象创建后， 内存中就有了一个对象 的实实在在 的存在 &ndash; 实例
+因此，通常也会把：
+创建出来的 对象 叫做 类的实例
+创建对象的 动作 叫做 实例化
+对象的属性 叫做 实例属性
+对象调用的方法 叫做 实例方法
+在程序执行时：
+1.对象各自拥有自己的 实例属性
+2.调用对象方法，可以通过self.
+访问自己的属性
+调用自己的方法
+结论
+每一个对象 都有自己 独立的内存空间，保存各自不同的属性
+多个对象的方法，在内存中只有一份，在调用方法时，需要把对象的引用 传递到方法内部
+类是一个特殊的对象 python中 一切皆对象
+class AAA: 定义的类属于 类对象
+obj1 = AAA()属于 实例对象</div><div class=post-footer><a href=/posts/python%E5%9B%9E%E7%82%89%E9%87%8D%E9%80%A0-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B%E5%85%A5%E9%97%A8/>Read More</a></div></article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline"><a href=/posts/http%E5%92%8Chttps%E5%90%84%E7%A7%8D%E6%96%B9%E6%B3%95%E6%B5%8B%E8%AF%95/>http和https各种方法测试</a></h1><div class=post-meta><span class=post-author><a href=/ title=Author rel=author class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Author</a></span>&nbsp;<span class=post-publish>published on <time datetime=2022-06-30>2022-06-30</time></span></div><div class=content>测试网站：
+http://httpbin.org/ http所有方法 get import requests def get_html_text(url): headers = { 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36' } r = requests.get(url, headers=headers) if r.status_code == 200: html = r.text print(html) else: print("访问失败") url = 'http://httpbin.org/get' get_html_text(url) 返回数据
+{ "args": {}, "headers": { "Accept": "*/*", "Accept-Encoding": "gzip, deflate", "Host": "httpbin.org", "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36", "X-Amzn-Trace-Id": "Root=1-62b26fdb-5f9089b418e89e7533cd64f7" }, "origin": "124.</div><div class=post-footer><a href=/posts/http%E5%92%8Chttps%E5%90%84%E7%A7%8D%E6%96%B9%E6%B3%95%E6%B5%8B%E8%AF%95/>Read More</a></div></article><ul class=pagination><li class=page-item><span class=page-link><a href=/>1</a></span></li><li class=page-item><span class=page-link aria-hidden=true>&mldr;</span></li><li class=page-item><span class=page-link><a href=/page/6/>6</a></span></li><li class=page-item><span class=page-link><a href=/page/7/>7</a></span></li><li class="page-item active"><span class=page-link><a href=/page/8/>8</a></span></li><li class=page-item><span class=page-link><a href=/page/9/>9</a></span></li><li class=page-item><span class=page-link><a href=/page/10/>10</a></span></li><li class=page-item><span class=page-link aria-hidden=true>&mldr;</span></li><li class=page-item><span class=page-link><a href=/page/19/>19</a></span></li></ul></div></div></main><footer class=footer><div class=footer-container><div class=footer-line>Powered by <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.115.3">Hugo</a> | Theme - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden=true></i> LoveIt</a></div><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2022 - 2023</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=/ target=_blank></a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top"><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/typeit@8.6.0/dist/index.umd.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:50},data:{"id-1":"This is my cool site"},typeit:{cursorChar:"|",cursorSpeed:1e3,data:{"id-1":["id-1"]},duration:-1,speed:100}}</script><script type=text/javascript src=/js/theme.min.js></script></body></html>

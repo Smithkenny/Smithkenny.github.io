@@ -1,0 +1,75 @@
+<!doctype html><html lang=en-us><head><meta name=generator content="Hugo 0.115.3"><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>My New Hugo Site</title><meta name=Description content="This is my cool site"><meta property="og:title" content="My New Hugo Site"><meta property="og:description" content="This is my cool site"><meta property="og:type" content="website"><meta property="og:url" content="http://example.org/"><meta property="og:site_name" content="My cool site"><meta name=twitter:card content="summary"><meta name=twitter:title content="My New Hugo Site"><meta name=twitter:description content="This is my cool site"><meta name=application-name content="My cool site"><meta name=apple-mobile-web-app-title content="My cool site"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=http://example.org/><link rel=alternate href=/index.xml type=application/rss+xml title="My New Hugo Site"><link rel=feed href=/index.xml type=application/rss+xml title="My New Hugo Site"><link rel=stylesheet href=/css/style.min.css><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"WebSite","url":"http:\/\/example.org\/","inLanguage":"en-us","description":"This is my cool site","name":"My New Hugo Site"}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"auto"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"auto"==="dark")&&document.body.setAttribute("theme","dark")</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="My New Hugo Site">My cool site</a></div><div class=menu><div class=menu-inner><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme"><i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="My New Hugo Site">My cool site</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme"><i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><main class=main><div class=container><div class="page home" data-home=posts><div class=home-profile><div class=home-subtitle><div id=id-1 class=typeit></div></div><div class=links></div></div><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline"><a href=/posts/nginx%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/>nginx安装与使用</a></h1><div class=post-meta><span class=post-author><a href=/ title=Author rel=author class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Author</a></span>&nbsp;<span class=post-publish>published on <time datetime=2022-01-02>2022-01-02</time></span></div><div class=content>nginx 1.16.1 安装使用说明 1.创建目录
+mkdir -p /var/temp/nginx
+下载：
+https://nginx.org/en/download.html
+解压
+tar -zxvf nginx-1.16.1.tar.gz
+安装编译依赖包：
+yum install -y gcc gcc-c++ pcre pcre-devel zlib zlib-devel openssl openssl-devel
+2.进入nginx-1.16.1
+编译参数
+./configure \ --prefix=/usr/local/nginx \ --pid-path=/var/run/nginx/nginx.pid \ --lock-path=/var/lock/nginx.lock \ --error-log-path=/var/log/nginx/error.log \ --http-log-path=/var/log/nginx/access.log \ --with-http_gzip_static_module \ --http-client-body-temp-path=/var/temp/nginx/client \ --http-proxy-temp-path=/var/temp/nginx/proxy \ --http-fastcgi-temp-path=/var/temp/nginx/fastcgi \ --http-uwsgi-temp-path=/var/temp/nginx/uwsgi \ --http-scgi-temp-path=/var/temp/nginx/scgi https://nginx.org/en/download.html
+config 编译参数 nginx1.16编译安装configure参数： [root@363ee3055cf0 nginx-1.16.1]# ./configure --help --help print this message 打印帮助信息 --prefix=PATH set installation prefix 设置安装目录 --sbin-path=PATH set nginx binary pathname 设置sbin路径 --modules-path=PATH set modules path 设置模块路径 --conf-path=PATH set nginx.</div><div class=post-footer><a href=/posts/nginx%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/>Read More</a></div></article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline"><a href=/posts/k8s%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/>k8s集群搭建</a></h1><div class=post-meta><span class=post-author><a href=/ title=Author rel=author class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Author</a></span>&nbsp;<span class=post-publish>published on <time datetime=2022-01-02>2022-01-02</time></span></div><div class=content>Kubernetes （1.22.2）安装手册（Ubuntu非高可用版） 安装前准备工作 （重要！）安装k8s 1.22.2 版本需要的硬件条件： 所有节点：
+cpu数量2个及以上
+4G 以上内存
+不用开虚拟化
+(重要！！)虚拟机不要用克隆，每台都要单独创建否则会出问题。
+未安装docker 之前创建一个快照。
+安装docker、kubelet，并初始化集群后在创建一个快照。
+未安装cni插件之前创建一个快照，以便于随时更改calico 和fluence
+kubeadm 初始化失败检查，重置kubeadm。
+ip 地址规划：
+master: 10.4.7.60/24 gw:10.4.7.254 dns:114.114.114.114 worker1: 10.4.7.61/24 gw:10.4.7.254 dns:114.114.114.114 worker1: 10.4.7.61/24 gw:10.4.7.254 dns:114.114.114.114 各节点安装时需要更换apt源：(更新和安装deb包都很快！！！)
+http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ 1. 设置hosts解析 操作节点：所有节点（master）均需执行
+修改hostname hostname必须只能包含小写字母、数字、","、"-"，且开头结尾必须是小写字母或数字 # 在master节点 hostnamectl set-hostname master #设置master节点的hostname # slave1节点 hostnamectl set-hostname worker1 # slave2节点 hostnamectl set-hostname worker2 2. 调整系统配置 操作节点： 所有的master和slave节点（master,k8s-slave）需要执行
+本章下述操作均以master为例，其他节点均是相同的操作（ip和hostname的值换成对应机器的真实值）
+设置iptables
+iptables -P FORWARD ACCEPT /etc/init.d/ufw stop ufw disable 关闭swap swapoff -a # 防止开机自动挂载 swap 分区 rm /swap.</div><div class=post-footer><a href=/posts/k8s%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/>Read More</a></div></article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline"><a href=/posts/ubuntu%E7%B3%BB%E7%BB%9F%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/>ubuntu系统使用说明</a></h1><div class=post-meta><span class=post-author><a href=/ title=Author rel=author class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Author</a></span>&nbsp;<span class=post-publish>published on <time datetime=2022-01-02>2022-01-02</time></span></div><div class=content>一、Ubuntu20.10 server LTS安装 LTS（长期支持版）
+支持以下处理器
+amd64 (Intel/AMD 64-bit) arm64 (64-bit ARM) ppc64el (POWER8 and POWER9) s390x (IBM Z and LinuxONE) 最低配置
+CPU: 1 gigahertz or better RAM: 1 gigabyte or more Disk: a minimum of 2.5 gigabytes 桌面版和服务器版不同 Ubuntu服务器版和Ubuntu桌面版使用相同的Apt库。
+一个主要区别是用于桌面版的图形环境没有为服务器安装。这包括图形服务器本身、图形实用程序和应用程序，以及桌面用户所需的各种用户支持服务。
+如果这不是第一次在您的计算机上安装操作系统，您可能需要重新分区您的磁盘以为 Ubuntu 腾出空间。
+镜像下载地址 https://releases.ubuntu.com/20.04/ 开机引导启动
+ESC、F2、F10、或F12 快捷键
+ESC go back F1 open help menu Control-Z, F2 switch to shell Control-L, F3 redraw screen Control-T, F4 toggle rich mode (colour, unicode) on and off 更换清华源 参考</div><div class=post-footer><a href=/posts/ubuntu%E7%B3%BB%E7%BB%9F%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/>Read More</a></div></article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline"><a href=/posts/ssh%E7%9B%B8%E5%85%B3%E8%AF%B4%E6%98%8E/>ssh相关说明</a></h1><div class=post-meta><span class=post-author><a href=/ title=Author rel=author class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Author</a></span>&nbsp;<span class=post-publish>published on <time datetime=2022-01-02>2022-01-02</time></span></div><div class=content>SSH服务 SSH服务协议说明 SSH 是 Secure Shell Protocol 的简写，由 IETF 网络工作小组（Network Working Group )制定；在进行数据传输之前，SSH先对联机数据包通过加密技术进行加密处理，加密后在进行数据传输。确保了传递的数据安全。
+SSH是专为远程登录会话和其他网络服务提供的安全性协议。利用 SSH 协议可以有效的防止远程管理过程中的信息泄露问题，在当前的生产环境运维工作中，绝大多数企业普遍采用SSH协议服务来代替传统的不安全的远程联机服务软件，如telnet(23端口，非加密的)等。
+在默认状态下，SSH服务主要提供两个服务功能：
+一是提供类似telnet远程联机服务器的服务，即上面提到的SSH服务。
+另一个是类似FTP服务的sftp-server,借助SSH协议来传输数据的.提供更安全的SFTP服务(vsftp，proftp)。
+SSH加密技术说明 当前，网络上的数据包加密技术一般是通过所谓的一对公钥与私钥（PublickeyandPivatekey)组合成的密钥对进行加密与解密操作。如下图，A-Server要给B_Client传数据，首先会通过本地的公钥加密后再到发到网络上传输。而加密的数据到达B_Client端后，再经由B_Client本地的私钥将加密的数据解密出来。ssh认证连接的过程如下
+ssh实现安全链接建立，利用钥匙和锁头
+钥匙=私钥 锁头=公钥，私钥可以解密公钥。
+公钥可以再网络中传输，私钥再本地主机保存。
+ssh加密算法 v1 漏洞密钥不更换。
+v2 定期更换密钥。
+利用Diffie-Hellman机制定期更新密钥。
+ssh知识要点 ssh是安全的加密协议，用于远程链接linux服务器
+ssh 默认端口是22，安全协议版本sshv2，出来2之外还有1（有漏洞）
+ssh服务端主要包括两个服务功能 ssh远程链接和sftp服务
+linux ssh 客户端包括ssh 远程链接命令，以及远程拷贝scp命令等。
+SSH服务软件详细说明 什么是ssh服务 SSH服务端是一个守护讲程 (daemon).它在后台运行并响应来自客户端的连接请求。 SSH服务端的进程名为sshd，负责实时监听远程SSH客户端的远程连接请求，并进行处理，一般包括公共密钥认证、密钥交换、对称密钥加密和非安全连接等。这个SSH服务就是我们前面基础系统优化中保留开机自启动的服务之。
+ssh客户端包含ssh以及像scp(远程拷贝） slogin(远程登陆) sftp(安全FTP文件传输）等应用程序。
+ssh的工作机制大致是本地的ssh客户端先发送一个连接请求到远程的ssh服务端，服务端检查连接的客户端发送的数据包和IP地址，如果确认合法，就会发送密钥给 SSH的客户端，此时，客户端本地再将密钥发回给服务端，自此连接建立。
+ssh软件安装 客户端
+rpm -qf 'which ssh' openssh-clients-5.3p1-122.el6.x86_64
+服务端软件
+rpm -qf 'which sshd' openssh-server-5.3p1-122.el6.x86_64
+openssh-clinets 软件的主要内容 rpm -ql openssh-clients /etc/ssh/ssh_config ---ssh客户端配置文件 /usr/bin/.</div><div class=post-footer><a href=/posts/ssh%E7%9B%B8%E5%85%B3%E8%AF%B4%E6%98%8E/>Read More</a></div></article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline"><a href=/posts/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E5%BB%BA%E7%AB%99%E5%85%A8%E8%BF%87%E7%A8%8B/>个人博客建站全过程</a></h1><div class=post-meta><span class=post-author><a href=/ title=Author rel=author class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Author</a></span>&nbsp;<span class=post-publish>published on <time datetime=2022-01-02>2022-01-02</time></span></div><div class=content>技术选型 使用Hexo+keep+Github Actions+jsdelivr这一套技术实现blog搭建及自动化部署
+开始搭建 安装node 下载地址：node下载 .安装LTS版本。
+安装 Hexo npm install hexo-cli -g 我们强烈建议永远安装最新版本的 Hexo，以及 推荐的 Node.js 版本。
+Hexo 版本 最低兼容 Node.js 版本 5.0+ 10.13.0 4.1 - 4.2 8.10 4.0 8.6 3.3 - 3.9 6.9 3.2 - 3.3 0.12 3.0 - 3.1 0.10 or iojs 0.0.1 - 2.8 0.10 初始化博客目录 hexo init Smithkenny.github.io # 这里的Smithkenny换成你自己的英文名 初始化完成后，我们就进入我们的目录 cd Smithkenny.github.io 安装 npm install clean一下，然后生成静态页面 hexo clean hexo g 把你的网站运行起来 hexo s 打开你的浏览器，输入 localhost:4000 。</div><div class=post-footer><a href=/posts/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E5%BB%BA%E7%AB%99%E5%85%A8%E8%BF%87%E7%A8%8B/>Read More</a></div></article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline"><a href=/posts/%E4%B8%AA%E4%BA%BA%E5%9F%9F%E5%90%8D%E6%B3%A8%E5%86%8C%E8%B4%AD%E4%B9%B0%E6%95%99%E7%A8%8B/>个人域名注册购买教程</a></h1><div class=post-meta><span class=post-author><a href=/ title=Author rel=author class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Author</a></span>&nbsp;<span class=post-publish>published on <time datetime=2022-01-02>2022-01-02</time></span></div><div class=content>简介 namesilo是国外的域名服务商，首次购买和续费价格都很实惠，不用翻墙也可以打开，此外还赠送隐私保护，支付方式支持支付宝、Paypal、Visa 等多种付款方式。
+下面是namesilo购买域名的步骤流程
+登陆https://www.namesilo.com/，注册账号 输入要注册的域名查找、选择、结账 Auto-Renew：设置域名是否自动续费，自行确定，影响不大。
+Privacy Setting：代表域名隐私保护设置，建议设置成 WHOIS Privacy ，反正是免费的。
+解析域名 登录刚刚注册的账号选择my account
+选择accounts domains
+管理域名
+删掉多余的记录
+添加一条CNAME记录，添加一条A记录。A记录可以添加多条。
+CNAME 指向github 的域名
+github域名格式：[用户名].github.io
+A记录指向GIThub域名所解析出来的IP
+注意：添加后不会立刻生效，此处有说明.
+You can use the form below to manage the DNS settings for the domain(s) listed above. Changes may take up to 15 minutes to completely process. Please keep in mind that correctly modifying the DNS records for this domain is extremely important. Any errors on your part could make your web site, email and other services inoperable.</div><div class=post-footer><a href=/posts/%E4%B8%AA%E4%BA%BA%E5%9F%9F%E5%90%8D%E6%B3%A8%E5%86%8C%E8%B4%AD%E4%B9%B0%E6%95%99%E7%A8%8B/>Read More</a></div></article><ul class=pagination><li class=page-item><span class=page-link><a href=/>1</a></span></li><li class=page-item><span class=page-link aria-hidden=true>&mldr;</span></li><li class=page-item><span class=page-link><a href=/page/16/>16</a></span></li><li class=page-item><span class=page-link><a href=/page/17/>17</a></span></li><li class="page-item active"><span class=page-link><a href=/page/18/>18</a></span></li><li class=page-item><span class=page-link><a href=/page/19/>19</a></span></li></ul></div></div></main><footer class=footer><div class=footer-container><div class=footer-line>Powered by <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.115.3">Hugo</a> | Theme - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden=true></i> LoveIt</a></div><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2022 - 2023</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=/ target=_blank></a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top"><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/typeit@8.6.0/dist/index.umd.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:50},data:{"id-1":"This is my cool site"},typeit:{cursorChar:"|",cursorSpeed:1e3,data:{"id-1":["id-1"]},duration:-1,speed:100}}</script><script type=text/javascript src=/js/theme.min.js></script></body></html>

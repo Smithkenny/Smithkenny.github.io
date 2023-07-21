@@ -1,0 +1,331 @@
+<!doctype html><html lang=en-us><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>CentOS7 常规命令 - My New Hugo Site</title><meta name=Description content="This is my cool site"><meta property="og:title" content="CentOS7 常规命令"><meta property="og:description" content="CentOS 7 常规命令 文件类 常规 tar 打包解包
+tar cvf FileName.tar DirName or FileName # 打包 tar xvf FileName.tar -C 指定位置目录 # 解包 tar gz 打包压缩
+tar zcvf FileName.tar.gz DirName or FileName # 打包并压缩 tar zxvf FileName.tar.gz -C 指定位置目录 # 解包 zip 压缩解压缩
+zip FileName.zip FileName # 压缩文件 zip -r DirName.zip DirName # 压缩目录 unzip xxx.zip # 解压缩 文件下载 下载覆盖
+wget https://xxx.com/xxx.zip -O /xxx/xxx.zip # -O 重命名并直接覆盖 下载指定路径比对新旧直接覆盖
+wget -P /xxx/xxx -N https://xxx."><meta property="og:type" content="article"><meta property="og:url" content="http://example.org/posts/centos7-%E5%B8%B8%E8%A7%84%E5%91%BD%E4%BB%A4/"><meta property="article:section" content="posts"><meta property="article:published_time" content="2022-02-25T16:34:16+00:00"><meta property="article:modified_time" content="2022-02-25T16:34:16+00:00"><meta property="og:site_name" content="My cool site"><meta name=twitter:card content="summary"><meta name=twitter:title content="CentOS7 常规命令"><meta name=twitter:description content="CentOS 7 常规命令 文件类 常规 tar 打包解包
+tar cvf FileName.tar DirName or FileName # 打包 tar xvf FileName.tar -C 指定位置目录 # 解包 tar gz 打包压缩
+tar zcvf FileName.tar.gz DirName or FileName # 打包并压缩 tar zxvf FileName.tar.gz -C 指定位置目录 # 解包 zip 压缩解压缩
+zip FileName.zip FileName # 压缩文件 zip -r DirName.zip DirName # 压缩目录 unzip xxx.zip # 解压缩 文件下载 下载覆盖
+wget https://xxx.com/xxx.zip -O /xxx/xxx.zip # -O 重命名并直接覆盖 下载指定路径比对新旧直接覆盖
+wget -P /xxx/xxx -N https://xxx."><meta name=application-name content="My cool site"><meta name=apple-mobile-web-app-title content="My cool site"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=http://example.org/posts/centos7-%E5%B8%B8%E8%A7%84%E5%91%BD%E4%BB%A4/><link rel=prev href=http://example.org/posts/shell%E8%84%9A%E6%9C%AC%E5%B8%B8%E7%94%A8%E5%8F%82%E8%80%83/><link rel=next href=http://example.org/posts/centos7-%E5%8D%87%E7%BA%A7%E5%86%85%E6%A0%B8/><link rel=stylesheet href=/css/style.min.css><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"CentOS7 常规命令","inLanguage":"en-us","mainEntityOfPage":{"@type":"WebPage","@id":"http:\/\/example.org\/posts\/centos7-%E5%B8%B8%E8%A7%84%E5%91%BD%E4%BB%A4\/"},"genre":"posts","wordcount":1057,"url":"http:\/\/example.org\/posts\/centos7-%E5%B8%B8%E8%A7%84%E5%91%BD%E4%BB%A4\/","datePublished":"2022-02-25T16:34:16+00:00","dateModified":"2022-02-25T16:34:16+00:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"Author"},"description":""}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"auto"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"auto"==="dark")&&document.body.setAttribute("theme","dark")</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="My New Hugo Site">My cool site</a></div><div class=menu><div class=menu-inner><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme"><i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="My New Hugo Site">My cool site</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme"><i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>Contents</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">CentOS7 常规命令</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=/ title=Author rel=author class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Author</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw" aria-hidden=true></i>&nbsp;<time datetime=2022-02-25>2022-02-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden=true></i>&nbsp;1057 words&nbsp;
+<i class="far fa-clock fa-fw" aria-hidden=true></i>&nbsp;5 minutes&nbsp;</div></div><div class="details toc" id=toc-static data-kept><div class="details-summary toc-title"><span>Contents</span>
+<span><i class="details-icon fas fa-angle-right" aria-hidden=true></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#文件类>文件类</a><ul><li><a href=#常规>常规</a></li><li><a href=#文件下载>文件下载</a></li><li><a href=#文件传输>文件传输</a></li><li><a href=#文件查找>文件查找</a></li></ul></li><li><a href=#运维类>运维类</a><ul><li><a href=#基础配置>基础配置</a></li><li><a href=#常规查询>常规查询</a></li><li><a href=#iptables>iptables</a></li><li><a href=#防火墙>防火墙</a></li></ul></li><li><a href=#系统类>系统类</a><ul><li><a href=#磁盘挂载>磁盘挂载</a></li><li><a href=#nfs>NFS</a></li><li><a href=#smb>SMB</a></li></ul></li></ul></nav></div></div><div class=content id=content><h1 id=centos-7-常规命令>CentOS 7 常规命令</h1><h2 id=文件类>文件类</h2><h3 id=常规>常规</h3><p>tar 打包解包</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>tar cvf FileName.tar DirName or FileName
+</span></span><span style=display:flex><span><span style=color:#75715e># 打包</span>
+</span></span><span style=display:flex><span>tar xvf FileName.tar -C 指定位置目录
+</span></span><span style=display:flex><span><span style=color:#75715e># 解包</span>
+</span></span></code></pre></div><p>tar gz 打包压缩</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>tar zcvf FileName.tar.gz DirName or FileName
+</span></span><span style=display:flex><span><span style=color:#75715e># 打包并压缩</span>
+</span></span><span style=display:flex><span>tar zxvf FileName.tar.gz -C 指定位置目录
+</span></span><span style=display:flex><span><span style=color:#75715e># 解包</span>
+</span></span></code></pre></div><p>zip 压缩解压缩</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>zip FileName.zip FileName
+</span></span><span style=display:flex><span><span style=color:#75715e># 压缩文件</span>
+</span></span><span style=display:flex><span>zip -r DirName.zip DirName
+</span></span><span style=display:flex><span><span style=color:#75715e># 压缩目录</span>
+</span></span><span style=display:flex><span>unzip xxx.zip
+</span></span><span style=display:flex><span><span style=color:#75715e># 解压缩</span>
+</span></span></code></pre></div><h3 id=文件下载>文件下载</h3><p>下载覆盖</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>wget https://xxx.com/xxx.zip -O /xxx/xxx.zip
+</span></span><span style=display:flex><span><span style=color:#75715e># -O 重命名并直接覆盖</span>
+</span></span></code></pre></div><p>下载指定路径比对新旧直接覆盖</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>wget -P /xxx/xxx -N https://xxx.com/xxx.zip
+</span></span><span style=display:flex><span><span style=color:#75715e># -P 指定下载路径,如不存在则自动创建.</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># -N 只下载比本地新的文件并覆盖</span>
+</span></span></code></pre></div><h3 id=文件传输>文件传输</h3><p>文件下载 - 从远程服务器下载文件到本服务器</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>scp -P <span style=color:#ae81ff>22</span> root@8.8.8.8:/root/1.zip /root
+</span></span></code></pre></div><p>文件上传 - 上传本地文件到远程服务器</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>scp -P <span style=color:#ae81ff>22</span> /root/st/1.zip root@8.8.8.8:/root
+</span></span></code></pre></div><p>目录下载 - 从远程服务器下载文件夹到本服务器</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>scp -r -P <span style=color:#ae81ff>22</span> root@8.8.8.8:/root/xx /root
+</span></span></code></pre></div><p>目录上传 - 上传本地文件夹到远程服务器</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>scp -r -P <span style=color:#ae81ff>22</span> /root/xx root@8.8.8.8:/root
+</span></span></code></pre></div><h3 id=文件查找>文件查找</h3><p>查询当前目录下及所有子目录下的某文件,并拷贝到当前文件夹</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>find . -name <span style=color:#e6db74>&#34;*.txt&#34;</span> | xargs -I<span style=color:#f92672>{}</span> cp <span style=color:#f92672>{}</span> ./
+</span></span><span style=display:flex><span>find . -name <span style=color:#e6db74>&#34;*.*&#34;</span> | xargs -I<span style=color:#f92672>{}</span> cp <span style=color:#f92672>{}</span> ./
+</span></span></code></pre></div><p>查询当前目录下及所有子目录下的某文件,并删除.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>find . -name <span style=color:#e6db74>&#34;.DS_Store&#34;</span> | xargs -I<span style=color:#f92672>{}</span> rm <span style=color:#f92672>{}</span>
+</span></span></code></pre></div><h2 id=运维类>运维类</h2><h3 id=基础配置>基础配置</h3><p>允许 root 登陆及修改端口</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>vi /etc/ssh/sshd_config
+</span></span><span style=display:flex><span>Port <span style=color:#ae81ff>22222</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 配置端口</span>
+</span></span><span style=display:flex><span>PermitRootLogin yes
+</span></span><span style=display:flex><span>PasswordAuthentication yes
+</span></span><span style=display:flex><span>ClientAliveInterval <span style=color:#ae81ff>30</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 重启 sshd</span>
+</span></span><span style=display:flex><span>systemctl restart sshd
+</span></span></code></pre></div><p>yum 源</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>yum repolist
+</span></span><span style=display:flex><span>yum repolist all
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看 yum 源</span>
+</span></span><span style=display:flex><span>yum -y install epel-release
+</span></span><span style=display:flex><span><span style=color:#75715e># 如无 epel/x86_64 推荐先安装 epel 源</span>
+</span></span><span style=display:flex><span>yum clean all
+</span></span><span style=display:flex><span>yum makecache
+</span></span><span style=display:flex><span><span style=color:#75715e># 清除并重建缓存</span>
+</span></span><span style=display:flex><span>yum update -y
+</span></span><span style=display:flex><span><span style=color:#75715e># 更新</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 如需使用 epel 源国内阿里云镜像加速,执行以下命令:</span>
+</span></span><span style=display:flex><span>mv /etc/yum.repos.d/epel.repo /etc/yum.repos.d/epel.repo.backup
+</span></span><span style=display:flex><span>mv /etc/yum.repos.d/epel-testing.repo /etc/yum.repos.d/epel-testing.repo.backup
+</span></span><span style=display:flex><span>wget -O /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo
+</span></span><span style=display:flex><span>yum clean all
+</span></span><span style=display:flex><span>yum makecache
+</span></span></code></pre></div><p>修改网络信息</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span> cd  /etc/sysconfig/network-scripts
+</span></span><span style=display:flex><span> <span style=color:#75715e># ls 查看当前网卡信息,可能为 ifcfg-eth0 ifcfg-ens192 等等.</span>
+</span></span><span style=display:flex><span> vi ifcfg-eth0
+</span></span><span style=display:flex><span> <span style=color:#75715e># 编辑修改网络信息</span>
+</span></span><span style=display:flex><span> service network restart
+</span></span><span style=display:flex><span> <span style=color:#75715e># 重启网络服务</span>
+</span></span></code></pre></div><p>时区及 ntp 时间同步</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>tzselect
+</span></span><span style=display:flex><span><span style=color:#75715e># 选择时区</span>
+</span></span><span style=display:flex><span>mv /etc/localtime /etc/localtime.bak
+</span></span><span style=display:flex><span><span style=color:#75715e># 备份 localtime</span>
+</span></span><span style=display:flex><span>ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+</span></span><span style=display:flex><span><span style=color:#75715e># 创建时区软链接,再次 date 检查时区.</span>
+</span></span><span style=display:flex><span>yum -y install ntpdate
+</span></span><span style=display:flex><span><span style=color:#75715e># 安装 ntpdate</span>
+</span></span><span style=display:flex><span>ntpdate cn.pool.ntp.org
+</span></span><span style=display:flex><span><span style=color:#75715e># 同步时间</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 备选 ntp 服务器</span>
+</span></span><span style=display:flex><span>cn.pool.ntp.org
+</span></span><span style=display:flex><span>ntp.aliyun.com
+</span></span><span style=display:flex><span>ntp1.aliyun.com
+</span></span><span style=display:flex><span>time1.cloud.tencent.com
+</span></span></code></pre></div><p>screen 常用命令</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>yum -y install screen
+</span></span><span style=display:flex><span><span style=color:#75715e># 安装 screen</span>
+</span></span><span style=display:flex><span>screen -S xxx
+</span></span><span style=display:flex><span><span style=color:#75715e># 新建名为 xxx 的 session</span>
+</span></span><span style=display:flex><span>screen -ls
+</span></span><span style=display:flex><span><span style=color:#75715e># 列出当前所有 session</span>
+</span></span><span style=display:flex><span>screen -r xxx
+</span></span><span style=display:flex><span><span style=color:#75715e># 恢复到 xxx 这个 session</span>
+</span></span><span style=display:flex><span>screen -d xxx
+</span></span><span style=display:flex><span><span style=color:#75715e># 远程分离 xxx 这个 session</span>
+</span></span><span style=display:flex><span>screen -d -r xxx
+</span></span><span style=display:flex><span><span style=color:#75715e># 结束当前 session 并恢复到 xxx 这个 session</span>
+</span></span><span style=display:flex><span>screen -S xxx -X quit
+</span></span><span style=display:flex><span><span style=color:#75715e># 远程删除 session</span>
+</span></span></code></pre></div><h3 id=常规查询>常规查询</h3><p>清除历史登录记录</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>echo &gt; /var/log/wtmp
+</span></span></code></pre></div><p>清除历史命令记录</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>history -c <span style=color:#f92672>&amp;&amp;</span> history -w
+</span></span></code></pre></div><p>一键清除并退出</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>echo &gt; /var/log/wtmp <span style=color:#f92672>&amp;&amp;</span> history -c <span style=color:#f92672>&amp;&amp;</span> history -w <span style=color:#f92672>&amp;&amp;</span> exit
+</span></span></code></pre></div><p>查看目录占用空间</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>du -h --max-depth<span style=color:#f92672>=</span><span style=color:#ae81ff>1</span> /home
+</span></span></code></pre></div><p>端口占用查询</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>netstat -ntlp
+</span></span><span style=display:flex><span>netstat -ntlp | grep <span style=color:#ae81ff>80</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查询80端口占用</span>
+</span></span></code></pre></div><p>CPU内存占用查询</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>ps aux|head -1;ps aux|grep -v PID|sort -rn -k +3|head
+</span></span><span style=display:flex><span><span style=color:#75715e># 获取占用CPU资源最多的10个进程</span>
+</span></span><span style=display:flex><span>ps aux|head -1;ps aux|grep -v PID|sort -rn -k +4|head
+</span></span><span style=display:flex><span><span style=color:#75715e># 获取占用内存资源最多的10个进程</span>
+</span></span></code></pre></div><p>重新加载systemctl</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>sudo systemctl daemon-reload
+</span></span></code></pre></div><h3 id=iptables>iptables</h3><p>使用 iptables 需禁用默认防火墙 firewalld</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>yum -y install iptables-services
+</span></span><span style=display:flex><span><span style=color:#75715e># 安装 iptables iptables-services</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>systemctl stop firewalld
+</span></span><span style=display:flex><span>systemctl disable firewalld
+</span></span><span style=display:flex><span><span style=color:#75715e># 禁用 firewall</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>systemctl start iptables
+</span></span><span style=display:flex><span>systemctl status iptables
+</span></span><span style=display:flex><span>systemctl enable iptables
+</span></span><span style=display:flex><span><span style=color:#75715e># 启用 iptables</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>iptables -P INPUT ACCEPT
+</span></span><span style=display:flex><span>iptables -P OUTPUT ACCEPT
+</span></span><span style=display:flex><span>iptables -P FORWARD ACCEPT
+</span></span><span style=display:flex><span>iptables -F 
+</span></span><span style=display:flex><span>service iptables save
+</span></span><span style=display:flex><span><span style=color:#75715e># 设置默认规则并清空所有规则,保存设置.</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 以下为快速执行</span>
+</span></span><span style=display:flex><span>iptables -P INPUT ACCEPT <span style=color:#f92672>&amp;&amp;</span> <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>iptables -P OUTPUT ACCEPT <span style=color:#f92672>&amp;&amp;</span> <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>iptables -P FORWARD ACCEPT <span style=color:#f92672>&amp;&amp;</span> <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>iptables -F <span style=color:#f92672>&amp;&amp;</span> <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>service iptables save
+</span></span></code></pre></div><h3 id=防火墙>防火墙</h3><h4 id=常规命令>常规命令</h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>sudo firewall-cmd --add-service<span style=color:#f92672>=</span>http --permanent
+</span></span><span style=display:flex><span>sudo firewall-cmd --add-service<span style=color:#f92672>=</span>https --permanent
+</span></span><span style=display:flex><span>sudo firewall-cmd --add-port<span style=color:#f92672>=</span>80/tcp --permanent
+</span></span><span style=display:flex><span>sudo firewall-cmd --add-port<span style=color:#f92672>=</span>443/tcp --permanent
+</span></span><span style=display:flex><span>sudo firewall-cmd --add-port<span style=color:#f92672>=</span>4000-5000/tcp --permanent
+</span></span><span style=display:flex><span>sudo firewall-cmd --remove-port<span style=color:#f92672>=</span>XXXX/tcp --permanent
+</span></span><span style=display:flex><span>sudo firewall-cmd --reload
+</span></span><span style=display:flex><span>sudo firewall-cmd --list-all
+</span></span></code></pre></div><h4 id=更多命令>更多命令</h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 查看是否开启</span>
+</span></span><span style=display:flex><span>systemctl status firewalld.service
+</span></span><span style=display:flex><span><span style=color:#75715e># 打开防火墙</span>
+</span></span><span style=display:flex><span>systemctl start firewalld.service
+</span></span><span style=display:flex><span><span style=color:#75715e># 停用防火墙</span>
+</span></span><span style=display:flex><span>systemctl disable firewalld
+</span></span><span style=display:flex><span><span style=color:#75715e># 禁用防火墙</span>
+</span></span><span style=display:flex><span>systemctl stop firewalld.service
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 开机启动</span>
+</span></span><span style=display:flex><span>systemctl enable firewalld
+</span></span><span style=display:flex><span><span style=color:#75715e># 取消开机启动</span>
+</span></span><span style=display:flex><span>systemctl disable firewalld
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看运行状态</span>
+</span></span><span style=display:flex><span>firewall-cmd --state
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看接口信息</span>
+</span></span><span style=display:flex><span>firewall-cmd --list-all
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 更新防火墙规则方法1:无需断开连接，动态更改规则</span>
+</span></span><span style=display:flex><span>firewall-cmd --reload
+</span></span><span style=display:flex><span><span style=color:#75715e># 更新防火墙规则方法2:断开连接，以重启的方式更改规则</span>
+</span></span><span style=display:flex><span>firewall-cmd --complete-reload
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看帮助</span>
+</span></span><span style=display:flex><span>firewall-cmd --help
+</span></span><span style=display:flex><span>--zone<span style=color:#f92672>=</span>NAME <span style=color:#75715e># 指定 Zone</span>
+</span></span><span style=display:flex><span>--permanent <span style=color:#75715e># 为永久生效</span>
+</span></span><span style=display:flex><span>--timeout<span style=color:#f92672>=</span>seconds <span style=color:#75715e># 持续一段时间，到期后自动移除，经常用于调试，且不能与 --permanent 同时使用</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 追加一个8181端口，永久有效</span>
+</span></span><span style=display:flex><span>firewall-cmd --add-port<span style=color:#f92672>=</span>8181/tcp --permanent
+</span></span><span style=display:flex><span><span style=color:#75715e># 追加一段端口范围</span>
+</span></span><span style=display:flex><span>firewall-cmd --add-port<span style=color:#f92672>=</span>6000-6600/tcp
+</span></span><span style=display:flex><span><span style=color:#75715e># 开放 ftp 服务</span>
+</span></span><span style=display:flex><span>firewall-cmd --add-service<span style=color:#f92672>=</span>ftp
+</span></span><span style=display:flex><span><span style=color:#75715e># 添加eth0 接口至 public 信任等级，永久有效</span>
+</span></span><span style=display:flex><span>firewall-cmd --zone<span style=color:#f92672>=</span>public --add-interface<span style=color:#f92672>=</span>eth0 --permanent
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 配置 public zone 的端口转发</span>
+</span></span><span style=display:flex><span>firewall-cmd --zone<span style=color:#f92672>=</span>public --add-masquerade
+</span></span><span style=display:flex><span><span style=color:#75715e># 然后转发 tcp 22 端口至 9527</span>
+</span></span><span style=display:flex><span>firewall-cmd --zone<span style=color:#f92672>=</span>public --add-forward-port<span style=color:#f92672>=</span>port<span style=color:#f92672>=</span>22:proto<span style=color:#f92672>=</span>tcp:toport<span style=color:#f92672>=</span><span style=color:#ae81ff>9527</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 转发 22 端口数据至另一个 ip 的相同端口上</span>
+</span></span><span style=display:flex><span>firewall-cmd --zone<span style=color:#f92672>=</span>public --add-forward-port<span style=color:#f92672>=</span>port<span style=color:#f92672>=</span>22:proto<span style=color:#f92672>=</span>tcp:toaddr<span style=color:#f92672>=</span>192.168.1.123
+</span></span><span style=display:flex><span><span style=color:#75715e># 转发 22 端口数据至另一 ip 的 9527 端口上</span>
+</span></span><span style=display:flex><span>firewall-cmd --zone<span style=color:#f92672>=</span>public --add-forward-port<span style=color:#f92672>=</span>port<span style=color:#f92672>=</span>22:proto<span style=color:#f92672>=</span>tcp:toport<span style=color:#f92672>=</span>9527:toaddr<span style=color:#f92672>=</span>192.168.1.100
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># IP 封禁</span>
+</span></span><span style=display:flex><span>firewall-cmd --permanent --add-rich-rule<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;rule family=&#39;ipv4&#39; source address=&#39;192.168.1.123&#39; reject&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 通过 ipset 来封禁 ip</span>
+</span></span><span style=display:flex><span>firewall-cmd --permanent --zone<span style=color:#f92672>=</span>public --new-ipset<span style=color:#f92672>=</span>blacklist --type<span style=color:#f92672>=</span>hash:ip
+</span></span><span style=display:flex><span>firewall-cmd --permanent --zone<span style=color:#f92672>=</span>public --ipset<span style=color:#f92672>=</span>blacklist --add-entry<span style=color:#f92672>=</span>192.168.1.123
+</span></span><span style=display:flex><span><span style=color:#75715e># 封禁网段</span>
+</span></span><span style=display:flex><span>firewall-cmd --permanent --zone<span style=color:#f92672>=</span>public --new-ipset<span style=color:#f92672>=</span>blacklist --type<span style=color:#f92672>=</span>hash:net
+</span></span><span style=display:flex><span>firewall-cmd --permanent --zone<span style=color:#f92672>=</span>public --ipset<span style=color:#f92672>=</span>blacklist --add-entry<span style=color:#f92672>=</span>192.168.1.0/24
+</span></span><span style=display:flex><span><span style=color:#75715e># 倒入 ipset 规则 blacklist，然后封禁 blacklist</span>
+</span></span><span style=display:flex><span>firewall-cmd --permanent --zone<span style=color:#f92672>=</span>public --new-ipset-from-file<span style=color:#f92672>=</span>/path/blacklist.xml
+</span></span><span style=display:flex><span>firewall-cmd --permanent --zone<span style=color:#f92672>=</span>public --add-rich-rule<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;rule source ipset=blacklist drop&#39;</span>
+</span></span></code></pre></div><h2 id=系统类>系统类</h2><h3 id=磁盘挂载>磁盘挂载</h3><h4 id=磁盘分区格式化>磁盘分区格式化</h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>fdisk -l
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看到新硬盘 /dev/sdb</span>
+</span></span><span style=display:flex><span>fdisk /dev/sdb
+</span></span><span style=display:flex><span><span style=color:#75715e># 为磁盘分区,选择 n 开始分区,其他直接回车保持默认,结尾 w 保存.</span>
+</span></span><span style=display:flex><span>mkfs.ext4 /dev/sdb1
+</span></span><span style=display:flex><span><span style=color:#75715e># 格式化分区</span>
+</span></span></code></pre></div><h4 id=磁盘挂载-1>磁盘挂载</h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>mkdir /data
+</span></span><span style=display:flex><span><span style=color:#75715e># 创建挂载目录</span>
+</span></span><span style=display:flex><span>mount /dev/sdb1 /data
+</span></span><span style=display:flex><span><span style=color:#75715e># 挂载至 /data</span>
+</span></span><span style=display:flex><span>vi /etc/fstab
+</span></span><span style=display:flex><span><span style=color:#75715e># 配置开机自动挂载</span>
+</span></span><span style=display:flex><span>/dev/sdb1 /data ext4 defaults <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>0</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 添加启动项后保存</span>
+</span></span><span style=display:flex><span>umount /data
+</span></span><span style=display:flex><span><span style=color:#75715e># 取消挂载,同时需再次编辑 /etc/fstab 删除开机自动挂载命令.</span>
+</span></span></code></pre></div><h3 id=nfs>NFS</h3><h4 id=服务端>服务端</h4><h5 id=安装>安装</h5><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>yum -y install nfs-utils
+</span></span><span style=display:flex><span>systemctl start rpcbind
+</span></span><span style=display:flex><span>systemctl enable rpcbind
+</span></span><span style=display:flex><span>systemctl start nfs
+</span></span><span style=display:flex><span>systemctl enable nfs
+</span></span></code></pre></div><h5 id=配置>配置</h5><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>vi /etc/exports
+</span></span><span style=display:flex><span><span style=color:#75715e># 配置挂载权限</span>
+</span></span><span style=display:flex><span>/share *<span style=color:#f92672>(</span>rw,sync,no_root_squash,no_all_squash<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 所有网段</span>
+</span></span><span style=display:flex><span>/share 192.168.1.0/24<span style=color:#f92672>(</span>rw,sync,no_root_squash,no_all_squash<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 指定网段</span>
+</span></span><span style=display:flex><span>/share 192.168.1.9<span style=color:#f92672>(</span>rw,sync,no_root_squash,no_all_squash<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 指定 IP</span>
+</span></span><span style=display:flex><span>exportfs -r
+</span></span><span style=display:flex><span><span style=color:#75715e># 刷新配置</span>
+</span></span></code></pre></div><h4 id=客户端挂载>客户端挂载</h4><p>用于挂载局域网内群晖 NFS 共享文件夹,需在群晖 DSM 内开启 NFS 服务,并编辑需挂载的共享文件夹,添加 NFS 权限设置<code>服务器名称或 IP 地址</code>为 <strong><code>\*</code></strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>yum -y install nfs-utils
+</span></span><span style=display:flex><span><span style=color:#75715e># 安装 NFS 工具</span>
+</span></span><span style=display:flex><span>mkdir /data
+</span></span><span style=display:flex><span><span style=color:#75715e># 创建本地目录</span>
+</span></span><span style=display:flex><span>mount -t nfs 192.168.1.8:/volume1/Downloads /data
+</span></span><span style=display:flex><span><span style=color:#75715e># 挂载目录</span>
+</span></span><span style=display:flex><span>vi /etc/fstab
+</span></span><span style=display:flex><span><span style=color:#75715e># 设置开机自动挂载</span>
+</span></span><span style=display:flex><span>192.168.1.8:/volume1/Downloads /data nfs defaults <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>0</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 尾行添加挂载命令</span>
+</span></span><span style=display:flex><span>umount /data
+</span></span><span style=display:flex><span><span style=color:#75715e># 取消挂载,同时需再次编辑 /etc/fstab 删除开机自动挂载命令.</span>
+</span></span></code></pre></div><h3 id=smb>SMB</h3><h4 id=服务端-1>服务端</h4><h5 id=安装启动>安装启动</h5><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>yum -y install samba
+</span></span><span style=display:flex><span><span style=color:#75715e># 安装</span>
+</span></span><span style=display:flex><span>systemctl start smb
+</span></span><span style=display:flex><span><span style=color:#75715e># 启动</span>
+</span></span><span style=display:flex><span>systemctl status smb
+</span></span><span style=display:flex><span><span style=color:#75715e># 状态</span>
+</span></span><span style=display:flex><span>systemctl enable smb
+</span></span><span style=display:flex><span><span style=color:#75715e># 开机自启动</span>
+</span></span><span style=display:flex><span>systemctl restart smb
+</span></span><span style=display:flex><span><span style=color:#75715e># 重启</span>
+</span></span></code></pre></div><h5 id=共享文件夹>共享文件夹</h5><p>本文为匿名共享文件夹,无需配置账号密码.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>mkdir /data
+</span></span><span style=display:flex><span><span style=color:#75715e># 创建共享文件夹</span>
+</span></span><span style=display:flex><span>chown -R nobody:nobody /data
+</span></span><span style=display:flex><span><span style=color:#75715e># 赋予文件夹匿名用户权限</span>
+</span></span><span style=display:flex><span>vi /etc/sysconfig/selinux
+</span></span><span style=display:flex><span><span style=color:#75715e># OR</span>
+</span></span><span style=display:flex><span>vi /etc/selinux/config
+</span></span><span style=display:flex><span><span style=color:#75715e># 修改 SELINUX=disabled 后重启服务器</span>
+</span></span></code></pre></div><h5 id=配置-smbconf>配置 smb.conf</h5><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>vi /etc/samba/smb.conf
+</span></span><span style=display:flex><span><span style=color:#75715e># 参考以下编辑 conf 文件:</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>global<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>    workgroup <span style=color:#f92672>=</span> WORKGROUP
+</span></span><span style=display:flex><span>    security <span style=color:#f92672>=</span> user
+</span></span><span style=display:flex><span>    map to guest <span style=color:#f92672>=</span> Bad User
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>data<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>    comment <span style=color:#f92672>=</span> date
+</span></span><span style=display:flex><span>    path <span style=color:#f92672>=</span> /data
+</span></span><span style=display:flex><span>    public <span style=color:#f92672>=</span> yes
+</span></span><span style=display:flex><span>    read only <span style=color:#f92672>=</span> No
+</span></span></code></pre></div><h5 id=配置账号密码>配置账号密码</h5><p><a href=https://cloud.tencent.com/developer/article/1691026 target=_blank rel="noopener noreffer">参考链接</a></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>useradd stille
+</span></span><span style=display:flex><span>smbpasswd -a stille
+</span></span><span style=display:flex><span>chown -R nobody:nobody share
+</span></span><span style=display:flex><span>chmod -R <span style=color:#ae81ff>777</span> share
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>vi /etc/samba/smb.conf
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>global<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>    security <span style=color:#f92672>=</span> user
+</span></span><span style=display:flex><span>    workgroup <span style=color:#f92672>=</span> SAMBA
+</span></span><span style=display:flex><span>    passdb backend <span style=color:#f92672>=</span> tdbsam
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>share<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>    comment <span style=color:#f92672>=</span> share
+</span></span><span style=display:flex><span>    path <span style=color:#f92672>=</span> /share
+</span></span><span style=display:flex><span>    writable <span style=color:#f92672>=</span> no
+</span></span><span style=display:flex><span>    create mask <span style=color:#f92672>=</span> <span style=color:#ae81ff>0644</span>
+</span></span><span style=display:flex><span>    directory mask <span style=color:#f92672>=</span> <span style=color:#ae81ff>02755</span>
+</span></span><span style=display:flex><span>    valid users <span style=color:#f92672>=</span> stille
+</span></span><span style=display:flex><span>    write list <span style=color:#f92672>=</span> stille
+</span></span></code></pre></div><h5 id=检查语法>检查语法</h5><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>testparm
+</span></span><span style=display:flex><span><span style=color:#75715e># 检查语法</span>
+</span></span><span style=display:flex><span>systemctl restart smb
+</span></span><span style=display:flex><span><span style=color:#75715e># 重启 smb 服务</span>
+</span></span></code></pre></div><h5 id=avahi>avahi</h5><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>yum install avahi-tools
+</span></span><span style=display:flex><span>systemctl start avahi-daemon
+</span></span><span style=display:flex><span>systemctl enable avahi-daemon
+</span></span><span style=display:flex><span>vi /etc/avahi/services/smb.service
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>&lt;service-group&gt;
+</span></span><span style=display:flex><span>&lt;name&gt;CENTOS&lt;/name&gt;
+</span></span><span style=display:flex><span>&lt;service&gt;
+</span></span><span style=display:flex><span>&lt;type&gt;_device-info._tcp&lt;/type&gt;
+</span></span><span style=display:flex><span>&lt;txt-record&gt;model<span style=color:#f92672>=</span>Xserve&lt;/txt-record&gt;
+</span></span><span style=display:flex><span>&lt;/service&gt;
+</span></span><span style=display:flex><span>&lt;service&gt;
+</span></span><span style=display:flex><span>&lt;type&gt;_smb._tcp&lt;/type&gt;
+</span></span><span style=display:flex><span>&lt;port&gt;445&lt;/port&gt;
+</span></span><span style=display:flex><span>&lt;/service&gt;
+</span></span><span style=display:flex><span>&lt;/service-group&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>systemctl restart avahi-daemon
+</span></span></code></pre></div><h4 id=客户端>客户端</h4><h5 id=匿名挂载>匿名挂载</h5><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>mount -t cifs -o guest //192.168.1.8/share /share
+</span></span><span style=display:flex><span><span style=color:#75715e># 配置开机自动挂载</span>
+</span></span><span style=display:flex><span>vim /etc/fstab
+</span></span><span style=display:flex><span>//192.168.1.8/share  /share          cifs    defaults,guest  <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>0</span>
+</span></span></code></pre></div><h5 id=用户密码挂载>用户密码挂载</h5><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>mount -t cifs -o username<span style=color:#f92672>=</span>xxxxx,password<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;xxxxx&#39;</span>,iocharset<span style=color:#f92672>=</span>utf-8 //192.168.1.8/share /share
+</span></span><span style=display:flex><span><span style=color:#75715e># 配置开机自动挂载</span>
+</span></span><span style=display:flex><span>vim /etc/fstab
+</span></span><span style=display:flex><span>//192.168.1.8/share  /share          cifs    defaults,username<span style=color:#f92672>=</span>xxxxx,password<span style=color:#f92672>=</span>xxxxx
+</span></span></code></pre></div><h5 id=umount>umount</h5><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>umount /share
+</span></span><span style=display:flex><span><span style=color:#75715e># 遇到无法 umount 时</span>
+</span></span><span style=display:flex><span>yum install psmisc
+</span></span><span style=display:flex><span>fuser -mv /share
+</span></span><span style=display:flex><span>kill -9 xxxx
+</span></span></code></pre></div></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>Updated on 2022-02-25</span></div></div><div class=post-info-line><div class=post-info-md></div><div class=post-info-share><span><a href=javascript:void(0); title="Share on Twitter" data-sharer=twitter data-url=http://example.org/posts/centos7-%E5%B8%B8%E8%A7%84%E5%91%BD%E4%BB%A4/ data-title="CentOS7 常规命令"><i class="fab fa-twitter fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on Facebook" data-sharer=facebook data-url=http://example.org/posts/centos7-%E5%B8%B8%E8%A7%84%E5%91%BD%E4%BB%A4/><i class="fab fa-facebook-square fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on Hacker News" data-sharer=hackernews data-url=http://example.org/posts/centos7-%E5%B8%B8%E8%A7%84%E5%91%BD%E4%BB%A4/ data-title="CentOS7 常规命令"><i class="fab fa-hacker-news fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on Line" data-sharer=line data-url=http://example.org/posts/centos7-%E5%B8%B8%E8%A7%84%E5%91%BD%E4%BB%A4/ data-title="CentOS7 常规命令"><i data-svg-src=https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg aria-hidden=true></i></a><a href=javascript:void(0); title="Share on 微博" data-sharer=weibo data-url=http://example.org/posts/centos7-%E5%B8%B8%E8%A7%84%E5%91%BD%E4%BB%A4/ data-title="CentOS7 常规命令"><i class="fab fa-weibo fa-fw" aria-hidden=true></i></a></span></div></div></div><div class=post-info-more><section class=post-tags></section><section><span><a href=javascript:void(0); onclick=window.history.back()>Back</a></span>&nbsp;|&nbsp;<span><a href=/>Home</a></span></section></div><div class=post-nav><a href=/posts/shell%E8%84%9A%E6%9C%AC%E5%B8%B8%E7%94%A8%E5%8F%82%E8%80%83/ class=prev rel=prev title=shell脚本常用参考><i class="fas fa-angle-left fa-fw" aria-hidden=true></i>shell脚本常用参考</a>
+<a href=/posts/centos7-%E5%8D%87%E7%BA%A7%E5%86%85%E6%A0%B8/ class=next rel=next title="CentOS7 升级内核">CentOS7 升级内核<i class="fas fa-angle-right fa-fw" aria-hidden=true></i></a></div></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line>Powered by <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.115.3">Hugo</a> | Theme - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden=true></i> LoveIt</a></div><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2022 - 2023</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=/ target=_blank></a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top"><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:50},comment:{}}</script><script type=text/javascript src=/js/theme.min.js></script></body></html>

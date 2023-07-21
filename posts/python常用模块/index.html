@@ -1,0 +1,782 @@
+<!doctype html><html lang=en-us><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>python常用模块 - My New Hugo Site</title><meta name=Description content="This is my cool site"><meta property="og:title" content="python常用模块"><meta property="og:description" content="日志模块角色 1.Logger:产生日志 2.Filter:几乎不用 3.Handler: 接收Logger传过来的日志，进行日志格式化，可以打印到终端，也可以打印到文件 4.Formatter：日志格式
+日志模块相关说明 可在logging.basicConfig()函数中可通过具体参数来更改logging模块默认行为，可用参数有. filename：用指定的文件名创建FiledHandler，这样日志会被存储在指定的文件中。 filemode：文件打开方式，在指定了filename时使用这个参数，默认值为“a”还可指定为“w”。 format：指定handler使用的日志显示格式。 datefmt：指定日期时间格式。 level：设置rootlogger的日志级别 stream：用指定的stream创建StreamHandler。可以指定输出到sys.stderr,sys.stdout或者文件，默认为sys.stderr。若同时列出了filename和stream两个参数，则stream参数会被忽略。
+format参数中可能用到的格式化串 %(name)s Logger的名字 %(levelno)s 数字形式的日志级别 %(levelname)s 文本形式的日志级别 %(pathname)s 调用日志输出函数的模块的完整路径名，可能没有 %(filename)s 调用日志输出函数的模块的文件名 %(module)s 调用日志输出函数的模块名 %(funcName)s 调用日志输出函数的函数名 %(lineno)d 调用日志输出函数的语句所在的代码行 %(created)f 当前时间，用UNIX标准的表示时间的浮 点数表示 %(relativeCreated)d 输出日志信息时的，自Logger创建以 来的毫秒数 %(asctime)s 字符串形式的当前时间。默认格式是 “2003-07-08 16:49:45,896”。逗号后面的是毫秒 %(thread)d 线程ID。可能没有 %(threadName)s 线程名。可能没有 %(process)d 进程ID。可能没有 %(message)s用户输出的消息 日志打印实现过程 import logging #1.Logger:产生日志 logger1=logging.getLogger('访问日志') #2.Handler: 接收Logger传过来的日志，进行日志格式化，可以打印到终端，也可以打印到文件 sh=logging.StreamHandler() #打印到终端 fh1=logging.FileHandler('s1.log', encoding='utf-8') #打印到文件 fh2=logging.FileHandler('s2.log', encoding='utf-8') #3.Formatter：日志格式 formatter1=logging.Formatter( fmt='%(asctime)s - %(name)s - %(levelname)s - %(module)s: %(message)s', datefmt='%Y-%m-%d %H:%M:%S %p' ) formatter2=logging."><meta property="og:type" content="article"><meta property="og:url" content="http://example.org/posts/python%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97/"><meta property="article:section" content="posts"><meta property="article:published_time" content="2022-03-26T12:44:37+00:00"><meta property="article:modified_time" content="2022-03-26T12:44:37+00:00"><meta property="og:site_name" content="My cool site"><meta name=twitter:card content="summary"><meta name=twitter:title content="python常用模块"><meta name=twitter:description content="日志模块角色 1.Logger:产生日志 2.Filter:几乎不用 3.Handler: 接收Logger传过来的日志，进行日志格式化，可以打印到终端，也可以打印到文件 4.Formatter：日志格式
+日志模块相关说明 可在logging.basicConfig()函数中可通过具体参数来更改logging模块默认行为，可用参数有. filename：用指定的文件名创建FiledHandler，这样日志会被存储在指定的文件中。 filemode：文件打开方式，在指定了filename时使用这个参数，默认值为“a”还可指定为“w”。 format：指定handler使用的日志显示格式。 datefmt：指定日期时间格式。 level：设置rootlogger的日志级别 stream：用指定的stream创建StreamHandler。可以指定输出到sys.stderr,sys.stdout或者文件，默认为sys.stderr。若同时列出了filename和stream两个参数，则stream参数会被忽略。
+format参数中可能用到的格式化串 %(name)s Logger的名字 %(levelno)s 数字形式的日志级别 %(levelname)s 文本形式的日志级别 %(pathname)s 调用日志输出函数的模块的完整路径名，可能没有 %(filename)s 调用日志输出函数的模块的文件名 %(module)s 调用日志输出函数的模块名 %(funcName)s 调用日志输出函数的函数名 %(lineno)d 调用日志输出函数的语句所在的代码行 %(created)f 当前时间，用UNIX标准的表示时间的浮 点数表示 %(relativeCreated)d 输出日志信息时的，自Logger创建以 来的毫秒数 %(asctime)s 字符串形式的当前时间。默认格式是 “2003-07-08 16:49:45,896”。逗号后面的是毫秒 %(thread)d 线程ID。可能没有 %(threadName)s 线程名。可能没有 %(process)d 进程ID。可能没有 %(message)s用户输出的消息 日志打印实现过程 import logging #1.Logger:产生日志 logger1=logging.getLogger('访问日志') #2.Handler: 接收Logger传过来的日志，进行日志格式化，可以打印到终端，也可以打印到文件 sh=logging.StreamHandler() #打印到终端 fh1=logging.FileHandler('s1.log', encoding='utf-8') #打印到文件 fh2=logging.FileHandler('s2.log', encoding='utf-8') #3.Formatter：日志格式 formatter1=logging.Formatter( fmt='%(asctime)s - %(name)s - %(levelname)s - %(module)s: %(message)s', datefmt='%Y-%m-%d %H:%M:%S %p' ) formatter2=logging."><meta name=application-name content="My cool site"><meta name=apple-mobile-web-app-title content="My cool site"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=http://example.org/posts/python%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97/><link rel=prev href=http://example.org/posts/%E6%A8%A1%E5%9D%97%E4%B8%8E%E5%8C%85/><link rel=next href=http://example.org/posts/%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/><link rel=stylesheet href=/css/style.min.css><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"python常用模块","inLanguage":"en-us","mainEntityOfPage":{"@type":"WebPage","@id":"http:\/\/example.org\/posts\/python%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97\/"},"genre":"posts","wordcount":2307,"url":"http:\/\/example.org\/posts\/python%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97\/","datePublished":"2022-03-26T12:44:37+00:00","dateModified":"2022-03-26T12:44:37+00:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"Author"},"description":""}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"auto"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"auto"==="dark")&&document.body.setAttribute("theme","dark")</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="My New Hugo Site">My cool site</a></div><div class=menu><div class=menu-inner><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme"><i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="My New Hugo Site">My cool site</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme"><i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>Contents</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">python常用模块</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=/ title=Author rel=author class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Author</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw" aria-hidden=true></i>&nbsp;<time datetime=2022-03-26>2022-03-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden=true></i>&nbsp;2307 words&nbsp;
+<i class="far fa-clock fa-fw" aria-hidden=true></i>&nbsp;11 minutes&nbsp;</div></div><div class="details toc" id=toc-static data-kept><div class="details-summary toc-title"><span>Contents</span>
+<span><i class="details-icon fas fa-angle-right" aria-hidden=true></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#日志模块角色>日志模块角色</a></li><li><a href=#日志模块相关说明>日志模块相关说明</a><ul><li><a href=#format参数中可能用到的格式化串>format参数中可能用到的格式化串</a></li></ul></li><li><a href=#日志打印实现过程>日志打印实现过程</a></li><li><a href=#日志的继承关系了解>日志的继承关系（了解）</a></li><li><a href=#日志模块应用>日志模块应用</a><ul><li><a href=#整体项目结构>整体项目结构</a></li><li><a href=#每个目录简单介绍>每个目录简单介绍</a></li><li><a href=#相关源码>相关源码</a></li></ul></li><li><a href=#re模块-正则表达式>re模块-正则表达式</a><ul><li><a href=#什么是正则>什么是正则？</a></li><li><a href=#常用匹配模式元字符>常用匹配模式(元字符)</a></li><li><a href=#re模块的其他用法>re模块的其他用法</a></li></ul></li><li><a href=#时间模块>时间模块</a></li><li><a href=#random模块>random模块</a></li><li><a href=#os模块>os模块</a></li><li><a href=#sys模块>sys模块</a></li><li><a href=#shutil模块>shutil模块</a></li><li><a href=#xml模块>xml模块</a><ul><li><a href=#遍历文档>遍历文档</a></li><li><a href=#修改>修改</a></li><li><a href=#删除>删除</a></li></ul></li><li><a href=#configerparser模块>configerparser模块</a></li><li><a href=#hashlib模块>hashlib模块</a><ul><li><a href=#什么叫hash>什么叫hash?</a></li><li><a href=#hash值的特点>hash值的特点</a></li></ul></li><li><a href=#subprocess模块>subprocess模块</a></li></ul></nav></div></div><div class=content id=content><h2 id=日志模块角色>日志模块角色</h2><p>1.<code>Logger</code>:产生日志
+2.<code>Filter</code>:几乎不用
+3.<code>Handler</code>: 接收Logger传过来的日志，进行日志格式化，可以打印到终端，也可以打印到文件
+4.<code>Formatter</code>：日志格式</p><h2 id=日志模块相关说明>日志模块相关说明</h2><p>可在<code>logging.basicConfig()</code>函数中可通过具体参数来更改<code>logging</code>模块默认行为，可用参数有.
+<code>filename</code>：用指定的文件名创建<code>FiledHandler</code>，这样日志会被存储在指定的文件中。
+<code>filemode</code>：文件打开方式，在指定了<code>filename</code>时使用这个参数，默认值为“a”还可指定为“w”。
+<code>format</code>：指定<code>handler</code>使用的日志显示格式。
+<code>datefmt</code>：指定日期时间格式。
+<code>level</code>：设置<code>rootlogger</code>的日志级别
+<code>stream</code>：用指定的<code>stream</code>创建<code>StreamHandler</code>。可以指定输出到<code>sys.stderr,sys.stdout</code>或者文件，默认为<code>sys.stderr</code>。若同时列出了<code>filename</code>和<code>stream</code>两个参数，则<code>stream</code>参数会被忽略。</p><h3 id=format参数中可能用到的格式化串>format参数中可能用到的格式化串</h3><pre tabindex=0><code>%(name)s Logger的名字
+%(levelno)s 数字形式的日志级别
+%(levelname)s 文本形式的日志级别
+%(pathname)s 调用日志输出函数的模块的完整路径名，可能没有
+%(filename)s 调用日志输出函数的模块的文件名
+%(module)s 调用日志输出函数的模块名
+%(funcName)s 调用日志输出函数的函数名
+%(lineno)d 调用日志输出函数的语句所在的代码行
+%(created)f 当前时间，用UNIX标准的表示时间的浮 点数表示
+%(relativeCreated)d 输出日志信息时的，自Logger创建以 来的毫秒数
+%(asctime)s 字符串形式的当前时间。默认格式是 “2003-07-08 16:49:45,896”。逗号后面的是毫秒
+%(thread)d 线程ID。可能没有
+%(threadName)s 线程名。可能没有
+%(process)d 进程ID。可能没有
+%(message)s用户输出的消息
+</code></pre><h2 id=日志打印实现过程>日志打印实现过程</h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>import</span> logging
+</span></span><span style=display:flex><span><span style=color:#75715e>#1.Logger:产生日志</span>
+</span></span><span style=display:flex><span>logger1<span style=color:#f92672>=</span>logging<span style=color:#f92672>.</span>getLogger(<span style=color:#e6db74>&#39;访问日志&#39;</span>) 
+</span></span><span style=display:flex><span><span style=color:#75715e>#2.Handler: 接收Logger传过来的日志，进行日志格式化，可以打印到终端，也可以打印到文件</span>
+</span></span><span style=display:flex><span>sh<span style=color:#f92672>=</span>logging<span style=color:#f92672>.</span>StreamHandler() <span style=color:#75715e>#打印到终端</span>
+</span></span><span style=display:flex><span>fh1<span style=color:#f92672>=</span>logging<span style=color:#f92672>.</span>FileHandler(<span style=color:#e6db74>&#39;s1.log&#39;</span>, encoding<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;utf-8&#39;</span>) <span style=color:#75715e>#打印到文件</span>
+</span></span><span style=display:flex><span>fh2<span style=color:#f92672>=</span>logging<span style=color:#f92672>.</span>FileHandler(<span style=color:#e6db74>&#39;s2.log&#39;</span>, encoding<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;utf-8&#39;</span>)
+</span></span><span style=display:flex><span><span style=color:#75715e>#3.Formatter：日志格式</span>
+</span></span><span style=display:flex><span>formatter1<span style=color:#f92672>=</span>logging<span style=color:#f92672>.</span>Formatter(
+</span></span><span style=display:flex><span>    fmt<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>%(asctime)s</span><span style=color:#e6db74> - </span><span style=color:#e6db74>%(name)s</span><span style=color:#e6db74> - </span><span style=color:#e6db74>%(levelname)s</span><span style=color:#e6db74> - </span><span style=color:#e6db74>%(module)s</span><span style=color:#e6db74>: </span><span style=color:#e6db74>%(message)s</span><span style=color:#e6db74>&#39;</span>,
+</span></span><span style=display:flex><span>    datefmt<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;%Y-%m-</span><span style=color:#e6db74>%d</span><span style=color:#e6db74> %H:%M:%S %p&#39;</span>
+</span></span><span style=display:flex><span>)
+</span></span><span style=display:flex><span>formatter2<span style=color:#f92672>=</span>logging<span style=color:#f92672>.</span>Formatter(
+</span></span><span style=display:flex><span>    fmt<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>%(asctime)s</span><span style=color:#e6db74> : </span><span style=color:#e6db74>%(message)s</span><span style=color:#e6db74>&#39;</span>,
+</span></span><span style=display:flex><span>    datefmt<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;%Y-%m-</span><span style=color:#e6db74>%d</span><span style=color:#e6db74> %H:%M:%S %p&#39;</span>
+</span></span><span style=display:flex><span>)
+</span></span><span style=display:flex><span>formatter3<span style=color:#f92672>=</span>logging<span style=color:#f92672>.</span>Formatter(
+</span></span><span style=display:flex><span>    fmt<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>%(asctime)s</span><span style=color:#e6db74> : </span><span style=color:#e6db74>%(module)s</span><span style=color:#e6db74> : </span><span style=color:#e6db74>%(message)s</span><span style=color:#e6db74>&#39;</span>,
+</span></span><span style=display:flex><span>    datefmt<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;%Y-%m-</span><span style=color:#e6db74>%d</span><span style=color:#e6db74> %H:%M:%S %p&#39;</span>
+</span></span><span style=display:flex><span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#4.为Handler绑定日志格式</span>
+</span></span><span style=display:flex><span>sh<span style=color:#f92672>.</span>setFormatter(formatter1)
+</span></span><span style=display:flex><span>fh1<span style=color:#f92672>.</span>setFormatter(formatter2)
+</span></span><span style=display:flex><span>fh2<span style=color:#f92672>.</span>setFormatter(formatter3)
+</span></span><span style=display:flex><span><span style=color:#75715e>#5.为logger 绑定handler</span>
+</span></span><span style=display:flex><span>logger1<span style=color:#f92672>.</span>addHandler(sh)
+</span></span><span style=display:flex><span>logger1<span style=color:#f92672>.</span>addHandler(fh1)
+</span></span><span style=display:flex><span>logger1<span style=color:#f92672>.</span>addHandler(fh2)
+</span></span><span style=display:flex><span><span style=color:#75715e>#6.设置日志级别:logger 对象的日志级别应该&lt;=handler的日志级别</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#logger1.setLevel(30)</span>
+</span></span><span style=display:flex><span>logger1<span style=color:#f92672>.</span>setLevel(<span style=color:#ae81ff>10</span>)
+</span></span><span style=display:flex><span>sh<span style=color:#f92672>.</span>setLevel(<span style=color:#ae81ff>10</span>)
+</span></span><span style=display:flex><span>fh1<span style=color:#f92672>.</span>setLevel(<span style=color:#ae81ff>10</span>)
+</span></span><span style=display:flex><span>fh2<span style=color:#f92672>.</span>setLevel(<span style=color:#ae81ff>10</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#7.测试</span>
+</span></span><span style=display:flex><span>logger1<span style=color:#f92672>.</span>debug(<span style=color:#e6db74>&#39;测试者玩&#39;</span>)
+</span></span><span style=display:flex><span>logger1<span style=color:#f92672>.</span>info(<span style=color:#e6db74>&#39;运行还算正常&#39;</span>)
+</span></span><span style=display:flex><span>logger1<span style=color:#f92672>.</span>warning(<span style=color:#e6db74>&#39;可能要有bug了&#39;</span>)
+</span></span><span style=display:flex><span>logger1<span style=color:#f92672>.</span>error(<span style=color:#e6db74>&#39;不好了，真出bug了&#39;</span>)
+</span></span><span style=display:flex><span>logger1<span style=color:#f92672>.</span>critical(<span style=color:#e6db74>&#39;推到重写&#39;</span>)
+</span></span></code></pre></div><p>去注释版</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>import</span> logging
+</span></span><span style=display:flex><span>logger1<span style=color:#f92672>=</span>logging<span style=color:#f92672>.</span>getLogger(<span style=color:#e6db74>&#39;访问日志&#39;</span>) 
+</span></span><span style=display:flex><span>sh<span style=color:#f92672>=</span>logging<span style=color:#f92672>.</span>StreamHandler()
+</span></span><span style=display:flex><span>fh1<span style=color:#f92672>=</span>logging<span style=color:#f92672>.</span>FileHandler(<span style=color:#e6db74>&#39;s1.log&#39;</span>, encoding<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;utf-8&#39;</span>) 
+</span></span><span style=display:flex><span>fh2<span style=color:#f92672>=</span>logging<span style=color:#f92672>.</span>FileHandler(<span style=color:#e6db74>&#39;s2.log&#39;</span>, encoding<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;utf-8&#39;</span>)
+</span></span><span style=display:flex><span>formatter1<span style=color:#f92672>=</span>logging<span style=color:#f92672>.</span>Formatter(
+</span></span><span style=display:flex><span>    fmt<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>%(asctime)s</span><span style=color:#e6db74> - </span><span style=color:#e6db74>%(name)s</span><span style=color:#e6db74> - </span><span style=color:#e6db74>%(levelname)s</span><span style=color:#e6db74> - </span><span style=color:#e6db74>%(module)s</span><span style=color:#e6db74>: </span><span style=color:#e6db74>%(message)s</span><span style=color:#e6db74>&#39;</span>,
+</span></span><span style=display:flex><span>    datefmt<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;%Y-%m-</span><span style=color:#e6db74>%d</span><span style=color:#e6db74> %H:%M:%S %p&#39;</span>
+</span></span><span style=display:flex><span>)
+</span></span><span style=display:flex><span>formatter2<span style=color:#f92672>=</span>logging<span style=color:#f92672>.</span>Formatter(
+</span></span><span style=display:flex><span>    fmt<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>%(asctime)s</span><span style=color:#e6db74> : </span><span style=color:#e6db74>%(message)s</span><span style=color:#e6db74>&#39;</span>,
+</span></span><span style=display:flex><span>    datefmt<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;%Y-%m-</span><span style=color:#e6db74>%d</span><span style=color:#e6db74> %H:%M:%S %p&#39;</span>
+</span></span><span style=display:flex><span>)
+</span></span><span style=display:flex><span>formatter3<span style=color:#f92672>=</span>logging<span style=color:#f92672>.</span>Formatter(
+</span></span><span style=display:flex><span>    fmt<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>%(asctime)s</span><span style=color:#e6db74> : </span><span style=color:#e6db74>%(module)s</span><span style=color:#e6db74> : </span><span style=color:#e6db74>%(message)s</span><span style=color:#e6db74>&#39;</span>,
+</span></span><span style=display:flex><span>    datefmt<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;%Y-%m-</span><span style=color:#e6db74>%d</span><span style=color:#e6db74> %H:%M:%S %p&#39;</span>
+</span></span><span style=display:flex><span>)
+</span></span><span style=display:flex><span>sh<span style=color:#f92672>.</span>setFormatter(formatter1)
+</span></span><span style=display:flex><span>fh1<span style=color:#f92672>.</span>setFormatter(formatter2)
+</span></span><span style=display:flex><span>fh2<span style=color:#f92672>.</span>setFormatter(formatter3)
+</span></span><span style=display:flex><span>logger1<span style=color:#f92672>.</span>addHandler(sh)
+</span></span><span style=display:flex><span>logger1<span style=color:#f92672>.</span>addHandler(fh1)
+</span></span><span style=display:flex><span>logger1<span style=color:#f92672>.</span>addHandler(fh2)
+</span></span><span style=display:flex><span><span style=color:#75715e>#logger1.setLevel(30)</span>
+</span></span><span style=display:flex><span>logger1<span style=color:#f92672>.</span>setLevel(<span style=color:#ae81ff>10</span>)
+</span></span><span style=display:flex><span>sh<span style=color:#f92672>.</span>setLevel(<span style=color:#ae81ff>10</span>)
+</span></span><span style=display:flex><span>fh1<span style=color:#f92672>.</span>setLevel(<span style=color:#ae81ff>10</span>)
+</span></span><span style=display:flex><span>fh2<span style=color:#f92672>.</span>setLevel(<span style=color:#ae81ff>10</span>)
+</span></span></code></pre></div><p>测试</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>logger1<span style=color:#f92672>.</span>debug(<span style=color:#e6db74>&#39;测试者玩&#39;</span>)
+</span></span><span style=display:flex><span>logger1<span style=color:#f92672>.</span>info(<span style=color:#e6db74>&#39;运行还算正常&#39;</span>)
+</span></span><span style=display:flex><span>logger1<span style=color:#f92672>.</span>warning(<span style=color:#e6db74>&#39;可能要有bug了&#39;</span>)
+</span></span><span style=display:flex><span>logger1<span style=color:#f92672>.</span>error(<span style=color:#e6db74>&#39;不好了，真出bug了&#39;</span>)
+</span></span><span style=display:flex><span>logger1<span style=color:#f92672>.</span>critical(<span style=color:#e6db74>&#39;推到重写&#39;</span>)
+</span></span></code></pre></div><p>结果：</p><p><code>s1.log</code></p><pre tabindex=0><code>2022-03-22 20:26:58 PM : 测试者玩
+2022-03-22 20:26:58 PM : 运行还算正常
+2022-03-22 20:26:58 PM : 可能要有bug了
+2022-03-22 20:26:58 PM : 不好了，真出bug了
+2022-03-22 20:26:58 PM : 推到重写
+</code></pre><p><code>s2.log</code></p><pre tabindex=0><code>2022-03-22 20:26:58 PM : my_logging : 测试者玩
+2022-03-22 20:26:58 PM : my_logging : 运行还算正常
+2022-03-22 20:26:58 PM : my_logging : 可能要有bug了
+2022-03-22 20:26:58 PM : my_logging : 不好了，真出bug了
+2022-03-22 20:26:58 PM : my_logging : 推到重写
+</code></pre><p>终端</p><pre tabindex=0><code>2022-03-26 11:32:48 AM - 访问日志 - INFO - my_logging: 运行还算正常
+2022-03-26 11:32:48 AM - 访问日志 - WARNING - my_logging: 可能要有bug了
+2022-03-26 11:32:48 AM - 访问日志 - ERROR - my_logging: 不好了，真出bug了
+2022-03-26 11:32:48 AM - 访问日志 - CRITICAL - my_logging: 推到重写
+</code></pre><h2 id=日志的继承关系了解>日志的继承关系（了解）</h2><p>练习</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>import</span> logging
+</span></span><span style=display:flex><span><span style=color:#75715e>#1.Logger:产生日志</span>
+</span></span><span style=display:flex><span>logger1<span style=color:#f92672>=</span>logging<span style=color:#f92672>.</span>getLogger(<span style=color:#e6db74>&#39;root&#39;</span>)
+</span></span><span style=display:flex><span>logger2<span style=color:#f92672>=</span>logging<span style=color:#f92672>.</span>getLogger(<span style=color:#e6db74>&#39;root.child1&#39;</span>)
+</span></span><span style=display:flex><span>logger3<span style=color:#f92672>=</span>logging<span style=color:#f92672>.</span>getLogger(<span style=color:#e6db74>&#39;root.child1.child2&#39;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#2.Handler: 接收Logger传过来的日志，进行日志格式化，可以打印到终端，也可以打印到文件</span>
+</span></span><span style=display:flex><span>sh<span style=color:#f92672>=</span>logging<span style=color:#f92672>.</span>StreamHandler() <span style=color:#75715e>#打印到终端</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#3.Formatter：日志格式</span>
+</span></span><span style=display:flex><span>formatter1<span style=color:#f92672>=</span>logging<span style=color:#f92672>.</span>Formatter(
+</span></span><span style=display:flex><span>    fmt<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>%(asctime)s</span><span style=color:#e6db74> - </span><span style=color:#e6db74>%(name)s</span><span style=color:#e6db74> - </span><span style=color:#e6db74>%(levelname)s</span><span style=color:#e6db74> - </span><span style=color:#e6db74>%(module)s</span><span style=color:#e6db74>: </span><span style=color:#e6db74>%(message)s</span><span style=color:#e6db74>&#39;</span>,
+</span></span><span style=display:flex><span>    datefmt<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;%Y-%m-</span><span style=color:#e6db74>%d</span><span style=color:#e6db74> %H:%M:%S %p&#39;</span>
+</span></span><span style=display:flex><span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#4.为Handler绑定日志格式</span>
+</span></span><span style=display:flex><span>sh<span style=color:#f92672>.</span>setFormatter(formatter1)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#5.为logger 绑定handler</span>
+</span></span><span style=display:flex><span>logger1<span style=color:#f92672>.</span>addHandler(sh)
+</span></span><span style=display:flex><span>logger2<span style=color:#f92672>.</span>addHandler(sh)
+</span></span><span style=display:flex><span>logger3<span style=color:#f92672>.</span>addHandler(sh)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#6.设置日志级别:logger 对象的日志级别应该&lt;=handler的日志级别</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#logger1.setLevel(30)</span>
+</span></span><span style=display:flex><span>logger1<span style=color:#f92672>.</span>setLevel(<span style=color:#ae81ff>10</span>)
+</span></span><span style=display:flex><span>logger2<span style=color:#f92672>.</span>setLevel(<span style=color:#ae81ff>10</span>)
+</span></span><span style=display:flex><span>logger3<span style=color:#f92672>.</span>setLevel(<span style=color:#ae81ff>10</span>)
+</span></span><span style=display:flex><span>sh<span style=color:#f92672>.</span>setLevel(<span style=color:#ae81ff>10</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#7.测试</span>
+</span></span><span style=display:flex><span>logger1<span style=color:#f92672>.</span>debug(<span style=color:#e6db74>&#39;爷爷&#39;</span>)
+</span></span><span style=display:flex><span>logger2<span style=color:#f92672>.</span>debug(<span style=color:#e6db74>&#39;爸爸&#39;</span>)
+</span></span><span style=display:flex><span>logger3<span style=color:#f92672>.</span>debug(<span style=color:#e6db74>&#39;孙子&#39;</span>)
+</span></span></code></pre></div><p>结果</p><pre tabindex=0><code>2022-03-22 21:00:30 PM - root - DEBUG - my_logging_child: 爷爷
+2022-03-22 21:00:30 PM - root.child1 - DEBUG - my_logging_child: 爸爸
+2022-03-22 21:00:30 PM - root.child1 - DEBUG - my_logging_child: 爸爸
+2022-03-22 21:00:30 PM - root.child1.child2 - DEBUG - my_logging_child: 孙子
+2022-03-22 21:00:30 PM - root.child1.child2 - DEBUG - my_logging_child: 孙子
+2022-03-22 21:00:30 PM - root.child1.child2 - DEBUG - my_logging_child: 孙子
+</code></pre><p>去注释版</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>import</span> logging
+</span></span><span style=display:flex><span>logger1<span style=color:#f92672>=</span>logging<span style=color:#f92672>.</span>getLogger(<span style=color:#e6db74>&#39;root&#39;</span>)
+</span></span><span style=display:flex><span>logger2<span style=color:#f92672>=</span>logging<span style=color:#f92672>.</span>getLogger(<span style=color:#e6db74>&#39;root.child1&#39;</span>)
+</span></span><span style=display:flex><span>logger3<span style=color:#f92672>=</span>logging<span style=color:#f92672>.</span>getLogger(<span style=color:#e6db74>&#39;root.child1.child2&#39;</span>)
+</span></span><span style=display:flex><span>sh<span style=color:#f92672>=</span>logging<span style=color:#f92672>.</span>StreamHandler()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>formatter1<span style=color:#f92672>=</span>logging<span style=color:#f92672>.</span>Formatter(
+</span></span><span style=display:flex><span>    fmt<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>%(asctime)s</span><span style=color:#e6db74> - </span><span style=color:#e6db74>%(name)s</span><span style=color:#e6db74> - </span><span style=color:#e6db74>%(levelname)s</span><span style=color:#e6db74> - </span><span style=color:#e6db74>%(module)s</span><span style=color:#e6db74>: </span><span style=color:#e6db74>%(message)s</span><span style=color:#e6db74>&#39;</span>,
+</span></span><span style=display:flex><span>    datefmt<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;%Y-%m-</span><span style=color:#e6db74>%d</span><span style=color:#e6db74> %H:%M:%S %p&#39;</span>
+</span></span><span style=display:flex><span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>sh<span style=color:#f92672>.</span>setFormatter(formatter1)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>logger1<span style=color:#f92672>.</span>addHandler(sh)
+</span></span><span style=display:flex><span>logger2<span style=color:#f92672>.</span>addHandler(sh)
+</span></span><span style=display:flex><span>logger3<span style=color:#f92672>.</span>addHandler(sh)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#logger1.setLevel(30)</span>
+</span></span><span style=display:flex><span>logger1<span style=color:#f92672>.</span>setLevel(<span style=color:#ae81ff>10</span>)
+</span></span><span style=display:flex><span>logger2<span style=color:#f92672>.</span>setLevel(<span style=color:#ae81ff>10</span>)
+</span></span><span style=display:flex><span>logger3<span style=color:#f92672>.</span>setLevel(<span style=color:#ae81ff>10</span>)
+</span></span><span style=display:flex><span>sh<span style=color:#f92672>.</span>setLevel(<span style=color:#ae81ff>10</span>)
+</span></span></code></pre></div><p>测试</p><pre tabindex=0><code>logger1.debug(&#39;爷爷&#39;)
+logger2.debug(&#39;爸爸&#39;)
+logger3.debug(&#39;孙子&#39;)
+</code></pre><h2 id=日志模块应用>日志模块应用</h2><p>模拟购物小程序，选择转账时记录日志。</p><h3 id=整体项目结构>整体项目结构</h3><p><img class=lazyload src=/svg/loading.min.svg data-src=/img/postimages/%e8%b4%ad%e7%89%a9%e5%b0%8f%e7%a8%8b%e5%ba%8f%e6%95%b4%e4%bd%93%e7%bb%93%e6%9e%84.webp data-srcset="/img/postimages/%e8%b4%ad%e7%89%a9%e5%b0%8f%e7%a8%8b%e5%ba%8f%e6%95%b4%e4%bd%93%e7%bb%93%e6%9e%84.webp, /img/postimages/%e8%b4%ad%e7%89%a9%e5%b0%8f%e7%a8%8b%e5%ba%8f%e6%95%b4%e4%bd%93%e7%bb%93%e6%9e%84.webp 1.5x, /img/postimages/%e8%b4%ad%e7%89%a9%e5%b0%8f%e7%a8%8b%e5%ba%8f%e6%95%b4%e4%bd%93%e7%bb%93%e6%9e%84.webp 2x" data-sizes=auto alt=/img/postimages/购物小程序整体结构.webp title=购物小程序整体结构></p><h3 id=每个目录简单介绍>每个目录简单介绍</h3><p><code>bin</code>目录：存放用户交互程序</p><p><code>conf</code>目录：设置相关</p><p><code>core</code>：核心功能</p><p><code>db</code>:用户认证相关</p><p><code>lib</code>:常用功能</p><p><code>log</code>：日志文件</p><p><code>README</code>:项目介绍</p><h3 id=相关源码>相关源码</h3><p><code>start.py</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>import</span> sys<span style=color:#f92672>,</span> os
+</span></span><span style=display:flex><span><span style=color:#75715e>#print(os.path.abspath(__file__))</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#print(os.path.dirname(os.path.abspath(__file__)))</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#print(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>BASE_DIR <span style=color:#f92672>=</span> os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>dirname(os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>dirname(os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>abspath(__file__)))
+</span></span><span style=display:flex><span>sys<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>append(BASE_DIR)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>from</span> core <span style=color:#f92672>import</span> src
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> __name__ <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;__main__&#39;</span>:
+</span></span><span style=display:flex><span>    src<span style=color:#f92672>.</span>run()
+</span></span></code></pre></div><p><code>settings.py</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>import</span> os
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> logging.config
+</span></span><span style=display:flex><span>BASE_DIR <span style=color:#f92672>=</span> os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>dirname(os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>dirname(os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>abspath(__file__)))
+</span></span><span style=display:flex><span>LOG_PATH <span style=color:#f92672>=</span> os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>join(BASE_DIR, <span style=color:#e6db74>&#39;log&#39;</span>, <span style=color:#e6db74>&#39;access.log&#39;</span>)
+</span></span><span style=display:flex><span>DB_PATH <span style=color:#f92672>=</span> os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>join(BASE_DIR, <span style=color:#e6db74>&#39;db&#39;</span>, <span style=color:#e6db74>&#39;user&#39;</span>)
+</span></span><span style=display:flex><span>COLLECT_PATH <span style=color:#f92672>=</span> os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>join(BASE_DIR, <span style=color:#e6db74>&#39;log&#39;</span>, <span style=color:#e6db74>&#39;collect.log&#39;</span>)
+</span></span><span style=display:flex><span>print(LOG_PATH)
+</span></span><span style=display:flex><span>print(DB_PATH)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 定义三种日志输出格式 开始</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>standard_format <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;[</span><span style=color:#e6db74>%(asctime)s</span><span style=color:#e6db74>][</span><span style=color:#e6db74>%(threadName)s</span><span style=color:#e6db74>:</span><span style=color:#e6db74>%(thread)d</span><span style=color:#e6db74>][task_id:</span><span style=color:#e6db74>%(name)s</span><span style=color:#e6db74>][</span><span style=color:#e6db74>%(filename)s</span><span style=color:#e6db74>:</span><span style=color:#e6db74>%(lineno)d</span><span style=color:#e6db74>]&#39;</span> \
+</span></span><span style=display:flex><span>                  <span style=color:#e6db74>&#39;[</span><span style=color:#e6db74>%(levelname)s</span><span style=color:#e6db74>][</span><span style=color:#e6db74>%(message)s</span><span style=color:#e6db74>]&#39;</span> <span style=color:#75715e>#其中name为getlogger指定的名字</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>simple_format <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;[</span><span style=color:#e6db74>%(levelname)s</span><span style=color:#e6db74>][</span><span style=color:#e6db74>%(asctime)s</span><span style=color:#e6db74>][</span><span style=color:#e6db74>%(filename)s</span><span style=color:#e6db74>:</span><span style=color:#e6db74>%(lineno)d</span><span style=color:#e6db74>]</span><span style=color:#e6db74>%(message)s</span><span style=color:#e6db74>&#39;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>id_simple_format <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;[</span><span style=color:#e6db74>%(levelname)s</span><span style=color:#e6db74>][</span><span style=color:#e6db74>%(asctime)s</span><span style=color:#e6db74>] </span><span style=color:#e6db74>%(message)s</span><span style=color:#e6db74>&#39;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># log配置字典</span>
+</span></span><span style=display:flex><span>LOGGING_DIC <span style=color:#f92672>=</span> {
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;version&#39;</span>: <span style=color:#ae81ff>1</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;disable_existing_loggers&#39;</span>: <span style=color:#66d9ef>False</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;formatters&#39;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#39;standard&#39;</span>: {
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#39;format&#39;</span>: standard_format
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#39;simple&#39;</span>: {
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#39;format&#39;</span>: simple_format
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#39;id_simple&#39;</span>: {
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#39;format&#39;</span>: id_simple_format
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;filters&#39;</span>: {},
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;handlers&#39;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>#打印到终端的日志</span>
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#39;console&#39;</span>: {
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#39;level&#39;</span>: <span style=color:#e6db74>&#39;DEBUG&#39;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#39;class&#39;</span>: <span style=color:#e6db74>&#39;logging.StreamHandler&#39;</span>,  <span style=color:#75715e># 打印到屏幕</span>
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#39;formatter&#39;</span>: <span style=color:#e6db74>&#39;simple&#39;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        <span style=color:#75715e>#打印到文件的日志,收集info及以上的日志</span>
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#39;default&#39;</span>: {
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#39;level&#39;</span>: <span style=color:#e6db74>&#39;DEBUG&#39;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#39;class&#39;</span>: <span style=color:#e6db74>&#39;logging.handlers.RotatingFileHandler&#39;</span>,  <span style=color:#75715e># 保存到文件</span>
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#39;formatter&#39;</span>: <span style=color:#e6db74>&#39;standard&#39;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#39;filename&#39;</span>: LOG_PATH,  <span style=color:#75715e># 日志文件</span>
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#39;maxBytes&#39;</span>: <span style=color:#ae81ff>1024</span><span style=color:#f92672>*</span><span style=color:#ae81ff>1024</span><span style=color:#f92672>*</span><span style=color:#ae81ff>5</span>,  <span style=color:#75715e># 日志大小 5M</span>
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#39;backupCount&#39;</span>: <span style=color:#ae81ff>5</span>,
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#39;encoding&#39;</span>: <span style=color:#e6db74>&#39;utf-8&#39;</span>,  <span style=color:#75715e># 日志文件的编码，再也不用担心中文log乱码了</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#39;collect&#39;</span>: {
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#39;level&#39;</span>: <span style=color:#e6db74>&#39;DEBUG&#39;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#39;class&#39;</span>: <span style=color:#e6db74>&#39;logging.handlers.RotatingFileHandler&#39;</span>,  <span style=color:#75715e># 保存到文件</span>
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#39;formatter&#39;</span>: <span style=color:#e6db74>&#39;simple&#39;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#39;filename&#39;</span>: COLLECT_PATH,  <span style=color:#75715e># 日志文件</span>
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#39;maxBytes&#39;</span>: <span style=color:#ae81ff>1024</span><span style=color:#f92672>*</span><span style=color:#ae81ff>1024</span><span style=color:#f92672>*</span><span style=color:#ae81ff>5</span>,  <span style=color:#75715e># 日志大小 5M</span>
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#39;backupCount&#39;</span>: <span style=color:#ae81ff>5</span>,
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#39;encoding&#39;</span>: <span style=color:#e6db74>&#39;utf-8&#39;</span>,  <span style=color:#75715e># 日志文件的编码，再也不用担心中文log乱码了</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;loggers&#39;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#39;&#39;</span>: {
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#39;handlers&#39;</span>: [<span style=color:#e6db74>&#39;default&#39;</span>, <span style=color:#e6db74>&#39;console&#39;</span>, <span style=color:#e6db74>&#39;collect&#39;</span>],  <span style=color:#75715e># 这里把上面定义的两个handler都加上，即log数据既写入文件又打印到屏幕</span>
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#39;level&#39;</span>: <span style=color:#e6db74>&#39;DEBUG&#39;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#39;propagate&#39;</span>: <span style=color:#66d9ef>False</span>,  <span style=color:#75715e># 向上（更高level的logger）传递</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p><code>src.py</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>from</span> lib <span style=color:#f92672>import</span> common
+</span></span><span style=display:flex><span><span style=color:#f92672>from</span> lib <span style=color:#f92672>import</span> sql
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>shop</span>():
+</span></span><span style=display:flex><span>    print(<span style=color:#e6db74>&#39;购物&#39;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>check_balance</span>():
+</span></span><span style=display:flex><span>    print(<span style=color:#e6db74>&#39;查看余额....&#39;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#75715e>#res = sql.execute(&#39;select balance from user where id=3&#39;)</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>#print(res)</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>transfer_account</span>():
+</span></span><span style=display:flex><span>    print(<span style=color:#e6db74>&#39;转账....&#39;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#75715e>#记录日志</span>
+</span></span><span style=display:flex><span>    log_msg <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;jack give smith ten yuan&#39;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>#调用日志功能</span>
+</span></span><span style=display:flex><span>    loggers <span style=color:#f92672>=</span> common<span style=color:#f92672>.</span>logger_handle(<span style=color:#e6db74>&#39;transfer_account&#39;</span>)
+</span></span><span style=display:flex><span>    loggers<span style=color:#f92672>.</span>debug(log_msg)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>run</span>():
+</span></span><span style=display:flex><span>    msg <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;&#39;&#39;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    1.购物
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    2.查看余额
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    3.转账
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    &#39;&#39;&#39;</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>while</span> <span style=color:#66d9ef>True</span>:
+</span></span><span style=display:flex><span>        print(msg)
+</span></span><span style=display:flex><span>        choice <span style=color:#f92672>=</span> input(<span style=color:#e6db74>&#39;&gt;&gt;: &#39;</span>)<span style=color:#f92672>.</span>strip()
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> <span style=color:#f92672>not</span> choice:<span style=color:#66d9ef>continue</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> choice <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;1&#39;</span>:
+</span></span><span style=display:flex><span>            shop()
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>elif</span> choice <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;2&#39;</span>:
+</span></span><span style=display:flex><span>            check_balance()
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>elif</span> choice <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;3&#39;</span>:
+</span></span><span style=display:flex><span>            transfer_account()
+</span></span></code></pre></div><p><code>user</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>alex,<span style=color:#ae81ff>18</span>,male,<span style=color:#ae81ff>10000</span>
+</span></span><span style=display:flex><span>egon,<span style=color:#ae81ff>18</span>,male,<span style=color:#ae81ff>1000000</span>
+</span></span></code></pre></div><p><code>common.py</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>from</span> conf <span style=color:#f92672>import</span> settings
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> logging.config
+</span></span><span style=display:flex><span><span style=color:#75715e># def logger(msg):</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#     with open(settings.LOG_PATH, &#39;a&#39;, encoding=&#39;utf-8&#39;) as f:</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#         f.write(&#39;%s\n&#39; %msg)</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>logger_handle</span>(log_name):
+</span></span><span style=display:flex><span>    logging<span style=color:#f92672>.</span>config<span style=color:#f92672>.</span>dictConfig(settings<span style=color:#f92672>.</span>LOGGING_DIC)  <span style=color:#75715e># 导入上面定义的logging配置</span>
+</span></span><span style=display:flex><span>    logger <span style=color:#f92672>=</span> logging<span style=color:#f92672>.</span>getLogger(log_name)  <span style=color:#75715e># 生成一个log实例</span>
+</span></span><span style=display:flex><span>    logger<span style=color:#f92672>.</span>info(<span style=color:#e6db74>&#39;It works!&#39;</span>)  <span style=color:#75715e># 记录该文件的运行状态</span>
+</span></span></code></pre></div><p><code>sql.py</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>execute</span>(sql):
+</span></span><span style=display:flex><span>    print(<span style=color:#e6db74>&#39;解析&#39;</span>)
+</span></span><span style=display:flex><span>    print(<span style=color:#e6db74>&#39;执行sql&#39;</span>)
+</span></span></code></pre></div><p><code>access.log</code></p><pre tabindex=0><code>jack给smith转账了10元
+[2022-03-22 22:01:20,767][MainThread:2600][task_id:转账][common.py:10][INFO][It works!]
+[2022-03-22 22:04:08,963][MainThread:14184][task_id:转账][common.py:10][INFO][It works!]
+[2022-03-22 22:06:59,656][MainThread:15740][task_id:transfer_account][common.py:10][INFO][It works!]
+[2022-03-26 11:41:33,154][MainThread:12820][task_id:transfer_account][common.py:10][INFO][It works!]
+</code></pre><p><code>collect.log</code></p><pre tabindex=0><code>[INFO][2022-03-22 22:01:20,767][common.py:10]It works!
+[INFO][2022-03-22 22:04:08,963][common.py:10]It works!
+[INFO][2022-03-22 22:06:59,656][common.py:10]It works!
+[INFO][2022-03-26 11:41:33,154][common.py:10]It works!
+</code></pre><h2 id=re模块-正则表达式>re模块-正则表达式</h2><h3 id=什么是正则>什么是正则？</h3><p>正则就是用一些具有特殊含义的符号组合到一起（称为正则表达式）来描述字符或者字符串的方法。或者说：正则就是用来描述一类事物的规则。（在Python中）它内嵌在Python中，并通过 re 模块实现。正则表达式模式被编译成一系列的字节码，然后由用 C 编写的匹配引擎执行。</p><h3 id=常用匹配模式元字符>常用匹配模式(元字符)</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>import</span> re
+</span></span><span style=display:flex><span>print(re<span style=color:#f92672>.</span>findall(<span style=color:#e6db74>&#39;\w&#39;</span>, <span style=color:#e6db74>&#39;jack 123 + _ - *&#39;</span>))
+</span></span><span style=display:flex><span>print(re<span style=color:#f92672>.</span>findall(<span style=color:#e6db74>&#39;\W&#39;</span>, <span style=color:#e6db74>&#39;jack 123 + _ - *&#39;</span>))
+</span></span><span style=display:flex><span>print(re<span style=color:#f92672>.</span>findall(<span style=color:#e6db74>&#39;\s&#39;</span>, <span style=color:#e6db74>&#39;jack</span><span style=color:#ae81ff>\t</span><span style=color:#e6db74>n 12</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>3 + _ - *&#39;</span>))
+</span></span><span style=display:flex><span>print(re<span style=color:#f92672>.</span>findall(<span style=color:#e6db74>&#39;\S&#39;</span>, <span style=color:#e6db74>&#39;jack</span><span style=color:#ae81ff>\t</span><span style=color:#e6db74>n 12</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>3 + _ - *&#39;</span>))
+</span></span><span style=display:flex><span>print(re<span style=color:#f92672>.</span>findall(<span style=color:#e6db74>&#39;\d&#39;</span>, <span style=color:#e6db74>&#39;jack</span><span style=color:#ae81ff>\t</span><span style=color:#e6db74>n 12</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>3 + _ - *&#39;</span>))
+</span></span><span style=display:flex><span>print(re<span style=color:#f92672>.</span>findall(<span style=color:#e6db74>&#39;\D&#39;</span>, <span style=color:#e6db74>&#39;jack</span><span style=color:#ae81ff>\t</span><span style=color:#e6db74>n 12</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>3 + _ - *&#39;</span>))
+</span></span><span style=display:flex><span>print(re<span style=color:#f92672>.</span>findall(<span style=color:#e6db74>&#39;</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#39;</span>, <span style=color:#e6db74>&#39;jack</span><span style=color:#ae81ff>\t</span><span style=color:#e6db74>n 12</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>3 + _ - *&#39;</span>))
+</span></span><span style=display:flex><span>print(re<span style=color:#f92672>.</span>findall(<span style=color:#e6db74>&#39;</span><span style=color:#ae81ff>\t</span><span style=color:#e6db74>&#39;</span>, <span style=color:#e6db74>&#39;jack</span><span style=color:#ae81ff>\t</span><span style=color:#e6db74>n 12</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>3 + _ - *&#39;</span>))
+</span></span><span style=display:flex><span>print(re<span style=color:#f92672>.</span>findall(<span style=color:#e6db74>&#39;j&#39;</span>, <span style=color:#e6db74>&#39;jack</span><span style=color:#ae81ff>\t</span><span style=color:#e6db74>n 12</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>3 + hello _ - *&#39;</span>))
+</span></span><span style=display:flex><span>print(re<span style=color:#f92672>.</span>findall(<span style=color:#e6db74>&#39;^j&#39;</span>, <span style=color:#e6db74>&#39;jack</span><span style=color:#ae81ff>\t</span><span style=color:#e6db74>n 12</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>3 + hello _ - *&#39;</span>))
+</span></span><span style=display:flex><span>print(re<span style=color:#f92672>.</span>findall(<span style=color:#e6db74>&#39;o$&#39;</span>, <span style=color:#e6db74>&#39;jack</span><span style=color:#ae81ff>\t</span><span style=color:#e6db74>n 12</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>3 + _ * hello&#39;</span>))
+</span></span></code></pre></div><p>重复<code>./?/*/+/{m,n}/.*/.*?</code></p><h4 id=点>点</h4><p><code>.</code>能匹配换行符(<code>\n)</code>以外的任意一个字符 (以<code>a</code>开头的都没匹配上，直到遇到<code>aab</code>符合<code>a.b</code>匹配规则，所以结果是<code>aab</code>)</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>print(re<span style=color:#f92672>.</span>findall(<span style=color:#e6db74>&#39;a.b&#39;</span>, <span style=color:#e6db74>&#39;a1b a b a-b aaaaaaaab&#39;</span>)) <span style=color:#75715e># [&#39;a1b&#39; ,&#39;a b&#39; , &#39;a-b&#39;, &#39;aab&#39;]</span>
+</span></span><span style=display:flex><span>print(re<span style=color:#f92672>.</span>findall(<span style=color:#e6db74>&#39;a.b&#39;</span>, <span style=color:#e6db74>&#39;a1b a b a</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>b aaaaaaaab&#39;</span>)) <span style=color:#75715e># [&#39;a1b&#39;,&#39;a b&#39;, &#39;aab&#39;]</span>
+</span></span><span style=display:flex><span>                        <span style=color:#75715e>#a.b</span>
+</span></span><span style=display:flex><span>print(re<span style=color:#f92672>.</span>findall(<span style=color:#e6db74>&#39;a.b&#39;</span>, <span style=color:#e6db74>&#39;a1b a b a</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>b aaaaaaaab&#39;</span>, re<span style=color:#f92672>.</span>DOTALL)) <span style=color:#75715e>#[&#39;a1b&#39;,&#39;a b&#39;, &#39;a\nb&#39;,&#39;aab&#39;]</span>
+</span></span></code></pre></div><h4 id=问号>问号</h4><p><code>?</code>代表<code>?</code>左边的字符出现0次或者1次</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>print(re<span style=color:#f92672>.</span>findall(<span style=color:#e6db74>&#39;ab?&#39;</span>, <span style=color:#e6db74>&#39;a ab abb abbbb a1b&#39;</span>)) <span style=color:#75715e>#[&#39;a&#39; ,&#39;ab&#39; ,&#39;ab&#39;,&#39;ab&#39;,&#39;a&#39;]</span>
+</span></span></code></pre></div><p>分析过程:</p><p>要匹配<code>ab?</code>。<code>b</code>可以出现1个也可以不出现。即<code>'a'</code>或者<code>'ab'.字母a开头</code>的只要能匹配就取出来。</p><h4 id=星>星</h4><p><code>*</code>代表<code>*</code>左边的字符出现0次或者无穷次</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>print(re<span style=color:#f92672>.</span>findall(<span style=color:#e6db74>&#39;ab*&#39;</span>, <span style=color:#e6db74>&#39;a ab abb abbbb a1b&#39;</span>)) <span style=color:#75715e>#[&#39;a&#39;, &#39;ab&#39;, &#39;abb&#39;,&#39;abbbb&#39;,&#39;a&#39;]</span>
+</span></span></code></pre></div><h4 id=加号>加号</h4><p><code>+</code>代表<code>+</code>号左边的字符出现1次或者无穷次</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>print(re<span style=color:#f92672>.</span>findall(<span style=color:#e6db74>&#39;ab+&#39;</span>, <span style=color:#e6db74>&#39;a ab abb abbbbb a1b&#39;</span>)) <span style=color:#75715e>#[&#39;ab&#39;,&#39;abb&#39;,&#39;abbbbb&#39;]</span>
+</span></span></code></pre></div><p>分析过程:</p><p>要匹配<code>ab+</code>,<code>b</code>可以出现1个或者无穷次但不能不出现。即<code>'ab'或者'a无穷个b'</code>.需要以字母<code>ab</code>开头的才能匹配，注意和问号、星号做对比。</p><h4 id=大括号>大括号</h4><p><code>{m,n}</code>：代表左边的字符出现<code>m</code>次到<code>n</code>次</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>print(re<span style=color:#f92672>.</span>findall(<span style=color:#e6db74>&#39;ab{0,1}&#39;</span>, <span style=color:#e6db74>&#39;a ab abb abbbb a1b&#39;</span>)) <span style=color:#75715e>#等同于?效果。0次到1次</span>
+</span></span><span style=display:flex><span>print(re<span style=color:#f92672>.</span>findall(<span style=color:#e6db74>&#39;ab{0,}&#39;</span>, <span style=color:#e6db74>&#39;a ab abb abbbb a1b&#39;</span>)) <span style=color:#75715e>#等同于*效果。0次到无穷次</span>
+</span></span><span style=display:flex><span>print(re<span style=color:#f92672>.</span>findall(<span style=color:#e6db74>&#39;ab{1,}&#39;</span>, <span style=color:#e6db74>&#39;a ab abb abbbb a1b&#39;</span>)) <span style=color:#75715e>#等同于+效果。1次到无穷次</span>
+</span></span><span style=display:flex><span>print(re<span style=color:#f92672>.</span>findall(<span style=color:#e6db74>&#39;ab{2,4}&#39;</span>, <span style=color:#e6db74>&#39;a ab abb abbbb abbbbbbbbbbbb  a1b&#39;</span>))
+</span></span><span style=display:flex><span><span style=color:#75715e>#2次到4次，即匹配abb,abbb,abbbb ,如果出现4个以上的b只取到4个。结果为[&#39;abb&#39;,&#39;abbbb&#39;,&#39;abbbb&#39;]</span>
+</span></span></code></pre></div><h4 id=点星>点星</h4><p><code>.*</code>代表要么不出现，要么出现无穷次。（贪婪匹配）通常匹配的不够精准。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>print(re<span style=color:#f92672>.</span>findall(<span style=color:#e6db74>&#39;a.*b&#39;</span>, <span style=color:#e6db74>&#39;xxxxy123a123b456b&#39;</span>)) <span style=color:#75715e>#[&#39;a123b456b&#39;]</span>
+</span></span></code></pre></div><h4 id=点星问号>点星问号</h4><p><code>.*?</code>非贪婪匹配和.*对应。（爬虫经常用！！！）</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>print(re<span style=color:#f92672>.</span>findall(<span style=color:#e6db74>&#39;a.*?b&#39;</span>, <span style=color:#e6db74>&#39;xxxxy123a123b456b&#39;</span>)) <span style=color:#75715e>#[&#39;a123b&#39;]</span>
+</span></span></code></pre></div><p>分析:有多个<code>b</code>时，匹配最近的一个<code>b</code></p><h4 id=斜杠>斜杠</h4><p><code>/</code>或者</p><h4 id=小括号>小括号</h4><p><code>()</code>分组，<code>findall()</code>只取分组里面的字符。<code>(?:)</code>代表分组外面的字符也保留。是固定写法！</p><p>需求:找出所有<code>compan</code>开头的英文字母</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>print(re<span style=color:#f92672>.</span>findall(<span style=color:#e6db74>&#39;compan(y|ies)&#39;</span>, <span style=color:#e6db74>&#39;Too many companies have gone bankrupt, and the next one is my company&#39;</span>))
+</span></span><span style=display:flex><span><span style=color:#75715e>#结果：[&#39;ies&#39;,&#39;y&#39;]</span>
+</span></span><span style=display:flex><span>print(re<span style=color:#f92672>.</span>findall(<span style=color:#e6db74>&#39;compan(?:y|ies)&#39;</span>, <span style=color:#e6db74>&#39;Too many companies have gone bankrupt, and the next one is my company&#39;</span>))
+</span></span><span style=display:flex><span><span style=color:#75715e>#结果：[&#39;companies&#39;,&#39;company&#39;]</span>
+</span></span></code></pre></div><p>应用取出网页中的链接</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>print(re<span style=color:#f92672>.</span>findall(<span style=color:#e6db74>&#39;href=&#34;(.*?)&#34;&#39;</span>, <span style=color:#e6db74>&#39;&lt;a href=&#34;http://www.baidu.com&#34;&gt;点击我&lt;/a&gt;&#39;</span>))
+</span></span></code></pre></div><p>结果:</p><p><code>['http://www.baidu.com']</code></p><p><code>rawstring</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>print(re<span style=color:#f92672>.</span>findall(<span style=color:#e6db74>r</span><span style=color:#e6db74>&#39;a</span><span style=color:#ae81ff>\\</span><span style=color:#e6db74>c&#39;</span>, <span style=color:#e6db74>&#39;a</span><span style=color:#ae81ff>\\</span><span style=color:#e6db74>c a1c aBc&#39;</span>)) <span style=color:#75715e>#a\\c -&gt;a\c [&#39;a\\c&#39;]</span>
+</span></span></code></pre></div><h4 id=中括号>中括号</h4><p><code>[]</code>取中括号内任意一个</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>print(re<span style=color:#f92672>.</span>findall(<span style=color:#e6db74>&#39;a[a-z]b&#39;</span>, <span style=color:#e6db74>&#39;axb azb aAb a-b a+b&#39;</span>)) <span style=color:#75715e>#[&#39;axb&#39;,&#39;azb&#39;]</span>
+</span></span><span style=display:flex><span>print(re<span style=color:#f92672>.</span>findall(<span style=color:#e6db74>&#39;a[A-Z]b&#39;</span>, <span style=color:#e6db74>&#39;axb azb aAb a-b a+b&#39;</span>)) <span style=color:#75715e>#[&#39;aAb&#39;]</span>
+</span></span><span style=display:flex><span>print(re<span style=color:#f92672>.</span>findall(<span style=color:#e6db74>&#39;a[a-zA-Z]b&#39;</span>, <span style=color:#e6db74>&#39;axb azb aAb a-b a+b&#39;</span>)) <span style=color:#75715e>#[&#39;axb&#39;, &#39;azb&#39;, &#39;aAb&#39;]</span>
+</span></span><span style=display:flex><span>print(re<span style=color:#f92672>.</span>findall(<span style=color:#e6db74>&#39;a[0-9]b&#39;</span>, <span style=color:#e6db74>&#39;axb azb aAb a1b a-b a+b a9b&#39;</span>)) <span style=color:#75715e>#[&#39;a1b&#39;, &#39;a9b&#39;]</span>
+</span></span><span style=display:flex><span>print(re<span style=color:#f92672>.</span>findall(<span style=color:#e6db74>&#39;a[-+*/]b&#39;</span>, <span style=color:#e6db74>&#39;axb azb aAb a1b a-b a+b a9b&#39;</span>)) <span style=color:#75715e>#[&#39;a-b&#39;, &#39;a+b&#39;]</span>
+</span></span><span style=display:flex><span>print(re<span style=color:#f92672>.</span>findall(<span style=color:#e6db74>&#39;a[^-+*/]b&#39;</span>, <span style=color:#e6db74>&#39;axb azb aAb a1b a-b a+b a9b&#39;</span>)) <span style=color:#75715e>#[&#39;axb&#39;, &#39;azb&#39;, &#39;aAb&#39;, &#39;a1b&#39;, &#39;a9b&#39;]</span>
+</span></span></code></pre></div><h3 id=re模块的其他用法>re模块的其他用法</h3><p><code>re.search</code>匹配成功一次就返回,取不到就返回<code>None</code>,加<code>.group()</code>返回结果。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>print(re<span style=color:#f92672>.</span>search(<span style=color:#e6db74>&#39;a[*]b&#39;</span>, <span style=color:#e6db74>&#39;axb azb aAb a1b a-b a+b aaab&#39;</span>)) <span style=color:#75715e>#None</span>
+</span></span><span style=display:flex><span>print(re<span style=color:#f92672>.</span>search(<span style=color:#e6db74>&#39;a[a-z]b&#39;</span>, <span style=color:#e6db74>&#39;axb azb aAb a1b a-b a+b aaab&#39;</span>)<span style=color:#f92672>.</span>group()) <span style=color:#75715e># axb</span>
+</span></span></code></pre></div><p><code>re.match</code>：从开头取,开头没有就为<code>None</code>,只取一次。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>print(re<span style=color:#f92672>.</span><span style=color:#66d9ef>match</span>(<span style=color:#e6db74>&#39;a[0-9]b&#39;</span>, <span style=color:#e6db74>&#39;axb azb aAb a1b a-b a2b a+b&#39;</span>))
+</span></span><span style=display:flex><span>print(re<span style=color:#f92672>.</span><span style=color:#66d9ef>match</span>(<span style=color:#e6db74>&#39;a[0-9]b&#39;</span>, <span style=color:#e6db74>&#39;a9b a8b  axb azb aAb a1b a-b a2b a+b&#39;</span>)<span style=color:#f92672>.</span>group())
+</span></span><span style=display:flex><span>print(re<span style=color:#f92672>.</span>search(<span style=color:#e6db74>&#39;^a[0-9]b&#39;</span>, <span style=color:#e6db74>&#39;a9b a8b  axb azb aAb a1b a-b a2b a+b&#39;</span>)<span style=color:#f92672>.</span>group())
+</span></span></code></pre></div><p><code>re.split</code>:分割</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>print(re<span style=color:#f92672>.</span>split(<span style=color:#e6db74>&#39;:&#39;</span>, <span style=color:#e6db74>&#39;root:x:0:0::/root:/bin/bash&#39;</span>,maxsplit<span style=color:#f92672>=</span><span style=color:#ae81ff>1</span>))
+</span></span><span style=display:flex><span><span style=color:#75715e>#结果为：[&#39;root&#39;,&#39;x:0:0::/root:/bin/bash&#39;]</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#&#39;root:x:0:0::/root:/bin/bash&#39;.split(&#39;:&#39;)</span>
+</span></span></code></pre></div><p><code>re.sub:替换</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>print(re<span style=color:#f92672>.</span>sub(<span style=color:#e6db74>&#39;root&#39;</span>, <span style=color:#e6db74>&#39;admin&#39;</span>, <span style=color:#e6db74>&#39;root:x:0:0::/root:/bin/bash&#39;</span>)) <span style=color:#75715e>#都替换</span>
+</span></span><span style=display:flex><span>print(re<span style=color:#f92672>.</span>sub(<span style=color:#e6db74>&#39;root&#39;</span>, <span style=color:#e6db74>&#39;admin&#39;</span>, <span style=color:#e6db74>&#39;root:x:0:0::/root:/bin/bash&#39;</span>, <span style=color:#ae81ff>1</span>)) <span style=color:#75715e>#只换一次</span>
+</span></span></code></pre></div><p>需求：文本前后倒转</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>print(re<span style=color:#f92672>.</span>sub(<span style=color:#e6db74>&#39;^([a-z]+)([^a-z]+)(.*?)([^a-z]+)([a-z]+)$&#39;</span>, <span style=color:#e6db74>r</span><span style=color:#e6db74>&#39;\5\2\3\4\1&#39;</span>, <span style=color:#e6db74>&#39;root:x:0:0::/root:/bin/bash&#39;</span>)) 
+</span></span><span style=display:flex><span><span style=color:#75715e>#只换一次</span>
+</span></span></code></pre></div><p>解析：</p><p><code>^</code>以&mldr;开头</p><p><code>$</code>以&mldr;结尾</p><p><code>([a-z]+)</code> 分组匹配单词</p><p><code>([^a-z]+)</code>分组匹配非单词</p><p><code>(.*?)</code>分组匹配任意字符</p><p>正则整体表示：以单词开头，并且以单词结尾。<code>r</code>表示显示字符原本含义不进行转义，<code>\5</code>表示第五个分组。<code>r'\5\2\3\4\1'</code> 整体表示第<code>5</code>个分组和第一个分组的内容调换
+并且斜杠使用原本含义不做转义。</p><p><code>re.compile</code> :它将正则表达式转化为对象</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>obj <span style=color:#f92672>=</span> re<span style=color:#f92672>.</span>compile(<span style=color:#e6db74>&#39;a\d</span><span style=color:#e6db74>{2}</span><span style=color:#e6db74>b&#39;</span>)
+</span></span><span style=display:flex><span>print(obj<span style=color:#f92672>.</span>findall(<span style=color:#e6db74>&#39;a12b a123b a12345b abbb&#39;</span>)) <span style=color:#75715e>#[&#39;a12b&#39;]</span>
+</span></span><span style=display:flex><span>print(obj<span style=color:#f92672>.</span>search(<span style=color:#e6db74>&#39;a12b a123b a12345b abbb&#39;</span>)<span style=color:#f92672>.</span>group()) <span style=color:#75715e>#a12b</span>
+</span></span></code></pre></div><p>常用正则表</p><p><img class=lazyload src=/svg/loading.min.svg data-src=https://images-1316789231.cos.ap-shanghai.myqcloud.com/%E7%BC%96%E7%A8%8B/%E5%B8%B8%E7%94%A8%E6%AD%A3%E5%88%99%E8%A1%A8.png data-srcset="https://images-1316789231.cos.ap-shanghai.myqcloud.com/%E7%BC%96%E7%A8%8B/%E5%B8%B8%E7%94%A8%E6%AD%A3%E5%88%99%E8%A1%A8.png, https://images-1316789231.cos.ap-shanghai.myqcloud.com/%E7%BC%96%E7%A8%8B/%E5%B8%B8%E7%94%A8%E6%AD%A3%E5%88%99%E8%A1%A8.png 1.5x, https://images-1316789231.cos.ap-shanghai.myqcloud.com/%E7%BC%96%E7%A8%8B/%E5%B8%B8%E7%94%A8%E6%AD%A3%E5%88%99%E8%A1%A8.png 2x" data-sizes=auto alt=https://images-1316789231.cos.ap-shanghai.myqcloud.com/%E7%BC%96%E7%A8%8B/%E5%B8%B8%E7%94%A8%E6%AD%A3%E5%88%99%E8%A1%A8.png title=常用正则表></p><h2 id=时间模块>时间模块</h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>import</span> time
+</span></span><span style=display:flex><span>print(time<span style=color:#f92672>.</span>time()) <span style=color:#75715e>#时间戳格式：1648026287.9298368</span>
+</span></span><span style=display:flex><span>print(time<span style=color:#f92672>.</span>localtime()<span style=color:#f92672>.</span>tm_mday) <span style=color:#75715e>#23</span>
+</span></span><span style=display:flex><span>print(time<span style=color:#f92672>.</span>localtime()) <span style=color:#75715e>#结构化时间</span>
+</span></span><span style=display:flex><span>print(time<span style=color:#f92672>.</span>gmtime()) <span style=color:#75715e>#结构化时间</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#结果</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#time.struct_time(tm_year=2022, tm_mon=3, tm_mday=23, tm_hour=17, tm_min=5, tm_sec=26, tm_wday=2, tm_yday=82, tm_isdst=0)</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#time.struct_time(tm_year=2022, tm_mon=3, tm_mday=23, tm_hour=9, tm_min=5, tm_sec=26, tm_wday=2, tm_yday=82, tm_isdst=0)</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>print(time<span style=color:#f92672>.</span>strftime(<span style=color:#e6db74>&#39;%Y-%m-</span><span style=color:#e6db74>%d</span><span style=color:#e6db74> %H:%M:%S&#39;</span>)) <span style=color:#75715e>#2022-03-23 17:07:47</span>
+</span></span><span style=display:flex><span>print(time<span style=color:#f92672>.</span>strftime(<span style=color:#e6db74>&#39;%Y-%m-</span><span style=color:#e6db74>%d</span><span style=color:#e6db74> </span><span style=color:#e6db74>%X</span><span style=color:#e6db74>&#39;</span>)) <span style=color:#75715e>#2022-03-23 17:07:47</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#了解</span>
+</span></span><span style=display:flex><span>print(time<span style=color:#f92672>.</span>localtime(<span style=color:#ae81ff>1111111111</span>))
+</span></span><span style=display:flex><span>print(time<span style=color:#f92672>.</span>localtime(time<span style=color:#f92672>.</span>time()))
+</span></span><span style=display:flex><span>print(time<span style=color:#f92672>.</span>gmtime(time<span style=color:#f92672>.</span>time()))
+</span></span><span style=display:flex><span>print(time<span style=color:#f92672>.</span>mktime(time<span style=color:#f92672>.</span>localtime()))
+</span></span><span style=display:flex><span>print(time<span style=color:#f92672>.</span>strftime(<span style=color:#e6db74>&#39;%Y-%m-</span><span style=color:#e6db74>%d</span><span style=color:#e6db74>&#39;</span>, time<span style=color:#f92672>.</span>localtime()))
+</span></span><span style=display:flex><span>print(time<span style=color:#f92672>.</span>strptime(<span style=color:#e6db74>&#39;2020-03-01&#39;</span>, <span style=color:#e6db74>&#39;%Y-%m-</span><span style=color:#e6db74>%d</span><span style=color:#e6db74>&#39;</span>))
+</span></span><span style=display:flex><span>print(time<span style=color:#f92672>.</span>asctime()) <span style=color:#75715e>#Wed Mar 23 17:15:40 2022</span>
+</span></span><span style=display:flex><span>print(time<span style=color:#f92672>.</span>ctime()) <span style=color:#75715e>#Wed Mar 23 17:15:40 2022</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>print(time<span style=color:#f92672>.</span>asctime(time<span style=color:#f92672>.</span>localtime())) <span style=color:#75715e>#Wed Mar 23 17:16:32 2022</span>
+</span></span><span style=display:flex><span>print(time<span style=color:#f92672>.</span>ctime(<span style=color:#ae81ff>111111111</span>)) <span style=color:#75715e>#Tue Jul 10 08:11:51 1973</span>
+</span></span><span style=display:flex><span>print(time<span style=color:#f92672>.</span>ctime(<span style=color:#ae81ff>1648027065.7651727</span>)) <span style=color:#75715e>#Wed Mar 23 17:17:45 2022</span>
+</span></span><span style=display:flex><span>print(time<span style=color:#f92672>.</span>time()) <span style=color:#75715e>#时间戳格式：1648026287.9298368</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#datetime</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> datetime
+</span></span><span style=display:flex><span>print(datetime<span style=color:#f92672>.</span>datetime<span style=color:#f92672>.</span>now()) <span style=color:#75715e>#当前时间：2022-03-23 17:20:11.964584</span>
+</span></span><span style=display:flex><span>print(datetime<span style=color:#f92672>.</span>datetime<span style=color:#f92672>.</span>fromtimestamp(<span style=color:#ae81ff>111111111</span>)) <span style=color:#75715e>#1973-07-10 08:11:51</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>print(datetime<span style=color:#f92672>.</span>datetime<span style=color:#f92672>.</span>now()<span style=color:#f92672>+</span>datetime<span style=color:#f92672>.</span>timedelta(days<span style=color:#f92672>=</span><span style=color:#ae81ff>3</span>)) <span style=color:#75715e>#当前时间开始的三天后。2022-03-26 17:22:35.581422</span>
+</span></span><span style=display:flex><span>print(datetime<span style=color:#f92672>.</span>datetime<span style=color:#f92672>.</span>now()<span style=color:#f92672>+</span>datetime<span style=color:#f92672>.</span>timedelta(days<span style=color:#f92672>=-</span><span style=color:#ae81ff>3</span>)) <span style=color:#75715e>#当前时间开始的三天前。2022-03-20 17:22:35.581422</span>
+</span></span><span style=display:flex><span>print(datetime<span style=color:#f92672>.</span>datetime<span style=color:#f92672>.</span>now()<span style=color:#f92672>+</span>datetime<span style=color:#f92672>.</span>timedelta(minutes<span style=color:#f92672>=</span><span style=color:#ae81ff>3</span>)) <span style=color:#75715e>#当前时间开始的三分钟后。2022-03-23 17:25:35.581422</span>
+</span></span><span style=display:flex><span>print(datetime<span style=color:#f92672>.</span>datetime<span style=color:#f92672>.</span>now()<span style=color:#f92672>+</span>datetime<span style=color:#f92672>.</span>timedelta(seconds<span style=color:#f92672>=</span><span style=color:#ae81ff>3</span>)) <span style=color:#75715e>#当前时间开始的三秒后。2022-03-23 17:22:38.581422</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>print(datetime<span style=color:#f92672>.</span>datetime<span style=color:#f92672>.</span>now()<span style=color:#f92672>.</span>replace(year<span style=color:#f92672>=</span><span style=color:#ae81ff>2000</span>)) <span style=color:#75715e>#将当前时间中年替换成2000. 2000-03-23 17:25:04.696554</span>
+</span></span></code></pre></div><h2 id=random模块>random模块</h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>import</span> random
+</span></span><span style=display:flex><span>print(random<span style=color:#f92672>.</span>random()) <span style=color:#75715e>#(0,1) --float 大于0且小于1之间的小数 0.8266764258093519</span>
+</span></span><span style=display:flex><span>print(random<span style=color:#f92672>.</span>randint(<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>3</span>)) <span style=color:#75715e>#[1,3] 大于等于1且小于等于3之间的整数</span>
+</span></span><span style=display:flex><span>print(random<span style=color:#f92672>.</span>randrange(<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>3</span>)) <span style=color:#75715e>#[1,3) 大于等于1且小于3之间的整数</span>
+</span></span><span style=display:flex><span>print(random<span style=color:#f92672>.</span>choice([<span style=color:#ae81ff>1</span>, <span style=color:#e6db74>&#39;23&#39;</span>, [<span style=color:#ae81ff>4</span>,<span style=color:#ae81ff>5</span>]])) <span style=color:#75715e>#1或者23或者[4,5]</span>
+</span></span><span style=display:flex><span>print(random<span style=color:#f92672>.</span>sample([<span style=color:#ae81ff>1</span>,<span style=color:#e6db74>&#39;23&#39;</span>,[<span style=color:#ae81ff>4</span>,<span style=color:#ae81ff>5</span>]],<span style=color:#ae81ff>2</span>)) <span style=color:#75715e>#列表元素任意2个组合 [[4, 5], &#39;23&#39;]</span>
+</span></span><span style=display:flex><span>print(random<span style=color:#f92672>.</span>uniform(<span style=color:#ae81ff>1</span>,<span style=color:#ae81ff>3</span>)) <span style=color:#75715e>#大于1小于3的小数 2.3344194593026546</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>l<span style=color:#f92672>=</span>[<span style=color:#ae81ff>1</span>,<span style=color:#ae81ff>3</span>,<span style=color:#ae81ff>4</span>,<span style=color:#ae81ff>2</span>,<span style=color:#ae81ff>5</span>]
+</span></span><span style=display:flex><span>random<span style=color:#f92672>.</span>shuffle(l) <span style=color:#75715e>#列表中元素随机打乱顺序。[5, 1, 3, 4, 2]</span>
+</span></span><span style=display:flex><span>print(l)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#随机验证码。数字+字母</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>make_code</span>(n):
+</span></span><span style=display:flex><span>    res<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;&#39;</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> i <span style=color:#f92672>in</span> range(n):
+</span></span><span style=display:flex><span>        s1<span style=color:#f92672>=</span>str(random<span style=color:#f92672>.</span>randint(<span style=color:#ae81ff>0</span>,<span style=color:#ae81ff>9</span>))
+</span></span><span style=display:flex><span>        s2<span style=color:#f92672>=</span>chr(random<span style=color:#f92672>.</span>randint(<span style=color:#ae81ff>65</span>,<span style=color:#ae81ff>90</span>))
+</span></span><span style=display:flex><span>        res<span style=color:#f92672>+=</span>random<span style=color:#f92672>.</span>choice([s1,s2])
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> res
+</span></span><span style=display:flex><span>print(make_code(<span style=color:#ae81ff>6</span>))
+</span></span></code></pre></div><h2 id=os模块>os模块</h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>os<span style=color:#f92672>.</span>getcwd() 获取当前工作目录<span style=color:#960050;background-color:#1e0010>，</span>即当前python脚本工作的目录路径
+</span></span><span style=display:flex><span>os<span style=color:#f92672>.</span>chdir(<span style=color:#e6db74>&#34;dirname&#34;</span>)  改变当前脚本工作目录<span style=color:#960050;background-color:#1e0010>；</span>相当于shell下cd
+</span></span><span style=display:flex><span>os<span style=color:#f92672>.</span>curdir  返回当前目录: (<span style=color:#e6db74>&#39;.&#39;</span>)
+</span></span><span style=display:flex><span>os<span style=color:#f92672>.</span>pardir  获取当前目录的父目录字符串名<span style=color:#960050;background-color:#1e0010>：</span>(<span style=color:#e6db74>&#39;..&#39;</span>)
+</span></span><span style=display:flex><span>os<span style=color:#f92672>.</span>makedirs(<span style=color:#e6db74>&#39;dirname1/dirname2&#39;</span>)    可生成多层递归目录
+</span></span><span style=display:flex><span>os<span style=color:#f92672>.</span>removedirs(<span style=color:#e6db74>&#39;dirname1&#39;</span>)    若目录为空<span style=color:#960050;background-color:#1e0010>，</span>则删除<span style=color:#960050;background-color:#1e0010>，</span>并递归到上一级目录<span style=color:#960050;background-color:#1e0010>，</span>如若也为空<span style=color:#960050;background-color:#1e0010>，</span>则删除<span style=color:#960050;background-color:#1e0010>，</span>依此类推
+</span></span><span style=display:flex><span>os<span style=color:#f92672>.</span>mkdir(<span style=color:#e6db74>&#39;dirname&#39;</span>)    生成单级目录<span style=color:#960050;background-color:#1e0010>；</span>相当于shell中mkdir dirname
+</span></span><span style=display:flex><span>os<span style=color:#f92672>.</span>rmdir(<span style=color:#e6db74>&#39;dirname&#39;</span>)    删除单级空目录<span style=color:#960050;background-color:#1e0010>，</span>若目录不为空则无法删除<span style=color:#960050;background-color:#1e0010>，</span>报错<span style=color:#960050;background-color:#1e0010>；</span>相当于shell中rmdir dirname
+</span></span><span style=display:flex><span>os<span style=color:#f92672>.</span>listdir(<span style=color:#e6db74>&#39;dirname&#39;</span>)    列出指定目录下的所有文件和子目录<span style=color:#960050;background-color:#1e0010>，</span>包括隐藏文件<span style=color:#960050;background-color:#1e0010>，</span>并以列表方式打印
+</span></span><span style=display:flex><span>os<span style=color:#f92672>.</span>remove()  删除一个文件
+</span></span><span style=display:flex><span>os<span style=color:#f92672>.</span>rename(<span style=color:#e6db74>&#34;oldname&#34;</span>,<span style=color:#e6db74>&#34;newname&#34;</span>)  重命名文件<span style=color:#f92672>/</span>目录
+</span></span><span style=display:flex><span>os<span style=color:#f92672>.</span>stat(<span style=color:#e6db74>&#39;path/filename&#39;</span>)  获取文件<span style=color:#f92672>/</span>目录信息
+</span></span><span style=display:flex><span>os<span style=color:#f92672>.</span>sep    输出操作系统特定的路径分隔符<span style=color:#960050;background-color:#1e0010>，</span>win下为<span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\\</span><span style=color:#e6db74>&#34;</span>,Linux下为<span style=color:#e6db74>&#34;/&#34;</span>
+</span></span><span style=display:flex><span>os<span style=color:#f92672>.</span>linesep    输出当前平台使用的行终止符<span style=color:#960050;background-color:#1e0010>，</span>win下为<span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\t\n</span><span style=color:#e6db74>&#34;</span>,Linux下为<span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>os<span style=color:#f92672>.</span>pathsep    输出用于分割文件路径的字符串 win下为;,Linux下为:
+</span></span><span style=display:flex><span>os<span style=color:#f92672>.</span>name    输出字符串指示当前使用平台<span style=color:#960050;background-color:#1e0010>。</span>win<span style=color:#f92672>-&gt;</span><span style=color:#e6db74>&#39;nt&#39;</span>; Linux<span style=color:#f92672>-&gt;</span><span style=color:#e6db74>&#39;posix&#39;</span>
+</span></span><span style=display:flex><span>os<span style=color:#f92672>.</span>system(<span style=color:#e6db74>&#34;bash command&#34;</span>)  运行shell命令<span style=color:#960050;background-color:#1e0010>，</span>直接显示
+</span></span><span style=display:flex><span>os<span style=color:#f92672>.</span>environ  获取系统环境变量
+</span></span><span style=display:flex><span>os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>abspath(path)  返回path规范化的绝对路径
+</span></span><span style=display:flex><span>os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>split(path)  将path分割成目录和文件名二元组返回
+</span></span><span style=display:flex><span>os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>dirname(path)  返回path的目录<span style=color:#960050;background-color:#1e0010>。</span>其实就是os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>split(path)的第一个元素
+</span></span><span style=display:flex><span>os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>basename(path)  返回path最后的文件名<span style=color:#960050;background-color:#1e0010>。</span>如何path以<span style=color:#960050;background-color:#1e0010>／</span>或\结尾<span style=color:#960050;background-color:#1e0010>，</span>那么就会返回空值<span style=color:#960050;background-color:#1e0010>。</span>即os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>split(path)的第二个元素
+</span></span><span style=display:flex><span>os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>exists(path)  如果path存在<span style=color:#960050;background-color:#1e0010>，</span>返回True<span style=color:#960050;background-color:#1e0010>；</span>如果path不存在<span style=color:#960050;background-color:#1e0010>，</span>返回False
+</span></span><span style=display:flex><span>os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>isabs(path)  如果path是绝对路径<span style=color:#960050;background-color:#1e0010>，</span>返回True
+</span></span><span style=display:flex><span>os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>isfile(path)  如果path是一个存在的文件<span style=color:#960050;background-color:#1e0010>，</span>返回True<span style=color:#960050;background-color:#1e0010>。</span>否则返回False
+</span></span><span style=display:flex><span>os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>isdir(path)  如果path是一个存在的目录<span style=color:#960050;background-color:#1e0010>，</span>则返回True<span style=color:#960050;background-color:#1e0010>。</span>否则返回False
+</span></span><span style=display:flex><span>os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>join(path1[, path2[, <span style=color:#f92672>...</span>]])  将多个路径组合后返回<span style=color:#960050;background-color:#1e0010>，</span>第一个绝对路径之前的参数将被忽略
+</span></span><span style=display:flex><span>os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>getatime(path)  返回path所指向的文件或者目录的最后存取时间
+</span></span><span style=display:flex><span>os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>getmtime(path)  返回path所指向的文件或者目录的最后修改时间
+</span></span><span style=display:flex><span>os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>getsize(path) 返回path的大小
+</span></span><span style=display:flex><span>在Linux和Mac平台上<span style=color:#960050;background-color:#1e0010>，</span>该函数会原样返回path<span style=color:#960050;background-color:#1e0010>，</span>在windows平台上会将路径中所有字符转换为小写<span style=color:#960050;background-color:#1e0010>，</span>并将所有斜杠转换为反斜杠<span style=color:#960050;background-color:#1e0010>。</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&gt;&gt;&gt;</span> os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>normcase(<span style=color:#e6db74>&#39;c:/windows</span><span style=color:#ae81ff>\\</span><span style=color:#e6db74>system32</span><span style=color:#ae81ff>\\</span><span style=color:#e6db74>&#39;</span>)   
+</span></span><span style=display:flex><span><span style=color:#e6db74>&#39;c:</span><span style=color:#ae81ff>\\</span><span style=color:#e6db74>windows</span><span style=color:#ae81ff>\\</span><span style=color:#e6db74>system32</span><span style=color:#ae81ff>\\</span><span style=color:#e6db74>&#39;</span>  
+</span></span><span style=display:flex><span>规范化路径<span style=color:#960050;background-color:#1e0010>，</span>如<span style=color:#f92672>..</span>和<span style=color:#f92672>/</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&gt;&gt;&gt;</span> os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>normpath(<span style=color:#e6db74>&#39;c://windows</span><span style=color:#ae81ff>\\</span><span style=color:#e6db74>System32</span><span style=color:#ae81ff>\\</span><span style=color:#e6db74>../Temp/&#39;</span>)   
+</span></span><span style=display:flex><span><span style=color:#e6db74>&#39;c:</span><span style=color:#ae81ff>\\</span><span style=color:#e6db74>windows</span><span style=color:#ae81ff>\\</span><span style=color:#e6db74>Temp&#39;</span>   
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&gt;&gt;&gt;</span> a<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;/Users/jieli/test1/</span><span style=color:#ae81ff>\\\a</span><span style=color:#e6db74>1/</span><span style=color:#ae81ff>\\\\</span><span style=color:#e6db74>aa.py/../..&#39;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&gt;&gt;&gt;</span> print(os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>normpath(a))
+</span></span><span style=display:flex><span><span style=color:#f92672>/</span>Users<span style=color:#f92672>/</span>jieli<span style=color:#f92672>/</span>test1
+</span></span></code></pre></div><p>举例</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>print(os<span style=color:#f92672>.</span>getcwd())
+</span></span><span style=display:flex><span>print(os<span style=color:#f92672>.</span>stat(<span style=color:#e6db74>r</span><span style=color:#e6db74>&#39;D:\pccharmcode\oracle.py&#39;</span>))
+</span></span><span style=display:flex><span>print(os<span style=color:#f92672>.</span>stat(<span style=color:#e6db74>r</span><span style=color:#e6db74>&#39;D:\pccharmcode\oracle.py&#39;</span>)<span style=color:#f92672>.</span>st_size)
+</span></span><span style=display:flex><span>print(os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>getsize(<span style=color:#e6db74>r</span><span style=color:#e6db74>&#39;D:\pccharmcode\oracle.py&#39;</span>))
+</span></span><span style=display:flex><span>os<span style=color:#f92672>.</span>system(<span style=color:#e6db74>&#39;tasklist&#39;</span>) <span style=color:#75715e>#看系统进程,有编码问题。</span>
+</span></span><span style=display:flex><span>print(os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>split(<span style=color:#e6db74>r</span><span style=color:#e6db74>&#39;D:\pccharmcode\oracle.py&#39;</span>)) <span style=color:#75715e>#(&#39;D:\\pccharmcode&#39;, &#39;oracle.py&#39;)</span>
+</span></span><span style=display:flex><span>print(os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>dirname(<span style=color:#e6db74>r</span><span style=color:#e6db74>&#39;D:\pccharmcode\oracle.py&#39;</span>)) <span style=color:#75715e>#D:\pccharmcode</span>
+</span></span><span style=display:flex><span>print(os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>basename(<span style=color:#e6db74>r</span><span style=color:#e6db74>&#39;D:\pccharmcode\oracle.py&#39;</span>)) <span style=color:#75715e>#oracle.py</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>print(os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>isabs(<span style=color:#e6db74>r</span><span style=color:#e6db74>&#39;C:</span><span style=color:#ae81ff>\\</span><span style=color:#e6db74>a123123123&#39;</span>)) <span style=color:#75715e>#True</span>
+</span></span><span style=display:flex><span>print(os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>isabs(<span style=color:#e6db74>r</span><span style=color:#e6db74>&#39;/root/123.txt&#39;</span>)) <span style=color:#75715e>#True</span>
+</span></span><span style=display:flex><span>print(os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>join(<span style=color:#e6db74>&#39;C:&#39;</span>, <span style=color:#e6db74>&#39;D:</span><span style=color:#ae81ff>\\</span><span style=color:#e6db74>&#39;</span>, <span style=color:#e6db74>&#39;dir1&#39;</span>, <span style=color:#e6db74>&#39;dir2&#39;</span>, <span style=color:#e6db74>&#39;dir3&#39;</span>)) <span style=color:#75715e>#D:dir1\dir2\dir3</span>
+</span></span><span style=display:flex><span>print(os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>normcase(<span style=color:#e6db74>&#39;c:/windows</span><span style=color:#ae81ff>\\</span><span style=color:#e6db74>SYstem32</span><span style=color:#ae81ff>\\</span><span style=color:#e6db74>&#39;</span>)) <span style=color:#75715e>#c:\windows\system32\</span>
+</span></span><span style=display:flex><span>print(os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>normpath(<span style=color:#e6db74>&#39;c://windows</span><span style=color:#ae81ff>\\</span><span style=color:#e6db74>System32</span><span style=color:#ae81ff>\\</span><span style=color:#e6db74>../Temp/&#39;</span>)) <span style=color:#75715e>#c:\windows\Temp</span>
+</span></span></code></pre></div><p>路径：<code>D:\pccharmcode\api_key\__init__.py</code>
+要求获取到根开始的第一级路径。</p><p>方法1：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>print(os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>dirname(os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>dirname(<span style=color:#e6db74>r</span><span style=color:#e6db74>&#39;D:\pccharmcode\api_key\__init__.py&#39;</span>)))
+</span></span></code></pre></div><p>方法2：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>res <span style=color:#f92672>=</span> os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>normpath(os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>join(
+</span></span><span style=display:flex><span>    os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>abspath(<span style=color:#e6db74>r</span><span style=color:#e6db74>&#39;D:\pccharmcode\api_key\__init__.py&#39;</span>),
+</span></span><span style=display:flex><span>    os<span style=color:#f92672>.</span>pardir,
+</span></span><span style=display:flex><span>    os<span style=color:#f92672>.</span>pardir
+</span></span><span style=display:flex><span>))
+</span></span><span style=display:flex><span>print(res)
+</span></span></code></pre></div><p>方法3：</p><p>先将原路径拼接成一个新路径(用<code>os.path.join()</code>)。 <code>D:\pccharmcode\api_key\__init__.py\..\..</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>BASE_DIR <span style=color:#f92672>=</span> os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>normpath(
+</span></span><span style=display:flex><span>os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>join(
+</span></span><span style=display:flex><span>    os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>abspath(<span style=color:#e6db74>r</span><span style=color:#e6db74>&#39;D:\pccharmcode\api_key\__init__.py&#39;</span>),
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;..&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;..&#39;</span>
+</span></span><span style=display:flex><span>)
+</span></span><span style=display:flex><span>)
+</span></span><span style=display:flex><span>print(BASE_DIR)
+</span></span></code></pre></div><h2 id=sys模块>sys模块</h2><p>主要掌握</p><pre tabindex=0><code>sys.argv
+sys.exit(0)
+sys.path
+</code></pre><p>其他</p><pre tabindex=0><code>sys.argv           命令行参数List，第一个元素是程序本身路径
+sys.exit(n)        退出程序，正常退出时exit(0)
+sys.version        获取Python解释程序的版本信息
+sys.maxint         最大的Int值
+sys.path           返回模块的搜索路径，初始化时使用PYTHONPATH环境变量的值
+sys.platform       返回操作系统平台名称
+</code></pre><p>模拟下载进度条</p><pre tabindex=0><code>print((&#39;[%%-%ds]&#39; %50) %(&#39;#&#39;*1))
+print((&#39;[%%-%ds]&#39; %50) %(&#39;#&#39;*2))
+print((&#39;[%%-%ds]&#39; %50) %(&#39;#&#39;*3))
+print((&#39;[%%-%ds]&#39; %50) %(&#39;#&#39;*4))
+print((&#39;[%%-%ds]&#39; %50) %(&#39;#&#39;*5))
+print((&#39;[%%-%ds]&#39; %50) %(&#39;#&#39;*6))
+print((&#39;[%%-%ds]&#39; %50) %(&#39;#&#39;*7))
+</code></pre><p>效果：</p><pre tabindex=0><code>[#                                                 ]
+[##                                                ]
+[###                                               ]
+[####                                              ]
+[#####                                             ]
+[######                                            ]
+[#######                                           ]
+</code></pre><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>import</span> time
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> sys
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>progress</span>(percent,width<span style=color:#f92672>=</span><span style=color:#ae81ff>50</span>):
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> percent <span style=color:#f92672>&gt;=</span> <span style=color:#ae81ff>1</span>:
+</span></span><span style=display:flex><span>        percent<span style=color:#f92672>=</span><span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>    show_str <span style=color:#f92672>=</span> (<span style=color:#e6db74>&#39;[</span><span style=color:#e6db74>%%</span><span style=color:#e6db74>-</span><span style=color:#e6db74>%d</span><span style=color:#e6db74>s]&#39;</span> <span style=color:#f92672>%</span> width) <span style=color:#f92672>%</span> (<span style=color:#e6db74>&#39;#&#39;</span> <span style=color:#f92672>*</span> int(width<span style=color:#f92672>*</span>percent))
+</span></span><span style=display:flex><span>    print(<span style=color:#e6db74>&#39;</span><span style=color:#ae81ff>\r</span><span style=color:#e6db74>%s</span><span style=color:#e6db74> </span><span style=color:#e6db74>%d%%</span><span style=color:#e6db74>&#39;</span> <span style=color:#f92672>%</span>(show_str,int(<span style=color:#ae81ff>100</span><span style=color:#f92672>*</span>percent)),end<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;&#39;</span>)
+</span></span><span style=display:flex><span>recv_size<span style=color:#f92672>=</span><span style=color:#ae81ff>0</span>
+</span></span><span style=display:flex><span>total_size<span style=color:#f92672>=</span><span style=color:#ae81ff>10241</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>while</span> recv_size <span style=color:#f92672>&lt;</span> total_size:
+</span></span><span style=display:flex><span>    time<span style=color:#f92672>.</span>sleep(<span style=color:#ae81ff>0.1</span>) <span style=color:#75715e>#模拟数据的传输延迟</span>
+</span></span><span style=display:flex><span>    recv_size<span style=color:#f92672>+=</span><span style=color:#ae81ff>1024</span> <span style=color:#75715e>#每次收1024</span>
+</span></span><span style=display:flex><span>    progress(recv_size<span style=color:#f92672>/</span>total_size)
+</span></span></code></pre></div><h2 id=shutil模块>shutil模块</h2><p>高级的文件、文件夹、压缩包 处理模块。</p><p>格式：</p><p><code>shutil.copyfileobj(fsrc, fdst[, length])</code></p><p>将文件内容拷贝到另一个文件中</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>import</span> shutil
+</span></span><span style=display:flex><span>shutil<span style=color:#f92672>.</span>copyfileobj(open(<span style=color:#e6db74>&#39;old.xml&#39;</span>,<span style=color:#e6db74>&#39;r&#39;</span>), open(<span style=color:#e6db74>&#39;new.xml&#39;</span>, <span style=color:#e6db74>&#39;w&#39;</span>))
+</span></span></code></pre></div><p>格式：</p><p><code>shutil.copyfile(src, dst)</code></p><p>拷贝文件</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>shutil<span style=color:#f92672>.</span>copyfile(<span style=color:#e6db74>&#39;f1.log&#39;</span>, <span style=color:#e6db74>&#39;f2.log&#39;</span>) <span style=color:#75715e>#目标文件无需存在</span>
+</span></span></code></pre></div><p>格式：</p><p><code>shutil.copymode(src, dst)</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>仅拷贝权限<span style=color:#960050;background-color:#1e0010>。</span>内容<span style=color:#960050;background-color:#1e0010>、</span>组<span style=color:#960050;background-color:#1e0010>、</span>用户均不变
+</span></span><span style=display:flex><span>shutil<span style=color:#f92672>.</span>copymode(<span style=color:#e6db74>&#39;f1.log&#39;</span>, <span style=color:#e6db74>&#39;f2.log&#39;</span>) <span style=color:#75715e>#目标文件必须存在</span>
+</span></span></code></pre></div><p>格式：</p><p><code>shutil.copystat(src, dst)</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>仅拷贝状态的信息<span style=color:#960050;background-color:#1e0010>，</span>包括<span style=color:#960050;background-color:#1e0010>：</span>mode bits, atime, mtime, flags
+</span></span><span style=display:flex><span>shutil<span style=color:#f92672>.</span>copystat(<span style=color:#e6db74>&#39;f1.log&#39;</span>, <span style=color:#e6db74>&#39;f2.log&#39;</span>) <span style=color:#75715e>#目标文件必须存在</span>
+</span></span></code></pre></div><p>格式：</p><p><code>shutil.copy(src, dst)</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>拷贝文件和权限
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> shutil
+</span></span><span style=display:flex><span>shutil<span style=color:#f92672>.</span>copy(<span style=color:#e6db74>&#39;f1.log&#39;</span>, <span style=color:#e6db74>&#39;f2.log&#39;</span>)
+</span></span></code></pre></div><p>格式：</p><p><code>shutil.copy2(src, dst)</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>拷贝文件和状态信息
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> shutil
+</span></span><span style=display:flex><span>shutil<span style=color:#f92672>.</span>copy2(<span style=color:#e6db74>&#39;f1.log&#39;</span>, <span style=color:#e6db74>&#39;f2.log&#39;</span>)
+</span></span></code></pre></div><p>格式：</p><p><code>shutil.ignore_patterns(*patterns) shutil.copytree(src, dst, symlinks=False, ignore=None)</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>递归的去拷贝文件夹
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> shutil
+</span></span><span style=display:flex><span>shutil<span style=color:#f92672>.</span>copytree(<span style=color:#e6db74>&#39;folder1&#39;</span>, <span style=color:#e6db74>&#39;folder2&#39;</span>, ignore<span style=color:#f92672>=</span>shutil<span style=color:#f92672>.</span>ignore_patterns(<span style=color:#e6db74>&#39;*.pyc&#39;</span>, <span style=color:#e6db74>&#39;tmp*&#39;</span>)) <span style=color:#75715e>#目标目录不能存在，注意对folder2目录父级目录要有可写权限，ignore的意思是排除 </span>
+</span></span></code></pre></div><p>拷贝软连接:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>import</span> shutil
+</span></span><span style=display:flex><span>shutil<span style=color:#f92672>.</span>copytree(<span style=color:#e6db74>&#39;f1&#39;</span>, <span style=color:#e6db74>&#39;f2&#39;</span>, symlinks<span style=color:#f92672>=</span><span style=color:#66d9ef>True</span>, ignore<span style=color:#f92672>=</span>shutil<span style=color:#f92672>.</span>ignore_patterns(<span style=color:#e6db74>&#39;*.pyc&#39;</span>, <span style=color:#e6db74>&#39;tmp*&#39;</span>))
+</span></span></code></pre></div><p>通常的拷贝都把软连接拷贝成硬链接，即对待软连接来说，创建新的文件.</p><p>格式：</p><p><code>shutil.rmtree(path[, ignore_errors[, onerror]])</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>递归的去删除文件
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> shutil
+</span></span><span style=display:flex><span>shutil<span style=color:#f92672>.</span>rmtree(<span style=color:#e6db74>&#39;folder1&#39;</span>)
+</span></span></code></pre></div><p>格式：</p><p><code>shutil.move(src, dst)</code></p><pre tabindex=0><code>递归的去移动文件，它类似mv命令，其实就是重命名。
+shutil.move(&#39;folder1&#39;, &#39;folder3&#39;)
+</code></pre><p>压缩与解压缩</p><p>格式：</p><p><code>shutil.make_archive(base_name, format,...)</code></p><p>创建压缩包并返回文件路径，例如：zip、tar.</p><pre tabindex=0><code>base_name： 压缩包的文件名，也可以是压缩包的路径。只是文件名时，则保存至当前目录，否则保存至指定路径，
+如 data_bak                       =&gt;保存至当前路径
+如：/tmp/data_bak =&gt;保存至/tmp/
+format： 压缩包种类，“zip”, “tar”, “bztar”，“gztar”
+root_dir： 要压缩的文件夹路径（默认当前目录）
+owner： 用户，默认当前用户
+group： 组，默认当前组
+logger： 用于记录日志，通常是logging.Logger对象
+</code></pre><p>将 <code>/data</code> 下的文件打包放置当前程序目录</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>import</span> shutil
+</span></span><span style=display:flex><span>ret <span style=color:#f92672>=</span> shutil<span style=color:#f92672>.</span>make_archive(<span style=color:#e6db74>&#34;data_bak&#34;</span>, <span style=color:#e6db74>&#39;gztar&#39;</span>, root_dir<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;/data&#39;</span>)
+</span></span></code></pre></div><p>将 <code>/data</code>下的文件打包放置 <code>/tmp/</code>目录</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>import</span> shutil
+</span></span><span style=display:flex><span>ret <span style=color:#f92672>=</span> shutil<span style=color:#f92672>.</span>make_archive(<span style=color:#e6db74>&#34;/tmp/data_bak&#34;</span>, <span style=color:#e6db74>&#39;gztar&#39;</span>, root_dir<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;/data&#39;</span>) 
+</span></span></code></pre></div><p><code>shutil </code>对压缩包的处理是调用 <code>ZipFile</code> 和 <code>TarFile</code> 两个模块来进行的.</p><p>详细：</p><p>压缩</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>z <span style=color:#f92672>=</span> zipfile<span style=color:#f92672>.</span>ZipFile(<span style=color:#e6db74>&#39;laxi.zip&#39;</span>, <span style=color:#e6db74>&#39;w&#39;</span>)
+</span></span><span style=display:flex><span>z<span style=color:#f92672>.</span>write(<span style=color:#e6db74>&#39;a.log&#39;</span>)
+</span></span><span style=display:flex><span>z<span style=color:#f92672>.</span>write(<span style=color:#e6db74>&#39;data.data&#39;</span>)
+</span></span><span style=display:flex><span>z<span style=color:#f92672>.</span>close()
+</span></span></code></pre></div><p>解压</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>z <span style=color:#f92672>=</span> zipfile<span style=color:#f92672>.</span>ZipFile(<span style=color:#e6db74>&#39;laxi.zip&#39;</span>, <span style=color:#e6db74>&#39;r&#39;</span>)
+</span></span><span style=display:flex><span>z<span style=color:#f92672>.</span>extractall(path<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;.&#39;</span>)
+</span></span><span style=display:flex><span>z<span style=color:#f92672>.</span>close()
+</span></span></code></pre></div><p>使用<code>tarfile</code>压缩与解压缩</p><pre tabindex=0><code>import tarfile
+</code></pre><p>压缩</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>t<span style=color:#f92672>=</span>tarfile<span style=color:#f92672>.</span>open(<span style=color:#e6db74>&#39;/tmp/egon.tar&#39;</span>,<span style=color:#e6db74>&#39;w&#39;</span>)
+</span></span><span style=display:flex><span>t<span style=color:#f92672>.</span>add(<span style=color:#e6db74>&#39;/test1/a.py&#39;</span>,arcname<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;a.bak&#39;</span>)
+</span></span><span style=display:flex><span>t<span style=color:#f92672>.</span>add(<span style=color:#e6db74>&#39;/test1/b.py&#39;</span>,arcname<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;b.bak&#39;</span>)
+</span></span><span style=display:flex><span>t<span style=color:#f92672>.</span>close()
+</span></span></code></pre></div><p>解压缩</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>t<span style=color:#f92672>=</span>tarfile<span style=color:#f92672>.</span>open(<span style=color:#e6db74>&#39;/tmp/egon.tar&#39;</span>,<span style=color:#e6db74>&#39;r&#39;</span>)
+</span></span><span style=display:flex><span>t<span style=color:#f92672>.</span>extractall(<span style=color:#e6db74>&#39;/egon&#39;</span>)
+</span></span><span style=display:flex><span>t<span style=color:#f92672>.</span>close()
+</span></span></code></pre></div><p>练习：</p><p>将<code>ATM</code>文件夹以<code>tar.gz</code>方式压缩，然后解压到<code>aaa</code>文件夹内。最后删除<code>aaa</code>文件夹。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>import</span> shutil
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> tarfile
+</span></span><span style=display:flex><span><span style=color:#75715e>#压缩</span>
+</span></span><span style=display:flex><span>shutil<span style=color:#f92672>.</span>make_archive(<span style=color:#e6db74>&#34;backup&#34;</span>, <span style=color:#e6db74>&#39;gztar&#39;</span>, root_dir<span style=color:#f92672>=</span><span style=color:#e6db74>r</span><span style=color:#e6db74>&#39;D:\pccharmcode\ATM&#39;</span>)
+</span></span><span style=display:flex><span><span style=color:#75715e>#解压</span>
+</span></span><span style=display:flex><span>o <span style=color:#f92672>=</span> tarfile<span style=color:#f92672>.</span>open(<span style=color:#e6db74>&#39;backup.tar.gz&#39;</span>, <span style=color:#e6db74>&#39;r&#39;</span>)
+</span></span><span style=display:flex><span>o<span style=color:#f92672>.</span>extractall(<span style=color:#e6db74>r</span><span style=color:#e6db74>&#39;D:\pccharmcode\aaa&#39;</span>)
+</span></span><span style=display:flex><span>o<span style=color:#f92672>.</span>close()
+</span></span><span style=display:flex><span><span style=color:#75715e>#删除aaa文件夹</span>
+</span></span><span style=display:flex><span>shutil<span style=color:#f92672>.</span>rmtree(<span style=color:#e6db74>r</span><span style=color:#e6db74>&#39;D:\pccharmcode\aaa&#39;</span>)
+</span></span></code></pre></div><h2 id=xml模块>xml模块</h2><pre tabindex=0><code>from xml.etree import ElementTree
+tree = ElementTree.parse(&#39;a.xml&#39;)
+root = tree.getroot()
+# print(root.tag)
+# print(root.attrib)
+# print(root.text)
+</code></pre><p>三种查找方式</p><p>从子节点中查找</p><p>显示一种</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>print(root<span style=color:#f92672>.</span>find(<span style=color:#e6db74>&#39;country&#39;</span>)) <span style=color:#75715e>#&lt;Element &#39;country&#39; at 0x000001E26EDCC130&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#加.tag .attrib .text就可以显示内容</span>
+</span></span></code></pre></div><p>显示所有。以列表的形式显示。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>print(root<span style=color:#f92672>.</span>findall(<span style=color:#e6db74>&#39;country&#39;</span>)) 
+</span></span><span style=display:flex><span><span style=color:#75715e>#[&lt;Element &#39;country&#39; at 0x0000027D6F00C0E0&gt;, &lt;Element &#39;country&#39; at 0x0000027D6F00C2C0&gt;, &lt;Element &#39;country&#39; at 0x0000027D6F00C450&gt;]</span>
+</span></span></code></pre></div><p>注意：如果找不到就会显示<code> None</code></p><p>从树形结构中查找</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>root<span style=color:#f92672>.</span>iter()
+</span></span><span style=display:flex><span>print(list(root<span style=color:#f92672>.</span>iter(<span style=color:#e6db74>&#39;country&#39;</span>)))
+</span></span></code></pre></div><h3 id=遍历文档>遍历文档</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>from</span> xml.etree <span style=color:#f92672>import</span> ElementTree
+</span></span><span style=display:flex><span>tree <span style=color:#f92672>=</span> ElementTree<span style=color:#f92672>.</span>parse(<span style=color:#e6db74>&#39;a.xml&#39;</span>)
+</span></span><span style=display:flex><span>root <span style=color:#f92672>=</span> tree<span style=color:#f92672>.</span>getroot()
+</span></span><span style=display:flex><span><span style=color:#66d9ef>for</span> country <span style=color:#f92672>in</span> root:
+</span></span><span style=display:flex><span>    print(<span style=color:#e6db74>&#39;==========&gt;&#39;</span>, country<span style=color:#f92672>.</span>tag, country<span style=color:#f92672>.</span>attrib, country<span style=color:#f92672>.</span>attrib[<span style=color:#e6db74>&#39;name&#39;</span>])
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> rank <span style=color:#f92672>in</span> country:
+</span></span><span style=display:flex><span>        print(rank<span style=color:#f92672>.</span>tag, rank<span style=color:#f92672>.</span>attrib, rank<span style=color:#f92672>.</span>text)
+</span></span></code></pre></div><p>结果</p><pre tabindex=0><code>==========&gt; country {&#39;name&#39;: &#39;Liechtenstein&#39;} Liechtenstein
+rank {&#39;updated&#39;: &#39;yes&#39;} 2
+year {} 2008
+gdppc {} 141100
+neighbor {&#39;name&#39;: &#39;Austria&#39;, &#39;direction&#39;: &#39;E&#39;} None
+neighbor {&#39;name&#39;: &#39;Switzerland&#39;, &#39;direction&#39;: &#39;W&#39;} None
+==========&gt; country {&#39;name&#39;: &#39;Singapore&#39;} Singapore
+rank {&#39;updated&#39;: &#39;yes&#39;} 5
+year {} 2011
+gdppc {} 59900
+neighbor {&#39;name&#39;: &#39;Malaysia&#39;, &#39;direction&#39;: &#39;N&#39;} None
+==========&gt; country {&#39;name&#39;: &#39;Panama&#39;} Panama
+rank {&#39;updated&#39;: &#39;yes&#39;} 69
+year {} 2011
+gdppc {} 13600
+neighbor {&#39;name&#39;: &#39;Costa Rica&#39;, &#39;direction&#39;: &#39;W&#39;} None
+neighbor {&#39;name&#39;: &#39;Colombia&#39;, &#39;direction&#39;: &#39;E&#39;} None
+</code></pre><h4 id=只遍历year节点>只遍历year节点</h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#66d9ef>for</span> year <span style=color:#f92672>in</span> root<span style=color:#f92672>.</span>iter(<span style=color:#e6db74>&#39;year&#39;</span>):
+</span></span><span style=display:flex><span>    print(year<span style=color:#f92672>.</span>tag, year<span style=color:#f92672>.</span>text)
+</span></span></code></pre></div><p>结果</p><pre tabindex=0><code>year 2008
+year 2011
+year 2011
+</code></pre><h3 id=修改>修改</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#66d9ef>for</span> c <span style=color:#f92672>in</span> root<span style=color:#f92672>.</span>iter(<span style=color:#e6db74>&#39;year&#39;</span>):
+</span></span><span style=display:flex><span>    new_year <span style=color:#f92672>=</span> int(c<span style=color:#f92672>.</span>text)<span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>    c<span style=color:#f92672>.</span>text <span style=color:#f92672>=</span> str(new_year)
+</span></span><span style=display:flex><span>    c<span style=color:#f92672>.</span>set(<span style=color:#e6db74>&#39;update&#39;</span>, <span style=color:#e6db74>&#39;yes&#39;</span>)
+</span></span><span style=display:flex><span>    c<span style=color:#f92672>.</span>set(<span style=color:#e6db74>&#39;version&#39;</span>, <span style=color:#e6db74>&#39;1.0&#39;</span>)
+</span></span><span style=display:flex><span>tree<span style=color:#f92672>.</span>write(<span style=color:#e6db74>&#39;b.xml&#39;</span>)
+</span></span></code></pre></div><h3 id=删除>删除</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#66d9ef>for</span> country <span style=color:#f92672>in</span> root<span style=color:#f92672>.</span>findall(<span style=color:#e6db74>&#39;country&#39;</span>):
+</span></span><span style=display:flex><span>    rank <span style=color:#f92672>=</span> int(country<span style=color:#f92672>.</span>find(<span style=color:#e6db74>&#39;rank&#39;</span>)<span style=color:#f92672>.</span>text)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> rank <span style=color:#f92672>&gt;</span> <span style=color:#ae81ff>50</span>:
+</span></span><span style=display:flex><span>        root<span style=color:#f92672>.</span>remove(country)
+</span></span><span style=display:flex><span>tree<span style=color:#f92672>.</span>write(<span style=color:#e6db74>&#39;output.xml&#39;</span>)
+</span></span></code></pre></div><p>在<code>country</code>内添加<code>（append）</code>节点<code>year2</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#66d9ef>for</span> country <span style=color:#f92672>in</span> root<span style=color:#f92672>.</span>findall(<span style=color:#e6db74>&#39;country&#39;</span>):
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> year <span style=color:#f92672>in</span> country<span style=color:#f92672>.</span>findall(<span style=color:#e6db74>&#39;year&#39;</span>):
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> int(year<span style=color:#f92672>.</span>text) <span style=color:#f92672>&gt;</span> <span style=color:#ae81ff>2000</span>:
+</span></span><span style=display:flex><span>            year2 <span style=color:#f92672>=</span> ElementTree<span style=color:#f92672>.</span>Element(<span style=color:#e6db74>&#39;year2&#39;</span>)
+</span></span><span style=display:flex><span>            year2<span style=color:#f92672>.</span>text <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;happy-new-year&#39;</span>
+</span></span><span style=display:flex><span>            year2<span style=color:#f92672>.</span>attrib <span style=color:#f92672>=</span> {<span style=color:#e6db74>&#39;update&#39;</span>:<span style=color:#e6db74>&#39;yes&#39;</span>}
+</span></span><span style=display:flex><span>            country<span style=color:#f92672>.</span>append(year2) <span style=color:#75715e>#往country节点下添加子节点</span>
+</span></span><span style=display:flex><span>tree<span style=color:#f92672>.</span>write(<span style=color:#e6db74>&#39;a.xml.swap&#39;</span>)
+</span></span></code></pre></div><h2 id=configerparser模块>configerparser模块</h2><p><code>[mysqld]</code>叫做<code>section</code></p><p><code>port</code>、<code>basedir</code>等等叫做<code>option</code></p><p>练习配置文件<code>my.ini</code></p><pre tabindex=0><code>[mysqld]
+port = 3306
+basedir = D:\\softnew\\MYSQL\\mysql-5.7.20-winx64
+max_connections = 200
+character-set-server = utf8
+default-storage-engine = INNODB
+skip-grant-table = True
+
+[client]
+user = root
+password = 123
+</code></pre><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>import</span> configparser
+</span></span><span style=display:flex><span>config <span style=color:#f92672>=</span> configparser<span style=color:#f92672>.</span>ConfigParser()
+</span></span><span style=display:flex><span>config<span style=color:#f92672>.</span>read(<span style=color:#e6db74>&#39;my.ini&#39;</span>)
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>print(config<span style=color:#f92672>.</span>sections()) <span style=color:#75715e>#查看所有的标题</span>
+</span></span><span style=display:flex><span>print(config<span style=color:#f92672>.</span>options(<span style=color:#e6db74>&#39;mysqld&#39;</span>)) <span style=color:#75715e>#查看标题mysqld下所有key=value的key</span>
+</span></span><span style=display:flex><span>print(config<span style=color:#f92672>.</span>get(<span style=color:#e6db74>&#39;mysqld&#39;</span>, <span style=color:#e6db74>&#39;port&#39;</span>)) <span style=color:#75715e>#查看标题mysqld下port的值=&gt;字符串格式</span>
+</span></span></code></pre></div><p>判断有没有名字为<code>aaa</code>的<code>option</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#66d9ef>if</span> config<span style=color:#f92672>.</span>has_option(<span style=color:#e6db74>&#39;mysqld&#39;</span>, <span style=color:#e6db74>&#39;aaa&#39;</span>):
+</span></span><span style=display:flex><span>    print(config<span style=color:#f92672>.</span>get(<span style=color:#e6db74>&#39;mysqld&#39;</span>, <span style=color:#e6db74>&#39;aaaa&#39;</span>))
+</span></span></code></pre></div><p>查看值的类型</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>print(type(config<span style=color:#f92672>.</span>get(<span style=color:#e6db74>&#39;mysqld&#39;</span>, <span style=color:#e6db74>&#39;skip-grant-table&#39;</span>))) <span style=color:#75715e>#&lt;class &#39;str&#39;&gt;</span>
+</span></span></code></pre></div><p>转换成布尔类型</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>print(config<span style=color:#f92672>.</span>getboolean(<span style=color:#e6db74>&#39;mysqld&#39;</span>, <span style=color:#e6db74>&#39;skip-grant-table&#39;</span>))
+</span></span><span style=display:flex><span>print(config<span style=color:#f92672>.</span>getint(<span style=color:#e6db74>&#39;mysqld&#39;</span>, <span style=color:#e6db74>&#39;port&#39;</span>))
+</span></span><span style=display:flex><span>print(config<span style=color:#f92672>.</span>getfloat(<span style=color:#e6db74>&#39;mysqld&#39;</span>, <span style=color:#e6db74>&#39;port&#39;</span>))
+</span></span></code></pre></div><p>向文件中添加section和option</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>config<span style=color:#f92672>.</span>add_section(<span style=color:#e6db74>&#39;client1&#39;</span>)
+</span></span><span style=display:flex><span>config<span style=color:#f92672>.</span>set(<span style=color:#e6db74>&#39;client1&#39;</span>, <span style=color:#e6db74>&#39;name&#39;</span>, <span style=color:#e6db74>&#39;jack&#39;</span>)
+</span></span><span style=display:flex><span>config<span style=color:#f92672>.</span>set(<span style=color:#e6db74>&#39;client1&#39;</span>, <span style=color:#e6db74>&#39;port&#39;</span>, <span style=color:#e6db74>&#39;2000&#39;</span>)
+</span></span><span style=display:flex><span>config<span style=color:#f92672>.</span>write(open(<span style=color:#e6db74>&#39;my.ini&#39;</span>, <span style=color:#e6db74>&#39;w&#39;</span>, encoding<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;utf-8&#39;</span>))
+</span></span></code></pre></div><p><code>my.ini</code>文件</p><p><img class=lazyload src=/svg/loading.min.svg data-src=/img/postimages/image-20220326204239624.webp data-srcset="/img/postimages/image-20220326204239624.webp, /img/postimages/image-20220326204239624.webp 1.5x, /img/postimages/image-20220326204239624.webp 2x" data-sizes=auto alt=/img/postimages/image-20220326204239624.webp title=image-20220326204239624></p><p>将<code>section（client1）</code>中<code>option(port)</code>对应的值<code>2000</code>改为<code>3000</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>config<span style=color:#f92672>.</span>set(<span style=color:#e6db74>&#39;client1&#39;</span>, <span style=color:#e6db74>&#39;port&#39;</span>, <span style=color:#e6db74>&#39;3000&#39;</span>)
+</span></span><span style=display:flex><span>config<span style=color:#f92672>.</span>write(open(<span style=color:#e6db74>&#39;my.ini&#39;</span>, <span style=color:#e6db74>&#39;w&#39;</span>, encoding<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;utf-8&#39;</span>))
+</span></span></code></pre></div><p>查看<code>my.ini</code>文件，<code>port</code>对应的值已经改变。</p><h2 id=hashlib模块>hashlib模块</h2><h3 id=什么叫hash>什么叫hash?</h3><p>hash是一种算法（<code>3.x</code>里代替了<code>md5模块</code>和<code>sha模块</code>，主要提供 <code>SHA1, SHA224, SHA256, SHA384, SHA512 ，MD5 算法</code>），该算法接受传入的内容，经过运算得到一串hash值。</p><h3 id=hash值的特点>hash值的特点</h3><p>只要传入的内容一样，得到的hash值必然一样=====>要用明文传输密码文件完整性校验。</p><p>不能由hash值返解成内容=======》把密码做成hash值，不应该在网络传输明文密码。</p><p>只要使用的hash算法不变，无论校验的内容有多大，得到的hash值长度是固定的。</p><p>hash算法就像一座工厂，工厂接收你送来的原材料（可以用<code>m.update()</code>为工厂运送原材料），经过加工返回的产品就是<code>hash值</code>。</p><p><img class=lazyload src=/svg/loading.min.svg data-src=/img/postimages/image-20220326213810288.webp data-srcset="/img/postimages/image-20220326213810288.webp, /img/postimages/image-20220326213810288.webp 1.5x, /img/postimages/image-20220326213810288.webp 2x" data-sizes=auto alt=/img/postimages/image-20220326213810288.webp title=image-20220326213810288></p><p>练习</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>import</span> hashlib
+</span></span><span style=display:flex><span>m <span style=color:#f92672>=</span> hashlib<span style=color:#f92672>.</span>md5() <span style=color:#75715e># m=hashlib.sha256()</span>
+</span></span><span style=display:flex><span>m<span style=color:#f92672>.</span>update(<span style=color:#e6db74>&#39;jack&#39;</span><span style=color:#f92672>.</span>encode(<span style=color:#e6db74>&#39;utf-8&#39;</span>))
+</span></span><span style=display:flex><span>print(m<span style=color:#f92672>.</span>hexdigest()) <span style=color:#75715e>#4ff9fc6e4e5d5f590c4f2134a8cc96d1</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>m<span style=color:#f92672>.</span>update(<span style=color:#e6db74>&#39;j&#39;</span><span style=color:#f92672>.</span>encode(<span style=color:#e6db74>&#39;utf-8&#39;</span>))
+</span></span><span style=display:flex><span>print(m<span style=color:#f92672>.</span>hexdigest()) <span style=color:#75715e>#636a4e0a176a6cbb43dd00aec17e64ab</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>m2 <span style=color:#f92672>=</span> hashlib<span style=color:#f92672>.</span>sha3_256()
+</span></span><span style=display:flex><span>m2<span style=color:#f92672>.</span>update(<span style=color:#e6db74>&#39;jack123&#39;</span><span style=color:#f92672>.</span>encode(<span style=color:#e6db74>&#39;utf-8&#39;</span>))
+</span></span><span style=display:flex><span>print(m2<span style=color:#f92672>.</span>hexdigest()) <span style=color:#75715e>#1183ac670862872ae3315c178a68dddd6166a004b0086bfa23f70e780fe7545c</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>m2<span style=color:#f92672>.</span>update(<span style=color:#e6db74>&#39;j&#39;</span><span style=color:#f92672>.</span>encode(<span style=color:#e6db74>&#39;utf-8&#39;</span>))
+</span></span><span style=display:flex><span>print(m2<span style=color:#f92672>.</span>hexdigest()) <span style=color:#75715e>#fe50db7bfb8a1e79934413625d2024114de0afd62bd17c3e9d97aee74f8553c6</span>
+</span></span></code></pre></div><p>注意：把一段很长的数据<code>update多次</code>，与一次<code>update</code>这段长数据，得到的结果一样。但是<code>update</code>多次为校验大文件提供了可能。</p><p>以上加密算法虽然依然非常厉害，但时候存在缺陷，即：通过撞库可以反解。所以，有必要对加密算法中添加自定义key再来做加密。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>import</span> hashlib
+</span></span><span style=display:flex><span>hash <span style=color:#f92672>=</span> hashlib<span style=color:#f92672>.</span>sha256(<span style=color:#e6db74>&#39;898oaFs09f&#39;</span><span style=color:#f92672>.</span>encode(<span style=color:#e6db74>&#39;utf-8&#39;</span>))
+</span></span><span style=display:flex><span>hash<span style=color:#f92672>.</span>update(<span style=color:#e6db74>&#39;alvin&#39;</span><span style=color:#f92672>.</span>encode(<span style=color:#e6db74>&#39;utf-8&#39;</span>))
+</span></span><span style=display:flex><span>print(hash<span style=color:#f92672>.</span>hexdigest()) <span style=color:#75715e>#e79e68f070cdedcfe63eaf1a2e92c83b4cfb1b5c6bc452d214c1b7e77cdfd1c7</span>
+</span></span></code></pre></div><p>模拟用户登录并把密码哈希</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>name <span style=color:#f92672>=</span> input(<span style=color:#e6db74>&#39;user&gt;&gt;: &#39;</span>)
+</span></span><span style=display:flex><span>pwd <span style=color:#f92672>=</span> input(<span style=color:#e6db74>&#39;password&gt;&gt;: &#39;</span>)
+</span></span><span style=display:flex><span>m <span style=color:#f92672>=</span> hashlib<span style=color:#f92672>.</span>md5()
+</span></span><span style=display:flex><span>m<span style=color:#f92672>.</span>update(pwd<span style=color:#f92672>.</span>encode(<span style=color:#e6db74>&#39;utf-8&#39;</span>))
+</span></span><span style=display:flex><span>pwd <span style=color:#f92672>=</span> m<span style=color:#f92672>.</span>hexdigest()
+</span></span><span style=display:flex><span>print(name, pwd) <span style=color:#75715e># jack 1d6c1e168e362bc0092f247399003a88(jack123)</span>
+</span></span></code></pre></div><p>模拟撞库，先生成字典。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>cryt_pwd <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;1d6c1e168e362bc0092f247399003a88&#39;</span>
+</span></span><span style=display:flex><span>pwds<span style=color:#f92672>=</span>[
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;jack1234&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;jack&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;jack456&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;jack123&#39;</span>
+</span></span><span style=display:flex><span>]
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>mack_dic</span>(pwds):
+</span></span><span style=display:flex><span>    dic <span style=color:#f92672>=</span> {}
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> pwd <span style=color:#f92672>in</span> pwds:
+</span></span><span style=display:flex><span>        m <span style=color:#f92672>=</span> hashlib<span style=color:#f92672>.</span>md5(pwd<span style=color:#f92672>.</span>encode(<span style=color:#e6db74>&#39;utf-8&#39;</span>))
+</span></span><span style=display:flex><span>        dic[pwd] <span style=color:#f92672>=</span> m<span style=color:#f92672>.</span>hexdigest()
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> dic
+</span></span><span style=display:flex><span>dic <span style=color:#f92672>=</span> mack_dic(pwds)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>for</span> pwd <span style=color:#f92672>in</span> dic:
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> dic[pwd] <span style=color:#f92672>==</span> cryt_pwd:
+</span></span><span style=display:flex><span>        print(pwd)
+</span></span></code></pre></div><p><code>结果：jack123</code></p><p>python 还有一个 <code>hmac 模块</code>，它内部对我们创建 <code>key</code> 和 内容 进行进一步的处理然后再加密</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>import</span> hmac
+</span></span><span style=display:flex><span>h1<span style=color:#f92672>=</span>hmac<span style=color:#f92672>.</span>new(<span style=color:#e6db74>&#39;hello&#39;</span><span style=color:#f92672>.</span>encode(<span style=color:#e6db74>&#39;utf-8&#39;</span>),digestmod<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;md5&#39;</span>)
+</span></span><span style=display:flex><span>h1<span style=color:#f92672>.</span>update(<span style=color:#e6db74>&#39;world&#39;</span><span style=color:#f92672>.</span>encode(<span style=color:#e6db74>&#39;utf-8&#39;</span>))
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>print(h1<span style=color:#f92672>.</span>hexdigest())
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>import</span> hmac
+</span></span><span style=display:flex><span>m <span style=color:#f92672>=</span> hmac<span style=color:#f92672>.</span>new(key<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;加盐&#39;</span><span style=color:#f92672>.</span>encode(<span style=color:#e6db74>&#39;utf-8&#39;</span>), msg<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;jack123&#39;</span><span style=color:#f92672>.</span>encode(<span style=color:#e6db74>&#39;utf-8&#39;</span>), digestmod<span style=color:#f92672>=</span>hashlib<span style=color:#f92672>.</span>sha1)
+</span></span><span style=display:flex><span>print(m<span style=color:#f92672>.</span>hexdigest())
+</span></span></code></pre></div><p>要想保证<code>hmac</code>最终结果一致，必须保证：
+<code>hmac.new</code>括号内指定的初始key一样
+无论<code>update</code>多少次，校验的内容累加到一起是一样的内容</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e># 操作一</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> hmac
+</span></span><span style=display:flex><span>h1<span style=color:#f92672>=</span>hmac<span style=color:#f92672>.</span>new(<span style=color:#e6db74>&#39;hello&#39;</span><span style=color:#f92672>.</span>encode(<span style=color:#e6db74>&#39;utf-8&#39;</span>),digestmod<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;md5&#39;</span>)
+</span></span><span style=display:flex><span>h1<span style=color:#f92672>.</span>update(<span style=color:#e6db74>&#39;world&#39;</span><span style=color:#f92672>.</span>encode(<span style=color:#e6db74>&#39;utf-8&#39;</span>))
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>print(h1<span style=color:#f92672>.</span>hexdigest()) <span style=color:#75715e># 0e2564b7e100f034341ea477c23f283b</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 操作二</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> hmac
+</span></span><span style=display:flex><span>h2<span style=color:#f92672>=</span>hmac<span style=color:#f92672>.</span>new(<span style=color:#e6db74>&#39;hello&#39;</span><span style=color:#f92672>.</span>encode(<span style=color:#e6db74>&#39;utf-8&#39;</span>),digestmod<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;md5&#39;</span>)
+</span></span><span style=display:flex><span>h2<span style=color:#f92672>.</span>update(<span style=color:#e6db74>&#39;w&#39;</span><span style=color:#f92672>.</span>encode(<span style=color:#e6db74>&#39;utf-8&#39;</span>))
+</span></span><span style=display:flex><span>h2<span style=color:#f92672>.</span>update(<span style=color:#e6db74>&#39;orld&#39;</span><span style=color:#f92672>.</span>encode(<span style=color:#e6db74>&#39;utf-8&#39;</span>))
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>print(h1<span style=color:#f92672>.</span>hexdigest()) <span style=color:#75715e># 0e2564b7e100f034341ea477c23f283b</span>
+</span></span></code></pre></div><h2 id=subprocess模块>subprocess模块</h2><p>在<code>linux</code>中使用<code>subporcess</code>模块可以实现shell命令效果。</p><p>在<code>windows</code>中使用可以实现<code>windows平台</code>下的命令。</p><p>举例：在<code>Linux</code>下查找<code>/root路径</code>下所有以<code>.txt</code>结尾的文件。</p><p>shell 实现</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>ls /root | grep txt$
+</span></span></code></pre></div><p><code>subprocess模块</code>实现</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>import</span> subprocess
+</span></span><span style=display:flex><span>res1<span style=color:#f92672>=</span>subprocess<span style=color:#f92672>.</span>Popen(<span style=color:#e6db74>&#39;ls /root&#39;</span>, shell<span style=color:#f92672>=</span><span style=color:#66d9ef>True</span>,stdout<span style=color:#f92672>=</span>subprocess<span style=color:#f92672>.</span>PIPE)
+</span></span><span style=display:flex><span>res<span style=color:#f92672>=</span>subprocess<span style=color:#f92672>.</span>Popen(<span style=color:#e6db74>&#39;grep txt$&#39;</span>, shell<span style=color:#f92672>=</span><span style=color:#66d9ef>True</span>, stdin<span style=color:#f92672>=</span>res1<span style=color:#f92672>.</span>stdout, stdout<span style=color:#f92672>=</span>subprocess<span style=color:#f92672>.</span>PIPE)
+</span></span><span style=display:flex><span>print(res<span style=color:#f92672>.</span>stdout<span style=color:#f92672>.</span>read()<span style=color:#f92672>.</span>decode(<span style=color:#e6db74>&#39;utf-8&#39;</span>))
+</span></span></code></pre></div><p>解析：</p><p><code>subprocess.Popen()</code>执行命令<code>ls /root</code>并传入管道（<code>subprocess.PIPE</code>）并赋值给<code>res1</code></p><p><code>shell=True</code>指定用<code>shell</code>来执行。</p><p><code>subprocess.Popen()</code>执行命令<code>grep txt$</code>先把<code>res1</code>传进来，然后再把整个命令作为输出，最后赋值给res。</p><p>读输出的内容，<code>linux平台</code>默认编码为<code>utf-8</code>。</p><p>结果：</p><pre tabindex=0><code>a.txt
+output.txt
+url.txt
+</code></pre><p>windows平台</p><p>查看当前系统所有任务</p><p><code>shell</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>tasklist
+</span></span></code></pre></div><p>使用<code>subprocess</code>实现</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>import</span> subprocess
+</span></span><span style=display:flex><span>res<span style=color:#f92672>=</span>subprocess<span style=color:#f92672>.</span>Popen(<span style=color:#e6db74>&#39;tasklist&#39;</span>, shell<span style=color:#f92672>=</span><span style=color:#66d9ef>True</span>, stdout<span style=color:#f92672>=</span>subprocess<span style=color:#f92672>.</span>PIPE)
+</span></span><span style=display:flex><span>print(res<span style=color:#f92672>.</span>stdout<span style=color:#f92672>.</span>read()<span style=color:#f92672>.</span>decode(<span style=color:#e6db74>&#39;gbk&#39;</span>))
+</span></span></code></pre></div><p>注意：windows下默认编码为<code>gbk</code>。使用其他编码会出现乱码情况。</p><p>结果</p><pre tabindex=0><code>映像名称                       PID 会话名              会话#       内存使用 
+========================= ======== ================ =========== ============
+System Idle Process              0 Services                   0          8 K
+System                           4 Services                   0        148 K
+Secure System                   88 Services                   0     73,304 K
+Registry                       156 Services                   0    108,364 K
+smss.exe                       532 Services                   0      1,232 K
+csrss.exe                      868 Services                   0      5,128 K
+Everything.exe               14296 Console                    1    110,268 K
+LogiOptions.exe               2244 Console                    1     15,932 K
+conhost.exe                   6812 Console                    1     11,480 K
+python.exe                    9740 Console                    1     10,116 K
+cmd.exe                       3740 Console                    1      4,852 K
+tasklist.exe                 15428 Console                    1      9,824 K
+</code></pre><p>官方文档<a href="https://docs.python.org/2/library/subprocess.html?highlight=subprocess#frequently-used-arguments" target=_blank rel="noopener noreffer">参考</a></p></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>Updated on 2022-03-26</span></div></div><div class=post-info-line><div class=post-info-md></div><div class=post-info-share><span><a href=javascript:void(0); title="Share on Twitter" data-sharer=twitter data-url=http://example.org/posts/python%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97/ data-title=python常用模块><i class="fab fa-twitter fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on Facebook" data-sharer=facebook data-url=http://example.org/posts/python%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97/><i class="fab fa-facebook-square fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on Hacker News" data-sharer=hackernews data-url=http://example.org/posts/python%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97/ data-title=python常用模块><i class="fab fa-hacker-news fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on Line" data-sharer=line data-url=http://example.org/posts/python%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97/ data-title=python常用模块><i data-svg-src=https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg aria-hidden=true></i></a><a href=javascript:void(0); title="Share on 微博" data-sharer=weibo data-url=http://example.org/posts/python%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97/ data-title=python常用模块><i class="fab fa-weibo fa-fw" aria-hidden=true></i></a></span></div></div></div><div class=post-info-more><section class=post-tags></section><section><span><a href=javascript:void(0); onclick=window.history.back()>Back</a></span>&nbsp;|&nbsp;<span><a href=/>Home</a></span></section></div><div class=post-nav><a href=/posts/%E6%A8%A1%E5%9D%97%E4%B8%8E%E5%8C%85/ class=prev rel=prev title=模块与包><i class="fas fa-angle-left fa-fw" aria-hidden=true></i>模块与包</a>
+<a href=/posts/%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/ class=next rel=next title=序列化与反序列化>序列化与反序列化<i class="fas fa-angle-right fa-fw" aria-hidden=true></i></a></div></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line>Powered by <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.115.3">Hugo</a> | Theme - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden=true></i> LoveIt</a></div><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2022 - 2023</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=/ target=_blank></a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top"><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:50},comment:{}}</script><script type=text/javascript src=/js/theme.min.js></script></body></html>
