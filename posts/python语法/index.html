@@ -1,0 +1,365 @@
+<!doctype html><html lang=en-us><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>python语法 - My New Hugo Site</title><meta name=Description content="This is my cool site"><meta property="og:title" content="python语法"><meta property="og:description" content="python 语法 if、elif、else 语句 嘿，如果发生这种情况，请执行一些操作。否则，如果发生其他情况，请执行其他操作。否则，如果上述情况均未发生，请执行此操作。
+if case1: perform action1 elif case2: perform action2 else: perform action3 例如
+x = False if x: print('x was True!') else: print('I will be printed in any case where x is not true') #I will be printed in any case where x is not true 多分支结构 loc = 'Bank' if loc == 'Auto Shop': print('Welcome to the Auto Shop!') elif loc == 'Bank': print('Welcome to the bank!"><meta property="og:type" content="article"><meta property="og:url" content="https://blog.haipengv.com/posts/python%E8%AF%AD%E6%B3%95/"><meta property="article:section" content="posts"><meta property="article:published_time" content="2022-01-09T21:43:40+00:00"><meta property="article:modified_time" content="2022-01-09T21:43:40+00:00"><meta property="og:site_name" content="My cool site"><meta name=twitter:card content="summary"><meta name=twitter:title content="python语法"><meta name=twitter:description content="python 语法 if、elif、else 语句 嘿，如果发生这种情况，请执行一些操作。否则，如果发生其他情况，请执行其他操作。否则，如果上述情况均未发生，请执行此操作。
+if case1: perform action1 elif case2: perform action2 else: perform action3 例如
+x = False if x: print('x was True!') else: print('I will be printed in any case where x is not true') #I will be printed in any case where x is not true 多分支结构 loc = 'Bank' if loc == 'Auto Shop': print('Welcome to the Auto Shop!') elif loc == 'Bank': print('Welcome to the bank!"><meta name=application-name content="My cool site"><meta name=apple-mobile-web-app-title content="My cool site"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://blog.haipengv.com/posts/python%E8%AF%AD%E6%B3%95/><link rel=prev href=https://blog.haipengv.com/posts/python%E5%AF%B9%E8%B1%A1%E5%92%8C%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/><link rel=next href=https://blog.haipengv.com/posts/python%E6%96%B9%E6%B3%95%E5%92%8C%E5%87%BD%E6%95%B0/><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"python语法","inLanguage":"en-us","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/blog.haipengv.com\/posts\/python%E8%AF%AD%E6%B3%95\/"},"genre":"posts","wordcount":1414,"url":"https:\/\/blog.haipengv.com\/posts\/python%E8%AF%AD%E6%B3%95\/","datePublished":"2022-01-09T21:43:40+00:00","dateModified":"2022-01-09T21:43:40+00:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"Author"},"description":""}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"auto"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"auto"==="dark")&&document.body.setAttribute("theme","dark")</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="My New Hugo Site">My cool site</a></div><div class=menu><div class=menu-inner><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme"><i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="My New Hugo Site">My cool site</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme"><i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>Contents</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">python语法</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=/ title=Author rel=author class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Author</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw" aria-hidden=true></i>&nbsp;<time datetime=2022-01-09>2022-01-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden=true></i>&nbsp;1414 words&nbsp;
+<i class="far fa-clock fa-fw" aria-hidden=true></i>&nbsp;7 minutes&nbsp;</div></div><div class="details toc" id=toc-static data-kept><div class="details-summary toc-title"><span>Contents</span>
+<span><i class="details-icon fas fa-angle-right" aria-hidden=true></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><ul><li><a href=#python-语法>python 语法</a></li></ul></li></ul></nav></div></div><div class=content id=content><h3 id=python-语法>python 语法</h3><h4 id=ifelifelse-语句>if、elif、else 语句</h4><p>嘿，如果发生这种情况，请执行一些操作。否则，如果发生其他情况，请执行其他操作。否则，如果上述情况均未发生，请执行此操作。</p><pre tabindex=0><code>if case1:
+    perform action1
+elif case2:
+    perform action2
+else: 
+    perform action3
+</code></pre><p>例如</p><pre tabindex=0><code>x = False
+
+if x:
+    print(&#39;x was True!&#39;)
+else:
+    print(&#39;I will be printed in any case where x is not true&#39;)
+#I will be printed in any case where x is not true
+</code></pre><h4 id=多分支结构>多分支结构</h4><pre tabindex=0><code>loc = &#39;Bank&#39;
+
+if loc == &#39;Auto Shop&#39;:
+    print(&#39;Welcome to the Auto Shop!&#39;)
+elif loc == &#39;Bank&#39;:
+    print(&#39;Welcome to the bank!&#39;)
+else:
+    print(&#39;Where are you?&#39;)
+
+#Welcome to the bank!
+</code></pre><h4 id=for-循环>for 循环</h4><p>for 循环在 Python 中充当迭代器；它遍历序列中的项目或任何其他可迭代项目。我们了解的可以迭代的对象包括字符串、列表、元组，甚至是字典的内置可迭代对象，例如键或值。</p><p>这是 Python 中 for 循环的一般格式：</p><pre tabindex=0><code>for item in object:
+    statements to do stuff
+</code></pre><h5 id=遍历列表>遍历列表</h5><pre tabindex=0><code>list1 = [1,2,3,4,5,6,7,8,9,10]
+for num in list1:
+    print(num)
+</code></pre><p>结果：</p><pre tabindex=0><code>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</code></pre><p>取余</p><p>用 % 来获取余数</p><pre tabindex=0><code># 3 Remainder 1
+10 % 3
+# 1
+# 2 Remainder 4
+18 % 7
+#4
+# 2 no remainder
+4 % 2
+#0
+</code></pre><p>请注意，如果一个数可以完全整除且没有余数，则模调用的结果为 0。我们可以使用它来测试偶数，因为如果一个数模 2 等于 0，则意味着它是偶数！</p><h5 id=打印出list1中所有的偶数>打印出list1中所有的偶数</h5><pre tabindex=0><code>for num in list1:
+    if num % 2 == 0:
+        print(num)
+</code></pre><p>结果：</p><pre tabindex=0><code>2
+4
+6
+8
+10
+</code></pre><p>也可以加上else语句</p><pre tabindex=0><code>for num in list1:
+    if num % 2 == 0:
+        print(num)
+    else:
+        print(&#39;Odd number&#39;)
+</code></pre><p>结果：</p><pre tabindex=0><code>Odd number
+2
+Odd number
+4
+Odd number
+6
+Odd number
+8
+Odd number
+10
+</code></pre><p>例如</p><pre tabindex=0><code># Start sum at zero
+list_sum = 0 
+
+for num in list1:
+    list_sum = list_sum + num
+
+print(list_sum)
+</code></pre><p>结果：</p><pre tabindex=0><code>55
+</code></pre><p>另一种写法</p><pre tabindex=0><code># Start sum at zero
+list_sum = 0 
+
+for num in list1:
+    list_sum += num
+
+print(list_sum)
+</code></pre><p>结果：</p><pre tabindex=0><code>55
+</code></pre><p>我们已经在列表中使用了 for 循环，那么使用字符串呢？请记住字符串是一个序列，因此当我们遍历它们时，我们将访问该字符串中的每个项目。</p><pre tabindex=0><code>for letter in &#39;This is a string.&#39;:
+    print(letter)
+</code></pre><p>结果：</p><pre tabindex=0><code>T
+h
+i
+s
+ 
+i
+s
+ 
+a
+ 
+s
+t
+r
+i
+n
+g
+.
+</code></pre><h5 id=现在让我们看看如何将-for-循环与元组一起使用>现在让我们看看如何将 for 循环与元组一起使用.</h5><pre tabindex=0><code>tup = (1,2,3,4,5)
+
+for t in tup:
+    print(t)
+</code></pre><p>结果：</p><pre tabindex=0><code>1
+2
+3
+4
+5
+</code></pre><p>当涉及到 for 循环时，元组具有特殊的品质。如果您正在遍历包含元组的序列，则该项目实际上可以是元组本身，这是元组解包的示例。在 for 循环中，我们将解压缩序列中的元组，我们可以访问该元组中的各个项目！</p><pre tabindex=0><code>list2 = [(2,4),(6,8),(10,12)]
+for tup in list2:
+    print(tup)
+</code></pre><p>结果：</p><pre tabindex=0><code>(2, 4)
+(6, 8)
+(10, 12)
+</code></pre><p>拆包</p><pre tabindex=0><code>for (t1,t2) in list2:
+    print(t1)
+</code></pre><p>结果</p><pre tabindex=0><code>2
+6
+10
+</code></pre><p>使用序列中的元组，我们可以通过解包访问其中的项目！这是因为许多对象将通过元组传递它们的迭代。</p><h5 id=在字典中使用for循环>在字典中使用for循环</h5><pre tabindex=0><code>d = {&#39;k1&#39;:1,&#39;k2&#39;:2,&#39;k3&#39;:3}
+for item in d:
+    print(item)
+</code></pre><p>结果</p><pre tabindex=0><code>k1
+k2
+k3
+</code></pre><h5 id=关于字典的新方法-keys-values-and-items-的使用>关于字典的新方法 <strong>.keys()</strong>, <strong>.values()</strong> and <strong>.items()</strong> 的使用</h5><pre tabindex=0><code># Create a dictionary view object
+d.items()
+dict_items([(&#39;k1&#39;, 1), (&#39;k2&#39;, 2), (&#39;k3&#39;, 3)])	
+</code></pre><p>由于 .items() 方法支持迭代，我们可以执行字典解包以分离键和值。</p><pre tabindex=0><code># 字典拆包
+for k,v in d.items():
+    print(k)
+    print(v) 
+</code></pre><p>结果：</p><pre tabindex=0><code>k1
+1
+k2
+2
+k3
+3
+</code></pre><p>如果你想获得一个真正的键、值或键/值元组的列表，你可以将视图转换为一个列表。</p><pre tabindex=0><code>list(d.keys())
+</code></pre><p>结果</p><pre tabindex=0><code>[&#39;k1&#39;, &#39;k2&#39;, &#39;k3&#39;]
+</code></pre><p>请记住，字典是无序的，键和值以任意顺序返回。您可以使用 sorted() 获取排序列表。</p><pre tabindex=0><code>sorted(d.values())
+</code></pre><p>结果</p><pre tabindex=0><code>[1, 2, 3]
+</code></pre><p>更多内容<a href=https://www.tutorialspoint.com/python/python_for_loop.htm target=_blank rel="noopener noreffer">参考</a></p><h4 id=while-循环>while 循环</h4><p>Python 中的 while 语句是执行迭代的最常用方法之一。只要条件为真，while 语句就会重复执行单个语句或一组语句。之所以称为“循环”，是因为代码语句一遍又一遍地循环，直到不再满足条件。</p><h5 id=常用格式>常用格式</h5><pre tabindex=0><code>while test:
+    code statements
+else:
+    final code statements
+</code></pre><p>例如</p><pre tabindex=0><code>x = 0
+
+while x &lt; 10:
+    print(&#39;x is currently: &#39;,x)
+    print(&#39; x is still less than 10, adding 1 to x&#39;)
+    x+=1
+    
+else:
+    print(&#39;All Done!&#39;)
+</code></pre><p>结果</p><pre tabindex=0><code>x is currently:  0
+ x is still less than 10, adding 1 to x
+x is currently:  1
+ x is still less than 10, adding 1 to x
+x is currently:  2
+ x is still less than 10, adding 1 to x
+x is currently:  3
+ x is still less than 10, adding 1 to x
+x is currently:  4
+ x is still less than 10, adding 1 to x
+x is currently:  5
+ x is still less than 10, adding 1 to x
+x is currently:  6
+ x is still less than 10, adding 1 to x
+x is currently:  7
+ x is still less than 10, adding 1 to x
+x is currently:  8
+ x is still less than 10, adding 1 to x
+x is currently:  9
+ x is still less than 10, adding 1 to x
+All Done!
+</code></pre><p>注意一共执行10次循环，当x=10时，while后条件为假，跳出循环，执行else语句。</p><h5 id=关键字break-continuepass>关键字break, continue,pass</h5><p>我们可以在循环中使用 break、continue 和 pass 语句来为各种情况添加额外的功能。这三个语句定义为</p><p>break：跳出当前最近的封闭循环。
+continue：转到最近的封闭循环的顶部。
+pass：什么都不做。</p><p>考虑 break 和 continue 语句，while 循环的一般格式如下所示</p><pre tabindex=0><code>while test: 
+    code statement
+    if test: 
+        break
+    if test: 
+        continue 
+else:
+</code></pre><h5 id=break-和-continue-语句可以出现在循环体内的任何位置但我们通常会将它们与-if-语句一起进一步嵌套以根据某些条件执行操作>break 和 continue 语句可以出现在循环体内的任何位置，但我们通常会将它们与 if 语句一起进一步嵌套，以根据某些条件执行操作。</h5><pre tabindex=0><code>x = 0
+
+while x &lt; 10:
+    print(&#39;x is currently: &#39;,x)
+    print(&#39; x is still less than 10, adding 1 to x&#39;)
+    x+=1
+    if x==3:
+        print(&#39;x==3&#39;)
+    else:
+        print(&#39;continuing...&#39;)
+        continue
+</code></pre><p>结果</p><pre tabindex=0><code>x is currently:  0
+ x is still less than 10, adding 1 to x
+continuing...
+x is currently:  1
+ x is still less than 10, adding 1 to x
+continuing...
+x is currently:  2
+ x is still less than 10, adding 1 to x
+x==3
+x is currently:  3
+ x is still less than 10, adding 1 to x
+continuing...
+x is currently:  4
+ x is still less than 10, adding 1 to x
+continuing...
+x is currently:  5
+ x is still less than 10, adding 1 to x
+continuing...
+x is currently:  6
+ x is still less than 10, adding 1 to x
+continuing...
+x is currently:  7
+ x is still less than 10, adding 1 to x
+continuing...
+x is currently:  8
+ x is still less than 10, adding 1 to x
+continuing...
+x is currently:  9
+ x is still less than 10, adding 1 to x
+continuing...
+</code></pre><p>请注意当 x==3 时我们如何打印语句，并且当我们继续通过外部 while 循环时打印出 continue。让我们在 x ==3 时暂停一下。</p><pre tabindex=0><code>x = 0
+
+while x &lt; 10:
+    print(&#39;x is currently: &#39;,x)
+    print(&#39; x is still less than 10, adding 1 to x&#39;)
+    x+=1
+    if x==3:
+        print(&#39;Breaking because x==3&#39;)
+        break
+    else:
+        print(&#39;continuing...&#39;)
+        continue
+</code></pre><p>结果</p><pre tabindex=0><code>x is currently:  0
+ x is still less than 10, adding 1 to x
+continuing...
+x is currently:  1
+ x is still less than 10, adding 1 to x
+continuing...
+x is currently:  2
+ x is still less than 10, adding 1 to x
+Breaking because x==3
+</code></pre><p>请注意，当条件成立时，遇到break后会立刻跳出当前循环，即使后面有任何语句也不会执行。</p><h5 id=不过要注意一点可以使用-while-语句创建一个无限运行的循环例如>不过要注意一点！可以使用 while 语句创建一个无限运行的循环。例如</h5><pre tabindex=0><code># DO NOT RUN THIS CODE!!!! 
+while True:
+    print(&#34;I&#39;m stuck in an infinite loop!&#34;)
+</code></pre><p>不要执行这个语句，不然只能重启机器。</p><h4 id=一些有用的操作>一些有用的操作</h4><h5 id=range>range</h5><p>range 函数可以让你快速生成一个整数列表，这个很方便，所以要注意如何使用它！您可以传递 3 个参数：开始、停止和步长。</p><pre tabindex=0><code>range(0,11)
+</code></pre><p>结果</p><pre tabindex=0><code>range(0, 11)
+</code></pre><p>请注意，这是一个生成器函数，因此要实际从中获取列表，我们需要将其转换为具有list（）的列表。什么是生成器？它是一种特殊类型的函数，可以生成信息，而无需将其保存到内存中。</p><pre tabindex=0><code># 从0到11 但不包含11，和切片一样。
+list(range(0,11))
+</code></pre><p>结果</p><pre tabindex=0><code>[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+</code></pre><pre tabindex=0><code># 第三个参数是步长，它表示从开始的数字到下一个数字有多长。
+list(range(0,11,2))
+</code></pre><p>结果</p><pre tabindex=0><code>[0, 2, 4, 6, 8, 10]
+</code></pre><pre tabindex=0><code>list(range(0,101,10))
+</code></pre><p>结果</p><pre tabindex=0><code>[0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+</code></pre><h5 id=枚举函数>枚举函数</h5><p>枚举函数是一个与循环一起使用的非常有用的函数</p><pre tabindex=0><code>index_count = 0
+
+for letter in &#39;abcde&#39;:
+    print(&#34;At index {} the letter is {}&#34;.format(index_count,letter))
+    index_count += 1
+</code></pre><p>结果</p><pre tabindex=0><code>At index 0 the letter is a
+At index 1 the letter is b
+At index 2 the letter is c
+At index 3 the letter is d
+At index 4 the letter is e
+</code></pre><p>用枚举函数来追踪有多少循环是很常见的，这样就不用担心创建和更新index_count或letter变量了。</p><pre tabindex=0><code># Notice the tuple unpacking!
+
+for i,letter in enumerate(&#39;abcde&#39;):
+    print(&#34;At index {} the letter is {}&#34;.format(i,letter))
+</code></pre><p>结果</p><pre tabindex=0><code>At index 0 the letter is a
+At index 1 the letter is b
+At index 2 the letter is c
+At index 3 the letter is d
+At index 4 the letter is e
+</code></pre><h5 id=zip函数>zip函数</h5><p>注意enumerate实际返回的格式，让我们通过将其转换为list()来看一下。</p><pre tabindex=0><code>list(enumerate(&#39;abcde&#39;))
+</code></pre><p>结果</p><pre tabindex=0><code>[(0, &#39;a&#39;), (1, &#39;b&#39;), (2, &#39;c&#39;), (3, &#39;d&#39;), (4, &#39;e&#39;)]
+</code></pre><p>它是一个元组的列表，意味着我们可以在for循环中使用元组解包。这种数据结构实际上在 Python 中非常常见，特别是在与外部库一起工作时。你可以使用 zip() 函数，通过将两个列表 &ldquo;压缩 &ldquo;起来，快速创建一个元组列表。</p><pre tabindex=0><code>mylist1 = [1,2,3,4,5]
+mylist2 = [&#39;a&#39;,&#39;b&#39;,&#39;c&#39;,&#39;d&#39;,&#39;e&#39;]
+</code></pre><pre tabindex=0><code># 这个也是一个生成器! 我们稍后将对此进行解释，但现在让我们把它转化为一个列表。
+zip(mylist1,mylist2)
+</code></pre><p>结果</p><pre tabindex=0><code>&lt;zip at 0x1d205086f08&gt;
+</code></pre><pre tabindex=0><code>list(zip(mylist1,mylist2))
+</code></pre><p>结果</p><pre tabindex=0><code>[(1, &#39;a&#39;), (2, &#39;b&#39;), (3, &#39;c&#39;), (4, &#39;d&#39;), (5, &#39;e&#39;)]
+</code></pre><p>为了使用生成器，我们可以只使用一个for循环。</p><pre tabindex=0><code>for item1, item2 in zip(mylist1,mylist2):
+    print(&#39;For this tuple, first item was {} and second item was {}&#39;.format(item1,item2))
+</code></pre><p>结果</p><pre tabindex=0><code>For this tuple, first item was 1 and second item was a
+For this tuple, first item was 2 and second item was b
+For this tuple, first item was 3 and second item was c
+For this tuple, first item was 4 and second item was d
+For this tuple, first item was 5 and second item was e
+</code></pre><h5 id=in-操作符>in 操作符</h5><p>我们已经在for循环中看到了in关键字，但我们也可以用它来快速检查一个对象是否在一个列表中。</p><pre tabindex=0><code>&#39;x&#39; in [&#39;x&#39;,&#39;y&#39;,&#39;z&#39;]
+</code></pre><p>结果</p><pre tabindex=0><code>True
+</code></pre><pre tabindex=0><code>&#39;x&#39; in [1,2,3]
+</code></pre><p>结果</p><pre tabindex=0><code>False
+</code></pre><h5 id=not-in>not in</h5><p>我们可以将 in 与 not 运算符结合使用，以检查列表中是否不存在某个对象或变量。</p><pre tabindex=0><code>&#39;x&#39; not in [&#39;x&#39;,&#39;y&#39;,&#39;z&#39;]
+</code></pre><p>结果</p><pre tabindex=0><code>False
+</code></pre><pre tabindex=0><code>&#39;x&#39; not in [1,2,3]
+</code></pre><p>结果</p><pre tabindex=0><code>True
+</code></pre><h5 id=min-和-max>min 和 max</h5><p>用这些函数快速检查一个列表的最小值或最大值。</p><pre tabindex=0><code>mylist = [10,20,30,40,100]
+min(mylist)
+</code></pre><p>结果</p><pre tabindex=0><code>10
+</code></pre><pre tabindex=0><code>max(mylist)
+# 100
+</code></pre><h5 id=random>random</h5><p>Python有一个内置的随机库。这个随机库中包括很多函数，所以我们现在只向你展示两个有用的函数。</p><pre tabindex=0><code>from random import shuffle
+</code></pre><pre tabindex=0><code># 随机打乱顺序
+shuffle(mylist)
+mylist
+</code></pre><p>结果</p><pre tabindex=0><code>[40, 10, 100, 30, 20]
+</code></pre><pre tabindex=0><code>from random import randint
+randint(0,100)
+</code></pre><p>返回 [a, b] 范围内的随机整数，包括两个端点。</p><p>结果</p><pre tabindex=0><code>25
+</code></pre><h5 id=input>input</h5><p>交互</p><pre tabindex=0><code>input(&#39;Enter Something into this box: &#39;)
+</code></pre><p>结果</p><pre tabindex=0><code>Enter Something into this box: great job!
+&#39;great job!&#39;
+</code></pre><h4 id=列表推导>列表推导</h4><p>列表推导允许我们使用不同的符号构建列表。您可以将其本质上视为在括号内构建的单行 for 循环。举个简单的例子：</p><pre tabindex=0><code># 抓取字符串中每一个字母
+list = [x for x in &#39;word&#39;]
+list
+</code></pre><p>结果</p><pre tabindex=0><code>[&#39;w&#39;, &#39;o&#39;, &#39;r&#39;, &#39;d&#39;]
+</code></pre><h5 id=for-前面可以是表达式>for 前面可以是表达式</h5><pre tabindex=0><code># 在范围内的平方数并变成列表
+lst = [x**2 for x in range(0,11)]
+lst
+</code></pre><p>结果</p><pre tabindex=0><code>[0, 1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+</code></pre><h5 id=另一种写法如下>另一种写法如下</h5><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>list <span style=color:#f92672>=</span> <span style=color:#f92672>[]</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>for</span> x in range<span style=color:#f92672>(</span>0,11<span style=color:#f92672>)</span>:
+</span></span><span style=display:flex><span>	list.append<span style=color:#f92672>(</span>x**2<span style=color:#f92672>)</span>
+</span></span></code></pre></div><pre tabindex=0><code>list
+</code></pre><p>结果</p><pre tabindex=0><code>[0, 1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+</code></pre><h5 id=在if-语句中使用>在if 语句中使用</h5><pre tabindex=0><code># 检查范围内的偶数
+lst = [x for x in range(11) if x % 2 == 0]
+lst
+</code></pre><p>结果</p><pre tabindex=0><code>[0, 2, 4, 6, 8, 10]
+</code></pre><p>摄氏度和华氏度转换</p><pre tabindex=0><code># 摄氏度转华氏度
+celsius = [0,10,20.1,34.5]
+
+fahrenheit = [((9/5)*temp + 32) for temp in celsius ]
+
+fahrenheit
+</code></pre><p>结果</p><pre tabindex=0><code>[32.0, 50.0, 68.18, 94.1]
+</code></pre><h5 id=在嵌套中用列表推导>在嵌套中用列表推导</h5><pre tabindex=0><code>lst = [ x**2 for x in [x**2 for x in range(11)]]
+lst
+</code></pre><p>结果</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span><span style=color:#f92672>[</span>0, 1, 16, 81, 256, 625, 1296, 2401, 4096, 6561, 10000<span style=color:#f92672>]</span>
+</span></span></code></pre></div><p>使用列表推导创建语句可读性不是很好，可以使用另一种写法</p><pre tabindex=0><code>list1 = []
+for x in range(11):
+    list1.append((x**2)**2)
+list1
+</code></pre><h5 id=总结>总结</h5><p>for 前面可以是表达式，后面是要遍历的对象。in后面跟要遍历的语句。</p></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>Updated on 2022-01-09</span></div></div><div class=post-info-line><div class=post-info-md></div><div class=post-info-share><span><a href=javascript:void(0); title="Share on Twitter" data-sharer=twitter data-url=https://blog.haipengv.com/posts/python%E8%AF%AD%E6%B3%95/ data-title=python语法><i class="fab fa-twitter fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on Facebook" data-sharer=facebook data-url=https://blog.haipengv.com/posts/python%E8%AF%AD%E6%B3%95/><i class="fab fa-facebook-square fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on Hacker News" data-sharer=hackernews data-url=https://blog.haipengv.com/posts/python%E8%AF%AD%E6%B3%95/ data-title=python语法><i class="fab fa-hacker-news fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on Line" data-sharer=line data-url=https://blog.haipengv.com/posts/python%E8%AF%AD%E6%B3%95/ data-title=python语法><i data-svg-src=https://cdn.jsdelivr.net/npm/simple-icons@6.20.0/icons/line.svg aria-hidden=true></i></a><a href=javascript:void(0); title="Share on 微博" data-sharer=weibo data-url=https://blog.haipengv.com/posts/python%E8%AF%AD%E6%B3%95/ data-title=python语法><i class="fab fa-weibo fa-fw" aria-hidden=true></i></a></span></div></div></div><div class=post-info-more><section class=post-tags></section><section><span><a href=javascript:void(0); onclick=window.history.back()>Back</a></span>&nbsp;|&nbsp;<span><a href=/>Home</a></span></section></div><div class=post-nav><a href=/posts/python%E5%AF%B9%E8%B1%A1%E5%92%8C%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/ class=prev rel=prev title=python对象和数据结构基础><i class="fas fa-angle-left fa-fw" aria-hidden=true></i>python对象和数据结构基础</a>
+<a href=/posts/python%E6%96%B9%E6%B3%95%E5%92%8C%E5%87%BD%E6%95%B0/ class=next rel=next title=python方法和函数>python方法和函数<i class="fas fa-angle-right fa-fw" aria-hidden=true></i></a></div></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line>Powered by <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.115.3">Hugo</a> | Theme - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden=true></i> LoveIt</a></div><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2022 - 2023</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=/ target=_blank></a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top"><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.1/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:50},comment:{}}</script><script type=text/javascript src=/js/theme.min.js></script></body></html>

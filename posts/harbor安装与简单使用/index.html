@@ -1,0 +1,286 @@
+<!doctype html><html lang=en-us><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>harbor安装与简单使用 - My New Hugo Site</title><meta name=Description content="This is my cool site"><meta property="og:title" content="harbor安装与简单使用"><meta property="og:description" content="前言 Harbor 是一个开源的容器镜像仓库，它提供用户权限管理、镜像复制等功能，提高使用的registry的效率。确保镜像被扫描并且没有漏洞，并将镜像标记为可信。
+harbor架构 主要组件包括proxy，他是一个nginx前端代理，主要是分发前端页面ui访问和镜像上传和下载流量，上图中通过深蓝色先标识； ui提供了一个web管理页面，当然还包括了一个前端页面和后端API，底层使用mysql数据库。 registry是镜像仓库，负责存储镜像文件，当镜像上传完毕后通过hook通知ui创建repository，上图通过红色线标识，当然registry的token认证也是通过ui组件完成。 adminserver是系统的配置管理中心附带检查存储用量，ui和jobserver启动时候回需要加载adminserver的配置，通过灰色线标识。jobsevice是负责镜像复制工作的，他和registry通信，从一个registry pull镜像然后push到另一个registry，并记录job_log，上图通过紫色线标识。 log是日志汇总组件，通过docker的log-driver把日志汇总到一起，通过浅蓝色线条标识。
+环境准备 运行环境
+Ubuntu 20.04 LTS docker-ce：20.10.12 docker-compose：v2.2.3 harbor-offline：v1.10.10 安装docker 官方安装参考 我是在wsl2中使用ubuntu 20.04系统安装docker的。
+删除旧版docker sudo apt-get remove docker docker-engine docker.io containerd runc 如果之前安装过docker,那么所有配置文件都在/var/lib/docker/中,包括images, containers, volumes, and networks。
+不用可以删除。
+开始安装设置repo源 sudo apt-get update sudo apt-get install \ ca-certificates \ curl \ gnupg \ lsb-release 添加Docker的官方GPG key curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg 设置稳定版repo源 echo \ &#34;deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download."><meta property="og:type" content="article"><meta property="og:url" content="https://blog.haipengv.com/posts/harbor%E5%AE%89%E8%A3%85%E4%B8%8E%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/"><meta property="article:section" content="posts"><meta property="article:published_time" content="2022-02-18T21:36:32+00:00"><meta property="article:modified_time" content="2022-02-18T21:36:32+00:00"><meta property="og:site_name" content="My cool site"><meta name=twitter:card content="summary"><meta name=twitter:title content="harbor安装与简单使用"><meta name=twitter:description content="前言 Harbor 是一个开源的容器镜像仓库，它提供用户权限管理、镜像复制等功能，提高使用的registry的效率。确保镜像被扫描并且没有漏洞，并将镜像标记为可信。
+harbor架构 主要组件包括proxy，他是一个nginx前端代理，主要是分发前端页面ui访问和镜像上传和下载流量，上图中通过深蓝色先标识； ui提供了一个web管理页面，当然还包括了一个前端页面和后端API，底层使用mysql数据库。 registry是镜像仓库，负责存储镜像文件，当镜像上传完毕后通过hook通知ui创建repository，上图通过红色线标识，当然registry的token认证也是通过ui组件完成。 adminserver是系统的配置管理中心附带检查存储用量，ui和jobserver启动时候回需要加载adminserver的配置，通过灰色线标识。jobsevice是负责镜像复制工作的，他和registry通信，从一个registry pull镜像然后push到另一个registry，并记录job_log，上图通过紫色线标识。 log是日志汇总组件，通过docker的log-driver把日志汇总到一起，通过浅蓝色线条标识。
+环境准备 运行环境
+Ubuntu 20.04 LTS docker-ce：20.10.12 docker-compose：v2.2.3 harbor-offline：v1.10.10 安装docker 官方安装参考 我是在wsl2中使用ubuntu 20.04系统安装docker的。
+删除旧版docker sudo apt-get remove docker docker-engine docker.io containerd runc 如果之前安装过docker,那么所有配置文件都在/var/lib/docker/中,包括images, containers, volumes, and networks。
+不用可以删除。
+开始安装设置repo源 sudo apt-get update sudo apt-get install \ ca-certificates \ curl \ gnupg \ lsb-release 添加Docker的官方GPG key curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg 设置稳定版repo源 echo \ &#34;deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download."><meta name=application-name content="My cool site"><meta name=apple-mobile-web-app-title content="My cool site"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://blog.haipengv.com/posts/harbor%E5%AE%89%E8%A3%85%E4%B8%8E%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/><link rel=prev href=https://blog.haipengv.com/posts/wsl2%E4%B8%ADportainer%E5%AE%B9%E5%99%A8%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/><link rel=next href=https://blog.haipengv.com/posts/%E5%B1%80%E5%9F%9F%E7%BD%91%E4%B8%AD%E5%85%B6%E4%BB%96%E4%B8%BB%E6%9C%BA%E8%AE%BF%E9%97%AE%E6%9C%AC%E6%9C%BAwsl2%E4%B8%AD%E7%9A%84%E6%9C%8D%E5%8A%A1/><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"harbor安装与简单使用","inLanguage":"en-us","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/blog.haipengv.com\/posts\/harbor%E5%AE%89%E8%A3%85%E4%B8%8E%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8\/"},"genre":"posts","wordcount":1332,"url":"https:\/\/blog.haipengv.com\/posts\/harbor%E5%AE%89%E8%A3%85%E4%B8%8E%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8\/","datePublished":"2022-02-18T21:36:32+00:00","dateModified":"2022-02-18T21:36:32+00:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"Author"},"description":""}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"auto"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"auto"==="dark")&&document.body.setAttribute("theme","dark")</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="My New Hugo Site">My cool site</a></div><div class=menu><div class=menu-inner><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme"><i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="My New Hugo Site">My cool site</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme"><i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>Contents</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">harbor安装与简单使用</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=/ title=Author rel=author class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Author</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw" aria-hidden=true></i>&nbsp;<time datetime=2022-02-18>2022-02-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden=true></i>&nbsp;1332 words&nbsp;
+<i class="far fa-clock fa-fw" aria-hidden=true></i>&nbsp;7 minutes&nbsp;</div></div><div class="details toc" id=toc-static data-kept><div class="details-summary toc-title"><span>Contents</span>
+<span><i class="details-icon fas fa-angle-right" aria-hidden=true></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#前言>前言</a></li><li><a href=#harbor架构>harbor架构</a></li><li><a href=#环境准备>环境准备</a></li><li><a href=#安装docker>安装docker</a><ul><li></li></ul></li><li><a href=#安装-harbor>安装 harbor</a><ul><li><a href=#下载安装包>下载安装包。</a></li><li><a href=#更改配置>更改配置</a></li><li><a href=#添加映射关系>添加映射关系</a></li><li><a href=#windows也需要添加映射关系>windows也需要添加映射关系</a></li><li><a href=#修改后刷新>修改后刷新</a></li><li><a href=#重启docker>重启docker</a></li><li><a href=#执行installsh脚本安装>执行install.sh脚本安装</a></li><li><a href=#测试访问harbor>测试访问harbor</a></li><li><a href=#docker登录harbor>docker登录harbor</a></li><li><a href=#harbor创建项目>harbor创建项目</a></li><li><a href=#测试上传和下载到harbor>测试上传和下载到harbor</a></li></ul></li><li><a href=#登录portainer并新增仓库>登录portainer并新增仓库</a><ul><li><a href=#测试上传和下载>测试上传和下载。</a></li></ul></li><li><a href=#harbor登录时遇到的坑>harbor登录时遇到的坑</a></li><li><a href=#其他功能-harbor镜像漏洞扫描>其他功能-Harbor镜像漏洞扫描</a><ul><li></li></ul></li></ul></nav></div></div><div class=content id=content><h2 id=前言>前言</h2><p>Harbor 是一个开源的容器镜像仓库，它提供用户权限管理、镜像复制等功能，提高使用的registry的效率。确保镜像被扫描并且没有漏洞，并将镜像标记为可信。</p><h2 id=harbor架构>harbor架构</h2><p><img class=lazyload src=/svg/loading.min.svg data-src=/img/postimages/harbor%e6%9e%b6%e6%9e%84%e5%9b%be.webp data-srcset="/img/postimages/harbor%e6%9e%b6%e6%9e%84%e5%9b%be.webp, /img/postimages/harbor%e6%9e%b6%e6%9e%84%e5%9b%be.webp 1.5x, /img/postimages/harbor%e6%9e%b6%e6%9e%84%e5%9b%be.webp 2x" data-sizes=auto alt=/img/postimages/harbor架构图.webp title=harbor架构图></p><p>主要组件包括proxy，他是一个nginx前端代理，主要是分发前端页面ui访问和镜像上传和下载流量，上图中通过深蓝色先标识；
+ui提供了一个web管理页面，当然还包括了一个前端页面和后端API，底层使用mysql数据库。
+registry是镜像仓库，负责存储镜像文件，当镜像上传完毕后通过hook通知ui创建repository，上图通过红色线标识，当然registry的token认证也是通过ui组件完成。
+adminserver是系统的配置管理中心附带检查存储用量，ui和jobserver启动时候回需要加载adminserver的配置，通过灰色线标识。jobsevice是负责镜像复制工作的，他和registry通信，从一个registry pull镜像然后push到另一个registry，并记录job_log，上图通过紫色线标识。
+log是日志汇总组件，通过docker的log-driver把日志汇总到一起，通过浅蓝色线条标识。</p><h2 id=环境准备>环境准备</h2><p>运行环境</p><ul><li>Ubuntu 20.04 LTS</li><li>docker-ce：20.10.12</li><li>docker-compose：v2.2.3</li><li>harbor-offline：v1.10.10</li></ul><h2 id=安装docker>安装docker</h2><p>官方安装<a href=https://docs.docker.com/engine/install/ubuntu/ target=_blank rel="noopener noreffer">参考</a></p><p>我是在wsl2中使用ubuntu 20.04系统安装docker的。</p><h4 id=删除旧版docker>删除旧版docker</h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>sudo apt-get remove docker docker-engine docker.io containerd runc
+</span></span></code></pre></div><p>如果之前安装过docker,那么所有配置文件都在<code>/var/lib/docker/</code>中,包括images, containers, volumes, and networks。</p><p>不用可以删除。</p><h4 id=开始安装设置repo源>开始安装设置repo源</h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>sudo apt-get update
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>sudo apt-get install <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>    ca-certificates <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>    curl <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>    gnupg <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>    lsb-release
+</span></span></code></pre></div><h4 id=添加docker的官方gpg-key>添加Docker的官方GPG key</h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+</span></span></code></pre></div><h4 id=设置稳定版repo源>设置稳定版repo源</h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>echo <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  <span style=color:#e6db74>&#34;deb [arch=</span><span style=color:#66d9ef>$(</span>dpkg --print-architecture<span style=color:#66d9ef>)</span><span style=color:#e6db74> signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  </span><span style=color:#66d9ef>$(</span>lsb_release -cs<span style=color:#66d9ef>)</span><span style=color:#e6db74> stable&#34;</span> | sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null
+</span></span></code></pre></div><h4 id=安装docker-ce>安装docker-ce</h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>sudo apt-get update
+</span></span><span style=display:flex><span>sudo apt-get install docker-ce docker-ce-cli containerd.io
+</span></span></code></pre></div><h4 id=测试安装是否成功>测试安装是否成功</h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>sudo docker run hello-world
+</span></span></code></pre></div><h4 id=安装docker-compose>安装docker-compose</h4><p>harbor需要用docker-compose来管理。</p><p>源码地址：https://github.com/docker/compose/releases</p><p>下载指定版本。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>curl -L https://github.com/docker/compose/releases/download/v2.2.3/docker-compose-<span style=color:#e6db74>`</span>uname -s<span style=color:#e6db74>`</span>-<span style=color:#e6db74>`</span>uname -m<span style=color:#e6db74>`</span> -o /usr/local/bin/docker-compose
+</span></span></code></pre></div><p>添加执行权限。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>chmod +x /usr/local/bin/docker-compose
+</span></span></code></pre></div><p>验证一下。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$docker-compose --version
+</span></span><span style=display:flex><span> 
+</span></span><span style=display:flex><span>输出：
+</span></span><span style=display:flex><span>Docker Compose version v2.2.3
+</span></span></code></pre></div><h2 id=安装-harbor>安装 harbor</h2><p>源码地址：https://github.com/goharbor/harbor/releases</p><p>项目分有在线版，以及离线版，这里使用离线版的安装。</p><h3 id=下载安装包>下载安装包。</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>wget https://github.com/goharbor/harbor/releases/download/v1.10.10/harbor-offline-installer-v1.10.10.tgz
+</span></span></code></pre></div><p>或许用迅雷下载，速度更佳。</p><p>解压安装包。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>mkdir -p softwere
+</span></span><span style=display:flex><span>cd /root/softwere
+</span></span><span style=display:flex><span>mv harbor-offline-installer-v1.10.10.tgz /root/softwere
+</span></span><span style=display:flex><span>tar xvf harbor-offline-installer-v1.10.10.tgz
+</span></span><span style=display:flex><span>ls harbor
+</span></span><span style=display:flex><span>LICENSE  common  common.sh  docker-compose.yml  harbor.v1.10.10.tar.gz  harbor.yml  install.sh  prepare
+</span></span></code></pre></div><h3 id=更改配置>更改配置</h3><p>这里使用域名+5000端口来访问，关闭https。完整配置如下：</p><p>vim harbor.yml</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Configuration file of Harbor</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># The IP address or hostname to access admin UI and registry service.</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># DO NOT use localhost or 127.0.0.1, because Harbor needs to be accessed by external clients.</span>
+</span></span><span style=display:flex><span>hostname: harbor.lhp.com
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># http related config</span>
+</span></span><span style=display:flex><span>http:
+</span></span><span style=display:flex><span>  <span style=color:#75715e># port for http, default is 80. If https enabled, this port will redirect to https port</span>
+</span></span><span style=display:flex><span>  port: <span style=color:#ae81ff>5000</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># https related config</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># https:</span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e># https port for harbor, default is 443</span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e># port: 443</span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e># The path of cert and key files for nginx</span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e># certificate: /your/certificate/path</span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e># private_key: /your/private/key/path</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Uncomment external_url if you want to enable external proxy</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># And when it enabled the hostname will no longer used</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># external_url: https://reg.mydomain.com:8433</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># The initial password of Harbor admin</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># It only works in first time to install harbor</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Remember Change the admin password from UI after launching Harbor.</span>
+</span></span><span style=display:flex><span>harbor_admin_password: Toor12345
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Harbor DB configuration</span>
+</span></span><span style=display:flex><span>database:
+</span></span><span style=display:flex><span>  <span style=color:#75715e># The password for the root user of Harbor DB. Change this before any production use.</span>
+</span></span><span style=display:flex><span>  password: root123
+</span></span><span style=display:flex><span>  <span style=color:#75715e># The maximum number of connections in the idle connection pool. If it &lt;=0, no idle connections are retained.</span>
+</span></span><span style=display:flex><span>  max_idle_conns: <span style=color:#ae81ff>50</span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e># The maximum number of open connections to the database. If it &lt;= 0, then there is no limit on the number of open connections.</span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e># Note: the default number of connections is 100 for postgres.</span>
+</span></span><span style=display:flex><span>  max_open_conns: <span style=color:#ae81ff>100</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># The default data volume</span>
+</span></span><span style=display:flex><span>data_volume: /data
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Harbor Storage settings by default is using /data dir on local filesystem</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Uncomment storage_service setting If you want to using external storage</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># storage_service:</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#   # ca_bundle is the path to the custom root ca certificate, which will be injected into the truststore</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#   # of registry&#39;s and chart repository&#39;s containers.  This is usually needed when the user hosts a internal storage with self signed certificate.</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#   ca_bundle:</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#   # storage backend, default is filesystem, options include filesystem, azure, gcs, s3, swift and oss</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#   # for more info about this configuration please refer https://docs.docker.com/registry/configuration/</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#   filesystem:</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#     maxthreads: 100</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#   # set disable to true when you want to disable registry redirect</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#   redirect:</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#     disabled: false</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Clair configuration</span>
+</span></span><span style=display:flex><span>clair:
+</span></span><span style=display:flex><span>  <span style=color:#75715e># The interval of clair updaters, the unit is hour, set to 0 to disable the updaters.</span>
+</span></span><span style=display:flex><span>  updaters_interval: <span style=color:#ae81ff>12</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>jobservice:
+</span></span><span style=display:flex><span>  <span style=color:#75715e># Maximum number of job workers in job service</span>
+</span></span><span style=display:flex><span>  max_job_workers: <span style=color:#ae81ff>10</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>notification:
+</span></span><span style=display:flex><span>  <span style=color:#75715e># Maximum retry count for webhook job</span>
+</span></span><span style=display:flex><span>  webhook_job_max_retry: <span style=color:#ae81ff>10</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>chart:
+</span></span><span style=display:flex><span>  <span style=color:#75715e># Change the value of absolute_url to enabled can enable absolute url in chart</span>
+</span></span><span style=display:flex><span>  absolute_url: disabled
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Log configurations</span>
+</span></span><span style=display:flex><span>log:
+</span></span><span style=display:flex><span>  <span style=color:#75715e># options are debug, info, warning, error, fatal</span>
+</span></span><span style=display:flex><span>  level: info
+</span></span><span style=display:flex><span>  <span style=color:#75715e># configs for logs in local storage</span>
+</span></span><span style=display:flex><span>  local:
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Log files are rotated log_rotate_count times before being removed. If count is 0, old versions are removed rather than rotated.</span>
+</span></span><span style=display:flex><span>    rotate_count: <span style=color:#ae81ff>50</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Log files are rotated only if they grow bigger than log_rotate_size bytes. If size is followed by k, the size is assumed to be in</span>
+</span></span><span style=display:flex><span>kilobytes.
+</span></span><span style=display:flex><span>    <span style=color:#75715e># If the M is used, the size is in megabytes, and if G is used, the size is in gigabytes. So size 100, size 100k, size 100M and size 100G</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># are all valid.</span>
+</span></span><span style=display:flex><span>    rotate_size: 200M
+</span></span><span style=display:flex><span>    <span style=color:#75715e># The directory on your host that store log</span>
+</span></span><span style=display:flex><span>    location: /var/log/harbor
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e># Uncomment following lines to enable external syslog endpoint.</span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e># external_endpoint:</span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>#   # protocol used to transmit log to external endpoint, options is tcp or udp</span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>#   protocol: tcp</span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>#   # The host of external endpoint</span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>#   host: localhost</span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>#   # Port of external endpoint</span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>#   port: 5140</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#This attribute is for migrator to detect the version of the .cfg file, DO NOT MODIFY!</span>
+</span></span><span style=display:flex><span>_version: 1.10.0
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Uncomment external_database if using external database.</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># external_database:</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#   harbor:</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#     host: harbor_db_host</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#     port: harbor_db_port</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#     db_name: harbor_db_name</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#     username: harbor_db_username</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#     password: harbor_db_password</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#     ssl_mode: disable</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#     max_idle_conns: 2</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#     max_open_conns: 0</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#   clair:</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#     host: clair_db_host</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#     port: clair_db_port</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#     db_name: clair_db_name</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#     username: clair_db_username</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#     password: clair_db_password</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#     ssl_mode: disable</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#   notary_signer:</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#     host: notary_signer_db_host</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#     port: notary_signer_db_port</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#     db_name: notary_signer_db_name</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#     username: notary_signer_db_username</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#     password: notary_signer_db_password</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#     ssl_mode: disable</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#   notary_server:</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#     host: notary_server_db_host</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#     port: notary_server_db_port</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#     db_name: notary_server_db_name</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#     username: notary_server_db_username</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#     password: notary_server_db_password</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#     ssl_mode: disable</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Uncomment external_redis if using external Redis server</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># external_redis:</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#   host: redis</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#   port: 6379</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#   password:</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#   # db_index 0 is for core, it&#39;s unchangeable</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#   registry_db_index: 1</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#   jobservice_db_index: 2</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#   chartmuseum_db_index: 3</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#   clair_db_index: 4</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Uncomment uaa for trusting the certificate of uaa instance that is hosted via self-signed cert.</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># uaa:</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#   ca_file: /path/to/ca</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Global proxy</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Config http proxy for components, e.g. http://my.proxy.com:3128</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Components doesn&#39;t need to connect to each others via http proxy.</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Remove component from `components` array if want disable proxy</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># for it. If you want use proxy for replication, MUST enable proxy</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># for core and jobservice, and set `http_proxy` and `https_proxy`.</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Add domain to the `no_proxy` field, when you want disable proxy</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># for some special registry.</span>
+</span></span><span style=display:flex><span>proxy:
+</span></span><span style=display:flex><span>  http_proxy:
+</span></span><span style=display:flex><span>  https_proxy:
+</span></span><span style=display:flex><span>  <span style=color:#75715e># no_proxy endpoints will appended to 127.0.0.1,localhost,.local,.internal,log,db,redis,nginx,core,portal,postgresql,jobservice,registry,registryctl,clair,chartmuseum,notary-server</span>
+</span></span><span style=display:flex><span>  no_proxy:
+</span></span><span style=display:flex><span>  components:
+</span></span><span style=display:flex><span>    - core
+</span></span><span style=display:flex><span>    - jobservice
+</span></span><span style=display:flex><span>    - clair
+</span></span></code></pre></div><h3 id=添加映射关系>添加映射关系</h3><p>vi /etc/hosts</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>172.28.238.43   harbor.lhp.com
+</span></span></code></pre></div><h3 id=windows也需要添加映射关系>windows也需要添加映射关系</h3><p>用管理员用户编辑<code>C:\Windows\System32\drivers\etc\hosts</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e>#同样添加下面内容</span>
+</span></span><span style=display:flex><span>172.28.238.43   harbor.lhp.com
+</span></span></code></pre></div><h3 id=修改后刷新>修改后刷新</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>ipconfig /flushdns
+</span></span></code></pre></div><p>配置daemon.json，docker登录harbor时需要。</p><p>vi /etc/docker/daemon.json</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#f92672>{</span>
+</span></span><span style=display:flex><span>  <span style=color:#e6db74>&#34;registry-mirrors&#34;</span>: <span style=color:#f92672>[</span><span style=color:#e6db74>&#34;https://jliunkl7.mirror.aliyuncs.com&#34;</span><span style=color:#f92672>]</span>,
+</span></span><span style=display:flex><span>  <span style=color:#e6db74>&#34;insecure-registries&#34;</span>: <span style=color:#f92672>[</span><span style=color:#e6db74>&#34;harbor.lhp.com:5000&#34;</span><span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>}</span>
+</span></span></code></pre></div><h3 id=重启docker>重启docker</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>service docker stop
+</span></span><span style=display:flex><span>service docker start
+</span></span></code></pre></div><h3 id=执行installsh脚本安装>执行install.sh脚本安装</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>./install.sh
+</span></span></code></pre></div><h3 id=测试访问harbor>测试访问harbor</h3><p><a href=http://harbor.lhp.com:5000 target=_blank rel="noopener noreffer">http://harbor.lhp.com:5000</a></p><p>用户名：admin</p><p>密码：Toor12345</p><p><img class=lazyload src=/svg/loading.min.svg data-src=/img/postimages/harbor%e7%99%bb%e5%bd%95.webp data-srcset="/img/postimages/harbor%e7%99%bb%e5%bd%95.webp, /img/postimages/harbor%e7%99%bb%e5%bd%95.webp 1.5x, /img/postimages/harbor%e7%99%bb%e5%bd%95.webp 2x" data-sizes=auto alt=/img/postimages/harbor登录.webp title=harbor登录></p><h3 id=docker登录harbor>docker登录harbor</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>docker login -u admin http://harbor.lhp.com:5000
+</span></span></code></pre></div><h3 id=harbor创建项目>harbor创建项目</h3><p><img class=lazyload src=/svg/loading.min.svg data-src=/img/postimages/harbor%e6%96%b0%e5%bb%ba%e9%a1%b9%e7%9b%ae.webp data-srcset="/img/postimages/harbor%e6%96%b0%e5%bb%ba%e9%a1%b9%e7%9b%ae.webp, /img/postimages/harbor%e6%96%b0%e5%bb%ba%e9%a1%b9%e7%9b%ae.webp 1.5x, /img/postimages/harbor%e6%96%b0%e5%bb%ba%e9%a1%b9%e7%9b%ae.webp 2x" data-sizes=auto alt=/img/postimages/harbor新建项目.webp title=harbor新建项目></p><h3 id=测试上传和下载到harbor>测试上传和下载到harbor</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e>#push</span>
+</span></span><span style=display:flex><span>docker tag alpine:latest harbor.lhp.com:5000/images/alpine:latest
+</span></span><span style=display:flex><span>docker push harbor.lhp.com:5000/images/alpine:latest
+</span></span><span style=display:flex><span><span style=color:#75715e>#pull</span>
+</span></span><span style=display:flex><span>docker pull harbor.lhp.com:5000/images/alpine:latest
+</span></span></code></pre></div><p>portainer中添加harbor仓库。以后就可以在portainer中可视化上传和下载镜像啦！</p><h2 id=登录portainer并新增仓库>登录portainer并新增仓库</h2><p><img class=lazyload src=/svg/loading.min.svg data-src=/img/postimages/portainer%e6%b7%bb%e5%8a%a0harbor%e4%bb%93%e5%ba%931.webp data-srcset="/img/postimages/portainer%e6%b7%bb%e5%8a%a0harbor%e4%bb%93%e5%ba%931.webp, /img/postimages/portainer%e6%b7%bb%e5%8a%a0harbor%e4%bb%93%e5%ba%931.webp 1.5x, /img/postimages/portainer%e6%b7%bb%e5%8a%a0harbor%e4%bb%93%e5%ba%931.webp 2x" data-sizes=auto alt=/img/postimages/portainer添加harbor仓库1.webp title=portainer添加harbor仓库1></p><p><img class=lazyload src=/svg/loading.min.svg data-src=/img/postimages/portainer%e6%b7%bb%e5%8a%a0harbor%e4%bb%93%e5%ba%932.webp data-srcset="/img/postimages/portainer%e6%b7%bb%e5%8a%a0harbor%e4%bb%93%e5%ba%932.webp, /img/postimages/portainer%e6%b7%bb%e5%8a%a0harbor%e4%bb%93%e5%ba%932.webp 1.5x, /img/postimages/portainer%e6%b7%bb%e5%8a%a0harbor%e4%bb%93%e5%ba%932.webp 2x" data-sizes=auto alt=/img/postimages/portainer添加harbor仓库2.webp title=portainer添加harbor仓库2></p><h3 id=测试上传和下载>测试上传和下载。</h3><p>镜像打tag时注意要在镜像前加harbor项目文件夹，文中的为images。</p><p>将busybox:latest上传到harbor的images中。</p><p><img class=lazyload src=/svg/loading.min.svg data-src=/img/postimages/portainer%e4%b8%8a%e4%bc%a0%e5%88%b0harbor1.webp data-srcset="/img/postimages/portainer%e4%b8%8a%e4%bc%a0%e5%88%b0harbor1.webp, /img/postimages/portainer%e4%b8%8a%e4%bc%a0%e5%88%b0harbor1.webp 1.5x, /img/postimages/portainer%e4%b8%8a%e4%bc%a0%e5%88%b0harbor1.webp 2x" data-sizes=auto alt=/img/postimages/portainer上传到harbor1.webp title=portainer上传到harbor1></p><p>进入busybox镜像并打tag，注意格式。</p><p><img class=lazyload src=/svg/loading.min.svg data-src=/img/postimages/portainer%e4%b8%8a%e4%bc%a0%e5%88%b0harbor2.webp data-srcset="/img/postimages/portainer%e4%b8%8a%e4%bc%a0%e5%88%b0harbor2.webp, /img/postimages/portainer%e4%b8%8a%e4%bc%a0%e5%88%b0harbor2.webp 1.5x, /img/postimages/portainer%e4%b8%8a%e4%bc%a0%e5%88%b0harbor2.webp 2x" data-sizes=auto alt=/img/postimages/portainer上传到harbor2.webp title=portainer上传到harbor2></p><p>上传镜像到harbor仓库</p><p><img class=lazyload src=/svg/loading.min.svg data-src=/img/postimages/portainer%e4%b8%8a%e4%bc%a0%e5%88%b0harbor3.webp data-srcset="/img/postimages/portainer%e4%b8%8a%e4%bc%a0%e5%88%b0harbor3.webp, /img/postimages/portainer%e4%b8%8a%e4%bc%a0%e5%88%b0harbor3.webp 1.5x, /img/postimages/portainer%e4%b8%8a%e4%bc%a0%e5%88%b0harbor3.webp 2x" data-sizes=auto alt=/img/postimages/portainer上传到harbor3.webp title=portainer上传到harbor3></p><p>harbor中查看</p><p><img class=lazyload src=/svg/loading.min.svg data-src=/img/postimages/portainer%e4%b8%8a%e4%bc%a0%e5%88%b0harbor5.webp data-srcset="/img/postimages/portainer%e4%b8%8a%e4%bc%a0%e5%88%b0harbor5.webp, /img/postimages/portainer%e4%b8%8a%e4%bc%a0%e5%88%b0harbor5.webp 1.5x, /img/postimages/portainer%e4%b8%8a%e4%bc%a0%e5%88%b0harbor5.webp 2x" data-sizes=auto alt=/img/postimages/portainer上传到harbor5.webp title=portainer上传到harbor5></p><p>harbor上拉取镜像操作</p><p>选择要拉取的镜像并拉取。</p><p><img class=lazyload src=/svg/loading.min.svg data-src=/img/postimages/harbor%e4%bb%93%e5%ba%93%e9%95%9c%e5%83%8f%e6%8b%89%e5%8f%961.webp data-srcset="/img/postimages/harbor%e4%bb%93%e5%ba%93%e9%95%9c%e5%83%8f%e6%8b%89%e5%8f%961.webp, /img/postimages/harbor%e4%bb%93%e5%ba%93%e9%95%9c%e5%83%8f%e6%8b%89%e5%8f%961.webp 1.5x, /img/postimages/harbor%e4%bb%93%e5%ba%93%e9%95%9c%e5%83%8f%e6%8b%89%e5%8f%961.webp 2x" data-sizes=auto alt=/img/postimages/harbor仓库镜像拉取1.webp title=harbor仓库镜像拉取1></p><h2 id=harbor登录时遇到的坑>harbor登录时遇到的坑</h2><p>如果显示harbor登录失败，而密码又是harbor.yml中设置的密码。此时需要停止harbor所有相关镜像。进入到harbor安装目录。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>cd /root/softwere/harbor
+</span></span><span style=display:flex><span><span style=color:#75715e>#停止harbor所有相关镜像</span>
+</span></span><span style=display:flex><span>docker-compose down -v
+</span></span><span style=display:flex><span><span style=color:#75715e>#开启harbor所有相关镜像</span>
+</span></span><span style=display:flex><span>docker-compose up -d
+</span></span></code></pre></div><p>停止docker服务，删除harbor的数据卷,清除日志，路径在<code>harbor.yml</code>中。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>rm -rf /data
+</span></span><span style=display:flex><span>rm -rf /var/log/harbor
+</span></span><span style=display:flex><span><span style=color:#75715e>#path</span>
+</span></span><span style=display:flex><span>data_volume: /data
+</span></span><span style=display:flex><span>location: /var/log/harbor
+</span></span></code></pre></div><p>最后删除harbor文件夹，重新解压安装即可。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>rm -rf /root/softwere/harbor
+</span></span><span style=display:flex><span>cd /root/softwere/
+</span></span><span style=display:flex><span>tar -xf harbor.v1.10.10.tar.gz
+</span></span></code></pre></div><h2 id=其他功能-harbor镜像漏洞扫描>其他功能-Harbor镜像漏洞扫描</h2><p>安装harbor自带的漏洞扫描</p><h4 id=添加扫描模块>添加扫描模块</h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e>#进入到harbor目录中操作</span>
+</span></span><span style=display:flex><span>./prepare --with-clair
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>prepare base dir is set to /root/softwere/harbor
+</span></span><span style=display:flex><span>/usr/src/app/utils/configs.py:100: YAMLLoadWarning: calling yaml.load<span style=color:#f92672>()</span> without Loader<span style=color:#f92672>=</span>... is deprecated, as the default Loader is unsafe. Please read https://msg.pyyaml.org/load <span style=color:#66d9ef>for</span> full details.
+</span></span><span style=display:flex><span>  configs <span style=color:#f92672>=</span> yaml.load<span style=color:#f92672>(</span>f<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>WARNING:root:WARNING: HTTP protocol is insecure. Harbor will deprecate http protocol in the future. Please make sure to upgrade to httpsClearing the configuration file: /config/db/env
+</span></span><span style=display:flex><span>Clearing the configuration file: /config/jobservice/env
+</span></span><span style=display:flex><span>Clearing the configuration file: /config/jobservice/config.yml
+</span></span><span style=display:flex><span>Clearing the configuration file: /config/nginx/nginx.conf
+</span></span><span style=display:flex><span>Clearing the configuration file: /config/registryctl/env
+</span></span><span style=display:flex><span>Clearing the configuration file: /config/registryctl/config.yml
+</span></span><span style=display:flex><span>Clearing the configuration file: /config/registry/root.crt
+</span></span><span style=display:flex><span>Clearing the configuration file: /config/registry/config.yml
+</span></span><span style=display:flex><span>Clearing the configuration file: /config/core/env
+</span></span><span style=display:flex><span>Clearing the configuration file: /config/core/app.conf
+</span></span><span style=display:flex><span>Clearing the configuration file: /config/log/rsyslog_docker.conf
+</span></span><span style=display:flex><span>Clearing the configuration file: /config/log/logrotate.conf
+</span></span><span style=display:flex><span>Generated configuration file: /config/log/logrotate.conf
+</span></span><span style=display:flex><span>Generated configuration file: /config/log/rsyslog_docker.conf
+</span></span><span style=display:flex><span>Generated configuration file: /config/nginx/nginx.conf
+</span></span><span style=display:flex><span>Generated configuration file: /config/core/env
+</span></span><span style=display:flex><span>Generated configuration file: /config/core/app.conf
+</span></span><span style=display:flex><span>Generated configuration file: /config/registry/config.yml
+</span></span><span style=display:flex><span>Generated configuration file: /config/registryctl/env
+</span></span><span style=display:flex><span>Generated configuration file: /config/db/env
+</span></span><span style=display:flex><span>Generated configuration file: /config/jobservice/env
+</span></span><span style=display:flex><span>Generated configuration file: /config/jobservice/config.yml
+</span></span><span style=display:flex><span>loaded secret from file: /secret/keys/secretkey
+</span></span><span style=display:flex><span>Generated configuration file: /config/clair/postgres_env
+</span></span><span style=display:flex><span>Generated configuration file: /config/clair/config.yaml
+</span></span><span style=display:flex><span>Generated configuration file: /config/clair/clair_env
+</span></span><span style=display:flex><span>Generated configuration file: /config/clair-adapter/env
+</span></span><span style=display:flex><span>Generated configuration file: /compose_location/docker-compose.yml
+</span></span><span style=display:flex><span>/usr/src/app/utils/configs.py:90: YAMLLoadWarning: calling yaml.load<span style=color:#f92672>()</span> without Loader<span style=color:#f92672>=</span>... is deprecated, as the default Loader is unsafe. Please read https://msg.pyyaml.org/load <span style=color:#66d9ef>for</span> full details.
+</span></span><span style=display:flex><span>  versions <span style=color:#f92672>=</span> yaml.load<span style=color:#f92672>(</span>f<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>Clean up the input dir
+</span></span><span style=display:flex><span><span style=color:#75715e>#会自动生成docker-compose.yml文件</span>
+</span></span><span style=display:flex><span>➜  harbor ls
+</span></span><span style=display:flex><span>LICENSE  common  common.sh  docker-compose.yml  harbor.v1.10.10.tar.gz  harbor.yml  install.sh  prepare
+</span></span></code></pre></div><h4 id=重启启动harbor服务注意这里要指定docker-composeyaml文件>重启启动harbor服务（注意这里要指定docker-compose.yaml文件）</h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>docker-compose -f docker-compose.yml up -d
+</span></span></code></pre></div><h4 id=测试扫描>测试扫描</h4><p>可以看到在项目里面已经显示安装好了扫描器插件，不安装这里是没有的。</p><p><img class=lazyload src=/svg/loading.min.svg data-src=/img/postimages/harbor%e6%89%ab%e6%8f%8f%e5%99%a81.webp data-srcset="/img/postimages/harbor%e6%89%ab%e6%8f%8f%e5%99%a81.webp, /img/postimages/harbor%e6%89%ab%e6%8f%8f%e5%99%a81.webp 1.5x, /img/postimages/harbor%e6%89%ab%e6%8f%8f%e5%99%a81.webp 2x" data-sizes=auto alt=/img/postimages/harbor扫描器1.webp title=harbor扫描器1></p><p>选择镜像我们就可以进行扫描了。</p><p>镜像未扫描前</p><p><img class=lazyload src=/svg/loading.min.svg data-src=/img/postimages/harbor%e6%89%ab%e6%8f%8f%e5%99%a82.webp data-srcset="/img/postimages/harbor%e6%89%ab%e6%8f%8f%e5%99%a82.webp, /img/postimages/harbor%e6%89%ab%e6%8f%8f%e5%99%a82.webp 1.5x, /img/postimages/harbor%e6%89%ab%e6%8f%8f%e5%99%a82.webp 2x" data-sizes=auto alt=/img/postimages/harbor扫描器2.webp title=harbor扫描器2></p><p>镜像扫描后</p><p><img class=lazyload src=/svg/loading.min.svg data-src=/img/postimages/harbor%e6%89%ab%e6%8f%8f%e5%99%a83.webp data-srcset="/img/postimages/harbor%e6%89%ab%e6%8f%8f%e5%99%a83.webp, /img/postimages/harbor%e6%89%ab%e6%8f%8f%e5%99%a83.webp 1.5x, /img/postimages/harbor%e6%89%ab%e6%8f%8f%e5%99%a83.webp 2x" data-sizes=auto alt=/img/postimages/harbor扫描器3.webp title=harbor扫描器3></p></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>Updated on 2022-02-18</span></div></div><div class=post-info-line><div class=post-info-md></div><div class=post-info-share><span><a href=javascript:void(0); title="Share on Twitter" data-sharer=twitter data-url=https://blog.haipengv.com/posts/harbor%E5%AE%89%E8%A3%85%E4%B8%8E%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/ data-title=harbor安装与简单使用><i class="fab fa-twitter fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on Facebook" data-sharer=facebook data-url=https://blog.haipengv.com/posts/harbor%E5%AE%89%E8%A3%85%E4%B8%8E%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/><i class="fab fa-facebook-square fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on Hacker News" data-sharer=hackernews data-url=https://blog.haipengv.com/posts/harbor%E5%AE%89%E8%A3%85%E4%B8%8E%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/ data-title=harbor安装与简单使用><i class="fab fa-hacker-news fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on Line" data-sharer=line data-url=https://blog.haipengv.com/posts/harbor%E5%AE%89%E8%A3%85%E4%B8%8E%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/ data-title=harbor安装与简单使用><i data-svg-src=https://cdn.jsdelivr.net/npm/simple-icons@6.20.0/icons/line.svg aria-hidden=true></i></a><a href=javascript:void(0); title="Share on 微博" data-sharer=weibo data-url=https://blog.haipengv.com/posts/harbor%E5%AE%89%E8%A3%85%E4%B8%8E%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/ data-title=harbor安装与简单使用><i class="fab fa-weibo fa-fw" aria-hidden=true></i></a></span></div></div></div><div class=post-info-more><section class=post-tags></section><section><span><a href=javascript:void(0); onclick=window.history.back()>Back</a></span>&nbsp;|&nbsp;<span><a href=/>Home</a></span></section></div><div class=post-nav><a href=/posts/wsl2%E4%B8%ADportainer%E5%AE%B9%E5%99%A8%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/ class=prev rel=prev title=wsl2中Portainer容器可视化管理工具的安装与使用><i class="fas fa-angle-left fa-fw" aria-hidden=true></i>wsl2中Portainer容器可视化管理工具的安装与使用</a>
+<a href=/posts/%E5%B1%80%E5%9F%9F%E7%BD%91%E4%B8%AD%E5%85%B6%E4%BB%96%E4%B8%BB%E6%9C%BA%E8%AE%BF%E9%97%AE%E6%9C%AC%E6%9C%BAwsl2%E4%B8%AD%E7%9A%84%E6%9C%8D%E5%8A%A1/ class=next rel=next title=局域网中其他主机访问本机wsl2中的服务>局域网中其他主机访问本机wsl2中的服务<i class="fas fa-angle-right fa-fw" aria-hidden=true></i></a></div></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line>Powered by <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.115.3">Hugo</a> | Theme - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden=true></i> LoveIt</a></div><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2022 - 2023</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=/ target=_blank></a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top"><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.1/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:50},comment:{}}</script><script type=text/javascript src=/js/theme.min.js></script></body></html>
