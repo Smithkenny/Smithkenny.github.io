@@ -1,0 +1,476 @@
+<!doctype html><html lang=zh-CN><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>shell脚本常用参考 - Peng</title><meta name=Description content="One World,One Dream!"><meta property="og:title" content="shell脚本常用参考"><meta property="og:description" content="Shell 脚本常用参考 echo cat read sed awk cat 1 2 3 4 5 6 cat > /path/${TEMP}/account.conf<<EOF export ${API_ID_HEADER}=&#34;${API_ID_INPUT}&#34; export ${API_KEY_HEADER}=&#34;${API_KEY_INPUT}&#34; EOF # 单引号转译内容 # cat > /path/${TEMP}/account.conf<<'EOF' sed 1 2 3 4 5 6 7 8 sed -i \ -e '/Port 22/a\Port 22222' \ -e '/^PasswordAuthentication.*yes$/s/yes/no/g' \ -e '/^PermitRootLogin.*no$/s/no/yes/g' \ -e '/^#PermitRoot.*yes$/s/#PermitRoot/PermitRoot/g' \ -e '/#ClientAliveInterval/s/#ClientAliveInterval 0/ClientAliveInterval 30/g' \"><meta property="og:type" content="article"><meta property="og:url" content="https://blog.haipengv.com/shell%E8%84%9A%E6%9C%AC%E5%B8%B8%E7%94%A8%E5%8F%82%E8%80%83/"><meta property="og:image" content="https://blog.haipengv.com/logo.png"><meta property="article:section" content="posts"><meta property="article:published_time" content="2022-02-25T15:19:32+00:00"><meta property="article:modified_time" content="2022-02-25T15:19:32+00:00"><meta property="og:site_name" content="我的网站"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://blog.haipengv.com/logo.png"><meta name=twitter:title content="shell脚本常用参考"><meta name=twitter:description content="Shell 脚本常用参考 echo cat read sed awk cat 1 2 3 4 5 6 cat > /path/${TEMP}/account.conf<<EOF export ${API_ID_HEADER}=&#34;${API_ID_INPUT}&#34; export ${API_KEY_HEADER}=&#34;${API_KEY_INPUT}&#34; EOF # 单引号转译内容 # cat > /path/${TEMP}/account.conf<<'EOF' sed 1 2 3 4 5 6 7 8 sed -i \ -e '/Port 22/a\Port 22222' \ -e '/^PasswordAuthentication.*yes$/s/yes/no/g' \ -e '/^PermitRootLogin.*no$/s/no/yes/g' \ -e '/^#PermitRoot.*yes$/s/#PermitRoot/PermitRoot/g' \ -e '/#ClientAliveInterval/s/#ClientAliveInterval 0/ClientAliveInterval 30/g' \"><meta name=application-name content="我的网站"><meta name=apple-mobile-web-app-title content="我的网站"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://blog.haipengv.com/shell%E8%84%9A%E6%9C%AC%E5%B8%B8%E7%94%A8%E5%8F%82%E8%80%83/><link rel=prev href=https://blog.haipengv.com/iptables%E5%B8%B8%E7%94%A8%E6%80%BB%E7%BB%93/><link rel=next href=https://blog.haipengv.com/centos7-%E5%B8%B8%E8%A7%84%E5%91%BD%E4%BB%A4/><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=/lib/fontawesome-free/all.min.css><link rel=stylesheet href=/lib/animate/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"shell脚本常用参考","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/blog.haipengv.com\/shell%E8%84%9A%E6%9C%AC%E5%B8%B8%E7%94%A8%E5%8F%82%E8%80%83\/"},"genre":"posts","wordcount":2793,"url":"https:\/\/blog.haipengv.com\/shell%E8%84%9A%E6%9C%AC%E5%B8%B8%E7%94%A8%E5%8F%82%E8%80%83\/","datePublished":"2022-02-25T15:19:32+00:00","dateModified":"2022-02-25T15:19:32+00:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"Peng"},"description":""}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"auto"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"auto"==="dark")&&document.body.setAttribute("theme","dark")</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title=Peng>Peng</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>文章 </a><a class=menu-item href=/tags/>标签 </a><a class=menu-item href=/categories/>分类 </a><a class=menu-item href=/links/>友链 </a><a class=menu-item href=/about/>关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder=搜索文章标题或内容... id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=Search><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=Clear><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span>
+</span><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme"><i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title=Peng>Peng</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder=搜索文章标题或内容... id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=Search><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=Clear><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>Cancel</a></div><a class=menu-item href=/posts/ title>文章</a><a class=menu-item href=/tags/ title>标签</a><a class=menu-item href=/categories/ title>分类</a><a class=menu-item href=/links/ title>友链</a><a class=menu-item href=/about/ title>关于</a><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>Contents</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">shell脚本常用参考</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=/ title=Author rel=author class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Peng</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw" aria-hidden=true></i>&nbsp;<time datetime=2022-02-25>2022-02-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden=true></i>&nbsp;2793 words&nbsp;
+<i class="far fa-clock fa-fw" aria-hidden=true></i>&nbsp;6 minutes&nbsp;</div></div><div class="details toc" id=toc-static data-kept=true><div class="details-summary toc-title"><span>Contents</span>
+<span><i class="details-icon fas fa-angle-right" aria-hidden=true></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#echo-cat-read-sed-awk>echo cat read sed awk</a><ul><li><a href=#cat>cat</a></li><li><a href=#sed>sed</a></li><li><a href=#awk>awk</a></li><li><a href=#read>read</a></li><li><a href=#case>case</a></li></ul></li><li><a href=#if-判断>if 判断</a></li><li><a href=#运算符>运算符</a><ul><li><a href=#算术运算符>算术运算符</a></li><li><a href=#关系运算符>关系运算符</a></li><li><a href=#布尔运算符>布尔运算符</a></li><li><a href=#字符串运算符>字符串运算符</a></li><li><a href=#文件测试运算符列表>文件测试运算符列表</a></li></ul></li><li><a href=#参数>参数</a></li><li><a href=#循环>循环</a></li></ul></nav></div></div><div class=content id=content><h1 id=shell-脚本常用参考>Shell 脚本常用参考</h1><h2 id=echo-cat-read-sed-awk>echo cat read sed awk</h2><h3 id=cat>cat</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>cat &gt; /path/<span class=si>${</span><span class=nv>TEMP</span><span class=si>}</span>/account.conf<span class=s>&lt;&lt;EOF
+</span></span></span><span class=line><span class=cl><span class=s>export ${API_ID_HEADER}=&#34;${API_ID_INPUT}&#34;
+</span></span></span><span class=line><span class=cl><span class=s>export ${API_KEY_HEADER}=&#34;${API_KEY_INPUT}&#34;
+</span></span></span><span class=line><span class=cl><span class=s>EOF</span>
+</span></span><span class=line><span class=cl><span class=c1># 单引号转译内容</span>
+</span></span><span class=line><span class=cl><span class=c1># cat &gt; /path/${TEMP}/account.conf&lt;&lt;&#39;EOF&#39;</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=sed>sed</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>sed -i <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    -e <span class=s1>&#39;/Port 22/a\Port 22222&#39;</span> <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    -e <span class=s1>&#39;/^PasswordAuthentication.*yes$/s/yes/no/g&#39;</span> <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    -e <span class=s1>&#39;/^PermitRootLogin.*no$/s/no/yes/g&#39;</span> <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    -e <span class=s1>&#39;/^#PermitRoot.*yes$/s/#PermitRoot/PermitRoot/g&#39;</span> <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    -e <span class=s1>&#39;/#ClientAliveInterval/s/#ClientAliveInterval 0/ClientAliveInterval 30/g&#39;</span> <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    -e <span class=s1>&#39;/#MaxSessions/s/#MaxSessions 10/MaxSessions 100/g&#39;</span> <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    /etc/ssh/sshd_config
+</span></span></code></pre></td></tr></table></div></div><h3 id=awk>awk</h3><p>从文件获取 分隔符 = 如果第一列含有 DOMAIN 打印第二列</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=nv>DOMAIN</span><span class=o>=</span><span class=k>$(</span>cat /conf/account.conf <span class=p>|</span> awk -F<span class=o>=</span> <span class=s1>&#39;{if($1~&#34;DOMAIN&#34;)print $2}&#39;</span><span class=k>)</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=read>read</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=nb>read</span> -p <span class=s2>&#34;请输入:&#34;</span> INPUT
+</span></span></code></pre></td></tr></table></div></div><h3 id=case>case</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=k>case</span> <span class=s2>&#34;</span><span class=nv>$INPUT</span><span class=s2>&#34;</span> in
+</span></span><span class=line><span class=cl>    1<span class=o>)</span>
+</span></span><span class=line><span class=cl>    <span class=nb>echo</span> <span class=s2>&#34;1&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=p>;;</span>
+</span></span><span class=line><span class=cl>    2<span class=o>)</span>
+</span></span><span class=line><span class=cl>    <span class=nb>echo</span> <span class=s2>&#34;2&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=p>;;</span>
+</span></span><span class=line><span class=cl>    *<span class=o>)</span>
+</span></span><span class=line><span class=cl>    <span class=nb>echo</span> <span class=s2>&#34;其他&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=nb>exit</span> <span class=m>0</span>
+</span></span><span class=line><span class=cl>    <span class=k>esac</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=if-判断>if 判断</h2><p>字符串对比判断</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> <span class=s2>&#34;</span><span class=nv>$INPUT</span><span class=s2>&#34;</span> <span class=o>==</span> <span class=s2>&#34;3&#34;</span> <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>    <span class=nb>echo</span> <span class=s2>&#34;变量等于 3&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span></code></pre></td></tr></table></div></div><p>判断变量是否存在</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> ! -n <span class=s2>&#34;</span><span class=si>${</span><span class=nv>INPUT</span><span class=si>}</span><span class=s2>&#34;</span> <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>    <span class=nb>echo</span> <span class=s2>&#34;变量不存在&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span></code></pre></td></tr></table></div></div><p>判断目录是否存在</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> -d /data/test <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>    <span class=nb>echo</span> <span class=s2>&#34;目录存在&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span></code></pre></td></tr></table></div></div><p>判断文件是否存在</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> -f /data/test <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>    <span class=nb>echo</span> <span class=s2>&#34;目录存在&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span></code></pre></td></tr></table></div></div><p>服务器软件判断</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=k>if</span> <span class=nb>type</span> docker-compose &gt;/dev/null 2&gt;<span class=p>&amp;</span>1<span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>    <span class=nb>echo</span> <span class=s2>&#34;已安装 docker-compose&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>else</span>
+</span></span><span class=line><span class=cl>    <span class=nb>echo</span> <span class=s2>&#34;未安装 docker-compose&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span></code></pre></td></tr></table></div></div><p>判断是否是root</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=k>if</span> <span class=o>[[</span> <span class=nv>$EUID</span> -ne <span class=m>0</span> <span class=o>]]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>    <span class=nb>echo</span> <span class=s2>&#34;非 root 用户&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=nb>exit</span> <span class=m>1</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span></code></pre></td></tr></table></div></div><p>判断 OpenVZ</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=k>if</span> <span class=o>[[</span> -d <span class=s2>&#34;/proc/vz&#34;</span> <span class=o>]]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>    <span class=nb>echo</span> -e <span class=s2>&#34;这是 OpenVZ,非 KVM&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=nb>exit</span> <span class=m>1</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span></code></pre></td></tr></table></div></div><p>数值比较判断</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> <span class=nv>$TIMES</span> -eq <span class=m>3</span> <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>    <span class=nb>echo</span> <span class=s2>&#34;Times 大于 3&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=运算符>运算符</h2><h3 id=算术运算符>算术运算符</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=cp>#!/bin/sh
+</span></span></span><span class=line><span class=cl><span class=cp></span><span class=nv>a</span><span class=o>=</span><span class=m>10</span>
+</span></span><span class=line><span class=cl><span class=nv>b</span><span class=o>=</span><span class=m>20</span>
+</span></span><span class=line><span class=cl><span class=nv>val</span><span class=o>=</span><span class=sb>`</span>expr <span class=nv>$a</span> + <span class=nv>$b</span><span class=sb>`</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;a + b : </span><span class=nv>$val</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl><span class=nv>val</span><span class=o>=</span><span class=sb>`</span>expr <span class=nv>$a</span> - <span class=nv>$b</span><span class=sb>`</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;a - b : </span><span class=nv>$val</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl><span class=nv>val</span><span class=o>=</span><span class=sb>`</span>expr <span class=nv>$a</span> <span class=se>\*</span> <span class=nv>$b</span><span class=sb>`</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;a * b : </span><span class=nv>$val</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl><span class=nv>val</span><span class=o>=</span><span class=sb>`</span>expr <span class=nv>$b</span> / <span class=nv>$a</span><span class=sb>`</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;b / a : </span><span class=nv>$val</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl><span class=nv>val</span><span class=o>=</span><span class=sb>`</span>expr <span class=nv>$b</span> % <span class=nv>$a</span><span class=sb>`</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;b % a : </span><span class=nv>$val</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> <span class=nv>$a</span> <span class=o>==</span> <span class=nv>$b</span> <span class=o>]</span>
+</span></span><span class=line><span class=cl><span class=k>then</span>
+</span></span><span class=line><span class=cl>   <span class=nb>echo</span> <span class=s2>&#34;a is equal to b&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> <span class=nv>$a</span> !<span class=o>=</span> <span class=nv>$b</span> <span class=o>]</span>
+</span></span><span class=line><span class=cl><span class=k>then</span>
+</span></span><span class=line><span class=cl>   <span class=nb>echo</span> <span class=s2>&#34;a is not equal to b&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span></code></pre></td></tr></table></div></div><table><thead><tr><th>运算符</th><th>说明</th><th>举例</th></tr></thead><tbody><tr><td>+</td><td>加法</td><td><code>expr $a + $b</code> 结果为 30。</td></tr><tr><td>-</td><td>减法</td><td><code>expr $a - $b</code> 结果为 10。</td></tr><tr><td>*</td><td>乘法</td><td><code>expr $a \* $b</code> 结果为 200。</td></tr><tr><td>/</td><td>除法</td><td><code>expr $b / $a</code> 结果为 2。</td></tr><tr><td>%</td><td>取余</td><td><code>expr $b % $a</code> 结果为 0。</td></tr><tr><td>=</td><td>赋值</td><td>a=$b 将把变量 b 的值赋给 a。</td></tr><tr><td>==</td><td>相等。用于比较两个数字，相同则返回 true。</td><td>[ $a == $b ] 返回 false。</td></tr><tr><td>!=</td><td>不相等。用于比较两个数字，不相同则返回 true。</td><td>[ $a != $b ] 返回 true。</td></tr></tbody></table><h3 id=关系运算符>关系运算符</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=cp>#!/bin/sh
+</span></span></span><span class=line><span class=cl><span class=cp></span><span class=nv>a</span><span class=o>=</span><span class=m>10</span>
+</span></span><span class=line><span class=cl><span class=nv>b</span><span class=o>=</span><span class=m>20</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> <span class=nv>$a</span> -eq <span class=nv>$b</span> <span class=o>]</span>
+</span></span><span class=line><span class=cl><span class=k>then</span>
+</span></span><span class=line><span class=cl>   <span class=nb>echo</span> <span class=s2>&#34;</span><span class=nv>$a</span><span class=s2> -eq </span><span class=nv>$b</span><span class=s2> : a is equal to b&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>else</span>
+</span></span><span class=line><span class=cl>   <span class=nb>echo</span> <span class=s2>&#34;</span><span class=nv>$a</span><span class=s2> -eq </span><span class=nv>$b</span><span class=s2>: a is not equal to b&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> <span class=nv>$a</span> -ne <span class=nv>$b</span> <span class=o>]</span>
+</span></span><span class=line><span class=cl><span class=k>then</span>
+</span></span><span class=line><span class=cl>   <span class=nb>echo</span> <span class=s2>&#34;</span><span class=nv>$a</span><span class=s2> -ne </span><span class=nv>$b</span><span class=s2>: a is not equal to b&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>else</span>
+</span></span><span class=line><span class=cl>   <span class=nb>echo</span> <span class=s2>&#34;</span><span class=nv>$a</span><span class=s2> -ne </span><span class=nv>$b</span><span class=s2> : a is equal to b&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> <span class=nv>$a</span> -gt <span class=nv>$b</span> <span class=o>]</span>
+</span></span><span class=line><span class=cl><span class=k>then</span>
+</span></span><span class=line><span class=cl>   <span class=nb>echo</span> <span class=s2>&#34;</span><span class=nv>$a</span><span class=s2> -gt </span><span class=nv>$b</span><span class=s2>: a is greater than b&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>else</span>
+</span></span><span class=line><span class=cl>   <span class=nb>echo</span> <span class=s2>&#34;</span><span class=nv>$a</span><span class=s2> -gt </span><span class=nv>$b</span><span class=s2>: a is not greater than b&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> <span class=nv>$a</span> -lt <span class=nv>$b</span> <span class=o>]</span>
+</span></span><span class=line><span class=cl><span class=k>then</span>
+</span></span><span class=line><span class=cl>   <span class=nb>echo</span> <span class=s2>&#34;</span><span class=nv>$a</span><span class=s2> -lt </span><span class=nv>$b</span><span class=s2>: a is less than b&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>else</span>
+</span></span><span class=line><span class=cl>   <span class=nb>echo</span> <span class=s2>&#34;</span><span class=nv>$a</span><span class=s2> -lt </span><span class=nv>$b</span><span class=s2>: a is not less than b&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> <span class=nv>$a</span> -ge <span class=nv>$b</span> <span class=o>]</span>
+</span></span><span class=line><span class=cl><span class=k>then</span>
+</span></span><span class=line><span class=cl>   <span class=nb>echo</span> <span class=s2>&#34;</span><span class=nv>$a</span><span class=s2> -ge </span><span class=nv>$b</span><span class=s2>: a is greater or  equal to b&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>else</span>
+</span></span><span class=line><span class=cl>   <span class=nb>echo</span> <span class=s2>&#34;</span><span class=nv>$a</span><span class=s2> -ge </span><span class=nv>$b</span><span class=s2>: a is not greater or equal to b&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> <span class=nv>$a</span> -le <span class=nv>$b</span> <span class=o>]</span>
+</span></span><span class=line><span class=cl><span class=k>then</span>
+</span></span><span class=line><span class=cl>   <span class=nb>echo</span> <span class=s2>&#34;</span><span class=nv>$a</span><span class=s2> -le </span><span class=nv>$b</span><span class=s2>: a is less or  equal to b&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>else</span>
+</span></span><span class=line><span class=cl>   <span class=nb>echo</span> <span class=s2>&#34;</span><span class=nv>$a</span><span class=s2> -le </span><span class=nv>$b</span><span class=s2>: a is not less or equal to b&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span></code></pre></td></tr></table></div></div><p>关系运算符列表</p><table><thead><tr><th>运算符</th><th>说明</th><th>举例</th></tr></thead><tbody><tr><td>-eq</td><td>检测两个数是否相等，相等返回 true。</td><td>[ $a -eq $b ] 返回 true。</td></tr><tr><td>-ne</td><td>检测两个数是否相等，不相等返回 true。</td><td>[ $a -ne $b ] 返回 true。</td></tr><tr><td>-gt</td><td>检测左边的数是否大于右边的，如果是，则返回 true。</td><td>[ $a -gt $b ] 返回 false。</td></tr><tr><td>-lt</td><td>检测左边的数是否小于右边的，如果是，则返回 true。</td><td>[ $a -lt $b ] 返回 true。</td></tr><tr><td>-ge</td><td>检测左边的数是否大等于右边的，如果是，则返回 true。</td><td>[ $a -ge $b ] 返回 false。</td></tr><tr><td>-le</td><td>检测左边的数是否小于等于右边的，如果是，则返回 true。</td><td>[ $a -le $b ] 返回 true。</td></tr></tbody></table><h3 id=布尔运算符>布尔运算符</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=cp>#!/bin/sh
+</span></span></span><span class=line><span class=cl><span class=cp></span><span class=nv>a</span><span class=o>=</span><span class=m>10</span>
+</span></span><span class=line><span class=cl><span class=nv>b</span><span class=o>=</span><span class=m>20</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> <span class=nv>$a</span> !<span class=o>=</span> <span class=nv>$b</span> <span class=o>]</span>
+</span></span><span class=line><span class=cl><span class=k>then</span>
+</span></span><span class=line><span class=cl>   <span class=nb>echo</span> <span class=s2>&#34;</span><span class=nv>$a</span><span class=s2> != </span><span class=nv>$b</span><span class=s2> : a is not equal to b&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>else</span>
+</span></span><span class=line><span class=cl>   <span class=nb>echo</span> <span class=s2>&#34;</span><span class=nv>$a</span><span class=s2> != </span><span class=nv>$b</span><span class=s2>: a is equal to b&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> <span class=nv>$a</span> -lt <span class=m>100</span> -a <span class=nv>$b</span> -gt <span class=m>15</span> <span class=o>]</span>
+</span></span><span class=line><span class=cl><span class=k>then</span>
+</span></span><span class=line><span class=cl>   <span class=nb>echo</span> <span class=s2>&#34;</span><span class=nv>$a</span><span class=s2> -lt 100 -a </span><span class=nv>$b</span><span class=s2> -gt 15 : returns true&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>else</span>
+</span></span><span class=line><span class=cl>   <span class=nb>echo</span> <span class=s2>&#34;</span><span class=nv>$a</span><span class=s2> -lt 100 -a </span><span class=nv>$b</span><span class=s2> -gt 15 : returns false&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> <span class=nv>$a</span> -lt <span class=m>100</span> -o <span class=nv>$b</span> -gt <span class=m>100</span> <span class=o>]</span>
+</span></span><span class=line><span class=cl><span class=k>then</span>
+</span></span><span class=line><span class=cl>   <span class=nb>echo</span> <span class=s2>&#34;</span><span class=nv>$a</span><span class=s2> -lt 100 -o </span><span class=nv>$b</span><span class=s2> -gt 100 : returns true&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>else</span>
+</span></span><span class=line><span class=cl>   <span class=nb>echo</span> <span class=s2>&#34;</span><span class=nv>$a</span><span class=s2> -lt 100 -o </span><span class=nv>$b</span><span class=s2> -gt 100 : returns false&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> <span class=nv>$a</span> -lt <span class=m>5</span> -o <span class=nv>$b</span> -gt <span class=m>100</span> <span class=o>]</span>
+</span></span><span class=line><span class=cl><span class=k>then</span>
+</span></span><span class=line><span class=cl>   <span class=nb>echo</span> <span class=s2>&#34;</span><span class=nv>$a</span><span class=s2> -lt 100 -o </span><span class=nv>$b</span><span class=s2> -gt 100 : returns true&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>else</span>
+</span></span><span class=line><span class=cl>   <span class=nb>echo</span> <span class=s2>&#34;</span><span class=nv>$a</span><span class=s2> -lt 100 -o </span><span class=nv>$b</span><span class=s2> -gt 100 : returns false&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span></code></pre></td></tr></table></div></div><table><thead><tr><th>运算符</th><th>说明</th><th>举例</th></tr></thead><tbody><tr><td>!</td><td>非运算，表达式为 true 则返回 false，否则返回 true。</td><td>[ ! false ] 返回 true。</td></tr><tr><td>-o</td><td>或运算，有一个表达式为 true 则返回 true。</td><td>[ $a -lt 20 -o $b -gt 100 ] 返回 true。</td></tr><tr><td>-a</td><td>与运算，两个表达式都为 true 才返回 true。</td><td>[ $a -lt 20 -a $b -gt 100 ] 返回 false。</td></tr></tbody></table><h3 id=字符串运算符>字符串运算符</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=cp>#!/bin/sh
+</span></span></span><span class=line><span class=cl><span class=cp></span><span class=nv>a</span><span class=o>=</span><span class=s2>&#34;abc&#34;</span>
+</span></span><span class=line><span class=cl><span class=nv>b</span><span class=o>=</span><span class=s2>&#34;efg&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> <span class=nv>$a</span> <span class=o>=</span> <span class=nv>$b</span> <span class=o>]</span>
+</span></span><span class=line><span class=cl><span class=k>then</span>
+</span></span><span class=line><span class=cl>   <span class=nb>echo</span> <span class=s2>&#34;</span><span class=nv>$a</span><span class=s2> = </span><span class=nv>$b</span><span class=s2> : a is equal to b&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>else</span>
+</span></span><span class=line><span class=cl>   <span class=nb>echo</span> <span class=s2>&#34;</span><span class=nv>$a</span><span class=s2> = </span><span class=nv>$b</span><span class=s2>: a is not equal to b&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> <span class=nv>$a</span> !<span class=o>=</span> <span class=nv>$b</span> <span class=o>]</span>
+</span></span><span class=line><span class=cl><span class=k>then</span>
+</span></span><span class=line><span class=cl>   <span class=nb>echo</span> <span class=s2>&#34;</span><span class=nv>$a</span><span class=s2> != </span><span class=nv>$b</span><span class=s2> : a is not equal to b&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>else</span>
+</span></span><span class=line><span class=cl>   <span class=nb>echo</span> <span class=s2>&#34;</span><span class=nv>$a</span><span class=s2> != </span><span class=nv>$b</span><span class=s2>: a is equal to b&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> -z <span class=nv>$a</span> <span class=o>]</span>
+</span></span><span class=line><span class=cl><span class=k>then</span>
+</span></span><span class=line><span class=cl>   <span class=nb>echo</span> <span class=s2>&#34;-z </span><span class=nv>$a</span><span class=s2> : string length is zero&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>else</span>
+</span></span><span class=line><span class=cl>   <span class=nb>echo</span> <span class=s2>&#34;-z </span><span class=nv>$a</span><span class=s2> : string length is not zero&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> -n <span class=nv>$a</span> <span class=o>]</span>
+</span></span><span class=line><span class=cl><span class=k>then</span>
+</span></span><span class=line><span class=cl>   <span class=nb>echo</span> <span class=s2>&#34;-n </span><span class=nv>$a</span><span class=s2> : string length is not zero&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>else</span>
+</span></span><span class=line><span class=cl>   <span class=nb>echo</span> <span class=s2>&#34;-n </span><span class=nv>$a</span><span class=s2> : string length is zero&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> <span class=nv>$a</span> <span class=o>]</span>
+</span></span><span class=line><span class=cl><span class=k>then</span>
+</span></span><span class=line><span class=cl>   <span class=nb>echo</span> <span class=s2>&#34;</span><span class=nv>$a</span><span class=s2> : string is not empty&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>else</span>
+</span></span><span class=line><span class=cl>   <span class=nb>echo</span> <span class=s2>&#34;</span><span class=nv>$a</span><span class=s2> : string is empty&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span></code></pre></td></tr></table></div></div><table><thead><tr><th>运算符</th><th>说明</th><th>举例</th></tr></thead><tbody><tr><td>=</td><td>检测两个字符串是否相等，相等返回 true。</td><td>[ $a = $b ] 返回 false。</td></tr><tr><td>!=</td><td>检测两个字符串是否相等，不相等返回 true。</td><td>[ $a != $b ] 返回 true。</td></tr><tr><td>-z</td><td>检测字符串长度是否为0，为0返回 true。</td><td>[ -z $a ] 返回 false。</td></tr><tr><td>-n</td><td>检测字符串长度是否为0，不为0返回 true。</td><td>[ -z $a ] 返回 true。</td></tr><tr><td>str</td><td>检测字符串是否为空，不为空返回 true。</td><td>[ $a ] 返回 true。</td></tr></tbody></table><h3 id=文件测试运算符列表>文件测试运算符列表</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=cp>#!/bin/sh
+</span></span></span><span class=line><span class=cl><span class=cp></span><span class=nv>file</span><span class=o>=</span><span class=s2>&#34;/var/www/tutorialspoint/unix/test.sh&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> -r <span class=nv>$file</span> <span class=o>]</span>
+</span></span><span class=line><span class=cl><span class=k>then</span>
+</span></span><span class=line><span class=cl>   <span class=nb>echo</span> <span class=s2>&#34;File has read access&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>else</span>
+</span></span><span class=line><span class=cl>   <span class=nb>echo</span> <span class=s2>&#34;File does not have read access&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> -w <span class=nv>$file</span> <span class=o>]</span>
+</span></span><span class=line><span class=cl><span class=k>then</span>
+</span></span><span class=line><span class=cl>   <span class=nb>echo</span> <span class=s2>&#34;File has write permission&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>else</span>
+</span></span><span class=line><span class=cl>   <span class=nb>echo</span> <span class=s2>&#34;File does not have write permission&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> -x <span class=nv>$file</span> <span class=o>]</span>
+</span></span><span class=line><span class=cl><span class=k>then</span>
+</span></span><span class=line><span class=cl>   <span class=nb>echo</span> <span class=s2>&#34;File has execute permission&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>else</span>
+</span></span><span class=line><span class=cl>   <span class=nb>echo</span> <span class=s2>&#34;File does not have execute permission&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> -f <span class=nv>$file</span> <span class=o>]</span>
+</span></span><span class=line><span class=cl><span class=k>then</span>
+</span></span><span class=line><span class=cl>   <span class=nb>echo</span> <span class=s2>&#34;File is an ordinary file&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>else</span>
+</span></span><span class=line><span class=cl>   <span class=nb>echo</span> <span class=s2>&#34;This is sepcial file&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> -d <span class=nv>$file</span> <span class=o>]</span>
+</span></span><span class=line><span class=cl><span class=k>then</span>
+</span></span><span class=line><span class=cl>   <span class=nb>echo</span> <span class=s2>&#34;File is a directory&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>else</span>
+</span></span><span class=line><span class=cl>   <span class=nb>echo</span> <span class=s2>&#34;This is not a directory&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> -s <span class=nv>$file</span> <span class=o>]</span>
+</span></span><span class=line><span class=cl><span class=k>then</span>
+</span></span><span class=line><span class=cl>   <span class=nb>echo</span> <span class=s2>&#34;File size is not zero&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>else</span>
+</span></span><span class=line><span class=cl>   <span class=nb>echo</span> <span class=s2>&#34;File size is zero&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> -e <span class=nv>$file</span> <span class=o>]</span>
+</span></span><span class=line><span class=cl><span class=k>then</span>
+</span></span><span class=line><span class=cl>   <span class=nb>echo</span> <span class=s2>&#34;File exists&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>else</span>
+</span></span><span class=line><span class=cl>   <span class=nb>echo</span> <span class=s2>&#34;File does not exist&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span></code></pre></td></tr></table></div></div><table><thead><tr><th>操作符</th><th>说明</th><th>举例</th></tr></thead><tbody><tr><td>-b file</td><td>检测文件是否是块设备文件，如果是，则返回 true。</td><td>[ -b $file ] 返回 false。</td></tr><tr><td>-c file</td><td>检测文件是否是字符设备文件，如果是，则返回 true。</td><td>[ -b $file ] 返回 false。</td></tr><tr><td>-d file</td><td>检测文件是否是目录，如果是，则返回 true。</td><td>[ -d $file ] 返回 false。</td></tr><tr><td>-f file</td><td>检测文件是否是普通文件（既不是目录，也不是设备文件），如果是，则返回 true。</td><td>[ -f $file ] 返回 true。</td></tr><tr><td>-g file</td><td>检测文件是否设置了 SGID 位，如果是，则返回 true。</td><td>[ -g $file ] 返回 false。</td></tr><tr><td>-k file</td><td>检测文件是否设置了粘着位(Sticky Bit)，如果是，则返回 true。</td><td>[ -k $file ] 返回 false。</td></tr><tr><td>-p file</td><td>检测文件是否是具名管道，如果是，则返回 true。</td><td>[ -p $file ] 返回 false。</td></tr><tr><td>-u file</td><td>检测文件是否设置了 SUID 位，如果是，则返回 true。</td><td>[ -u $file ] 返回 false。</td></tr><tr><td>-r file</td><td>检测文件是否可读，如果是，则返回 true。</td><td>[ -r $file ] 返回 true。</td></tr><tr><td>-w file</td><td>检测文件是否可写，如果是，则返回 true。</td><td>[ -w $file ] 返回 true。</td></tr><tr><td>-x file</td><td>检测文件是否可执行，如果是，则返回 true。</td><td>[ -x $file ] 返回 true。</td></tr><tr><td>-s file</td><td>检测文件是否为空（文件大小是否大于0），不为空返回 true。</td><td>[ -s $file ] 返回 true。</td></tr><tr><td>-e file</td><td>检测文件（包括目录）是否存在，如果是，则返回 true。</td><td>[ -e $file ] 返回 true。</td></tr></tbody></table><h2 id=参数>参数</h2><p><a href=http://c.biancheng.net/cpp/view/2739.html target=_blank rel="noopener noreffer">参考liunk</a></p><table><thead><tr><th>变量</th><th>含义</th></tr></thead><tbody><tr><td>$0</td><td>当前脚本的文件名</td></tr><tr><td>$n</td><td>传递给脚本或函数的参数。n 是一个数字，表示第几个参数。例如，第一个参数是$1，第二个参数是$2。</td></tr><tr><td>$#</td><td>传递给脚本或函数的参数个数。</td></tr><tr><td>$*</td><td>传递给脚本或函数的所有参数。</td></tr><tr><td>$@</td><td>传递给脚本或函数的所有参数。被双引号(" &ldquo;)包含时，与 $* 稍有不同，下面将会讲到。</td></tr><tr><td>$?</td><td>上个命令的退出状态，或函数的返回值。</td></tr><tr><td>$$</td><td>当前Shell进程ID。对于 Shell 脚本，就是这些脚本所在的进程ID。</td></tr></tbody></table><h2 id=循环>循环</h2><p>标准按次循环</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=k>for</span> <span class=o>((</span> <span class=nv>i</span><span class=o>=</span>1<span class=p>;</span>i&lt;<span class=o>=</span>3<span class=p>;</span>i++ <span class=o>))</span><span class=p>;</span> <span class=k>do</span>
+</span></span><span class=line><span class=cl>    xxx
+</span></span><span class=line><span class=cl><span class=k>done</span>
+</span></span></code></pre></td></tr></table></div></div><p>for 文件循环 套 while 比对循环</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=k>for</span> LOG in <span class=k>$(</span>ls -1 <span class=si>${</span><span class=nv>LOG_PATH</span><span class=si>}</span>/*.log<span class=k>)</span>
+</span></span><span class=line><span class=cl><span class=k>do</span>
+</span></span><span class=line><span class=cl>    <span class=nv>SIZE</span><span class=o>=</span><span class=sb>`</span>ls -l <span class=nv>$LOG</span> <span class=p>|</span> awk <span class=s1>&#39;{print $5}&#39;</span><span class=sb>`</span>
+</span></span><span class=line><span class=cl>    <span class=k>while</span> <span class=o>[</span> <span class=nv>$SIZE</span> -gt <span class=nv>$MAX_SIZE</span> <span class=o>]</span>
+</span></span><span class=line><span class=cl>    <span class=k>do</span>
+</span></span><span class=line><span class=cl>        sed -i <span class=s1>&#39;1,100000d&#39;</span> <span class=nv>$LOG</span>
+</span></span><span class=line><span class=cl>        <span class=nv>SIZE</span><span class=o>=</span><span class=sb>`</span>ls -l <span class=nv>$LOG</span> <span class=p>|</span> awk <span class=s1>&#39;{print $5}&#39;</span><span class=sb>`</span>
+</span></span><span class=line><span class=cl>    <span class=k>done</span>
+</span></span><span class=line><span class=cl><span class=k>done</span>
+</span></span></code></pre></td></tr></table></div></div></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>Updated on 2022-02-25</span></div></div><div class=post-info-line><div class=post-info-md><span><a class=link-to-markdown href=/shell%E8%84%9A%E6%9C%AC%E5%B8%B8%E7%94%A8%E5%8F%82%E8%80%83/index.md target=_blank>Read Markdown</a></span></div><div class=post-info-share><span></span></div></div></div><div class=post-info-more><section class=post-tags></section><section><span><a href=javascript:void(0); onclick=window.history.back()>Back</a></span>&nbsp;|&nbsp;<span><a href=/>Home</a></span></section></div><div class=post-nav><a href=/iptables%E5%B8%B8%E7%94%A8%E6%80%BB%E7%BB%93/ class=prev rel=prev title=iptables常用总结><i class="fas fa-angle-left fa-fw" aria-hidden=true></i>iptables常用总结</a>
+<a href=/centos7-%E5%B8%B8%E8%A7%84%E5%91%BD%E4%BB%A4/ class=next rel=next title="CentOS7 常规命令">CentOS7 常规命令<i class="fas fa-angle-right fa-fw" aria-hidden=true></i></a></div></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line>Powered by <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.115.3">Hugo</a> | Theme - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden=true></i> LoveIt</a></div><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2021 - 2023</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=/ target=_blank>Peng</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top"><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=/lib/lightgallery/lightgallery.min.css><link rel=stylesheet href=/lib/katex/katex.min.css><link rel=stylesheet href=/lib/katex/copy-tex.min.css><link rel=stylesheet href=/lib/cookieconsent/cookieconsent.min.css><script type=text/javascript src=/lib/autocomplete/autocomplete.min.js></script><script type=text/javascript src=/lib/lunr/lunr.min.js></script><script type=text/javascript src=/lib/lazysizes/lazysizes.min.js></script><script type=text/javascript src=/lib/lightgallery/lightgallery.min.js></script><script type=text/javascript src=/lib/lightgallery/plugins/lg-thumbnail.min.js></script><script type=text/javascript src=/lib/lightgallery/plugins/lg-zoom.min.js></script><script type=text/javascript src=/lib/clipboard/clipboard.min.js></script><script type=text/javascript src=/lib/sharer/sharer.min.js></script><script type=text/javascript src=/lib/katex/katex.min.js></script><script type=text/javascript src=/lib/katex/auto-render.min.js></script><script type=text/javascript src=/lib/katex/copy-tex.min.js></script><script type=text/javascript src=/lib/katex/mhchem.min.js></script><script type=text/javascript src=/lib/cookieconsent/cookieconsent.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:50},comment:{},cookieconsent:{content:{dismiss:"Got it!",link:"Learn more",message:"This website uses Cookies to improve your experience."},enable:!0,palette:{button:{background:"#f0f0f0"},popup:{background:"#1aa3ff"}},theme:"edgeless"},lightgallery:!0,math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!0,left:"\\begin{equation}",right:"\\end{equation}"},{display:!0,left:"\\begin{equation*}",right:"\\end{equation*}"},{display:!0,left:"\\begin{align}",right:"\\end{align}"},{display:!0,left:"\\begin{align*}",right:"\\end{align*}"},{display:!0,left:"\\begin{alignat}",right:"\\end{alignat}"},{display:!0,left:"\\begin{alignat*}",right:"\\end{alignat*}"},{display:!0,left:"\\begin{gather}",right:"\\end{gather}"},{display:!0,left:"\\begin{CD}",right:"\\end{CD}"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{highlightTag:"em",lunrIndexURL:"/index.json",maxResultLength:10,noResultsFound:"No results found",snippetLength:50,type:"lunr"}}</script><script type=text/javascript src=/js/theme.min.js></script></body></html>

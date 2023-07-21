@@ -1,0 +1,142 @@
+<!doctype html><html lang=zh-CN><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>docker创建专有网卡 - Peng</title><meta name=Description content="One World,One Dream!"><meta property="og:title" content="docker创建专有网卡"><meta property="og:description" content="docker创建专有网卡 需求： tomcat容器需要通过jdbc模块连接数据库mysql，配置文件如果指定IP地址，mysql容器一旦损坏，I"><meta property="og:type" content="article"><meta property="og:url" content="https://blog.haipengv.com/docker%E5%88%9B%E5%BB%BA%E4%B8%93%E6%9C%89%E7%BD%91%E5%8D%A1/"><meta property="og:image" content="https://blog.haipengv.com/logo.png"><meta property="article:section" content="posts"><meta property="article:published_time" content="2023-02-22T09:18:44+00:00"><meta property="article:modified_time" content="2023-02-22T09:18:44+00:00"><meta property="og:site_name" content="我的网站"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://blog.haipengv.com/logo.png"><meta name=twitter:title content="docker创建专有网卡"><meta name=twitter:description content="docker创建专有网卡 需求： tomcat容器需要通过jdbc模块连接数据库mysql，配置文件如果指定IP地址，mysql容器一旦损坏，I"><meta name=application-name content="我的网站"><meta name=apple-mobile-web-app-title content="我的网站"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://blog.haipengv.com/docker%E5%88%9B%E5%BB%BA%E4%B8%93%E6%9C%89%E7%BD%91%E5%8D%A1/><link rel=prev href=https://blog.haipengv.com/docker%E9%85%8D%E7%BD%AEtab%E8%A1%A5%E5%85%A8%E5%91%BD%E4%BB%A4/><link rel=next href=https://blog.haipengv.com/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=/lib/fontawesome-free/all.min.css><link rel=stylesheet href=/lib/animate/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"docker创建专有网卡","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/blog.haipengv.com\/docker%E5%88%9B%E5%BB%BA%E4%B8%93%E6%9C%89%E7%BD%91%E5%8D%A1\/"},"genre":"posts","wordcount":814,"url":"https:\/\/blog.haipengv.com\/docker%E5%88%9B%E5%BB%BA%E4%B8%93%E6%9C%89%E7%BD%91%E5%8D%A1\/","datePublished":"2023-02-22T09:18:44+00:00","dateModified":"2023-02-22T09:18:44+00:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"Peng"},"description":""}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"auto"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"auto"==="dark")&&document.body.setAttribute("theme","dark")</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title=Peng>Peng</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>文章 </a><a class=menu-item href=/tags/>标签 </a><a class=menu-item href=/categories/>分类 </a><a class=menu-item href=/links/>友链 </a><a class=menu-item href=/about/>关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder=搜索文章标题或内容... id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=Search><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=Clear><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span>
+</span><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme"><i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title=Peng>Peng</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder=搜索文章标题或内容... id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=Search><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=Clear><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>Cancel</a></div><a class=menu-item href=/posts/ title>文章</a><a class=menu-item href=/tags/ title>标签</a><a class=menu-item href=/categories/ title>分类</a><a class=menu-item href=/links/ title>友链</a><a class=menu-item href=/about/ title>关于</a><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>Contents</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">docker创建专有网卡</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=/ title=Author rel=author class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Peng</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw" aria-hidden=true></i>&nbsp;<time datetime=2023-02-22>2023-02-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden=true></i>&nbsp;814 words&nbsp;
+<i class="far fa-clock fa-fw" aria-hidden=true></i>&nbsp;2 minutes&nbsp;</div></div><div class="details toc" id=toc-static data-kept=true><div class="details-summary toc-title"><span>Contents</span>
+<span><i class="details-icon fas fa-angle-right" aria-hidden=true></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#docker创建专有网卡>docker创建专有网卡</a><ul><li><a href=#需求>需求：</a></li><li><a href=#专有网卡创建>专有网卡创建</a></li><li><a href=#测试>测试</a></li></ul></li></ul></nav></div></div><div class=content id=content><h2 id=docker创建专有网卡>docker创建专有网卡</h2><h3 id=需求>需求：</h3><p><code>tomcat</code>容器需要通过<code>jdbc模块</code>连接数据库<code>mysql</code>，配置文件如果指定<code>IP地址</code>，<code>mysql</code>容器一旦损坏，<code>IP地址</code>就会更改，需要将<code>mysql容器</code>的<code>IP</code>固定。这样就不用每次更改<code>tomcat</code>配置文件了。</p><h3 id=专有网卡创建>专有网卡创建</h3><p><strong>新创建一个名为<code>myapp</code>的桥接网卡</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>docker network create myapp
+</span></span></code></pre></td></tr></table></div></div><p><strong>使用<code>--network-alias</code>参数给网卡起别名，启动<code>MySQL</code>容器。</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>docker run -d <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>     --network myapp --network-alias mysql1 <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>     --name<span class=o>=</span>mysql57-test <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>     -p 33306:3306 <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>     -v /tmpdisk/test2:/var/lib/mysql <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>     -v /etc/localtime:/etc/localtime:ro <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>     -e <span class=nv>MYSQL_ROOT_PASSWORD</span><span class=o>=</span><span class=m>123456</span> <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>     -e <span class=nv>MYSQL_DATABASE</span><span class=o>=</span>todos <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>     mysql:5.7
+</span></span></code></pre></td></tr></table></div></div><p><strong>注意：这里创建的<code>mysql</code>容器使用<code>myapp 网卡</code>，分配的<code>IP</code>自动和<code>mysql1 网卡别名</code>绑定，后面创建的容器只要使用同一个网卡创建的，都可以和<code>mysql</code>容器互通。</strong></p><p>如何证明呢？</p><p><strong>使用<code>nicolaka/netshoot</code>镜像创建一个测试容器</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>docker run -it --name <span class=nb>test</span> --network myapp nicolaka/netshoot
+</span></span></code></pre></td></tr></table></div></div><p>可以直接和<code>mysql</code>容器通信</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>62337a7ad7f1# ping mysql1 
+</span></span><span class=line><span class=cl>PING mysql1 <span class=o>(</span>172.20.0.5<span class=o>)</span> 56<span class=o>(</span>84<span class=o>)</span> bytes of data.
+</span></span><span class=line><span class=cl><span class=m>64</span> bytes from mysql57-test.myapp <span class=o>(</span>172.20.0.5<span class=o>)</span>: <span class=nv>icmp_seq</span><span class=o>=</span><span class=m>1</span> <span class=nv>ttl</span><span class=o>=</span><span class=m>64</span> <span class=nv>time</span><span class=o>=</span>0.042 ms
+</span></span><span class=line><span class=cl><span class=m>64</span> bytes from mysql57-test.myapp <span class=o>(</span>172.20.0.5<span class=o>)</span>: <span class=nv>icmp_seq</span><span class=o>=</span><span class=m>2</span> <span class=nv>ttl</span><span class=o>=</span><span class=m>64</span> <span class=nv>time</span><span class=o>=</span>0.020 ms
+</span></span></code></pre></td></tr></table></div></div><p><strong>查看解析，发现一条A记录。正是这条记录将<code>myapp</code>网卡自动分配的<code>ip</code>和网卡别名<code>mysql1</code>绑定。</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>62337a7ad7f1# dig mysql1 
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>;</span> &lt;&lt;&gt;&gt; DiG 9.18.11 &lt;&lt;&gt;&gt; mysql1
+</span></span><span class=line><span class=cl><span class=p>;;</span> global options: +cmd
+</span></span><span class=line><span class=cl><span class=p>;;</span> Got answer:
+</span></span><span class=line><span class=cl><span class=p>;;</span> -&gt;&gt;HEADER<span class=s>&lt;&lt;- opco</span>de: QUERY, status: NOERROR, id: <span class=m>10768</span>
+</span></span><span class=line><span class=cl><span class=p>;;</span> flags: qr rd ra<span class=p>;</span> QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: <span class=m>0</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>;;</span> QUESTION SECTION:
+</span></span><span class=line><span class=cl><span class=p>;</span>mysql1.				IN	A
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>;;</span> ANSWER SECTION:
+</span></span><span class=line><span class=cl>mysql1.			600	IN	A	172.20.0.5
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>;;</span> Query time: <span class=m>0</span> msec
+</span></span><span class=line><span class=cl><span class=p>;;</span> SERVER: 127.0.0.11#53<span class=o>(</span>127.0.0.11<span class=o>)</span> <span class=o>(</span>UDP<span class=o>)</span>
+</span></span><span class=line><span class=cl><span class=p>;;</span> WHEN: Wed Feb <span class=m>22</span> 01:36:59 UTC <span class=m>2023</span>
+</span></span><span class=line><span class=cl><span class=p>;;</span> MSG SIZE  rcvd: <span class=m>46</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>创建<code>tomcat</code>容器</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>docker run -itd <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    -p 28080:8080 <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    --restart<span class=o>=</span>always <span class=se>\ </span>
+</span></span><span class=line><span class=cl>    --name tomcat-test <span class=se>\ </span>
+</span></span><span class=line><span class=cl>    --network myapp <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    -v /tmpdisk/tomcat-test2/webapps:/usr/local/tomcat/webapps <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    -v /etc/localtime:/etc/localtime:ro <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    tomcat:9.0.56
+</span></span></code></pre></td></tr></table></div></div><p><strong>更改<code>jdbc</code>连接配置，将<code>localhost</code>改成<code>mysql1</code></strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>旧：
+</span></span><span class=line><span class=cl>jdbc:mysql://localhost:3306/jt_ow_dbsync_src?useUnicode<span class=o>=</span>true<span class=p>&amp;</span>amp<span class=p>;</span><span class=nv>characterEncoding</span><span class=o>=</span>UTF-8<span class=p>&amp;</span>amp<span class=p>;</span><span class=nv>useSSL</span><span class=o>=</span><span class=nb>false</span>
+</span></span><span class=line><span class=cl>新：
+</span></span><span class=line><span class=cl>jdbc:mysql://mysql1:3306/jt_ow_dbsync_src?useUnicode<span class=o>=</span>true<span class=p>&amp;</span>amp<span class=p>;</span><span class=nv>characterEncoding</span><span class=o>=</span>UTF-8<span class=p>&amp;</span>amp<span class=p>;</span><span class=nv>useSSL</span><span class=o>=</span><span class=nb>false</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=测试>测试</h3><p><strong>测试内容：<code>mysql</code>容器<code>IP</code>更改后，会不会影响业务访问。</strong></p><p>**查看当前<code>mysql</code> 容器<code>IP**</code></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl><span class=o>[</span>root@HZ ~<span class=o>]</span>$ docker inspect mysql57-test <span class=p>|</span> grep -i ipaddress
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;SecondaryIPAddresses&#34;</span>: null,
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;IPAddress&#34;</span>: <span class=s2>&#34;&#34;</span>,
+</span></span><span class=line><span class=cl>                    <span class=s2>&#34;IPAddress&#34;</span>: <span class=s2>&#34;172.20.0.5&#34;</span>,
+</span></span></code></pre></td></tr></table></div></div><p><strong>删除容器</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl>docker rm -f mysql57-test
+</span></span></code></pre></td></tr></table></div></div><p><strong>重新创建新容器</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl>docker run -itd --name test2 --network myapp busybox
+</span></span></code></pre></td></tr></table></div></div><p><strong>再创建<code>mysql</code>容器</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl>docker run -d <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>     --network myapp --network-alias mysql1 <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>     --name<span class=o>=</span>mysql57-test <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>     -p 33306:3306 <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>     -v /tmpdisk/test2:/var/lib/mysql <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>     -v /etc/localtime:/etc/localtime:ro <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>     -e <span class=nv>MYSQL_ROOT_PASSWORD</span><span class=o>=</span><span class=m>123456</span> <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>     -e <span class=nv>MYSQL_DATABASE</span><span class=o>=</span>todos <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>     mysql:5.7
+</span></span></code></pre></td></tr></table></div></div><p><strong>再次查看<code>mysql</code>容器<code>IP</code></strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl><span class=o>[</span>root@HZ ~<span class=o>]</span>$ docker inspect mysql57-test <span class=p>|</span> grep -i ipaddress
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;SecondaryIPAddresses&#34;</span>: null,
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;IPAddress&#34;</span>: <span class=s2>&#34;&#34;</span>,
+</span></span><span class=line><span class=cl>                    <span class=s2>&#34;IPAddress&#34;</span>: <span class=s2>&#34;172.20.0.6&#34;</span>,
+</span></span></code></pre></td></tr></table></div></div><p><strong>访问业务，发现业务访问正常。所以完美实现了<code>mysql</code>容器<code>内部IP</code>变更后不会影响业务。</strong></p></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>Updated on 2023-02-22</span></div></div><div class=post-info-line><div class=post-info-md><span><a class=link-to-markdown href=/docker%E5%88%9B%E5%BB%BA%E4%B8%93%E6%9C%89%E7%BD%91%E5%8D%A1/index.md target=_blank>Read Markdown</a></span></div><div class=post-info-share><span></span></div></div></div><div class=post-info-more><section class=post-tags></section><section><span><a href=javascript:void(0); onclick=window.history.back()>Back</a></span>&nbsp;|&nbsp;<span><a href=/>Home</a></span></section></div><div class=post-nav><a href=/docker%E9%85%8D%E7%BD%AEtab%E8%A1%A5%E5%85%A8%E5%91%BD%E4%BB%A4/ class=prev rel=prev title=docker使用tab自动补全命令><i class="fas fa-angle-left fa-fw" aria-hidden=true></i>docker使用tab自动补全命令</a>
+<a href=/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/ class=next rel=next title=前端框架>前端框架<i class="fas fa-angle-right fa-fw" aria-hidden=true></i></a></div></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line>Powered by <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.115.3">Hugo</a> | Theme - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden=true></i> LoveIt</a></div><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2021 - 2023</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=/ target=_blank>Peng</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top"><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=/lib/lightgallery/lightgallery.min.css><link rel=stylesheet href=/lib/katex/katex.min.css><link rel=stylesheet href=/lib/katex/copy-tex.min.css><link rel=stylesheet href=/lib/cookieconsent/cookieconsent.min.css><script type=text/javascript src=/lib/autocomplete/autocomplete.min.js></script><script type=text/javascript src=/lib/lunr/lunr.min.js></script><script type=text/javascript src=/lib/lazysizes/lazysizes.min.js></script><script type=text/javascript src=/lib/lightgallery/lightgallery.min.js></script><script type=text/javascript src=/lib/lightgallery/plugins/lg-thumbnail.min.js></script><script type=text/javascript src=/lib/lightgallery/plugins/lg-zoom.min.js></script><script type=text/javascript src=/lib/clipboard/clipboard.min.js></script><script type=text/javascript src=/lib/sharer/sharer.min.js></script><script type=text/javascript src=/lib/katex/katex.min.js></script><script type=text/javascript src=/lib/katex/auto-render.min.js></script><script type=text/javascript src=/lib/katex/copy-tex.min.js></script><script type=text/javascript src=/lib/katex/mhchem.min.js></script><script type=text/javascript src=/lib/cookieconsent/cookieconsent.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:50},comment:{},cookieconsent:{content:{dismiss:"Got it!",link:"Learn more",message:"This website uses Cookies to improve your experience."},enable:!0,palette:{button:{background:"#f0f0f0"},popup:{background:"#1aa3ff"}},theme:"edgeless"},lightgallery:!0,math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!0,left:"\\begin{equation}",right:"\\end{equation}"},{display:!0,left:"\\begin{equation*}",right:"\\end{equation*}"},{display:!0,left:"\\begin{align}",right:"\\end{align}"},{display:!0,left:"\\begin{align*}",right:"\\end{align*}"},{display:!0,left:"\\begin{alignat}",right:"\\end{alignat}"},{display:!0,left:"\\begin{alignat*}",right:"\\end{alignat*}"},{display:!0,left:"\\begin{gather}",right:"\\end{gather}"},{display:!0,left:"\\begin{CD}",right:"\\end{CD}"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{highlightTag:"em",lunrIndexURL:"/index.json",maxResultLength:10,noResultsFound:"No results found",snippetLength:50,type:"lunr"}}</script><script type=text/javascript src=/js/theme.min.js></script></body></html>

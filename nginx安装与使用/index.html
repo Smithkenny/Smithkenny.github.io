@@ -1,0 +1,1881 @@
+<!doctype html><html lang=zh-CN><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>nginx安装与使用 - Peng</title><meta name=Description content="One World,One Dream!"><meta property="og:title" content="nginx安装与使用"><meta property="og:description" content="nginx 1.16.1 安装使用说明 1.创建目录 mkdir -p /var/temp/nginx 下载： https://nginx.org/en/download.html 解压 tar -zxvf nginx-1.16.1.tar.gz 安装编译依赖包： yum install -y gcc gcc-c++ pcre pcre-devel zlib zlib-devel openssl openssl-devel 2.进入nginx-1.16.1 编译参数 1 2 3 4 5"><meta property="og:type" content="article"><meta property="og:url" content="https://blog.haipengv.com/nginx%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/"><meta property="og:image" content="https://blog.haipengv.com/logo.png"><meta property="article:section" content="posts"><meta property="article:published_time" content="2022-01-02T21:32:47+00:00"><meta property="article:modified_time" content="2022-01-02T21:32:47+00:00"><meta property="og:site_name" content="我的网站"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://blog.haipengv.com/logo.png"><meta name=twitter:title content="nginx安装与使用"><meta name=twitter:description content="nginx 1.16.1 安装使用说明 1.创建目录 mkdir -p /var/temp/nginx 下载： https://nginx.org/en/download.html 解压 tar -zxvf nginx-1.16.1.tar.gz 安装编译依赖包： yum install -y gcc gcc-c++ pcre pcre-devel zlib zlib-devel openssl openssl-devel 2.进入nginx-1.16.1 编译参数 1 2 3 4 5"><meta name=application-name content="我的网站"><meta name=apple-mobile-web-app-title content="我的网站"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://blog.haipengv.com/nginx%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/><link rel=prev href=https://blog.haipengv.com/k8s%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/><link rel=next href=https://blog.haipengv.com/mysql%E4%B8%BB%E4%BB%8E%E6%9E%B6%E6%9E%84/><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=/lib/fontawesome-free/all.min.css><link rel=stylesheet href=/lib/animate/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"nginx安装与使用","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/blog.haipengv.com\/nginx%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8\/"},"genre":"posts","wordcount":8848,"url":"https:\/\/blog.haipengv.com\/nginx%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8\/","datePublished":"2022-01-02T21:32:47+00:00","dateModified":"2022-01-02T21:32:47+00:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"Peng"},"description":""}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"auto"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"auto"==="dark")&&document.body.setAttribute("theme","dark")</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title=Peng>Peng</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>文章 </a><a class=menu-item href=/tags/>标签 </a><a class=menu-item href=/categories/>分类 </a><a class=menu-item href=/links/>友链 </a><a class=menu-item href=/about/>关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder=搜索文章标题或内容... id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=Search><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=Clear><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span>
+</span><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme"><i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title=Peng>Peng</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder=搜索文章标题或内容... id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=Search><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=Clear><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>Cancel</a></div><a class=menu-item href=/posts/ title>文章</a><a class=menu-item href=/tags/ title>标签</a><a class=menu-item href=/categories/ title>分类</a><a class=menu-item href=/links/ title>友链</a><a class=menu-item href=/about/ title>关于</a><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>Contents</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">nginx安装与使用</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=/ title=Author rel=author class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Peng</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw" aria-hidden=true></i>&nbsp;<time datetime=2022-01-02>2022-01-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden=true></i>&nbsp;8848 words&nbsp;
+<i class="far fa-clock fa-fw" aria-hidden=true></i>&nbsp;18 minutes&nbsp;</div></div><div class="details toc" id=toc-static data-kept=true><div class="details-summary toc-title"><span>Contents</span>
+<span><i class="details-icon fas fa-angle-right" aria-hidden=true></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#nginx-1161-安装使用说明>nginx 1.16.1 安装使用说明</a><ul><li><a href=#config-编译参数>config 编译参数</a></li></ul></li><li><a href=#nginx-的进程模型>nginx 的进程模型</a><ul><li><a href=#nginx事件处理异步非阻塞>nginx事件处理。异步非阻塞。</a></li></ul></li><li><a href=#配置文件详解>配置文件详解：</a></li><li><a href=#常见pid报错>常见pid报错</a><ul><li><a href=#nginxpid打开失败>nginx.pid打开失败：</a></li></ul></li><li><a href=#日志切割手动>日志切割：(手动)</a></li><li><a href=#日志切割定时>日志切割：(定时)</a></li><li><a href=#虚拟主机-使用nginx为静态资源提供服务>虚拟主机-使用nginx为静态资源提供服务</a></li><li><a href=#gzip压缩提升请求效率>gzip压缩提升请求效率</a></li><li><a href=#location匹配规则>location匹配规则</a></li><li><a href=#dns解析域名>DNS解析域名</a></li><li><a href=#用switchhosts-模拟本地域名解析访问>用switchhosts 模拟本地域名解析访问</a></li><li><a href=#跨域访问>跨域访问</a></li><li><a href=#nginx-防盗链技术支持>nginx 防盗链技术支持</a></li><li><a href=#nginx-模块化体系>nginx 模块化体系</a></li><li><a href=#负载均衡>负载均衡</a><ul><li><a href=#四层负载均衡>四层负载均衡</a></li><li><a href=#七层负载均衡>七层负载均衡</a></li><li><a href=#dns-地域负载均衡>DNS 地域负载均衡</a></li></ul></li><li><a href=#使用nginx搭建三台tomcat集群>使用Nginx搭建三台tomcat集群</a></li><li><a href=#负载均衡之轮询>负载均衡之轮询</a></li><li><a href=#负载均衡之权重-加权轮询>负载均衡之权重-加权轮询</a></li><li><a href=#upstream-指令参数>upstream 指令参数</a></li><li><a href=#使用keepalive提高吞吐量>使用keepalive提高吞吐量</a></li><li><a href=#负载均衡之ip_hash>负载均衡之ip_hash</a><ul><li><a href=#负载均衡之url_hash>负载均衡之<strong>url_hash</strong></a></li></ul></li><li><a href=#nginx控制浏览器缓存>nginx控制浏览器缓存</a></li><li><a href=#上游服务静态内容缓存>上游服务静态内容缓存</a></li><li><a href=#使用nginx-配置https域名证书>使用nginx 配置https域名证书</a></li><li><a href=#配置ssl>配置ssl</a></li><li><a href=#动静分离>动静分离</a></li><li><a href=#nginx高可用ha-keepalived-双机主备>nginx高可用HA keepalived 双机主备</a></li><li><a href=#安装keepalived>安装keepalived</a><ul><li><a href=#核心配置文件>核心配置文件：</a></li><li><a href=#keepalived配置nginx自动启动>keepalived配置Nginx自动启动</a><ul><li><a href=#双机主备缺点>双机主备缺点</a></li><li><a href=#keepalived-双主热备>Keepalived 双主热备</a></li></ul></li></ul></li></ul></nav></div></div><div class=content id=content><h2 id=nginx-1161-安装使用说明>nginx 1.16.1 安装使用说明</h2><p>1.创建目录</p><p>mkdir -p /var/temp/nginx</p><p>下载：</p><p><a href=https://nginx.org/en/download.html target=_blank rel="noopener noreffer">https://nginx.org/en/download.html</a></p><p>解压</p><p>tar -zxvf nginx-1.16.1.tar.gz</p><p>安装编译依赖包：</p><p>yum install -y gcc gcc-c++ pcre pcre-devel zlib zlib-devel openssl openssl-devel</p><p>2.进入nginx-1.16.1</p><p>编译参数</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>./configure <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>--prefix<span class=o>=</span>/usr/local/nginx <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>--pid-path<span class=o>=</span>/var/run/nginx/nginx.pid <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>--lock-path<span class=o>=</span>/var/lock/nginx.lock <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>--error-log-path<span class=o>=</span>/var/log/nginx/error.log <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>--http-log-path<span class=o>=</span>/var/log/nginx/access.log <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>--with-http_gzip_static_module <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>--http-client-body-temp-path<span class=o>=</span>/var/temp/nginx/client <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>--http-proxy-temp-path<span class=o>=</span>/var/temp/nginx/proxy <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>--http-fastcgi-temp-path<span class=o>=</span>/var/temp/nginx/fastcgi <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>--http-uwsgi-temp-path<span class=o>=</span>/var/temp/nginx/uwsgi <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>--http-scgi-temp-path<span class=o>=</span>/var/temp/nginx/scgi
+</span></span></code></pre></td></tr></table></div></div><p><a href=https://nginx.org/en/download.html target=_blank rel="noopener noreffer">https://nginx.org/en/download.html</a></p><h3 id=config-编译参数>config 编译参数</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>  1
+</span><span class=lnt>  2
+</span><span class=lnt>  3
+</span><span class=lnt>  4
+</span><span class=lnt>  5
+</span><span class=lnt>  6
+</span><span class=lnt>  7
+</span><span class=lnt>  8
+</span><span class=lnt>  9
+</span><span class=lnt> 10
+</span><span class=lnt> 11
+</span><span class=lnt> 12
+</span><span class=lnt> 13
+</span><span class=lnt> 14
+</span><span class=lnt> 15
+</span><span class=lnt> 16
+</span><span class=lnt> 17
+</span><span class=lnt> 18
+</span><span class=lnt> 19
+</span><span class=lnt> 20
+</span><span class=lnt> 21
+</span><span class=lnt> 22
+</span><span class=lnt> 23
+</span><span class=lnt> 24
+</span><span class=lnt> 25
+</span><span class=lnt> 26
+</span><span class=lnt> 27
+</span><span class=lnt> 28
+</span><span class=lnt> 29
+</span><span class=lnt> 30
+</span><span class=lnt> 31
+</span><span class=lnt> 32
+</span><span class=lnt> 33
+</span><span class=lnt> 34
+</span><span class=lnt> 35
+</span><span class=lnt> 36
+</span><span class=lnt> 37
+</span><span class=lnt> 38
+</span><span class=lnt> 39
+</span><span class=lnt> 40
+</span><span class=lnt> 41
+</span><span class=lnt> 42
+</span><span class=lnt> 43
+</span><span class=lnt> 44
+</span><span class=lnt> 45
+</span><span class=lnt> 46
+</span><span class=lnt> 47
+</span><span class=lnt> 48
+</span><span class=lnt> 49
+</span><span class=lnt> 50
+</span><span class=lnt> 51
+</span><span class=lnt> 52
+</span><span class=lnt> 53
+</span><span class=lnt> 54
+</span><span class=lnt> 55
+</span><span class=lnt> 56
+</span><span class=lnt> 57
+</span><span class=lnt> 58
+</span><span class=lnt> 59
+</span><span class=lnt> 60
+</span><span class=lnt> 61
+</span><span class=lnt> 62
+</span><span class=lnt> 63
+</span><span class=lnt> 64
+</span><span class=lnt> 65
+</span><span class=lnt> 66
+</span><span class=lnt> 67
+</span><span class=lnt> 68
+</span><span class=lnt> 69
+</span><span class=lnt> 70
+</span><span class=lnt> 71
+</span><span class=lnt> 72
+</span><span class=lnt> 73
+</span><span class=lnt> 74
+</span><span class=lnt> 75
+</span><span class=lnt> 76
+</span><span class=lnt> 77
+</span><span class=lnt> 78
+</span><span class=lnt> 79
+</span><span class=lnt> 80
+</span><span class=lnt> 81
+</span><span class=lnt> 82
+</span><span class=lnt> 83
+</span><span class=lnt> 84
+</span><span class=lnt> 85
+</span><span class=lnt> 86
+</span><span class=lnt> 87
+</span><span class=lnt> 88
+</span><span class=lnt> 89
+</span><span class=lnt> 90
+</span><span class=lnt> 91
+</span><span class=lnt> 92
+</span><span class=lnt> 93
+</span><span class=lnt> 94
+</span><span class=lnt> 95
+</span><span class=lnt> 96
+</span><span class=lnt> 97
+</span><span class=lnt> 98
+</span><span class=lnt> 99
+</span><span class=lnt>100
+</span><span class=lnt>101
+</span><span class=lnt>102
+</span><span class=lnt>103
+</span><span class=lnt>104
+</span><span class=lnt>105
+</span><span class=lnt>106
+</span><span class=lnt>107
+</span><span class=lnt>108
+</span><span class=lnt>109
+</span><span class=lnt>110
+</span><span class=lnt>111
+</span><span class=lnt>112
+</span><span class=lnt>113
+</span><span class=lnt>114
+</span><span class=lnt>115
+</span><span class=lnt>116
+</span><span class=lnt>117
+</span><span class=lnt>118
+</span><span class=lnt>119
+</span><span class=lnt>120
+</span><span class=lnt>121
+</span><span class=lnt>122
+</span><span class=lnt>123
+</span><span class=lnt>124
+</span><span class=lnt>125
+</span><span class=lnt>126
+</span><span class=lnt>127
+</span><span class=lnt>128
+</span><span class=lnt>129
+</span><span class=lnt>130
+</span><span class=lnt>131
+</span><span class=lnt>132
+</span><span class=lnt>133
+</span><span class=lnt>134
+</span><span class=lnt>135
+</span><span class=lnt>136
+</span><span class=lnt>137
+</span><span class=lnt>138
+</span><span class=lnt>139
+</span><span class=lnt>140
+</span><span class=lnt>141
+</span><span class=lnt>142
+</span><span class=lnt>143
+</span><span class=lnt>144
+</span><span class=lnt>145
+</span><span class=lnt>146
+</span><span class=lnt>147
+</span><span class=lnt>148
+</span><span class=lnt>149
+</span><span class=lnt>150
+</span><span class=lnt>151
+</span><span class=lnt>152
+</span><span class=lnt>153
+</span><span class=lnt>154
+</span><span class=lnt>155
+</span><span class=lnt>156
+</span><span class=lnt>157
+</span><span class=lnt>158
+</span><span class=lnt>159
+</span><span class=lnt>160
+</span><span class=lnt>161
+</span><span class=lnt>162
+</span><span class=lnt>163
+</span><span class=lnt>164
+</span><span class=lnt>165
+</span><span class=lnt>166
+</span><span class=lnt>167
+</span><span class=lnt>168
+</span><span class=lnt>169
+</span><span class=lnt>170
+</span><span class=lnt>171
+</span><span class=lnt>172
+</span><span class=lnt>173
+</span><span class=lnt>174
+</span><span class=lnt>175
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>nginx1.16编译安装configure参数：
+</span></span><span class=line><span class=cl><span class=o>[</span>root@363ee3055cf0 nginx-1.16.1<span class=o>]</span><span class=c1># ./configure --help</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --help                             print this message 打印帮助信息
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --prefix<span class=o>=</span>PATH                      <span class=nb>set</span> installation prefix 设置安装目录
+</span></span><span class=line><span class=cl>  --sbin-path<span class=o>=</span>PATH                   <span class=nb>set</span> nginx binary pathname 设置sbin路径
+</span></span><span class=line><span class=cl>  --modules-path<span class=o>=</span>PATH                <span class=nb>set</span> modules path 设置模块路径
+</span></span><span class=line><span class=cl>  --conf-path<span class=o>=</span>PATH                   <span class=nb>set</span> nginx.conf pathname 设置配置文件路径
+</span></span><span class=line><span class=cl>  --error-log-path<span class=o>=</span>PATH              <span class=nb>set</span> error log pathname 设置错误日志的路径
+</span></span><span class=line><span class=cl>  --pid-path<span class=o>=</span>PATH                    <span class=nb>set</span> nginx.pid pathname 设置pid路径
+</span></span><span class=line><span class=cl>  --lock-path<span class=o>=</span>PATH                   <span class=nb>set</span> nginx.lock pathname 设置锁路径
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --user<span class=o>=</span>USER                        <span class=nb>set</span> non-privileged user <span class=k>for</span> 设置用户
+</span></span><span class=line><span class=cl>                                     worker processes
+</span></span><span class=line><span class=cl>  --group<span class=o>=</span>GROUP                      <span class=nb>set</span> non-privileged group <span class=k>for</span> 设置组
+</span></span><span class=line><span class=cl>                                     worker processes
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --build<span class=o>=</span>NAME                       <span class=nb>set</span> build name 设置构建名
+</span></span><span class=line><span class=cl>  --builddir<span class=o>=</span>DIR                     <span class=nb>set</span> build directory 设置构建文件夹
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --with-select_module               <span class=nb>enable</span> <span class=k>select</span> module 开启select模块
+</span></span><span class=line><span class=cl>  --without-select_module            disable <span class=k>select</span> module关闭
+</span></span><span class=line><span class=cl>  --with-poll_module                 <span class=nb>enable</span> poll module
+</span></span><span class=line><span class=cl>  --without-poll_module              disable poll module
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --with-threads                     <span class=nb>enable</span> thread pool support
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --with-file-aio                    <span class=nb>enable</span> file AIO support
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --with-http_ssl_module             <span class=nb>enable</span> ngx_http_ssl_module
+</span></span><span class=line><span class=cl>  --with-http_v2_module              <span class=nb>enable</span> ngx_http_v2_module
+</span></span><span class=line><span class=cl>  --with-http_realip_module          <span class=nb>enable</span> ngx_http_realip_module
+</span></span><span class=line><span class=cl>  --with-http_addition_module        <span class=nb>enable</span> ngx_http_addition_module
+</span></span><span class=line><span class=cl>  --with-http_xslt_module            <span class=nb>enable</span> ngx_http_xslt_module
+</span></span><span class=line><span class=cl>  --with-http_xslt_module<span class=o>=</span>dynamic    <span class=nb>enable</span> dynamic ngx_http_xslt_module
+</span></span><span class=line><span class=cl>  --with-http_image_filter_module    <span class=nb>enable</span> ngx_http_image_filter_module
+</span></span><span class=line><span class=cl>  --with-http_image_filter_module<span class=o>=</span>dynamic
+</span></span><span class=line><span class=cl>                                     <span class=nb>enable</span> dynamic ngx_http_image_filter_module
+</span></span><span class=line><span class=cl>  --with-http_geoip_module           <span class=nb>enable</span> ngx_http_geoip_module
+</span></span><span class=line><span class=cl>  --with-http_geoip_module<span class=o>=</span>dynamic   <span class=nb>enable</span> dynamic ngx_http_geoip_module
+</span></span><span class=line><span class=cl>  --with-http_sub_module             <span class=nb>enable</span> ngx_http_sub_module
+</span></span><span class=line><span class=cl>  --with-http_dav_module             <span class=nb>enable</span> ngx_http_dav_module
+</span></span><span class=line><span class=cl>  --with-http_flv_module             <span class=nb>enable</span> ngx_http_flv_module
+</span></span><span class=line><span class=cl>  --with-http_mp4_module             <span class=nb>enable</span> ngx_http_mp4_module
+</span></span><span class=line><span class=cl>  --with-http_gunzip_module          <span class=nb>enable</span> ngx_http_gunzip_module
+</span></span><span class=line><span class=cl>  --with-http_gzip_static_module     <span class=nb>enable</span> ngx_http_gzip_static_module
+</span></span><span class=line><span class=cl>  --with-http_auth_request_module    <span class=nb>enable</span> ngx_http_auth_request_module
+</span></span><span class=line><span class=cl>  --with-http_random_index_module    <span class=nb>enable</span> ngx_http_random_index_module
+</span></span><span class=line><span class=cl>  --with-http_secure_link_module     <span class=nb>enable</span> ngx_http_secure_link_module
+</span></span><span class=line><span class=cl>  --with-http_degradation_module     <span class=nb>enable</span> ngx_http_degradation_module
+</span></span><span class=line><span class=cl>  --with-http_slice_module           <span class=nb>enable</span> ngx_http_slice_module
+</span></span><span class=line><span class=cl>  --with-http_stub_status_module     <span class=nb>enable</span> ngx_http_stub_status_module
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --without-http_charset_module      disable ngx_http_charset_module
+</span></span><span class=line><span class=cl>  --without-http_gzip_module         disable ngx_http_gzip_module
+</span></span><span class=line><span class=cl>  --without-http_ssi_module          disable ngx_http_ssi_module
+</span></span><span class=line><span class=cl>  --without-http_userid_module       disable ngx_http_userid_module
+</span></span><span class=line><span class=cl>  --without-http_access_module       disable ngx_http_access_module
+</span></span><span class=line><span class=cl>  --without-http_auth_basic_module   disable ngx_http_auth_basic_module
+</span></span><span class=line><span class=cl>  --without-http_mirror_module       disable ngx_http_mirror_module
+</span></span><span class=line><span class=cl>  --without-http_autoindex_module    disable ngx_http_autoindex_module
+</span></span><span class=line><span class=cl>  --without-http_geo_module          disable ngx_http_geo_module
+</span></span><span class=line><span class=cl>  --without-http_map_module          disable ngx_http_map_module
+</span></span><span class=line><span class=cl>  --without-http_split_clients_module disable ngx_http_split_clients_module
+</span></span><span class=line><span class=cl>  --without-http_referer_module      disable ngx_http_referer_module
+</span></span><span class=line><span class=cl>  --without-http_rewrite_module      disable ngx_http_rewrite_module
+</span></span><span class=line><span class=cl>  --without-http_proxy_module        disable ngx_http_proxy_module
+</span></span><span class=line><span class=cl>  --without-http_fastcgi_module      disable ngx_http_fastcgi_module
+</span></span><span class=line><span class=cl>  --without-http_uwsgi_module        disable ngx_http_uwsgi_module
+</span></span><span class=line><span class=cl>  --without-http_scgi_module         disable ngx_http_scgi_module
+</span></span><span class=line><span class=cl>  --without-http_grpc_module         disable ngx_http_grpc_module
+</span></span><span class=line><span class=cl>  --without-http_memcached_module    disable ngx_http_memcached_module
+</span></span><span class=line><span class=cl>  --without-http_limit_conn_module   disable ngx_http_limit_conn_module
+</span></span><span class=line><span class=cl>  --without-http_limit_req_module    disable ngx_http_limit_req_module
+</span></span><span class=line><span class=cl>  --without-http_empty_gif_module    disable ngx_http_empty_gif_module
+</span></span><span class=line><span class=cl>  --without-http_browser_module      disable ngx_http_browser_module
+</span></span><span class=line><span class=cl>  --without-http_upstream_hash_module
+</span></span><span class=line><span class=cl>                                     disable ngx_http_upstream_hash_module
+</span></span><span class=line><span class=cl>  --without-http_upstream_ip_hash_module
+</span></span><span class=line><span class=cl>                                     disable ngx_http_upstream_ip_hash_module
+</span></span><span class=line><span class=cl>  --without-http_upstream_least_conn_module
+</span></span><span class=line><span class=cl>                                     disable ngx_http_upstream_least_conn_module
+</span></span><span class=line><span class=cl>  --without-http_upstream_random_module
+</span></span><span class=line><span class=cl>                                     disable ngx_http_upstream_random_module
+</span></span><span class=line><span class=cl>  --without-http_upstream_keepalive_module
+</span></span><span class=line><span class=cl>                                     disable ngx_http_upstream_keepalive_module
+</span></span><span class=line><span class=cl>  --without-http_upstream_zone_module
+</span></span><span class=line><span class=cl>                                     disable ngx_http_upstream_zone_module
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --with-http_perl_module            <span class=nb>enable</span> ngx_http_perl_module
+</span></span><span class=line><span class=cl>  --with-http_perl_module<span class=o>=</span>dynamic    <span class=nb>enable</span> dynamic ngx_http_perl_module
+</span></span><span class=line><span class=cl>  --with-perl_modules_path<span class=o>=</span>PATH      <span class=nb>set</span> Perl modules path
+</span></span><span class=line><span class=cl>  --with-perl<span class=o>=</span>PATH                   <span class=nb>set</span> perl binary pathname
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --http-log-path<span class=o>=</span>PATH               <span class=nb>set</span> http access log pathname
+</span></span><span class=line><span class=cl>  --http-client-body-temp-path<span class=o>=</span>PATH  <span class=nb>set</span> path to store
+</span></span><span class=line><span class=cl>                                     http client request body temporary files
+</span></span><span class=line><span class=cl>  --http-proxy-temp-path<span class=o>=</span>PATH        <span class=nb>set</span> path to store
+</span></span><span class=line><span class=cl>                                     http proxy temporary files
+</span></span><span class=line><span class=cl>  --http-fastcgi-temp-path<span class=o>=</span>PATH      <span class=nb>set</span> path to store
+</span></span><span class=line><span class=cl>                                     http fastcgi temporary files
+</span></span><span class=line><span class=cl>  --http-uwsgi-temp-path<span class=o>=</span>PATH        <span class=nb>set</span> path to store
+</span></span><span class=line><span class=cl>                                     http uwsgi temporary files
+</span></span><span class=line><span class=cl>  --http-scgi-temp-path<span class=o>=</span>PATH         <span class=nb>set</span> path to store
+</span></span><span class=line><span class=cl>                                     http scgi temporary files
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --without-http                     disable HTTP server
+</span></span><span class=line><span class=cl>  --without-http-cache               disable HTTP cache
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --with-mail                        <span class=nb>enable</span> POP3/IMAP4/SMTP proxy module
+</span></span><span class=line><span class=cl>  --with-mail<span class=o>=</span>dynamic                <span class=nb>enable</span> dynamic POP3/IMAP4/SMTP proxy module
+</span></span><span class=line><span class=cl>  --with-mail_ssl_module             <span class=nb>enable</span> ngx_mail_ssl_module
+</span></span><span class=line><span class=cl>  --without-mail_pop3_module         disable ngx_mail_pop3_module
+</span></span><span class=line><span class=cl>  --without-mail_imap_module         disable ngx_mail_imap_module
+</span></span><span class=line><span class=cl>  --without-mail_smtp_module         disable ngx_mail_smtp_module
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --with-stream                      <span class=nb>enable</span> TCP/UDP proxy module
+</span></span><span class=line><span class=cl>  --with-stream<span class=o>=</span>dynamic              <span class=nb>enable</span> dynamic TCP/UDP proxy module
+</span></span><span class=line><span class=cl>  --with-stream_ssl_module           <span class=nb>enable</span> ngx_stream_ssl_module
+</span></span><span class=line><span class=cl>  --with-stream_realip_module        <span class=nb>enable</span> ngx_stream_realip_module
+</span></span><span class=line><span class=cl>  --with-stream_geoip_module         <span class=nb>enable</span> ngx_stream_geoip_module
+</span></span><span class=line><span class=cl>  --with-stream_geoip_module<span class=o>=</span>dynamic <span class=nb>enable</span> dynamic ngx_stream_geoip_module
+</span></span><span class=line><span class=cl>  --with-stream_ssl_preread_module   <span class=nb>enable</span> ngx_stream_ssl_preread_module
+</span></span><span class=line><span class=cl>  --without-stream_limit_conn_module disable ngx_stream_limit_conn_module
+</span></span><span class=line><span class=cl>  --without-stream_access_module     disable ngx_stream_access_module
+</span></span><span class=line><span class=cl>  --without-stream_geo_module        disable ngx_stream_geo_module
+</span></span><span class=line><span class=cl>  --without-stream_map_module        disable ngx_stream_map_module
+</span></span><span class=line><span class=cl>  --without-stream_split_clients_module
+</span></span><span class=line><span class=cl>                                     disable ngx_stream_split_clients_module
+</span></span><span class=line><span class=cl>  --without-stream_return_module     disable ngx_stream_return_module
+</span></span><span class=line><span class=cl>  --without-stream_upstream_hash_module
+</span></span><span class=line><span class=cl>                                     disable ngx_stream_upstream_hash_module
+</span></span><span class=line><span class=cl>  --without-stream_upstream_least_conn_module
+</span></span><span class=line><span class=cl>                                     disable ngx_stream_upstream_least_conn_module
+</span></span><span class=line><span class=cl>  --without-stream_upstream_random_module
+</span></span><span class=line><span class=cl>                                     disable ngx_stream_upstream_random_module
+</span></span><span class=line><span class=cl>  --without-stream_upstream_zone_module
+</span></span><span class=line><span class=cl>                                     disable ngx_stream_upstream_zone_module
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --with-google_perftools_module     <span class=nb>enable</span> ngx_google_perftools_module
+</span></span><span class=line><span class=cl>  --with-cpp_test_module             <span class=nb>enable</span> ngx_cpp_test_module
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --add-module<span class=o>=</span>PATH                  <span class=nb>enable</span> external module
+</span></span><span class=line><span class=cl>  --add-dynamic-module<span class=o>=</span>PATH          <span class=nb>enable</span> dynamic external module
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --with-compat                      dynamic modules compatibility
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --with-cc<span class=o>=</span>PATH                     <span class=nb>set</span> C compiler pathname
+</span></span><span class=line><span class=cl>  --with-cpp<span class=o>=</span>PATH                    <span class=nb>set</span> C preprocessor pathname
+</span></span><span class=line><span class=cl>  --with-cc-opt<span class=o>=</span>OPTIONS              <span class=nb>set</span> additional C compiler options
+</span></span><span class=line><span class=cl>  --with-ld-opt<span class=o>=</span>OPTIONS              <span class=nb>set</span> additional linker options
+</span></span><span class=line><span class=cl>  --with-cpu-opt<span class=o>=</span>CPU                 build <span class=k>for</span> the specified CPU, valid values:
+</span></span><span class=line><span class=cl>                                     pentium, pentiumpro, pentium3, pentium4,
+</span></span><span class=line><span class=cl>                                     athlon, opteron, sparc32, sparc64, ppc64
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --without-pcre                     disable PCRE library usage
+</span></span><span class=line><span class=cl>  --with-pcre                        force PCRE library usage
+</span></span><span class=line><span class=cl>  --with-pcre<span class=o>=</span>DIR                    <span class=nb>set</span> path to PCRE library sources
+</span></span><span class=line><span class=cl>  --with-pcre-opt<span class=o>=</span>OPTIONS            <span class=nb>set</span> additional build options <span class=k>for</span> PCRE
+</span></span><span class=line><span class=cl>  --with-pcre-jit                    build PCRE with JIT compilation support
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --with-zlib<span class=o>=</span>DIR                    <span class=nb>set</span> path to zlib library sources
+</span></span><span class=line><span class=cl>  --with-zlib-opt<span class=o>=</span>OPTIONS            <span class=nb>set</span> additional build options <span class=k>for</span> zlib
+</span></span><span class=line><span class=cl>  --with-zlib-asm<span class=o>=</span>CPU                use zlib assembler sources optimized
+</span></span><span class=line><span class=cl>                                     <span class=k>for</span> the specified CPU, valid values:
+</span></span><span class=line><span class=cl>                                     pentium, pentiumpro
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --with-libatomic                   force libatomic_ops library usage
+</span></span><span class=line><span class=cl>  --with-libatomic<span class=o>=</span>DIR               <span class=nb>set</span> path to libatomic_ops library sources
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --with-openssl<span class=o>=</span>DIR                 <span class=nb>set</span> path to OpenSSL library sources
+</span></span><span class=line><span class=cl>  --with-openssl-opt<span class=o>=</span>OPTIONS         <span class=nb>set</span> additional build options <span class=k>for</span> OpenSSL
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --with-debug                       <span class=nb>enable</span> debug logging
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl><span class=c1>#编译</span>
+</span></span><span class=line><span class=cl>make
+</span></span><span class=line><span class=cl><span class=c1>#安装</span>
+</span></span><span class=line><span class=cl>make install 
+</span></span></code></pre></td></tr></table></div></div><p>whereis nginx</p><p>在/usr/local/nginx/sbin/内</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>./nginx 启动
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl> ./nginx -s stop 强制停止
+</span></span><span class=line><span class=cl> ./nginx -s quit 优雅停止
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>./nginx -s reload 重新加载
+</span></span><span class=line><span class=cl>./nginx -t 配置检测
+</span></span><span class=line><span class=cl>./nginx -v 版本信息
+</span></span><span class=line><span class=cl>./nginx -V 详细信息
+</span></span><span class=line><span class=cl>./nginx -h 帮助
+</span></span><span class=line><span class=cl>./nginx -c 指定配置文件
+</span></span></code></pre></td></tr></table></div></div><p>注意：</p><p>1.云服务器需要默认开启nginx 80</p><p>2.虚拟机安装，需要关闭防火墙</p><p>3.本机win或mac需要关闭防火墙</p><p>nginx.conf</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl>    <span class=nx>server</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>listen</span>       <span class=mi>80</span><span class=p>;</span> 						<span class=err>#</span><span class=nx>监听端口</span>
+</span></span><span class=line><span class=cl>        <span class=nx>server_name</span>  <span class=nx>localhost</span><span class=p>;</span>					<span class=err>#</span><span class=nx>域名</span>
+</span></span><span class=line><span class=cl>        <span class=nx>location</span> <span class=o>/</span> <span class=p>{</span>							<span class=err>#</span> <span class=o>/</span> <span class=nx>从根开始匹配</span><span class=err>。</span><span class=nx>html文件夹内的index</span> <span class=nx>index</span><span class=p>.</span><span class=nx>html</span> <span class=nx>index</span><span class=p>.</span><span class=nx>htm</span>
+</span></span><span class=line><span class=cl>            <span class=nx>root</span>   <span class=nx>html</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=nx>index</span>  <span class=nx>index</span><span class=p>.</span><span class=nx>html</span> <span class=nx>index</span><span class=p>.</span><span class=nx>htm</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=nx>error_page</span>   <span class=mi>500</span> <span class=mi>502</span> <span class=mi>503</span> <span class=mi>504</span>  <span class=o>/</span><span class=mi>50</span><span class=nx>x</span><span class=p>.</span><span class=nx>html</span><span class=p>;</span>   <span class=err>#</span><span class=nx>匹配不到自动转到错误页</span><span class=err>。</span><span class=nx>html</span><span class=o>/</span><span class=mi>50</span><span class=nx>x</span><span class=p>.</span><span class=nx>html</span> 
+</span></span><span class=line><span class=cl>        <span class=nx>location</span> <span class=o>=</span> <span class=err>/50x.html {</span>
+</span></span><span class=line><span class=cl>            <span class=nx>root</span>   <span class=nx>html</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>更改 80 端口后需重新加载。</p><p>cd /usr/local/nginx/sbin</p><p>./nginx -s reload</p><p>访问：ip+监听端口</p><h2 id=nginx-的进程模型>nginx 的进程模型</h2><p>master 主进程</p><p>worker 工作进程</p><p>worker_processes 2; # 默认为1,配置为n-1 .n为cpu数量。</p><h3 id=nginx事件处理异步非阻塞>nginx事件处理。异步非阻塞。</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=nx>events</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=err>#</span> <span class=nx>默认使用epoll</span>
+</span></span><span class=line><span class=cl>    <span class=nx>use</span> <span class=nx>epoll</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=err>#</span> <span class=nx>每个worker</span> <span class=nx>允许连接的客户端最大连接数</span>
+</span></span><span class=line><span class=cl>    <span class=nx>worker_connections</span>  <span class=mi>10240</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=配置文件详解>配置文件详解：</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl>    <span class=nx>server</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>listen</span>       <span class=mi>89</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>server_name</span>  <span class=nx>localhost</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>location</span> <span class=o>/</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>root</span>   <span class=nx>html</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=nx>index</span>  <span class=nx>imooc</span><span class=p>.</span><span class=nx>html</span> <span class=nx>index</span><span class=p>.</span><span class=nx>htm</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>/usr/local/nginx/html/imooc.html</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-html data-lang=html><span class=line><span class=cl><span class=cp>&lt;!DOCTYPE html&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>html</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>head</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>title</span><span class=p>&gt;</span>Welcome to immoc!<span class=p>&lt;/</span><span class=nt>title</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>style</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=nt>body</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>width</span><span class=p>:</span> <span class=mi>35</span><span class=kt>em</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=k>margin</span><span class=p>:</span> <span class=mi>0</span> <span class=kc>auto</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=k>font-family</span><span class=p>:</span> <span class=n>Tahoma</span><span class=p>,</span> <span class=n>Verdana</span><span class=p>,</span> <span class=n>Arial</span><span class=p>,</span> <span class=kc>sans-serif</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;/</span><span class=nt>style</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;/</span><span class=nt>head</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>body</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>h1</span><span class=p>&gt;</span>Welcome imooc!<span class=p>&lt;/</span><span class=nt>h1</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;/</span><span class=nt>body</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;/</span><span class=nt>html</span><span class=p>&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><p>或者：</p><p>nginx.conf中添加</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>  include       imooc.conf<span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><p>创建imooc.conf文件。</p><p>/usr/local/nginx/conf/imooc.conf</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl>   <span class=nx>server</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>listen</span>       <span class=mi>89</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>server_name</span>  <span class=nx>localhost</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>location</span> <span class=o>/</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>root</span>   <span class=nx>html</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=nx>index</span>  <span class=nx>imooc</span><span class=p>.</span><span class=nx>html</span> <span class=nx>index</span><span class=p>.</span><span class=nx>htm</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>每次更改后都要重启服务。</p><h2 id=常见pid报错>常见pid报错</h2><h3 id=nginxpid打开失败>nginx.pid打开失败：</h3><p>1.nginx: [error] invalid PID number "" in &ldquo;/usr/local/nginx/logs/nginx.pid&rdquo;</p><p>解决方法：</p><p>使用nginx -c的参数指定nginx.conf文件的位置
+然后再重新启动，解决问题，可以通过ps -ef|grep nginx 看到服务已经启动成功。</p><p>/usr/local/nginx/sbin/nginx -c /usr/local/nginx/conf/nginx.conf</p><p>2.nginx: [error] open() &ldquo;/var/run/nginx/nginx.pid&rdquo; failed (2: No such file or directory)</p><p>提示信息说明在 <strong>/var/run/nginx/</strong> 目录下找不到 <strong>nginx.pid</strong> 文件，解决方式有两种</p><p>第一种方式：创建默认目录 <strong>/var/run/nginx/</strong> ；</p><p>第二种方式：修改 <strong>nginx.conf</strong> 文件，指定 <strong>pid文件</strong> 所在目录。</p><h2 id=日志切割手动>日志切割：(手动)</h2><p>cat_my_log.sh</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl><span class=cp>#!/bin/bash
+</span></span></span><span class=line><span class=cl><span class=cp></span><span class=nv>LOG_PATH</span><span class=o>=</span><span class=s2>&#34;/var/log/nginx/&#34;</span>
+</span></span><span class=line><span class=cl><span class=nv>RECORD_TIME</span><span class=o>=</span><span class=k>$(</span>date -d <span class=s2>&#34;yesterday&#34;</span> +%Y-%m-%d+%H:%M<span class=k>)</span>
+</span></span><span class=line><span class=cl><span class=nv>PID</span><span class=o>=</span>/var/run/nginx/nginx.pid
+</span></span><span class=line><span class=cl>mv <span class=si>${</span><span class=nv>LOG_PATH</span><span class=si>}</span>/access.log <span class=si>${</span><span class=nv>LOG_PATH</span><span class=si>}</span>/access.<span class=si>${</span><span class=nv>RECORD_TIME</span><span class=si>}</span>.log
+</span></span><span class=line><span class=cl>mv <span class=si>${</span><span class=nv>LOG_PATH</span><span class=si>}</span>/error.log <span class=si>${</span><span class=nv>LOG_PATH</span><span class=si>}</span>/error.<span class=si>${</span><span class=nv>RECORD_TIME</span><span class=si>}</span>.log
+</span></span><span class=line><span class=cl><span class=c1>#向nginx主进程发送信号，用于重新打开日志文件</span>
+</span></span><span class=line><span class=cl><span class=nb>kill</span> -USR1 <span class=sb>`</span>cat <span class=nv>$PID</span><span class=sb>`</span>
+</span></span></code></pre></td></tr></table></div></div><p>chmod +x cat_my_log.sh</p><h2 id=日志切割定时>日志切割：(定时)</h2><p>1.安装定时任务</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>yum install crontabs
+</span></span></code></pre></td></tr></table></div></div><p>2.crontab -e 编辑并添加一行新的任务</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>*/1 * * * * /usr/local/nginx/sbin/cut_my_log.sh
+</span></span></code></pre></td></tr></table></div></div><p>3.重启定时任务</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>service crond restart 
+</span></span></code></pre></td></tr></table></div></div><p>4.常用定时任务</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>service crond start 
+</span></span><span class=line><span class=cl>service crond stop 
+</span></span><span class=line><span class=cl>service crond reload <span class=c1>#重新加载</span>
+</span></span><span class=line><span class=cl>service crond restart  <span class=c1>#重启服务</span>
+</span></span><span class=line><span class=cl>crontab -l <span class=c1>#查看任务列表</span>
+</span></span><span class=line><span class=cl>crontab -e <span class=c1># 编辑任务</span>
+</span></span></code></pre></td></tr></table></div></div><p>每分钟执行</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>*/1 * * * *
+</span></span></code></pre></td></tr></table></div></div><p>每日凌晨（每天晚上23：59）执行：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl><span class=m>59</span> <span class=m>23</span> * * *
+</span></span></code></pre></td></tr></table></div></div><p>每日凌晨1点执行：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl><span class=m>0</span> <span class=m>1</span> * * *
+</span></span></code></pre></td></tr></table></div></div><p>每天为数据库定时备份：<a href=https://www.cnblogs.com/leechenxiang/p/7110382.html target=_blank rel="noopener noreffer">参考</a></p><h2 id=虚拟主机-使用nginx为静态资源提供服务>虚拟主机-使用nginx为静态资源提供服务</h2><p>静态资源可以是mp4、png、jpg等等。</p><p>/usr/local/nginx/conf/imooc.conf中创建静态资源路径。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl>    <span class=nx>server</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>listen</span>       <span class=mi>90</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>server_name</span>  <span class=nx>localhost</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>location</span> <span class=o>/</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>root</span>   <span class=o>/</span><span class=nx>home</span><span class=o>/</span><span class=nx>foodie</span><span class=o>-</span><span class=nx>shop</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=nx>index</span>  <span class=nx>index</span><span class=p>.</span><span class=nx>html</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=nx>location</span> <span class=o>/</span><span class=kr>static</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	    <span class=nx>alias</span> <span class=o>/</span><span class=nx>home</span><span class=o>/</span><span class=nx>imooc</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=nx>location</span> <span class=o>/</span><span class=nx>imooc</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>root</span>   <span class=o>/</span><span class=nx>home</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>请求/home/imooc下的资源。</p><p>两种写法：</p><p>一、正常请求：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl>        <span class=nx>location</span> <span class=o>/</span><span class=nx>imooc</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>root</span>   <span class=o>/</span><span class=nx>home</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>直接请求：</p><p>http://10.4.7.129:90/imooc/456.jpg</p><p>二、给路径起别名：</p><p>将/home/imooc创建别名 为/static</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl>        <span class=nx>location</span> <span class=o>/</span><span class=kr>static</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	    <span class=nx>alias</span> <span class=o>/</span><span class=nx>home</span><span class=o>/</span><span class=nx>imooc</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>请求时用别名请求</p><p>http://10.4.7.129:90/static/456.jpg</p><p>将imooc.conf文件内容应用到nginx.conf中</p><p>编辑/usr/local/nginx/conf/nginx.conf</p><p>单独添加一行：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>    include       imooc.conf<span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><p>检测配置是否正确：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>/usr/local/nginx/sbin/nginx -t 
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>nginx: the configuration file /usr/local/nginx/conf/nginx.conf syntax is ok
+</span></span><span class=line><span class=cl>nginx: configuration file /usr/local/nginx/conf/nginx.conf <span class=nb>test</span> is successful
+</span></span></code></pre></td></tr></table></div></div><p>重启nginx</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>/usr/local/nginx/sbin/nginx -s reload 
+</span></span></code></pre></td></tr></table></div></div><p>测试结果：</p><p>http://10.4.7.129:90/imooc/456.jpg</p><p>http://10.4.7.129:90/static/456.jpg</p><h2 id=gzip压缩提升请求效率>gzip压缩提升请求效率</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl><span class=c1>#开启gzip压缩功能，目的：提高传输效率，节约带宽</span>
+</span></span><span class=line><span class=cl>gzip  on<span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=c1>#限制最小压缩，小于1字节的文件不会压缩</span>
+</span></span><span class=line><span class=cl>gzip_min_length 1<span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=c1>#的定义压缩的级别（压缩比，文件越大，压缩越多，但是cpu使用会越多） </span>
+</span></span><span class=line><span class=cl>gzip_comp_level 3<span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=c1>#定义压缩文件类型</span>
+</span></span><span class=line><span class=cl>gzip_types text/plain application/javascript application/x-javascript test/css application/xml text/javascript application/x-httpd/php image/jpeg image/gif image/png application/json<span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=location匹配规则>location匹配规则</h2><p>空格：默认匹配，普通匹配</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl>    <span class=nx>server</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>listen</span>       <span class=mi>91</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>server_name</span>  <span class=nx>localhost</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>location</span>  <span class=o>/</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>root</span>   <span class=nx>html</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=nx>index</span>  <span class=nx>imooc</span><span class=p>.</span><span class=nx>html</span> <span class=nx>index</span><span class=p>.</span><span class=nx>htm</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>= ：精确匹配</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl>    <span class=nx>server</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>listen</span>       <span class=mi>91</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>server_name</span>  <span class=nx>localhost</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=err>#</span><span class=nx>精确匹配</span>
+</span></span><span class=line><span class=cl>        <span class=nx>location</span> <span class=o>=</span> <span class=err>/ {</span>
+</span></span><span class=line><span class=cl>            <span class=nx>root</span>   <span class=nx>html</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=nx>index</span>  <span class=nx>imooc</span><span class=p>.</span><span class=nx>html</span> <span class=nx>index</span><span class=p>.</span><span class=nx>htm</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>正则表达式。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>/home/imooc/img
+</span></span><span class=line><span class=cl><span class=o>[</span>root@centos7 img<span class=o>]</span><span class=c1># ll</span>
+</span></span><span class=line><span class=cl>total <span class=m>808</span>
+</span></span><span class=line><span class=cl>-rw-r--r--. <span class=m>1</span> root root  <span class=m>25125</span> Jun <span class=m>30</span> 19:40 456.jpg
+</span></span><span class=line><span class=cl>-rw-r--r--. <span class=m>1</span> root root  <span class=m>25125</span> Dec <span class=m>19</span> 00:12 456.JPG
+</span></span><span class=line><span class=cl>-rw-r--r--. <span class=m>1</span> root root <span class=m>383222</span> Dec <span class=m>13</span> 19:25 AutoPlayOptIn.gif
+</span></span><span class=line><span class=cl>-rw-r--r--. <span class=m>1</span> root root <span class=m>383222</span> Dec <span class=m>19</span> 00:17 AutoPlayOptIn.GIF
+</span></span></code></pre></td></tr></table></div></div><p>~* ：匹配正则表达式，*代表不区分大小写</p><p>http://10.4.7.129:92/imooc/img/456.JGP (可以访问)不论是否定义了.JPG这种类型都能访问。</p><p>~ ：匹配正则表达式，区分大小写</p><p>http://10.4.7.129:92/imooc/img/456.JGP (不能访问)因为没有定义.JPG这种类型能访问。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl>    <span class=nx>server</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>listen</span>       <span class=mi>92</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>server_name</span>  <span class=nx>localhost</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=err>#</span><span class=nx>正则表达式</span><span class=err>。</span><span class=o>*</span><span class=nx>代表不区分大小写</span>
+</span></span><span class=line><span class=cl>        <span class=nx>location</span> <span class=o>~*</span> <span class=err>\</span><span class=p>.(</span><span class=nx>GIF</span><span class=o>|</span><span class=nx>png</span><span class=o>|</span><span class=nx>bmp</span><span class=o>|</span><span class=nx>jpg</span><span class=o>|</span><span class=nx>jpeg</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>root</span>   <span class=o>/</span><span class=nx>home</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nx>server</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>listen</span>       <span class=mi>92</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>server_name</span>  <span class=nx>localhost</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=err>#</span><span class=nx>正则表达式</span><span class=err>。</span><span class=o>*</span><span class=nx>代表不区分大小写</span>
+</span></span><span class=line><span class=cl>        <span class=nx>location</span> <span class=o>~</span> <span class=err>\</span><span class=p>.(</span><span class=nx>GIF</span><span class=o>|</span><span class=nx>png</span><span class=o>|</span><span class=nx>bmp</span><span class=o>|</span><span class=nx>jpg</span><span class=o>|</span><span class=nx>jpeg</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>root</span>   <span class=o>/</span><span class=nx>home</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>^~ 以某个字符路径开头请求</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl>    <span class=nx>server</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>listen</span>       <span class=mi>93</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>server_name</span>  <span class=nx>localhost</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=err>#</span><span class=o>^~</span> <span class=nx>以某个字符路径开头请求</span>
+</span></span><span class=line><span class=cl>        <span class=nx>location</span> <span class=o>^~</span> <span class=sr>/imooc/img</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>root</span>   <span class=o>/</span><span class=nx>home</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=dns解析域名>DNS解析域名</h2><p>user-> client(<a href=https://www.imooc.com target=_blank rel="noopener noreffer">www.imooc.com</a>
+) -> nginx(代理服务器192.168.1.88 小区大门) &mdash;> tomcat1 （目标服务器 内网） ##号楼##室</p><p>​ &mdash;> tomcat2 （目标服务器 内网）##号楼##室</p><h2 id=用switchhosts-模拟本地域名解析访问>用switchhosts 模拟本地域名解析访问</h2><p><a href=https://cloud.tencent.com/developer/article/1408956 target=_blank rel="noopener noreffer">https://cloud.tencent.com/developer/article/1408956</a></p><p><a href="https://links.jianshu.com/go?to=https%3A%2F%2Fgithub.com%2Foldj%2FSwitchHosts%2Freleases%2Fdownload%2Fv3.3.12%2FSwitchHosts-win32-ia32_v3.3.12.5349.zip" target=_blank rel="noopener noreffer">https://links.jianshu.com/go?to=https%3A%2F%2Fgithub.com%2Foldj%2FSwitchHosts%2Freleases%2Fdownload%2Fv3.3.12%2FSwitchHosts-win32-ia32_v3.3.12.5349.zip</a></p><p>自定义hosts 一键切换。不用更改本机hosts</p><p>定义nginx-dev-imooc 的hosts</p><p>添加映射：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>10.4.7.129 www.imooc.com
+</span></span></code></pre></td></tr></table></div></div><p>访问：</p><p><a href=https://www.imooc.com target=_blank rel="noopener noreffer">www.imooc.com</a>
+显示10.4.7.129 默认界面</p><h2 id=跨域访问>跨域访问</h2><p><img class=lazyload src=/svg/loading.min.svg data-src=/postimages/nginx%e8%b7%a8%e5%9f%9f.webp data-srcset="/postimages/nginx%e8%b7%a8%e5%9f%9f.webp, /postimages/nginx%e8%b7%a8%e5%9f%9f.webp 1.5x, /postimages/nginx%e8%b7%a8%e5%9f%9f.webp 2x" data-sizes=auto alt=/postimages/nginx跨域.webp title=nginx跨域></p><p><img class=lazyload src=/svg/loading.min.svg data-src=/postimages/nginx%e8%b7%a8%e5%9f%9f%e8%ae%bf%e9%97%aesuccess.webp data-srcset="/postimages/nginx%e8%b7%a8%e5%9f%9f%e8%ae%bf%e9%97%aesuccess.webp, /postimages/nginx%e8%b7%a8%e5%9f%9f%e8%ae%bf%e9%97%aesuccess.webp 1.5x, /postimages/nginx%e8%b7%a8%e5%9f%9f%e8%ae%bf%e9%97%aesuccess.webp 2x" data-sizes=auto alt=/postimages/nginx跨域访问success.webp title=nginx跨域访问success></p><p><img class=lazyload src=/svg/loading.min.svg data-src=/postimages/cors%e8%b7%a8%e5%9f%9f%e8%b5%84%e6%ba%90%e5%85%b1%e4%ba%ab.webp data-srcset="/postimages/cors%e8%b7%a8%e5%9f%9f%e8%b5%84%e6%ba%90%e5%85%b1%e4%ba%ab.webp, /postimages/cors%e8%b7%a8%e5%9f%9f%e8%b5%84%e6%ba%90%e5%85%b1%e4%ba%ab.webp 1.5x, /postimages/cors%e8%b7%a8%e5%9f%9f%e8%b5%84%e6%ba%90%e5%85%b1%e4%ba%ab.webp 2x" data-sizes=auto alt=/postimages/cors跨域资源共享.webp title=cors跨域资源共享></p><p>当出现403跨域错误的时候 <code>No 'Access-Control-Allow-Origin' header is present on the requested resource</code>，需要给Nginx服务器配置响应的header参数：</p><p>只需要在Nginx的配置文件中配置以下参数：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=nx>location</span> <span class=o>/</span> <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=err>#</span><span class=nx>允许跨域请求的域</span><span class=err>，</span><span class=o>*</span><span class=nx>代表所有</span>
+</span></span><span class=line><span class=cl>    <span class=nx>add_header</span> <span class=s1>&#39;Access-Control-Allow-Origin&#39;</span> <span class=o>*</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=err>#</span><span class=nx>允许请求的方法</span><span class=err>，</span><span class=nx>比如GET</span><span class=p>,</span> <span class=nx>POST</span><span class=p>,</span> <span class=nx>DELETE</span><span class=err>，</span><span class=nx>PUT</span>
+</span></span><span class=line><span class=cl>    <span class=nx>add_header</span> <span class=s1>&#39;Access-Control-Allow-Methods&#39;</span> <span class=o>*</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=err>#</span><span class=nx>允许带上cookie请求</span>
+</span></span><span class=line><span class=cl>    <span class=nx>add_header</span> <span class=s1>&#39;Access-Control-Allow-Credentails&#39;</span> <span class=s1>&#39;true&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=err>#</span><span class=nx>允许请求的HEADER</span>
+</span></span><span class=line><span class=cl>    <span class=nx>add_header</span> <span class=s1>&#39;Access-Control-Allow-Headers&#39;</span> <span class=o>*</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span><span class=nx>$request_method</span> <span class=o>=</span> <span class=s1>&#39;OPTIONS&#39;</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=mi>204</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span> 
+</span></span></code></pre></td></tr></table></div></div><h2 id=nginx-防盗链技术支持>nginx 防盗链技术支持</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=err>#</span><span class=nx>对源站点验证</span>
+</span></span><span class=line><span class=cl><span class=nx>valid_referers</span> <span class=o>*</span><span class=p>.</span><span class=nx>imooc</span><span class=p>.</span><span class=nx>com</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=err>#</span><span class=nx>非法引入会进入下方判断</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=p>(</span><span class=nx>$invalid_referer</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=mi>404</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=nginx-模块化体系>nginx 模块化体系</h2><p><img class=lazyload src=/svg/loading.min.svg data-src=/postimages/nginx%e6%a8%a1%e5%9d%97%e5%8c%96%e4%bd%93%e7%b3%bb.webp data-srcset="/postimages/nginx%e6%a8%a1%e5%9d%97%e5%8c%96%e4%bd%93%e7%b3%bb.webp, /postimages/nginx%e6%a8%a1%e5%9d%97%e5%8c%96%e4%bd%93%e7%b3%bb.webp 1.5x, /postimages/nginx%e6%a8%a1%e5%9d%97%e5%8c%96%e4%bd%93%e7%b3%bb.webp 2x" data-sizes=auto alt=/postimages/nginx模块化体系.webp title=nginx模块化体系></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl><span class=o>[</span>root@centos7 nginx-1.16.1<span class=o>]</span><span class=c1># ll</span>
+</span></span><span class=line><span class=cl>total <span class=m>756</span>
+</span></span><span class=line><span class=cl>drwxr-xr-x. <span class=m>6</span> <span class=m>1001</span> <span class=m>1001</span>   <span class=m>4096</span> Dec <span class=m>17</span> 04:04 auto       <span class=c1>#一些判断操作系统支持，编译等相关的文件</span>
+</span></span><span class=line><span class=cl>-rw-r--r--. <span class=m>1</span> <span class=m>1001</span> <span class=m>1001</span> <span class=m>296463</span> Aug <span class=m>13</span>  <span class=m>2019</span> CHANGES    <span class=c1>#版本的更改日志</span>
+</span></span><span class=line><span class=cl>-rw-r--r--. <span class=m>1</span> <span class=m>1001</span> <span class=m>1001</span> <span class=m>452171</span> Aug <span class=m>13</span>  <span class=m>2019</span> CHANGES.ru <span class=c1>#俄版版本的更改日志</span>
+</span></span><span class=line><span class=cl>drwxr-xr-x. <span class=m>2</span> <span class=m>1001</span> <span class=m>1001</span>    <span class=m>168</span> Dec <span class=m>17</span> 04:04 conf      <span class=c1>#配置文件夹</span>
+</span></span><span class=line><span class=cl>-rwxr-xr-x. <span class=m>1</span> <span class=m>1001</span> <span class=m>1001</span>   <span class=m>2502</span> Aug <span class=m>13</span>  <span class=m>2019</span> configure <span class=c1>#编译配置程序</span>
+</span></span><span class=line><span class=cl>drwxr-xr-x. <span class=m>4</span> <span class=m>1001</span> <span class=m>1001</span>     <span class=m>72</span> Dec <span class=m>17</span> 04:04 contrib   <span class=c1>#提供了语法高亮支持脚本，让vim打开时，语法高亮。需要拷贝contrib														中到 本地vim目录(如果根目录没有该目录，先mkdir ~/.vim)</span>
+</span></span><span class=line><span class=cl>drwxr-xr-x. <span class=m>2</span> <span class=m>1001</span> <span class=m>1001</span>     <span class=m>40</span> Dec <span class=m>17</span> 04:04 html      <span class=c1>#默认页面</span>
+</span></span><span class=line><span class=cl>-rw-r--r--. <span class=m>1</span> <span class=m>1001</span> <span class=m>1001</span>   <span class=m>1397</span> Aug <span class=m>13</span>  <span class=m>2019</span> LICENSE   <span class=c1>#许可证书</span>
+</span></span><span class=line><span class=cl>-rw-r--r--. <span class=m>1</span> root root    <span class=m>355</span> Dec <span class=m>17</span> 04:19 Makefile  <span class=c1>#编译后的文件</span>
+</span></span><span class=line><span class=cl>drwxr-xr-x. <span class=m>2</span> <span class=m>1001</span> <span class=m>1001</span>     <span class=m>21</span> Dec <span class=m>17</span> 04:04 man       <span class=c1>#使用手册</span>
+</span></span><span class=line><span class=cl>drwxr-xr-x. <span class=m>3</span> root root    <span class=m>174</span> Dec <span class=m>17</span> 04:20 objs      <span class=c1>#第三方插件</span>
+</span></span><span class=line><span class=cl>-rw-r--r--. <span class=m>1</span> <span class=m>1001</span> <span class=m>1001</span>     <span class=m>49</span> Aug <span class=m>13</span>  <span class=m>2019</span> README
+</span></span><span class=line><span class=cl>drwxr-xr-x. <span class=m>9</span> <span class=m>1001</span> <span class=m>1001</span>     <span class=m>91</span> Dec <span class=m>17</span> 04:04 src      <span class=c1>#源码</span>
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl><span class=nb>cd</span> conf
+</span></span><span class=line><span class=cl><span class=o>[</span>root@centos7 conf<span class=o>]</span><span class=c1># ll</span>
+</span></span><span class=line><span class=cl>total <span class=m>40</span>
+</span></span><span class=line><span class=cl>-rw-r--r--. <span class=m>1</span> <span class=m>1001</span> <span class=m>1001</span> <span class=m>1077</span> Aug <span class=m>13</span>  <span class=m>2019</span> fastcgi.conf
+</span></span><span class=line><span class=cl>-rw-r--r--. <span class=m>1</span> <span class=m>1001</span> <span class=m>1001</span> <span class=m>1007</span> Aug <span class=m>13</span>  <span class=m>2019</span> fastcgi_params
+</span></span><span class=line><span class=cl>-rw-r--r--. <span class=m>1</span> <span class=m>1001</span> <span class=m>1001</span> <span class=m>2837</span> Aug <span class=m>13</span>  <span class=m>2019</span> koi-utf
+</span></span><span class=line><span class=cl>-rw-r--r--. <span class=m>1</span> <span class=m>1001</span> <span class=m>1001</span> <span class=m>2223</span> Aug <span class=m>13</span>  <span class=m>2019</span> koi-win
+</span></span><span class=line><span class=cl>-rw-r--r--. <span class=m>1</span> <span class=m>1001</span> <span class=m>1001</span> <span class=m>5231</span> Aug <span class=m>13</span>  <span class=m>2019</span> mime.types
+</span></span><span class=line><span class=cl>-rw-r--r--. <span class=m>1</span> <span class=m>1001</span> <span class=m>1001</span> <span class=m>2656</span> Aug <span class=m>13</span>  <span class=m>2019</span> nginx.conf <span class=c1># 核心配置文件</span>
+</span></span><span class=line><span class=cl>-rw-r--r--. <span class=m>1</span> <span class=m>1001</span> <span class=m>1001</span>  <span class=m>636</span> Aug <span class=m>13</span>  <span class=m>2019</span> scgi_params
+</span></span><span class=line><span class=cl>-rw-r--r--. <span class=m>1</span> <span class=m>1001</span> <span class=m>1001</span>  <span class=m>664</span> Aug <span class=m>13</span>  <span class=m>2019</span> uwsgi_params
+</span></span><span class=line><span class=cl>-rw-r--r--. <span class=m>1</span> <span class=m>1001</span> <span class=m>1001</span> <span class=m>3610</span> Aug <span class=m>13</span>  <span class=m>2019</span> win-utf
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>[</span>root@centos7 html<span class=o>]</span><span class=c1># ll</span>
+</span></span><span class=line><span class=cl>total <span class=m>8</span>
+</span></span><span class=line><span class=cl>-rw-r--r--. <span class=m>1</span> <span class=m>1001</span> <span class=m>1001</span> <span class=m>494</span> Aug <span class=m>13</span>  <span class=m>2019</span> 50x.html
+</span></span><span class=line><span class=cl>-rw-r--r--. <span class=m>1</span> <span class=m>1001</span> <span class=m>1001</span> <span class=m>612</span> Aug <span class=m>13</span>  <span class=m>2019</span> index.html
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>[</span>root@centos7 objs<span class=o>]</span><span class=c1># ll</span>
+</span></span><span class=line><span class=cl>total <span class=m>3888</span>
+</span></span><span class=line><span class=cl>-rw-r--r--. <span class=m>1</span> root root   <span class=m>17763</span> Dec <span class=m>17</span> 04:19 autoconf.err
+</span></span><span class=line><span class=cl>-rw-r--r--. <span class=m>1</span> root root   <span class=m>40485</span> Dec <span class=m>17</span> 04:19 Makefile
+</span></span><span class=line><span class=cl>-rwxr-xr-x. <span class=m>1</span> root root <span class=m>3857136</span> Dec <span class=m>17</span> 04:20 nginx
+</span></span><span class=line><span class=cl>-rw-r--r--. <span class=m>1</span> root root    <span class=m>5327</span> Dec <span class=m>17</span> 04:20 nginx.8
+</span></span><span class=line><span class=cl>-rw-r--r--. <span class=m>1</span> root root    <span class=m>7363</span> Dec <span class=m>17</span> 04:19 ngx_auto_config.h
+</span></span><span class=line><span class=cl>-rw-r--r--. <span class=m>1</span> root root     <span class=m>657</span> Dec <span class=m>17</span> 04:19 ngx_auto_headers.h
+</span></span><span class=line><span class=cl>-rw-r--r--. <span class=m>1</span> root root    <span class=m>5975</span> Dec <span class=m>17</span> 04:19 ngx_modules.c
+</span></span><span class=line><span class=cl>-rw-r--r--. <span class=m>1</span> root root   <span class=m>32552</span> Dec <span class=m>17</span> 04:20 ngx_modules.o
+</span></span><span class=line><span class=cl>drwxr-xr-x. <span class=m>9</span> root root      <span class=m>91</span> Dec <span class=m>17</span> 04:19 src
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>[</span>root@centos7 src<span class=o>]</span><span class=c1># ll</span>
+</span></span><span class=line><span class=cl>total <span class=m>20</span>
+</span></span><span class=line><span class=cl>drwxr-xr-x. <span class=m>2</span> <span class=m>1001</span> <span class=m>1001</span> <span class=m>4096</span> Dec <span class=m>17</span> 04:04 core   <span class=c1>#核心源码</span>
+</span></span><span class=line><span class=cl>drwxr-xr-x. <span class=m>3</span> <span class=m>1001</span> <span class=m>1001</span> <span class=m>4096</span> Dec <span class=m>17</span> 04:04 event  <span class=c1>#事件</span>
+</span></span><span class=line><span class=cl>drwxr-xr-x. <span class=m>4</span> <span class=m>1001</span> <span class=m>1001</span> <span class=m>4096</span> Dec <span class=m>17</span> 04:04 http
+</span></span><span class=line><span class=cl>drwxr-xr-x. <span class=m>2</span> <span class=m>1001</span> <span class=m>1001</span> <span class=m>4096</span> Dec <span class=m>17</span> 04:04 mail
+</span></span><span class=line><span class=cl>drwxr-xr-x. <span class=m>2</span> <span class=m>1001</span> <span class=m>1001</span>   <span class=m>74</span> Dec <span class=m>17</span> 04:04 misc   <span class=c1>#辅助代码</span>
+</span></span><span class=line><span class=cl>drwxr-xr-x. <span class=m>3</span> <span class=m>1001</span> <span class=m>1001</span>   <span class=m>18</span> Dec <span class=m>17</span> 04:04 os     <span class=c1>#系统</span>
+</span></span><span class=line><span class=cl>drwxr-xr-x. <span class=m>2</span> <span class=m>1001</span> <span class=m>1001</span> <span class=m>4096</span> Aug <span class=m>13</span>  <span class=m>2019</span> stream 
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>[</span>root@centos7 http<span class=o>]</span><span class=c1># ls</span>
+</span></span><span class=line><span class=cl>modules                        ngx_http_file_cache.c              ngx_http_request.h               ngx_http_upstream_round_robin.h
+</span></span><span class=line><span class=cl>ngx_http.c                     ngx_http.h                         ngx_http_script.c                ngx_http_variables.c
+</span></span><span class=line><span class=cl>ngx_http_cache.h               ngx_http_header_filter_module.c    ngx_http_script.h                ngx_http_variables.h
+</span></span><span class=line><span class=cl>ngx_http_config.h              ngx_http_parse.c                   ngx_http_special_response.c      ngx_http_write_filter_module.c
+</span></span><span class=line><span class=cl>ngx_http_copy_filter_module.c  ngx_http_postpone_filter_module.c  ngx_http_upstream.c              v2
+</span></span><span class=line><span class=cl>ngx_http_core_module.c         ngx_http_request_body.c            ngx_http_upstream.h
+</span></span><span class=line><span class=cl>ngx_http_core_module.h         ngx_http_request.c                 ngx_http_upstream_round_robin.c
+</span></span></code></pre></td></tr></table></div></div><h2 id=负载均衡>负载均衡</h2><h3 id=四层负载均衡>四层负载均衡</h3><p>主要是为了将请求分流到不同服务器</p><p>F5 硬负载均衡 基于硬件、商业化</p><p>LVS 四层负载均衡</p><p>Haproxy 四层负载均衡</p><p>Nginx 四层负载均衡</p><h3 id=七层负载均衡>七层负载均衡</h3><p>基于应用层HTTP协议进行负载均衡</p><p>Nginx 七层负载均衡</p><p>Haproxy 七层负载均衡</p><p>apache 七层负载均衡</p><p>四层主要是tcp、udp转发请求，而不是处理请求
+七层会处理请求，可以过滤、压缩、缓存等</p><h3 id=dns-地域负载均衡>DNS 地域负载均衡</h3><p><img class=lazyload src=/svg/loading.min.svg data-src=/postimages/DNS%e5%9c%b0%e5%9f%9f%e8%b4%9f%e8%bd%bd%e5%9d%87%e8%a1%a1.webp data-srcset="/postimages/DNS%e5%9c%b0%e5%9f%9f%e8%b4%9f%e8%bd%bd%e5%9d%87%e8%a1%a1.webp, /postimages/DNS%e5%9c%b0%e5%9f%9f%e8%b4%9f%e8%bd%bd%e5%9d%87%e8%a1%a1.webp 1.5x, /postimages/DNS%e5%9c%b0%e5%9f%9f%e8%b4%9f%e8%bd%bd%e5%9d%87%e8%a1%a1.webp 2x" data-sizes=auto alt=/postimages/DNS地域负载均衡.webp title=DNS地域负载均衡></p><p>可以根据请求者地域，分配到最近的服务器
+减少网络传输的损耗</p><h2 id=使用nginx搭建三台tomcat集群>使用Nginx搭建三台tomcat集群</h2><p>tomcat1 :10.4.7.11</p><p>tomcat2 :10.4.7.12</p><p>tomcat3 :10.4.7.21</p><p>tomcat安装：10.4.7.{11,12,21}都要安装</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>yum install tomcat -y
+</span></span><span class=line><span class=cl>yum install tomcat-webapps tomcat-admin-webapps tomcat-docs-webapp tomcat-javadoc
+</span></span><span class=line><span class=cl><span class=c1>#关闭防火墙</span>
+</span></span><span class=line><span class=cl>systemctl stop firewalld
+</span></span><span class=line><span class=cl>systemctl disable firewalld
+</span></span><span class=line><span class=cl><span class=c1>#启动tomcat</span>
+</span></span><span class=line><span class=cl>systemctl restart tomcat
+</span></span></code></pre></td></tr></table></div></div><p>10.4.7.129 (nginx服务器)上配置tomcat集群</p><p>vim imooc.conf</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=nx>upstream</span> <span class=nx>tomcats</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>server</span> <span class=mf>10.4</span><span class=p>.</span><span class=mf>7.11</span><span class=o>:</span><span class=mi>8080</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>server</span> <span class=mf>10.4</span><span class=p>.</span><span class=mf>7.12</span><span class=o>:</span><span class=mi>8080</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>server</span> <span class=mf>10.4</span><span class=p>.</span><span class=mf>7.21</span><span class=o>:</span><span class=mi>8080</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nx>server</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>listen</span>       <span class=mi>80</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>server_name</span>  <span class=nx>www</span><span class=p>.</span><span class=nx>tomcats</span><span class=p>.</span><span class=nx>com</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>location</span> <span class=o>/</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>proxy_pass</span> <span class=nx>http</span><span class=o>:</span><span class=c1>//tomcats;
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>重启nginx</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>/usr/local/nginx/sbin/nginx -s reload 
+</span></span></code></pre></td></tr></table></div></div><p>windwos配置hosts规则：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>10.4.7.129 www.tomcats.com
+</span></span></code></pre></td></tr></table></div></div><p>测试访问。</p><p><a href=https://www.tomcats.com target=_blank rel="noopener noreffer">www.tomcats.com</a></p><p>请求会平均分配给后面三台tomcat.</p><p>参考：http://tengine.taobao.org/book/chapter_05.html</p><h2 id=负载均衡之轮询>负载均衡之轮询</h2><p>默认nginx使用的是轮询。交替出现。出现次数均等。</p><p>修改每台tomcat默认页面</p><p>/usr/share/tomcat/webapps/ROOT/index.jsp</p><p>第37行。home改成对应IP最后一位。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-html data-lang=html><span class=line><span class=cl> 37 <span class=p>&lt;</span><span class=nt>span</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;nav-home&#34;</span><span class=p>&gt;&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;${tomcatUrl}&#34;</span><span class=p>&gt;</span>12<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;&lt;/</span><span class=nt>span</span><span class=p>&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><p>重启tomcat</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>systemctl restart tomcat 
+</span></span></code></pre></td></tr></table></div></div><p>![nginx 轮询](/postimages/nginx 轮询.webp)</p><p>11 12 21 会交替出现。</p><h2 id=负载均衡之权重-加权轮询>负载均衡之权重-加权轮询</h2><p>weight 值越大，出现的次数越多（后端服务器被访问的次数就越多）。</p><p>配置在upstream 模块内。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=nx>upstream</span> <span class=nx>tomcats</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>server</span> <span class=mf>10.4</span><span class=p>.</span><span class=mf>7.11</span><span class=o>:</span><span class=mi>8080</span> <span class=nx>weight</span><span class=o>=</span><span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>server</span> <span class=mf>10.4</span><span class=p>.</span><span class=mf>7.12</span><span class=o>:</span><span class=mi>8080</span> <span class=nx>weight</span><span class=o>=</span><span class=mi>2</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>server</span> <span class=mf>10.4</span><span class=p>.</span><span class=mf>7.21</span><span class=o>:</span><span class=mi>8080</span> <span class=nx>weight</span><span class=o>=</span><span class=mi>3</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>11:12:21 = 1:2:3</p><p>21出现几率最大。</p><h2 id=upstream-指令参数>upstream 指令参数</h2><p>max_conns :限制<code>*number*</code>到代理服务器的最大同时活动连接数.默认值为零，表示没有限制。如果启用了<a href=https://nginx.org/en/docs/http/ngx_http_upstream_module.html#keepalive target=_blank rel="noopener noreffer">idle keepalive</a>
+连接、多个<a href=https://nginx.org/en/docs/ngx_core_module.html#worker_processes target=_blank rel="noopener noreffer">worker</a>
+和<a href=https://nginx.org/en/docs/http/ngx_http_upstream_module.html#zone target=_blank rel="noopener noreffer">共享内存</a>
+，则代理服务器的 active 和 idle 连接总数可能会超过该<code>max_conns</code>值。允许最大连接数。</p><p>限制每台server的连接数，用于保护避免过载起到限流作用。</p><p>测试参考配置如下：</p><p>#worker 进程设置1个，便于测试观察成功的连接数。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=nx>worker_processes</span> <span class=mi>1</span> 
+</span></span><span class=line><span class=cl><span class=nx>upstream</span> <span class=nx>tomcats</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>server</span> <span class=mf>10.4</span><span class=p>.</span><span class=mf>7.11</span><span class=o>:</span><span class=mi>8080</span> <span class=nx>max_conns</span><span class=o>=</span><span class=mi>2</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>server</span> <span class=mf>10.4</span><span class=p>.</span><span class=mf>7.12</span><span class=o>:</span><span class=mi>8080</span> <span class=nx>max_conns</span><span class=o>=</span><span class=mi>2</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>server</span> <span class=mf>10.4</span><span class=p>.</span><span class=mf>7.21</span><span class=o>:</span><span class=mi>8080</span> <span class=nx>max_conns</span><span class=o>=</span><span class=mi>2</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>slow_start:当节点恢复，不立即加入,而是等待 slow_start 后加入服务对列.(仅商业版支持)</p><p>测试参考配置如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=nx>upstream</span> <span class=nx>tomcats</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>server</span> <span class=mf>10.4</span><span class=p>.</span><span class=mf>7.11</span><span class=o>:</span><span class=mi>8080</span> <span class=nx>weight</span><span class=o>=</span><span class=mi>6</span> <span class=nx>slow_start</span><span class=o>=</span><span class=mi>60</span><span class=nx>s</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>server</span> <span class=mf>10.4</span><span class=p>.</span><span class=mf>7.12</span><span class=o>:</span><span class=mi>8080</span> <span class=nx>weight</span><span class=o>=</span><span class=mi>2</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>server</span> <span class=mf>10.4</span><span class=p>.</span><span class=mf>7.21</span><span class=o>:</span><span class=mi>8080</span> <span class=nx>weight</span><span class=o>=</span><span class=mi>2</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>注意：</p><p>该参数不能使用在hash 和random load balancing中</p><p>如果在upstream中只有一台server，则该参数失效。</p><p>down :将服务器标记为永久不可用。</p><p>测试参考配置如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=nx>upstream</span> <span class=nx>tomcats</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>server</span> <span class=mf>10.4</span><span class=p>.</span><span class=mf>7.11</span><span class=o>:</span><span class=mi>8080</span> <span class=nx>down</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>server</span> <span class=mf>10.4</span><span class=p>.</span><span class=mf>7.12</span><span class=o>:</span><span class=mi>8080</span> <span class=nx>weight</span><span class=o>=</span><span class=mi>2</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>server</span> <span class=mf>10.4</span><span class=p>.</span><span class=mf>7.21</span><span class=o>:</span><span class=mi>8080</span> <span class=nx>weight</span><span class=o>=</span><span class=mi>2</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>backup:将服务器标记为备份服务器,只有在其他的服务器都宕机以后，自己才会加入到集群中，被用户访问到。</p><p>该参数不能与 <a href=https://nginx.org/en/docs/http/ngx_http_upstream_module.html#hash target=_blank rel="noopener noreffer">hash</a>
+、<a href=https://nginx.org/en/docs/http/ngx_http_upstream_module.html#ip_hash target=_blank rel="noopener noreffer">ip_hash</a>
+和<a href=https://nginx.org/en/docs/http/ngx_http_upstream_module.html#random target=_blank rel="noopener noreffer">随机</a>
+负载平衡方法一起使用。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=nx>upstream</span> <span class=nx>tomcats</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>server</span> <span class=mf>10.4</span><span class=p>.</span><span class=mf>7.11</span><span class=o>:</span><span class=mi>8080</span> <span class=nx>backup</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>server</span> <span class=mf>10.4</span><span class=p>.</span><span class=mf>7.12</span><span class=o>:</span><span class=mi>8080</span> <span class=nx>weight</span><span class=o>=</span><span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>server</span> <span class=mf>10.4</span><span class=p>.</span><span class=mf>7.21</span><span class=o>:</span><span class=mi>8080</span> <span class=nx>weight</span><span class=o>=</span><span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>max_fails:失败几次，则标记server已宕机，剔出上游服务。</p><p>fail_timeout:表示失败的重试时间。</p><p>假设目前设置如下：</p><p>max_fails=2 fail_timeout=15s</p><p>则表示在15秒内请求某一server失败达到2次后，则认为该server已经挂了或者宕机了，随后再过15s，这15s内不会有新的请求到达刚刚挂掉的节点上，而是会请求到正常运作的server，15秒后会在有新请求尝试连接挂掉的server，如果还是失败，重复上一过程，直到恢复。</p><h2 id=使用keepalive提高吞吐量>使用keepalive提高吞吐量</h2><p><a href=https://nginx.org/en/docs/http/ngx_http_upstream_module.html#keepalive target=_blank rel="noopener noreffer">https://nginx.org/en/docs/http/ngx_http_upstream_module.html#keepalive</a></p><p>测试配置：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=nx>upstream</span> <span class=nx>tomcats</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>server</span> <span class=mf>10.4</span><span class=p>.</span><span class=mf>7.11</span><span class=o>:</span><span class=mi>8080</span> <span class=nx>weight</span><span class=o>=</span><span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>server</span> <span class=mf>10.4</span><span class=p>.</span><span class=mf>7.12</span><span class=o>:</span><span class=mi>8080</span> <span class=nx>weight</span><span class=o>=</span><span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>server</span> <span class=mf>10.4</span><span class=p>.</span><span class=mf>7.21</span><span class=o>:</span><span class=mi>8080</span> <span class=nx>weight</span><span class=o>=</span><span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>keepalive</span> <span class=mi>32</span><span class=p>;</span> <span class=err>#</span><span class=nx>配置长连接的数量</span><span class=err>，</span><span class=nx>保持连接可以提高吞吐量</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nx>server</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>listen</span>       <span class=mi>80</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>server_name</span>  <span class=nx>www</span><span class=p>.</span><span class=nx>tomcats</span><span class=p>.</span><span class=nx>com</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>location</span> <span class=o>/</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>proxy_pass</span> <span class=nx>http</span><span class=o>:</span><span class=c1>//tomcats;
+</span></span></span><span class=line><span class=cl><span class=c1></span>            <span class=nx>proxy_http_version</span> <span class=mf>1.1</span><span class=p>;</span> <span class=err>#</span><span class=nx>代表上面长连接的版本号</span><span class=err>，（</span><span class=nx>默认1</span><span class=p>.</span><span class=mi>0</span><span class=err>，</span><span class=nx>但1</span><span class=p>.</span><span class=mi>0</span><span class=nx>不是长链接</span><span class=err>）</span>
+</span></span><span class=line><span class=cl>            <span class=nx>proxy_set_header</span> <span class=nx>Connection</span> <span class=s2>&#34;&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=负载均衡之ip_hash>负载均衡之ip_hash</h2><p>hash算法</p><p>hash(ip) % node_counts = index</p><p>算出用户访问的服务器具体是哪一台</p><p>保证用户访问的服务器是同一台，保持会话一致</p><p>测试配置：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=nx>upstream</span> <span class=nx>tomcats</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=nx>ip_hash</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>server</span> <span class=mf>10.4</span><span class=p>.</span><span class=mf>7.11</span><span class=o>:</span><span class=mi>8080</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>server</span> <span class=mf>10.4</span><span class=p>.</span><span class=mf>7.12</span><span class=o>:</span><span class=mi>8080</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>server</span> <span class=mf>10.4</span><span class=p>.</span><span class=mf>7.21</span><span class=o>:</span><span class=mi>8080</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>10.4.7.110
+10.4.7.120 &mdash;> hash(10 4 7)
+10.4.7.210</p><p>分段进行计算，同一片区域，会访问到一个里</p><h3 id=负载均衡之url_hash>负载均衡之<strong>url_hash</strong></h3><p><img class=lazyload src=/svg/loading.min.svg data-src=/postimages/url_hash.webp data-srcset="/postimages/url_hash.webp, /postimages/url_hash.webp 1.5x, /postimages/url_hash.webp 2x" data-sizes=auto alt=/postimages/url_hash.webp title=url_hash></p><p>通过配置hash $request_uri
+开启url_hash</p><h2 id=nginx控制浏览器缓存>nginx控制浏览器缓存</h2><p><img class=lazyload src=/svg/loading.min.svg data-src=/postimages/nginx%e7%bc%93%e5%ad%98.webp data-srcset="/postimages/nginx%e7%bc%93%e5%ad%98.webp, /postimages/nginx%e7%bc%93%e5%ad%98.webp 1.5x, /postimages/nginx%e7%bc%93%e5%ad%98.webp 2x" data-sizes=auto alt=/postimages/nginx缓存.webp title=nginx缓存></p><p>1、设置静态内容的过期时间(expires time;)</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=nx>location</span>  <span class=o>/</span><span class=kr>static</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>alias</span>  <span class=o>/</span><span class=nx>home</span><span class=o>/</span><span class=nx>naga</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=nx>expires</span>  <span class=mi>10</span><span class=nx>s</span><span class=p>;</span>   
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>2、固定时间 expires @[time]</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>expires  @22h30s<span class=p>;</span>   代表晚上10:30pm失效，浏览器会自动计算时间差
+</span></span></code></pre></td></tr></table></div></div><p>3、 expires -[time]</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl> expires  -1h<span class=p>;</span>  距离现在的1小时之前就失效了，相当于不用缓存
+</span></span></code></pre></td></tr></table></div></div><p>4、expires eposh; 不使用缓存</p><p>5、expires off; 默认值，其实就是不管，由浏览器自己使用自己的默认缓存</p><p>6、expires max; 缓存不会过期，除非修改过。</p><h2 id=上游服务静态内容缓存>上游服务静态内容缓存</h2><p>keys_zone 是内存缓存 max_size 是硬盘缓存</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=nx>upstream</span> <span class=nx>xxx</span> <span class=p>{</span>  <span class=p>...</span>  <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=err>#</span> <span class=nx>proxy_cache_path</span>  <span class=nx>设置缓存保存的地址</span><span class=err>，</span><span class=nx>目录会自动创建</span>
+</span></span><span class=line><span class=cl><span class=err>#</span>   <span class=nx>keys_zone</span> <span class=nx>设置共享内存</span><span class=err>，</span><span class=nx>以及占用的空间大小</span> <span class=err>##</span> <span class=nx>内存缓存</span> <span class=err>##</span>  <span class=p>(</span><span class=nx>mycache是共享内存名</span><span class=err>，</span><span class=nx>下面</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=err>#</span>   <span class=nx>max_size</span> <span class=nx>设置缓存大小</span>
+</span></span><span class=line><span class=cl><span class=err>#</span>   <span class=nx>inactive</span> <span class=nx>超过此时间</span><span class=err>，</span><span class=nx>缓存自动清理</span>
+</span></span><span class=line><span class=cl><span class=err>#</span>   <span class=nx>use_temp_path</span><span class=o>=</span><span class=nx>off</span>  <span class=nx>关闭临时目录</span>
+</span></span><span class=line><span class=cl><span class=nx>proxy_cache_path</span>  <span class=o>/</span><span class=nx>usr</span><span class=o>/</span><span class=nx>local</span><span class=o>/</span><span class=nx>nginx</span><span class=o>/</span><span class=nx>upstream_cache</span>  <span class=nx>keys_zone</span><span class=o>=</span><span class=nx>mycache</span><span class=o>:</span><span class=mi>50</span><span class=nx>m</span>  <span class=nx>max_size</span><span class=o>=</span><span class=mi>30</span><span class=nx>g</span>  <span class=nx>inactive</span><span class=o>=</span><span class=mi>8</span><span class=nx>h</span>  <span class=nx>use_temp_path</span><span class=o>=</span><span class=nx>off</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>server</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nx>listen</span>  <span class=mi>80</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=nx>server_name</span>  <span class=nx>www</span><span class=p>.</span><span class=nx>naga</span><span class=p>.</span><span class=nx>cn</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=err>#</span><span class=nx>开启并且使用缓存</span>
+</span></span><span class=line><span class=cl>  <span class=nx>proxy_cache</span>  <span class=nx>mycache</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=err>#</span><span class=nx>针对200和304状态码的缓存设置过期时间</span>
+</span></span><span class=line><span class=cl>  <span class=nx>proxy_cache_valid</span>   <span class=mi>200</span>  <span class=mi>304</span>  <span class=mi>8</span><span class=nx>h</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=使用nginx-配置https域名证书>使用nginx 配置https域名证书</h2><ol><li><p>安装ssl模块</p><p>要在nginx中配置https,及必须安装ssl模块，也就是‘http_ssl_module’.</p><p>进入到nginx解压目录：nginx-1.16.1</p><p>新增ssl模块（原来的模块需要保留）&ndash;with-http_ssl_module</p></li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>./configure <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>--prefix<span class=o>=</span>/usr/local/nginx <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>--pid-path<span class=o>=</span>/var/run/nginx/nginx.pid <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>--lock-path<span class=o>=</span>/var/lock/nginx.lock <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>--error-log-path<span class=o>=</span>/var/log/nginx/error.log <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>--http-log-path<span class=o>=</span>/var/log/nginx/access.log <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>--with-http_gzip_static_module <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>--http-client-body-temp-path<span class=o>=</span>/var/temp/nginx/client <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>--http-proxy-temp-path<span class=o>=</span>/var/temp/nginx/proxy <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>--http-fastcgi-temp-path<span class=o>=</span>/var/temp/nginx/fastcgi <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>--http-uwsgi-temp-path<span class=o>=</span>/var/temp/nginx/uwsgi <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>--http-scgi-temp-path<span class=o>=</span>/var/temp/nginx/scgi <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>--with-http_ssl_module
+</span></span></code></pre></td></tr></table></div></div><p>编译和安装：</p><p>make</p><p>make install</p><h2 id=配置ssl>配置ssl</h2><p>1、云上申请证书，审核完成后将证书下载下来，nginx包含两个文件，一个crt证书文件，一个key密钥文件</p><p>2、将文件上传到云服务器，可以放在conf下</p><p>3、修改nginx.conf (事先在nginx里面加入ssl模块 &ndash;with-http_ssl_module, 安装后通过 ./nginx -V 查看 )</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=nx>server</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>listen</span>  <span class=mi>443</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=nx>server_name</span>  <span class=nx>localhost</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=err>#</span> <span class=nx>开启ssl</span> 
+</span></span><span class=line><span class=cl>    <span class=nx>ssl</span> <span class=nx>on</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl>    <span class=err>#</span> <span class=nx>配置ssl证书</span>   <span class=nx>因为放在conf下的</span><span class=err>，</span><span class=nx>和nginx</span><span class=p>.</span><span class=nx>conf同一路径</span><span class=err>，</span><span class=nx>就这样写就行</span>
+</span></span><span class=line><span class=cl>    <span class=nx>ssl_certificate</span> <span class=mi>1_</span><span class=nx>www</span><span class=p>.</span><span class=nx>imoocdsp</span><span class=p>.</span><span class=nx>com_bundle</span><span class=p>.</span><span class=nx>crt</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl>    <span class=err>#</span> <span class=nx>配置证书秘钥</span> 
+</span></span><span class=line><span class=cl>    <span class=nx>ssl_certificate_key</span> <span class=mi>2_</span><span class=nx>www</span><span class=p>.</span><span class=nx>imoocdsp</span><span class=p>.</span><span class=nx>com</span><span class=p>.</span><span class=nx>key</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl>    <span class=err>#</span> <span class=nx>ssl会话cache</span> 
+</span></span><span class=line><span class=cl>    <span class=nx>ssl_session_cache</span> <span class=nx>shared</span><span class=o>:</span><span class=nx>SSL</span><span class=o>:</span><span class=mi>1</span><span class=nx>m</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl>    <span class=err>#</span> <span class=nx>ssl会话超时时间</span> 
+</span></span><span class=line><span class=cl>    <span class=nx>ssl_session_timeout</span> <span class=mi>5</span><span class=nx>m</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl>    <span class=err>#</span> <span class=nx>配置加密套件</span><span class=err>，</span><span class=nx>写法遵循</span> <span class=nx>openssl</span> <span class=nx>标准</span> 
+</span></span><span class=line><span class=cl>    <span class=nx>ssl_protocols</span> <span class=nx>TLSv1</span> <span class=nx>TLSv1</span><span class=p>.</span><span class=mi>1</span> <span class=nx>TLSv1</span><span class=p>.</span><span class=mi>2</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl>    <span class=nx>ssl_ciphers</span> <span class=nx>ECDHE</span><span class=o>-</span><span class=nx>RSA</span><span class=o>-</span><span class=nx>AES128</span><span class=o>-</span><span class=nx>GCM</span><span class=o>-</span><span class=nx>SHA256</span><span class=o>:</span><span class=nx>HIGH</span><span class=o>:!</span><span class=nx>aNULL</span><span class=o>:!</span><span class=nx>MD5</span><span class=o>:!</span><span class=nx>RC4</span><span class=o>:!</span><span class=nx>DHE</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl>    <span class=nx>ssl_prefer_server_ciphers</span> <span class=nx>on</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=err>###</span> <span class=nx>将http的请求转发到https</span>
+</span></span><span class=line><span class=cl><span class=nx>server</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>listen</span> <span class=mi>80</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=nx>server_name</span> <span class=nx>localhost</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=err>#</span> <span class=nx>排除法</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span><span class=nx>$http_name</span> <span class=o>~*</span> <span class=s2>&#34;^online$&#34;</span> <span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>rewrite</span> <span class=o>^</span><span class=sr>/(.*)$ https:/</span><span class=o>/</span><span class=nx>localhost</span><span class=o>/</span><span class=nx>online</span><span class=o>/</span> <span class=nx>permanent</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=nx>rewrite</span> <span class=o>^</span> <span class=nx>https</span><span class=o>:</span><span class=c1>//$host$1 permanent;
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=动静分离>动静分离</h2><p>1.分布式</p><p>2.前后端解耦</p><p>3.静态归nginx</p><p>4.接口服务化</p><p>静态数据：css/js/html/images/audios/videos/&mldr;</p><p>动态数据：得到的响应可能会和上次不同。</p><p>动静分离的问题</p><p>跨域：</p><p>springboot</p><p>nginx</p><p>jsonp</p><p>分布式会话： 分布式缓存中间件Redis</p><h2 id=nginx高可用ha-keepalived-双机主备>nginx高可用HA keepalived 双机主备</h2><p>keepalived 使用的是虚拟路由冗余协议 VRRP ，这个协议的特点如下：</p><p>1、解决内网单机故障的路由协议，</p><p>2、用于构建过个路由MASTER BACKUP，将几台提供相同服务的路由器组成一个路由器组。一个路由就是nginx</p><p>3、虚拟IP-VIP（Virtual IP Address）</p><p>过程：用户不直接访问nginx，访问虚拟IP，这个虚拟IP是绑定了nginx的master节点，会根据这个关系解析出来结果。 master主节点挂了，心跳检测到后会让虚拟IP找到备用机，多个备用机会根据权重选择。</p><p>此外，主备节点的硬件配置应一样。</p><h2 id=安装keepalived>安装keepalived</h2><p>解压后进入文件夹进行配置，类似nginx，但是需要用 &ndash;sysconf=/etc指定配置文件地址</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>yum -y install libnl libnl-devel
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>./configure --prefix<span class=o>=</span>/usr/local/keepalived  --sysconf<span class=o>=</span>/etc
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>make <span class=o>&amp;&amp;</span> make install
+</span></span></code></pre></td></tr></table></div></div><p>prefix：keepalived安装的位置</p><p>sysconf：keepalived核心配置文件所在位置，固定位置，改成其他位置则keepalived启动不了。会报错。</p><p>libnl libnl-devel 是libnl/libnl-3依赖包。</p><h3 id=核心配置文件>核心配置文件：</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>  1
+</span><span class=lnt>  2
+</span><span class=lnt>  3
+</span><span class=lnt>  4
+</span><span class=lnt>  5
+</span><span class=lnt>  6
+</span><span class=lnt>  7
+</span><span class=lnt>  8
+</span><span class=lnt>  9
+</span><span class=lnt> 10
+</span><span class=lnt> 11
+</span><span class=lnt> 12
+</span><span class=lnt> 13
+</span><span class=lnt> 14
+</span><span class=lnt> 15
+</span><span class=lnt> 16
+</span><span class=lnt> 17
+</span><span class=lnt> 18
+</span><span class=lnt> 19
+</span><span class=lnt> 20
+</span><span class=lnt> 21
+</span><span class=lnt> 22
+</span><span class=lnt> 23
+</span><span class=lnt> 24
+</span><span class=lnt> 25
+</span><span class=lnt> 26
+</span><span class=lnt> 27
+</span><span class=lnt> 28
+</span><span class=lnt> 29
+</span><span class=lnt> 30
+</span><span class=lnt> 31
+</span><span class=lnt> 32
+</span><span class=lnt> 33
+</span><span class=lnt> 34
+</span><span class=lnt> 35
+</span><span class=lnt> 36
+</span><span class=lnt> 37
+</span><span class=lnt> 38
+</span><span class=lnt> 39
+</span><span class=lnt> 40
+</span><span class=lnt> 41
+</span><span class=lnt> 42
+</span><span class=lnt> 43
+</span><span class=lnt> 44
+</span><span class=lnt> 45
+</span><span class=lnt> 46
+</span><span class=lnt> 47
+</span><span class=lnt> 48
+</span><span class=lnt> 49
+</span><span class=lnt> 50
+</span><span class=lnt> 51
+</span><span class=lnt> 52
+</span><span class=lnt> 53
+</span><span class=lnt> 54
+</span><span class=lnt> 55
+</span><span class=lnt> 56
+</span><span class=lnt> 57
+</span><span class=lnt> 58
+</span><span class=lnt> 59
+</span><span class=lnt> 60
+</span><span class=lnt> 61
+</span><span class=lnt> 62
+</span><span class=lnt> 63
+</span><span class=lnt> 64
+</span><span class=lnt> 65
+</span><span class=lnt> 66
+</span><span class=lnt> 67
+</span><span class=lnt> 68
+</span><span class=lnt> 69
+</span><span class=lnt> 70
+</span><span class=lnt> 71
+</span><span class=lnt> 72
+</span><span class=lnt> 73
+</span><span class=lnt> 74
+</span><span class=lnt> 75
+</span><span class=lnt> 76
+</span><span class=lnt> 77
+</span><span class=lnt> 78
+</span><span class=lnt> 79
+</span><span class=lnt> 80
+</span><span class=lnt> 81
+</span><span class=lnt> 82
+</span><span class=lnt> 83
+</span><span class=lnt> 84
+</span><span class=lnt> 85
+</span><span class=lnt> 86
+</span><span class=lnt> 87
+</span><span class=lnt> 88
+</span><span class=lnt> 89
+</span><span class=lnt> 90
+</span><span class=lnt> 91
+</span><span class=lnt> 92
+</span><span class=lnt> 93
+</span><span class=lnt> 94
+</span><span class=lnt> 95
+</span><span class=lnt> 96
+</span><span class=lnt> 97
+</span><span class=lnt> 98
+</span><span class=lnt> 99
+</span><span class=lnt>100
+</span><span class=lnt>101
+</span><span class=lnt>102
+</span><span class=lnt>103
+</span><span class=lnt>104
+</span><span class=lnt>105
+</span><span class=lnt>106
+</span><span class=lnt>107
+</span><span class=lnt>108
+</span><span class=lnt>109
+</span><span class=lnt>110
+</span><span class=lnt>111
+</span><span class=lnt>112
+</span><span class=lnt>113
+</span><span class=lnt>114
+</span><span class=lnt>115
+</span><span class=lnt>116
+</span><span class=lnt>117
+</span><span class=lnt>118
+</span><span class=lnt>119
+</span><span class=lnt>120
+</span><span class=lnt>121
+</span><span class=lnt>122
+</span><span class=lnt>123
+</span><span class=lnt>124
+</span><span class=lnt>125
+</span><span class=lnt>126
+</span><span class=lnt>127
+</span><span class=lnt>128
+</span><span class=lnt>129
+</span><span class=lnt>130
+</span><span class=lnt>131
+</span><span class=lnt>132
+</span><span class=lnt>133
+</span><span class=lnt>134
+</span><span class=lnt>135
+</span><span class=lnt>136
+</span><span class=lnt>137
+</span><span class=lnt>138
+</span><span class=lnt>139
+</span><span class=lnt>140
+</span><span class=lnt>141
+</span><span class=lnt>142
+</span><span class=lnt>143
+</span><span class=lnt>144
+</span><span class=lnt>145
+</span><span class=lnt>146
+</span><span class=lnt>147
+</span><span class=lnt>148
+</span><span class=lnt>149
+</span><span class=lnt>150
+</span><span class=lnt>151
+</span><span class=lnt>152
+</span><span class=lnt>153
+</span><span class=lnt>154
+</span><span class=lnt>155
+</span><span class=lnt>156
+</span><span class=lnt>157
+</span><span class=lnt>158
+</span><span class=lnt>159
+</span><span class=lnt>160
+</span><span class=lnt>161
+</span><span class=lnt>162
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=o>!</span><span class=nx>Configuration</span> <span class=nx>File</span> <span class=k>for</span> <span class=nx>keepalived</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=err>#</span> <span class=nx>全局配置</span>
+</span></span><span class=line><span class=cl><span class=nx>global_defs</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>   <span class=err>#</span> <span class=nx>节点故障</span><span class=err>，</span><span class=nx>切换了节点之后会通知管理员</span><span class=err>，</span><span class=nx>下面还要配置邮箱的协议等</span><span class=err>，</span><span class=nx>可以不要</span>
+</span></span><span class=line><span class=cl>   <span class=nx>notification_email</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>     <span class=mi>123456</span><span class=err>@</span><span class=nx>qq</span><span class=p>.</span><span class=nx>com</span>
+</span></span><span class=line><span class=cl>   <span class=p>}</span>
+</span></span><span class=line><span class=cl>   <span class=nx>notification_email_from</span> <span class=nx>Alexandre</span><span class=p>.</span><span class=nx>Cassen</span><span class=err>@</span><span class=nx>firewall</span><span class=p>.</span><span class=nx>loc</span>
+</span></span><span class=line><span class=cl>   <span class=nx>smtp_server</span> <span class=mf>192.168</span><span class=p>.</span><span class=mf>200.1</span>
+</span></span><span class=line><span class=cl>   <span class=nx>smtp_connect_timeout</span> <span class=mi>30</span>
+</span></span><span class=line><span class=cl>   
+</span></span><span class=line><span class=cl>   <span class=err>#</span> <span class=nx>路由ID</span><span class=err>：</span><span class=nx>当前安装keepalived节点主机的标识符</span><span class=err>，</span><span class=nx>全局唯一</span>
+</span></span><span class=line><span class=cl>   <span class=nx>router_id</span> <span class=nx>naga_170</span>
+</span></span><span class=line><span class=cl>   
+</span></span><span class=line><span class=cl>   <span class=nx>vrrp_skip_check_adv_addr</span>
+</span></span><span class=line><span class=cl>   <span class=nx>vrrp_strict</span>
+</span></span><span class=line><span class=cl>   <span class=nx>vrrp_garp_interval</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl>   <span class=nx>vrrp_gna_interval</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=err>#</span><span class=nx>基于VRRP协议的对象</span><span class=err>，</span><span class=nx>计算机节点</span>
+</span></span><span class=line><span class=cl><span class=nx>vrrp_instance</span> <span class=nx>VI_1</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>state</span> <span class=nx>MASTER</span>            <span class=err>#</span> <span class=nx>表示当前为nginx的master主节点</span>
+</span></span><span class=line><span class=cl>    <span class=kr>interface</span> <span class=nx>eth0</span>          <span class=err>#</span> <span class=nx>当前实例绑定的网卡</span><span class=err>，</span> <span class=nx>用</span> <span class=nx>ip</span> <span class=nx>addr查看</span>
+</span></span><span class=line><span class=cl>    <span class=nx>virtual_router_id</span> <span class=mi>51</span>     <span class=err>#</span><span class=nx>虚拟路由ID</span><span class=err>，</span><span class=nx>主备节点需要一致</span>
+</span></span><span class=line><span class=cl>    <span class=nx>priority</span> <span class=mi>100</span>            <span class=err>#</span><span class=nx>权重</span><span class=err>，</span><span class=nx>备机优先级越高就成为新的master</span>
+</span></span><span class=line><span class=cl>    <span class=nx>advert_int</span> <span class=mi>1</span>            <span class=err>#</span> <span class=nx>主备心跳检查</span><span class=err>，</span><span class=nx>时间间隔1s</span>
+</span></span><span class=line><span class=cl>    <span class=nx>authentication</span> <span class=p>{</span>        <span class=err>#</span> <span class=nx>认证授权</span><span class=err>，</span><span class=nx>防止非法节点</span><span class=err>。</span><span class=nx>每个节点一样就可以</span>
+</span></span><span class=line><span class=cl>        <span class=nx>auth_type</span> <span class=nx>PASS</span>      
+</span></span><span class=line><span class=cl>        <span class=nx>auth_pass</span> <span class=mi>1111</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=nx>virtual_ipaddress</span> <span class=p>{</span>     <span class=err>#</span> <span class=nx>虚拟IP</span><span class=err>，</span><span class=nx>用一个就可以了</span>
+</span></span><span class=line><span class=cl>        <span class=mf>192.168</span><span class=p>.</span><span class=mf>17.17</span>
+</span></span><span class=line><span class=cl>        <span class=err>#</span><span class=mf>192.168</span><span class=p>.</span><span class=mf>200.17</span>
+</span></span><span class=line><span class=cl>        <span class=err>#</span><span class=mf>192.168</span><span class=p>.</span><span class=mf>200.18</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=err>#</span><span class=nx>下面的都可以不要</span>
+</span></span><span class=line><span class=cl><span class=nx>virtual_server</span> <span class=mf>192.168</span><span class=p>.</span><span class=mf>200.100</span> <span class=mi>443</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>delay_loop</span> <span class=mi>6</span>
+</span></span><span class=line><span class=cl>    <span class=nx>lb_algo</span> <span class=nx>rr</span>
+</span></span><span class=line><span class=cl>    <span class=nx>lb_kind</span> <span class=nx>NAT</span>
+</span></span><span class=line><span class=cl>    <span class=nx>persistence_timeout</span> <span class=mi>50</span>
+</span></span><span class=line><span class=cl>    <span class=nx>protocol</span> <span class=nx>TCP</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nx>real_server</span> <span class=mf>192.168</span><span class=p>.</span><span class=mf>201.100</span> <span class=mi>443</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>weight</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>        <span class=nx>SSL_GET</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>url</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>              <span class=nx>path</span> <span class=o>/</span>
+</span></span><span class=line><span class=cl>              <span class=nx>digest</span> <span class=nx>ff20ad2481f97b1754ef3e12ecd3a9cc</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span>
+</span></span><span class=line><span class=cl>            <span class=nx>url</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>              <span class=nx>path</span> <span class=o>/</span><span class=nx>mrtg</span><span class=o>/</span>
+</span></span><span class=line><span class=cl>              <span class=nx>digest</span> <span class=mi>9</span><span class=nx>b3a0c85a887a256d6939da88aabd8cd</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span>
+</span></span><span class=line><span class=cl>            <span class=nx>connect_timeout</span> <span class=mi>3</span>
+</span></span><span class=line><span class=cl>            <span class=nx>retry</span> <span class=mi>3</span>
+</span></span><span class=line><span class=cl>            <span class=nx>delay_before_retry</span> <span class=mi>3</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>virtual_server</span> <span class=mf>10.10</span><span class=p>.</span><span class=mf>10.2</span> <span class=mi>1358</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>delay_loop</span> <span class=mi>6</span>
+</span></span><span class=line><span class=cl>    <span class=nx>lb_algo</span> <span class=nx>rr</span>
+</span></span><span class=line><span class=cl>    <span class=nx>lb_kind</span> <span class=nx>NAT</span>
+</span></span><span class=line><span class=cl>    <span class=nx>persistence_timeout</span> <span class=mi>50</span>
+</span></span><span class=line><span class=cl>    <span class=nx>protocol</span> <span class=nx>TCP</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nx>sorry_server</span> <span class=mf>192.168</span><span class=p>.</span><span class=mf>200.200</span> <span class=mi>1358</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nx>real_server</span> <span class=mf>192.168</span><span class=p>.</span><span class=mf>200.2</span> <span class=mi>1358</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>weight</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>        <span class=nx>HTTP_GET</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>url</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>              <span class=nx>path</span> <span class=o>/</span><span class=nx>testurl</span><span class=o>/</span><span class=nx>test</span><span class=p>.</span><span class=nx>jsp</span>
+</span></span><span class=line><span class=cl>              <span class=nx>digest</span> <span class=mi>640205</span><span class=nx>b7b0fc66c1ea91c463fac6334d</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span>
+</span></span><span class=line><span class=cl>            <span class=nx>url</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>              <span class=nx>path</span> <span class=o>/</span><span class=nx>testurl2</span><span class=o>/</span><span class=nx>test</span><span class=p>.</span><span class=nx>jsp</span>
+</span></span><span class=line><span class=cl>              <span class=nx>digest</span> <span class=mi>640205</span><span class=nx>b7b0fc66c1ea91c463fac6334d</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span>
+</span></span><span class=line><span class=cl>            <span class=nx>url</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>              <span class=nx>path</span> <span class=o>/</span><span class=nx>testurl3</span><span class=o>/</span><span class=nx>test</span><span class=p>.</span><span class=nx>jsp</span>
+</span></span><span class=line><span class=cl>              <span class=nx>digest</span> <span class=mi>640205</span><span class=nx>b7b0fc66c1ea91c463fac6334d</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span>
+</span></span><span class=line><span class=cl>            <span class=nx>connect_timeout</span> <span class=mi>3</span>
+</span></span><span class=line><span class=cl>            <span class=nx>retry</span> <span class=mi>3</span>
+</span></span><span class=line><span class=cl>            <span class=nx>delay_before_retry</span> <span class=mi>3</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nx>real_server</span> <span class=mf>192.168</span><span class=p>.</span><span class=mf>200.3</span> <span class=mi>1358</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>weight</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>        <span class=nx>HTTP_GET</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>url</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>              <span class=nx>path</span> <span class=o>/</span><span class=nx>testurl</span><span class=o>/</span><span class=nx>test</span><span class=p>.</span><span class=nx>jsp</span>
+</span></span><span class=line><span class=cl>              <span class=nx>digest</span> <span class=mi>640205</span><span class=nx>b7b0fc66c1ea91c463fac6334c</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span>
+</span></span><span class=line><span class=cl>            <span class=nx>url</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>              <span class=nx>path</span> <span class=o>/</span><span class=nx>testurl2</span><span class=o>/</span><span class=nx>test</span><span class=p>.</span><span class=nx>jsp</span>
+</span></span><span class=line><span class=cl>              <span class=nx>digest</span> <span class=mi>640205</span><span class=nx>b7b0fc66c1ea91c463fac6334c</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span>
+</span></span><span class=line><span class=cl>            <span class=nx>connect_timeout</span> <span class=mi>3</span>
+</span></span><span class=line><span class=cl>            <span class=nx>retry</span> <span class=mi>3</span>
+</span></span><span class=line><span class=cl>            <span class=nx>delay_before_retry</span> <span class=mi>3</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>virtual_server</span> <span class=mf>10.10</span><span class=p>.</span><span class=mf>10.3</span> <span class=mi>1358</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>delay_loop</span> <span class=mi>3</span>
+</span></span><span class=line><span class=cl>    <span class=nx>lb_algo</span> <span class=nx>rr</span>
+</span></span><span class=line><span class=cl>    <span class=nx>lb_kind</span> <span class=nx>NAT</span>
+</span></span><span class=line><span class=cl>    <span class=nx>persistence_timeout</span> <span class=mi>50</span>
+</span></span><span class=line><span class=cl>    <span class=nx>protocol</span> <span class=nx>TCP</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nx>real_server</span> <span class=mf>192.168</span><span class=p>.</span><span class=mf>200.4</span> <span class=mi>1358</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>weight</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>        <span class=nx>HTTP_GET</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>url</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>              <span class=nx>path</span> <span class=o>/</span><span class=nx>testurl</span><span class=o>/</span><span class=nx>test</span><span class=p>.</span><span class=nx>jsp</span>
+</span></span><span class=line><span class=cl>              <span class=nx>digest</span> <span class=mi>640205</span><span class=nx>b7b0fc66c1ea91c463fac6334d</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span>
+</span></span><span class=line><span class=cl>            <span class=nx>url</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>              <span class=nx>path</span> <span class=o>/</span><span class=nx>testurl2</span><span class=o>/</span><span class=nx>test</span><span class=p>.</span><span class=nx>jsp</span>
+</span></span><span class=line><span class=cl>              <span class=nx>digest</span> <span class=mi>640205</span><span class=nx>b7b0fc66c1ea91c463fac6334d</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span>
+</span></span><span class=line><span class=cl>            <span class=nx>url</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>              <span class=nx>path</span> <span class=o>/</span><span class=nx>testurl3</span><span class=o>/</span><span class=nx>test</span><span class=p>.</span><span class=nx>jsp</span>
+</span></span><span class=line><span class=cl>              <span class=nx>digest</span> <span class=mi>640205</span><span class=nx>b7b0fc66c1ea91c463fac6334d</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span>
+</span></span><span class=line><span class=cl>            <span class=nx>connect_timeout</span> <span class=mi>3</span>
+</span></span><span class=line><span class=cl>            <span class=nx>retry</span> <span class=mi>3</span>
+</span></span><span class=line><span class=cl>            <span class=nx>delay_before_retry</span> <span class=mi>3</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nx>real_server</span> <span class=mf>192.168</span><span class=p>.</span><span class=mf>200.5</span> <span class=mi>1358</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>weight</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>        <span class=nx>HTTP_GET</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>url</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>              <span class=nx>path</span> <span class=o>/</span><span class=nx>testurl</span><span class=o>/</span><span class=nx>test</span><span class=p>.</span><span class=nx>jsp</span>
+</span></span><span class=line><span class=cl>              <span class=nx>digest</span> <span class=mi>640205</span><span class=nx>b7b0fc66c1ea91c463fac6334d</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span>
+</span></span><span class=line><span class=cl>            <span class=nx>url</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>              <span class=nx>path</span> <span class=o>/</span><span class=nx>testurl2</span><span class=o>/</span><span class=nx>test</span><span class=p>.</span><span class=nx>jsp</span>
+</span></span><span class=line><span class=cl>              <span class=nx>digest</span> <span class=mi>640205</span><span class=nx>b7b0fc66c1ea91c463fac6334d</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span>
+</span></span><span class=line><span class=cl>            <span class=nx>url</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>              <span class=nx>path</span> <span class=o>/</span><span class=nx>testurl3</span><span class=o>/</span><span class=nx>test</span><span class=p>.</span><span class=nx>jsp</span>
+</span></span><span class=line><span class=cl>              <span class=nx>digest</span> <span class=mi>640205</span><span class=nx>b7b0fc66c1ea91c463fac6334d</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span>
+</span></span><span class=line><span class=cl>            <span class=nx>connect_timeout</span> <span class=mi>3</span>
+</span></span><span class=line><span class=cl>            <span class=nx>retry</span> <span class=mi>3</span>
+</span></span><span class=line><span class=cl>            <span class=nx>delay_before_retry</span> <span class=mi>3</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>示例：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=err>####</span> <span class=nx>第一台</span> <span class=err>####</span>
+</span></span><span class=line><span class=cl><span class=o>!</span> <span class=nx>Configuration</span> <span class=nx>File</span> <span class=k>for</span> <span class=nx>keepalived</span>
+</span></span><span class=line><span class=cl><span class=err>#</span><span class=nx>全局变量</span><span class=o>-</span><span class=nx>路由id</span><span class=err>，</span><span class=nx>标识主机id</span>
+</span></span><span class=line><span class=cl><span class=nx>global_defs</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>   <span class=nx>router_id</span> <span class=nx>keep_140</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=err>#</span><span class=nx>计算机节点</span>
+</span></span><span class=line><span class=cl><span class=nx>vrrp_instance</span> <span class=nx>VI_1</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>state</span> <span class=nx>MASTER</span>	<span class=err>#</span><span class=nx>标示当前机器为主节点</span><span class=err>，</span><span class=nx>从节点BACKUP</span>
+</span></span><span class=line><span class=cl>    <span class=kr>interface</span> <span class=nx>ens33</span>	<span class=err>#</span><span class=nx>当前网卡</span>
+</span></span><span class=line><span class=cl>    <span class=nx>virtual_router_id</span> <span class=mi>51</span>	<span class=err>#</span><span class=nx>保持主备机一致</span>
+</span></span><span class=line><span class=cl>    <span class=nx>priority</span> <span class=mi>100</span>	<span class=err>#</span><span class=nx>权重</span><span class=err>，</span><span class=nx>最高的当选下一任主机</span>
+</span></span><span class=line><span class=cl>    <span class=nx>advert_int</span> <span class=mi>1</span>	<span class=err>#</span><span class=nx>检查时间间隔1s</span>
+</span></span><span class=line><span class=cl>    <span class=nx>authentication</span> <span class=p>{</span>	<span class=err>#</span><span class=nx>认证授权</span><span class=err>，</span><span class=nx>防止非法节点进入</span>
+</span></span><span class=line><span class=cl>        <span class=nx>auth_type</span> <span class=nx>PASS</span>
+</span></span><span class=line><span class=cl>        <span class=nx>auth_pass</span> <span class=mi>1111</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=nx>virtual_ipaddress</span> <span class=p>{</span>	<span class=err>#</span><span class=nx>虚拟ip</span>
+</span></span><span class=line><span class=cl>        <span class=mf>10.4</span><span class=p>.</span><span class=mf>7.211</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=err>####</span> <span class=nx>第二台</span> <span class=err>####</span>
+</span></span><span class=line><span class=cl><span class=o>!</span> <span class=nx>Configuration</span> <span class=nx>File</span> <span class=k>for</span> <span class=nx>keepalived</span>
+</span></span><span class=line><span class=cl><span class=err>#</span><span class=nx>全局变量</span><span class=o>-</span><span class=nx>路由id</span><span class=err>，</span><span class=nx>标识主机id</span>
+</span></span><span class=line><span class=cl><span class=nx>global_defs</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>   <span class=nx>router_id</span> <span class=nx>keep_141</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=err>#</span><span class=nx>计算机节点</span>
+</span></span><span class=line><span class=cl><span class=nx>vrrp_instance</span> <span class=nx>VI_1</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>state</span> <span class=nx>BACKUP</span>	<span class=err>#</span><span class=nx>标示当前机器为从节点</span>
+</span></span><span class=line><span class=cl>    <span class=kr>interface</span> <span class=nx>ens33</span>	<span class=err>#</span><span class=nx>当前网卡</span>
+</span></span><span class=line><span class=cl>    <span class=nx>virtual_router_id</span> <span class=mi>51</span>	<span class=err>#</span><span class=nx>保持主备机一致</span>
+</span></span><span class=line><span class=cl>    <span class=nx>priority</span> <span class=mi>80</span>	<span class=err>#</span><span class=nx>权重</span><span class=err>，</span><span class=nx>最高的当选下一任主机</span>
+</span></span><span class=line><span class=cl>    <span class=nx>advert_int</span> <span class=mi>1</span>	<span class=err>#</span><span class=nx>检查时间间隔1s</span>
+</span></span><span class=line><span class=cl>    <span class=nx>authentication</span> <span class=p>{</span>	<span class=err>#</span><span class=nx>认证授权</span><span class=err>，</span><span class=nx>防止非法节点进入</span>
+</span></span><span class=line><span class=cl>        <span class=nx>auth_type</span> <span class=nx>PASS</span>
+</span></span><span class=line><span class=cl>        <span class=nx>auth_pass</span> <span class=mi>1111</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=nx>virtual_ipaddress</span> <span class=p>{</span>	<span class=err>#</span><span class=nx>虚拟ip</span><span class=err>，</span><span class=nx>保持和主节点一致</span>
+</span></span><span class=line><span class=cl>        <span class=mf>10.4</span><span class=p>.</span><span class=mf>7.211</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>测试：</p><p>两台机器nginx 和keeplived进程都在。两台一主一备的目的是，主服务器keeplived挂了，vip切到备服务器上，业务不中断。默认vip是在主上生效的。主备的keepalived进程都在，vip会在主上生效。vip切到备服务器上时.主服务器上的keepalived恢复了。vip会再次切回到主服务器上。</p><h3 id=keepalived配置nginx自动启动>keepalived配置Nginx自动启动</h3><p>这时如果nginx挂了，keepalived没有挂，还是会无法访问。</p><p>1.脚本（主从都配置）</p><p>cd /etc/keepalived
+vim check_nginx_alive.sh</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl><span class=cp>#!/bin/bash
+</span></span></span><span class=line><span class=cl><span class=cp></span><span class=nv>A</span><span class=o>=</span><span class=sb>`</span>ps -C nginx --no-header <span class=p>|</span> wc -l<span class=sb>`</span>
+</span></span><span class=line><span class=cl><span class=c1># 进程数是0的话，就尝试重启nginx</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> <span class=nv>$A</span> -eq <span class=m>0</span> <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>    /usr/local/nginx/sbin/nginx
+</span></span><span class=line><span class=cl>    <span class=c1># 等一会儿再次检查ngxin，如果nginx没有启动成功，则停止当前机器的keepalived，使用备用机器</span>
+</span></span><span class=line><span class=cl>    sleep <span class=m>3</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=o>[</span> <span class=sb>`</span>ps -C nginx --no-header <span class=p>|</span> wc -l<span class=sb>`</span> -eq <span class=m>0</span> <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>        killall keepalived  
+</span></span><span class=line><span class=cl>    <span class=k>fi</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>      
+</span></span></code></pre></td></tr></table></div></div><p>执行这个脚本后，会检测nginx，挂掉会重启nginx。</p><p>我们将它配置到keepalived配置文件里。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=o>!</span> <span class=nx>Configuration</span> <span class=nx>File</span> <span class=k>for</span> <span class=nx>keepalived</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>global_defs</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>   <span class=nx>router_id</span> <span class=nx>keep_140</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=nx>vrrp_script</span> <span class=nx>check_nginx_alive</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>script</span> <span class=s2>&#34;/etc/keepalived/check_nginx_alive.sh&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>interval</span> <span class=mi>2</span> <span class=err>#</span><span class=nx>每隔两秒钟运行脚本检测</span>
+</span></span><span class=line><span class=cl>        <span class=nx>weight</span> <span class=mi>10</span> <span class=err>#</span><span class=nx>脚本运行成功</span><span class=err>，</span><span class=nx>升级权重</span><span class=o>+</span><span class=mi>10</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=nx>vrrp_instance</span> <span class=nx>VI_1</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>state</span> <span class=nx>MASTER</span>
+</span></span><span class=line><span class=cl>    <span class=kr>interface</span> <span class=nx>ens33</span>
+</span></span><span class=line><span class=cl>    <span class=nx>virtual_router_id</span> <span class=mi>51</span>
+</span></span><span class=line><span class=cl>    <span class=nx>priority</span> <span class=mi>100</span>
+</span></span><span class=line><span class=cl>    <span class=nx>advert_int</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>    <span class=nx>authentication</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>auth_type</span> <span class=nx>PASS</span>
+</span></span><span class=line><span class=cl>        <span class=nx>auth_pass</span> <span class=mi>1111</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=nx>virtual_ipaddress</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=mf>10.4</span><span class=p>.</span><span class=mf>7.211</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=err>#</span><span class=nx>在此执行上面的定时器</span>
+</span></span><span class=line><span class=cl>    <span class=nx>track_script</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>check_nginx_alive</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=双机主备缺点>双机主备缺点</h4><p>这样我们就能保证高可用的架构了，但是双机主备会有资源浪费的问题，主机永远不挂机，备机白干活儿。</p><h4 id=keepalived-双主热备>Keepalived 双主热备</h4><p><img class=lazyload src=/svg/loading.min.svg data-src=/postimages/nginx%e5%8f%8c%e4%b8%bb1.webp data-srcset="/postimages/nginx%e5%8f%8c%e4%b8%bb1.webp, /postimages/nginx%e5%8f%8c%e4%b8%bb1.webp 1.5x, /postimages/nginx%e5%8f%8c%e4%b8%bb1.webp 2x" data-sizes=auto alt=/postimages/nginx双主1.webp title=nginx双主1></p><p><img class=lazyload src=/svg/loading.min.svg data-src=/postimages/nginx%e5%8f%8c%e4%b8%bb2.webp data-srcset="/postimages/nginx%e5%8f%8c%e4%b8%bb2.webp, /postimages/nginx%e5%8f%8c%e4%b8%bb2.webp 1.5x, /postimages/nginx%e5%8f%8c%e4%b8%bb2.webp 2x" data-sizes=auto alt=/postimages/nginx双主2.webp title=nginx双主2></p><p>双机使用两个虚拟IP，互为主备。</p><p>使用DNS轮询两个虚拟IP进行访问，这样两台服务器都可以使用了。解析域名的时候，给域名解析两个云服务器的ip地址，再均衡权重即可。</p><p>配置（原主节点）：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=o>!</span> <span class=nx>Configuration</span> <span class=nx>File</span> <span class=k>for</span> <span class=nx>keepalived</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>global_defs</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>   <span class=nx>router_id</span> <span class=nx>keep_140</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=nx>vrrp_script</span> <span class=nx>check_nginx_alive</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>script</span> <span class=s2>&#34;/etc/keepalived/check_nginx_alive.sh&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>interval</span> <span class=mi>2</span> <span class=err>#</span><span class=nx>每隔两秒钟运行脚本检测</span>
+</span></span><span class=line><span class=cl>        <span class=nx>weight</span> <span class=mi>10</span> <span class=err>#</span><span class=nx>脚本运行成功</span><span class=err>，</span><span class=nx>升级权重</span><span class=o>+</span><span class=mi>10</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=err>#</span><span class=mi>211</span><span class=nx>主节点</span>
+</span></span><span class=line><span class=cl><span class=nx>vrrp_instance</span> <span class=nx>VI_1</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>state</span> <span class=nx>MASTER</span>
+</span></span><span class=line><span class=cl>    <span class=kr>interface</span> <span class=nx>ens33</span>
+</span></span><span class=line><span class=cl>    <span class=nx>virtual_router_id</span> <span class=mi>51</span>
+</span></span><span class=line><span class=cl>    <span class=nx>priority</span> <span class=mi>100</span>
+</span></span><span class=line><span class=cl>    <span class=nx>advert_int</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>    <span class=nx>authentication</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>auth_type</span> <span class=nx>PASS</span>
+</span></span><span class=line><span class=cl>        <span class=nx>auth_pass</span> <span class=mi>1111</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=nx>virtual_ipaddress</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=mf>10.4</span><span class=p>.</span><span class=mf>7.211</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=nx>track_script</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>check_nginx_alive</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=err>#</span><span class=mi>212</span><span class=nx>从节点</span>
+</span></span><span class=line><span class=cl><span class=nx>vrrp_instance</span> <span class=nx>VI_2</span> <span class=p>{</span>        <span class=err>#</span><span class=nx>名字要改</span>
+</span></span><span class=line><span class=cl>    <span class=nx>state</span> <span class=nx>BACKUP</span>
+</span></span><span class=line><span class=cl>    <span class=kr>interface</span> <span class=nx>ens33</span>
+</span></span><span class=line><span class=cl>    <span class=nx>virtual_router_id</span> <span class=mi>52</span>        <span class=err>#</span><span class=nx>换了一组实例</span><span class=err>，</span><span class=nx>改</span>
+</span></span><span class=line><span class=cl>    <span class=nx>priority</span> <span class=mi>80</span>
+</span></span><span class=line><span class=cl>    <span class=nx>advert_int</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>    <span class=nx>authentication</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>auth_type</span> <span class=nx>PASS</span>      
+</span></span><span class=line><span class=cl>        <span class=nx>auth_pass</span> <span class=mi>1111</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=nx>track_script</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>check_nginx_alive</span> 
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=nx>virtual_ipaddress</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=mf>10.4</span><span class=p>.</span><span class=mf>7.212</span>           <span class=err>#</span><span class=nx>VIP更改</span>  <span class=nx>虚拟ip</span>  <span class=nx>virtual</span> <span class=nx>IP</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=nx>track_script</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>    	<span class=nx>check_nginx_alive</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>配置（原从节点）：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=o>!</span> <span class=nx>Configuration</span> <span class=nx>File</span> <span class=k>for</span> <span class=nx>keepalived</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>global_defs</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>   <span class=nx>router_id</span> <span class=nx>keep_141</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=nx>vrrp_script</span> <span class=nx>check_nginx_alive</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>script</span> <span class=s2>&#34;/etc/keepalived/check_nginx_alive.sh&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>interval</span> <span class=mi>2</span> <span class=err>#</span><span class=nx>每隔两秒钟运行脚本检测</span>
+</span></span><span class=line><span class=cl>        <span class=nx>weight</span> <span class=mi>10</span> <span class=err>#</span><span class=nx>脚本运行成功</span><span class=err>，</span><span class=nx>升级权重</span><span class=o>+</span><span class=mi>10</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=err>#</span><span class=mi>211</span><span class=nx>从节点</span>
+</span></span><span class=line><span class=cl><span class=nx>vrrp_instance</span> <span class=nx>VI_1</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>state</span> <span class=nx>BACKUP</span>
+</span></span><span class=line><span class=cl>    <span class=kr>interface</span> <span class=nx>ens33</span>
+</span></span><span class=line><span class=cl>    <span class=nx>virtual_router_id</span> <span class=mi>51</span>
+</span></span><span class=line><span class=cl>    <span class=nx>priority</span> <span class=mi>80</span>
+</span></span><span class=line><span class=cl>    <span class=nx>advert_int</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>    <span class=nx>authentication</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>auth_type</span> <span class=nx>PASS</span>
+</span></span><span class=line><span class=cl>        <span class=nx>auth_pass</span> <span class=mi>1111</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=nx>virtual_ipaddress</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=mf>10.4</span><span class=p>.</span><span class=mf>7.211</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=nx>track_script</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>check_nginx_alive</span> 
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=err>#</span><span class=mi>212</span><span class=nx>主节点</span>
+</span></span><span class=line><span class=cl><span class=nx>vrrp_instance</span> <span class=nx>VI_2</span> <span class=p>{</span>           <span class=err>#</span><span class=nx>第二组实例</span>
+</span></span><span class=line><span class=cl>    <span class=nx>state</span> <span class=nx>MASTER</span>            
+</span></span><span class=line><span class=cl>    <span class=kr>interface</span> <span class=nx>ens33</span>          
+</span></span><span class=line><span class=cl>    <span class=nx>virtual_router_id</span> <span class=mi>52</span>        <span class=err>#</span><span class=nx>第二组router_id</span>
+</span></span><span class=line><span class=cl>    <span class=nx>priority</span> <span class=mi>100</span>            
+</span></span><span class=line><span class=cl>    <span class=nx>advert_int</span> <span class=mi>1</span>            
+</span></span><span class=line><span class=cl>    <span class=nx>authentication</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>auth_type</span> <span class=nx>PASS</span>      
+</span></span><span class=line><span class=cl>        <span class=nx>auth_pass</span> <span class=mi>1111</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=nx>virtual_ipaddress</span> <span class=p>{</span>     
+</span></span><span class=line><span class=cl>        <span class=mf>10.4</span><span class=p>.</span><span class=mf>7.212</span>           <span class=err>#</span><span class=nx>改为第二个虚拟ip</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=nx>track_script</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>check_nginx_alive</span> 
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>Updated on 2022-01-02</span></div></div><div class=post-info-line><div class=post-info-md><span><a class=link-to-markdown href=/nginx%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/index.md target=_blank>Read Markdown</a></span></div><div class=post-info-share><span></span></div></div></div><div class=post-info-more><section class=post-tags></section><section><span><a href=javascript:void(0); onclick=window.history.back()>Back</a></span>&nbsp;|&nbsp;<span><a href=/>Home</a></span></section></div><div class=post-nav><a href=/k8s%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/ class=prev rel=prev title=k8s集群搭建><i class="fas fa-angle-left fa-fw" aria-hidden=true></i>k8s集群搭建</a>
+<a href=/mysql%E4%B8%BB%E4%BB%8E%E6%9E%B6%E6%9E%84/ class=next rel=next title=mysql主从架构>mysql主从架构<i class="fas fa-angle-right fa-fw" aria-hidden=true></i></a></div></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line>Powered by <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.115.3">Hugo</a> | Theme - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden=true></i> LoveIt</a></div><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2021 - 2023</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=/ target=_blank>Peng</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top"><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=/lib/lightgallery/lightgallery.min.css><link rel=stylesheet href=/lib/katex/katex.min.css><link rel=stylesheet href=/lib/katex/copy-tex.min.css><link rel=stylesheet href=/lib/cookieconsent/cookieconsent.min.css><script type=text/javascript src=/lib/autocomplete/autocomplete.min.js></script><script type=text/javascript src=/lib/lunr/lunr.min.js></script><script type=text/javascript src=/lib/lazysizes/lazysizes.min.js></script><script type=text/javascript src=/lib/lightgallery/lightgallery.min.js></script><script type=text/javascript src=/lib/lightgallery/plugins/lg-thumbnail.min.js></script><script type=text/javascript src=/lib/lightgallery/plugins/lg-zoom.min.js></script><script type=text/javascript src=/lib/clipboard/clipboard.min.js></script><script type=text/javascript src=/lib/sharer/sharer.min.js></script><script type=text/javascript src=/lib/katex/katex.min.js></script><script type=text/javascript src=/lib/katex/auto-render.min.js></script><script type=text/javascript src=/lib/katex/copy-tex.min.js></script><script type=text/javascript src=/lib/katex/mhchem.min.js></script><script type=text/javascript src=/lib/cookieconsent/cookieconsent.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:50},comment:{},cookieconsent:{content:{dismiss:"Got it!",link:"Learn more",message:"This website uses Cookies to improve your experience."},enable:!0,palette:{button:{background:"#f0f0f0"},popup:{background:"#1aa3ff"}},theme:"edgeless"},lightgallery:!0,math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!0,left:"\\begin{equation}",right:"\\end{equation}"},{display:!0,left:"\\begin{equation*}",right:"\\end{equation*}"},{display:!0,left:"\\begin{align}",right:"\\end{align}"},{display:!0,left:"\\begin{align*}",right:"\\end{align*}"},{display:!0,left:"\\begin{alignat}",right:"\\end{alignat}"},{display:!0,left:"\\begin{alignat*}",right:"\\end{alignat*}"},{display:!0,left:"\\begin{gather}",right:"\\end{gather}"},{display:!0,left:"\\begin{CD}",right:"\\end{CD}"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{highlightTag:"em",lunrIndexURL:"/index.json",maxResultLength:10,noResultsFound:"No results found",snippetLength:50,type:"lunr"}}</script><script type=text/javascript src=/js/theme.min.js></script></body></html>

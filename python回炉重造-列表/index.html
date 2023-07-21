@@ -1,0 +1,228 @@
+<!doctype html><html lang=zh-CN><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>python回炉重造-列表 - Peng</title><meta name=Description content="One World,One Dream!"><meta property="og:title" content="python回炉重造-列表"><meta property="og:description" content="列表常用操作 在ipython3中定义一个列表，例如：name_list = [] 输入name_list.按下Tab键，ipython会提示能够使用"><meta property="og:type" content="article"><meta property="og:url" content="https://blog.haipengv.com/python%E5%9B%9E%E7%82%89%E9%87%8D%E9%80%A0-%E5%88%97%E8%A1%A8/"><meta property="og:image" content="https://blog.haipengv.com/logo.png"><meta property="article:section" content="posts"><meta property="article:published_time" content="2022-07-03T22:10:37+00:00"><meta property="article:modified_time" content="2022-07-03T22:10:37+00:00"><meta property="og:site_name" content="我的网站"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://blog.haipengv.com/logo.png"><meta name=twitter:title content="python回炉重造-列表"><meta name=twitter:description content="列表常用操作 在ipython3中定义一个列表，例如：name_list = [] 输入name_list.按下Tab键，ipython会提示能够使用"><meta name=application-name content="我的网站"><meta name=apple-mobile-web-app-title content="我的网站"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://blog.haipengv.com/python%E5%9B%9E%E7%82%89%E9%87%8D%E9%80%A0-%E5%88%97%E8%A1%A8/><link rel=prev href=https://blog.haipengv.com/python%E5%9B%9E%E7%82%89%E9%87%8D%E9%80%A0-%E5%AD%97%E5%85%B8/><link rel=next href=https://blog.haipengv.com/python%E5%9B%9E%E7%82%89%E9%87%8D%E9%80%A0-%E5%87%BD%E6%95%B0/><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=/lib/fontawesome-free/all.min.css><link rel=stylesheet href=/lib/animate/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"python回炉重造-列表","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/blog.haipengv.com\/python%E5%9B%9E%E7%82%89%E9%87%8D%E9%80%A0-%E5%88%97%E8%A1%A8\/"},"genre":"posts","wordcount":1935,"url":"https:\/\/blog.haipengv.com\/python%E5%9B%9E%E7%82%89%E9%87%8D%E9%80%A0-%E5%88%97%E8%A1%A8\/","datePublished":"2022-07-03T22:10:37+00:00","dateModified":"2022-07-03T22:10:37+00:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"Peng"},"description":""}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"auto"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"auto"==="dark")&&document.body.setAttribute("theme","dark")</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title=Peng>Peng</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>文章 </a><a class=menu-item href=/tags/>标签 </a><a class=menu-item href=/categories/>分类 </a><a class=menu-item href=/links/>友链 </a><a class=menu-item href=/about/>关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder=搜索文章标题或内容... id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=Search><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=Clear><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span>
+</span><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme"><i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title=Peng>Peng</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder=搜索文章标题或内容... id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=Search><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=Clear><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>Cancel</a></div><a class=menu-item href=/posts/ title>文章</a><a class=menu-item href=/tags/ title>标签</a><a class=menu-item href=/categories/ title>分类</a><a class=menu-item href=/links/ title>友链</a><a class=menu-item href=/about/ title>关于</a><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>Contents</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">python回炉重造-列表</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=/ title=Author rel=author class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Peng</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw" aria-hidden=true></i>&nbsp;<time datetime=2022-07-03>2022-07-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden=true></i>&nbsp;1935 words&nbsp;
+<i class="far fa-clock fa-fw" aria-hidden=true></i>&nbsp;4 minutes&nbsp;</div></div><div class="details toc" id=toc-static data-kept=true><div class="details-summary toc-title"><span>Contents</span>
+<span><i class="details-icon fas fa-angle-right" aria-hidden=true></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#列表常用操作>列表常用操作</a></li><li><a href=#循环遍历>循环遍历</a></li><li><a href=#浅拷贝和深拷贝>浅拷贝和深拷贝</a><ul><li><a href=#小结>小结</a></li><li><a href=#查找特定下标范围的元素>查找特定下标范围的元素</a></li></ul></li><li><a href=#列表元素删除>列表元素删除</a><ul><li><a href=#列表元素反转与排序>列表元素反转与排序</a></li><li><a href=#多个列表嵌套元素取法>多个列表嵌套元素取法</a></li><li><a href=#练习>练习</a></li><li><a href=#列表同时取出下标和元素小技巧>列表同时取出下标和元素小技巧</a></li></ul></li></ul></nav></div></div><div class=content id=content><h2 id=列表常用操作>列表常用操作</h2><p>在<code>ipython3</code>中定义一个列表，例如：<code>name_list = []</code></p><p>输入<code>name_list.</code>按下<code>Tab</code>键，<code>ipython</code>会提示能够使用的方法如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>name_list</span><span class=o>.</span><span class=n>append</span>	<span class=n>name_list</span><span class=o>.</span><span class=n>count</span>		<span class=n>name_list</span><span class=o>.</span><span class=n>insert</span> 	<span class=n>name_list</span><span class=o>.</span><span class=n>reverse</span>
+</span></span><span class=line><span class=cl><span class=n>name_list</span><span class=o>.</span><span class=n>clear</span>		<span class=n>name_list</span><span class=o>.</span><span class=n>extend</span>	<span class=n>name_list</span><span class=o>.</span><span class=n>pop</span>		<span class=n>name_list</span><span class=o>.</span><span class=n>sort</span>
+</span></span><span class=line><span class=cl><span class=n>name_list</span><span class=o>.</span><span class=n>copy</span>		<span class=n>name_list</span><span class=o>.</span><span class=n>index</span>		<span class=n>name_list</span><span class=o>.</span><span class=n>remove</span>
+</span></span></code></pre></td></tr></table></div></div><table><thead><tr><th>序号</th><th>分类</th><th>关键字/函数/方法</th><th>说明</th></tr></thead><tbody><tr><td>1</td><td>增加</td><td>列表.insert(索引,数据)</td><td>在指定位置插入数据</td></tr><tr><td></td><td></td><td>列表.append(数据)</td><td>在末尾追加数据</td></tr><tr><td></td><td></td><td>列表.extend(列表2)</td><td>将列表2的数据追加到列表</td></tr><tr><td>2</td><td>修改</td><td>列表[索引] = 数据</td><td>修改指定索引的数据</td></tr><tr><td>3</td><td>删除</td><td>del 列表[索引]</td><td>删除指定索引的数据</td></tr><tr><td></td><td></td><td>列表.remove[数据]</td><td>删除第一个出现的指定数据</td></tr><tr><td></td><td></td><td>列表.pop</td><td>删除末尾 数据</td></tr><tr><td></td><td></td><td>列表.pop(索引)</td><td>删除指定索引数据</td></tr><tr><td></td><td></td><td>列表.clear</td><td>清空列表</td></tr><tr><td>4</td><td>统计</td><td>len(列表)</td><td>列表长度</td></tr><tr><td></td><td></td><td>列表.count(数据)</td><td>数据在列表中出现的次数</td></tr><tr><td>5</td><td>排序</td><td>列表.sort()</td><td>升序排序</td></tr><tr><td></td><td></td><td>列表.sort(reverse=True)</td><td>降序排序</td></tr><tr><td></td><td></td><td>列表.reverse()</td><td>逆序、反转</td></tr></tbody></table><p>del关键字</p><p>使用<code>del</code>关键字（<code>delete</code>）同样可以删除列表元素</p><p><code>del</code>关键字本质上是用来将一个变量从内存中删除的</p><p>如果使用<code>del</code>关键字将变量从内存中删除，后续的代码就不能使用这个变量了</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>del</span> <span class=n>name_list</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span>
+</span></span></code></pre></td></tr></table></div></div><p>在日常开发中，要从列表删除数据，建议用列表提供的方法。</p><p>关键字、函数和方法</p><p>关键字是<code>python</code>内置的、具有特殊意义的标识符</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>keyword</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>keyword</span><span class=o>.</span><span class=n>kwlist</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=nb>len</span><span class=p>(</span><span class=n>keyword</span><span class=o>.</span><span class=n>kwlist</span><span class=p>))</span>
+</span></span></code></pre></td></tr></table></div></div><p>关键字后面不需要使用括号</p><p>函数 封装了独立功能，可以直接调用</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>函数名</span><span class=p>(</span><span class=n>参数</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>函数需要死记硬背</p><p>方法 和函数类似，同样是封装了独立的功能</p><p>方法 需要通过 对象来调用，表示针对这个对象要做的操作。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>对象</span><span class=o>.</span><span class=n>方法名</span><span class=err>（</span><span class=n>参数</span><span class=err>）</span>
+</span></span></code></pre></td></tr></table></div></div><p>在变量后面输入<code>.</code>，然后选择针对这个变量要执行的操作，记忆起来比函数要简单的多。</p><h2 id=循环遍历>循环遍历</h2><p>遍历 就是 从头到尾 依次 从列表中获取数据</p><p>在 循环体内部 针对 每一个元素，执行相同操作</p><p>在 <code>python</code>中为了提高列表的遍历效率，专门提供的 <code>迭代iteration遍历</code></p><p>使用 <code>for</code>就能实现迭代遍历</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># for 循环内部使用的变量 in 列表</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>name</span> <span class=ow>in</span> <span class=n>name_list</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>循环内部针对列表元素进行操作</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>name</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    
+</span></span></code></pre></td></tr></table></div></div><h2 id=浅拷贝和深拷贝>浅拷贝和深拷贝</h2><p>浅拷贝：利用列表的 copy() 方法或者切片来实现</p><p>深拷贝：利用 copy 模块的 deepcopy() 函数来实现</p><p>浅拷贝可以用于处理一维列表，对于嵌套列表的拷贝，只能拷贝第一层数据，其余仅拷贝其引用：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=n>x</span> <span class=o>=</span> <span class=p>[[</span><span class=mi>1</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>3</span><span class=p>],</span> <span class=p>[</span><span class=mi>4</span><span class=p>,</span> <span class=mi>5</span><span class=p>,</span> <span class=mi>6</span><span class=p>],</span> <span class=p>[</span><span class=mi>7</span><span class=p>,</span> <span class=mi>8</span><span class=p>,</span> <span class=mi>9</span><span class=p>]]</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=n>y</span> <span class=o>=</span> <span class=n>x</span><span class=o>.</span><span class=n>copy</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=n>x</span><span class=p>[</span><span class=mi>1</span><span class=p>][</span><span class=mi>1</span><span class=p>]</span> <span class=o>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=n>x</span>
+</span></span><span class=line><span class=cl><span class=p>[[</span><span class=mi>1</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>3</span><span class=p>],</span> <span class=p>[</span><span class=mi>4</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>6</span><span class=p>],</span> <span class=p>[</span><span class=mi>7</span><span class=p>,</span> <span class=mi>8</span><span class=p>,</span> <span class=mi>9</span><span class=p>]]</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=n>y</span>
+</span></span><span class=line><span class=cl><span class=p>[[</span><span class=mi>1</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>3</span><span class=p>],</span> <span class=p>[</span><span class=mi>4</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>6</span><span class=p>],</span> <span class=p>[</span><span class=mi>7</span><span class=p>,</span> <span class=mi>8</span><span class=p>,</span> <span class=mi>9</span><span class=p>]]</span>
+</span></span></code></pre></td></tr></table></div></div><p>深拷贝可以用于处理多维列表：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=kn>import</span> <span class=nn>copy</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=n>x</span> <span class=o>=</span> <span class=p>[[</span><span class=mi>1</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>3</span><span class=p>],</span> <span class=p>[</span><span class=mi>4</span><span class=p>,</span> <span class=mi>5</span><span class=p>,</span> <span class=mi>6</span><span class=p>],</span> <span class=p>[</span><span class=mi>7</span><span class=p>,</span> <span class=mi>8</span><span class=p>,</span> <span class=mi>9</span><span class=p>]]</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=n>y</span> <span class=o>=</span> <span class=n>copy</span><span class=o>.</span><span class=n>deepcopy</span><span class=p>(</span><span class=n>x</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=n>x</span><span class=p>[</span><span class=mi>1</span><span class=p>][</span><span class=mi>1</span><span class=p>]</span> <span class=o>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=n>x</span>
+</span></span><span class=line><span class=cl><span class=p>[[</span><span class=mi>1</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>3</span><span class=p>],</span> <span class=p>[</span><span class=mi>4</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>6</span><span class=p>],</span> <span class=p>[</span><span class=mi>7</span><span class=p>,</span> <span class=mi>8</span><span class=p>,</span> <span class=mi>9</span><span class=p>]]</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=n>y</span>
+</span></span><span class=line><span class=cl><span class=p>[[</span><span class=mi>1</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>3</span><span class=p>],</span> <span class=p>[</span><span class=mi>4</span><span class=p>,</span> <span class=mi>5</span><span class=p>,</span> <span class=mi>6</span><span class=p>],</span> <span class=p>[</span><span class=mi>7</span><span class=p>,</span> <span class=mi>8</span><span class=p>,</span> <span class=mi>9</span><span class=p>]]</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=小结>小结</h3><p><strong>列表浅拷贝只是外层对象拷贝，将原对象拷贝的同时，不会拷贝对象中所引用的子对象</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>copy</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>切片</span><span class=p>[:]</span>
+</span></span><span class=line><span class=cl><span class=n>浅拷贝</span><span class=err>，</span><span class=n>如果包含嵌套对象</span><span class=err>，</span><span class=n>那么拷贝的只是其引用</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>列表的深拷贝将原对象拷贝的同时，也将对象中所有引用的子对象一并进行拷贝。</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>copy</span><span class=o>.</span><span class=n>copy</span><span class=p>()</span> <span class=c1># 浅拷贝</span>
+</span></span><span class=line><span class=cl><span class=n>copy</span><span class=o>.</span><span class=n>deepcopy</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=查找特定下标范围的元素>查找特定下标范围的元素</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>mylist</span> <span class=o>=</span> <span class=p>[</span><span class=s1>&#39;a&#39;</span><span class=p>,</span><span class=s1>&#39;c&#39;</span><span class=p>,</span><span class=s1>&#39;b&#39;</span><span class=p>,</span><span class=s1>&#39;a&#39;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>mylist</span><span class=o>.</span><span class=n>index</span><span class=p>(</span><span class=s1>&#39;a&#39;</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span><span class=mi>4</span><span class=p>))</span> <span class=c1># 查找特定下标范围的元素，并返回找到对应数据的下标。 范围区间，左闭右开。开区间取不到。</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=列表元素删除>列表元素删除</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>moviename</span> <span class=o>=</span> <span class=p>[</span><span class=s1>&#39;apple&#39;</span><span class=p>,</span><span class=s1>&#39;banana&#39;</span><span class=p>,</span><span class=s1>&#39;糖豆人&#39;</span><span class=p>,</span><span class=s1>&#39;apple&#39;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=s2>&#34;-------删除前，电影列表的数据-----&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>name</span> <span class=ow>in</span> <span class=n>moviename</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>name</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># moviename.pop()</span>
+</span></span><span class=line><span class=cl><span class=c1># del moviename[0]</span>
+</span></span><span class=line><span class=cl><span class=n>moviename</span><span class=o>.</span><span class=n>remove</span><span class=p>(</span><span class=s1>&#39;apple&#39;</span><span class=p>)</span> <span class=c1># 多个重复元素只删除最近的一个</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=s2>&#34;-------删除后，电影列表的数据-----&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>name</span> <span class=ow>in</span> <span class=n>moviename</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>name</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=列表元素反转与排序>列表元素反转与排序</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>a</span> <span class=o>=</span> <span class=p>[</span><span class=mi>1</span><span class=p>,</span><span class=mi>3</span><span class=p>,</span><span class=mi>4</span><span class=p>,</span><span class=mi>5</span><span class=p>,</span><span class=mi>612</span><span class=p>,</span><span class=mi>29</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>a</span><span class=o>.</span><span class=n>reverse</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>a</span><span class=p>)</span> <span class=c1># [29, 612, 5, 4, 3, 1]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>a</span><span class=o>.</span><span class=n>sort</span><span class=p>()</span> <span class=c1># 升序</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>a</span><span class=p>)</span> <span class=c1># [1, 3, 4, 5, 29, 612]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>a</span><span class=o>.</span><span class=n>sort</span><span class=p>(</span><span class=n>reverse</span><span class=o>=</span><span class=kc>True</span><span class=p>)</span> <span class=c1># [612, 29, 5, 4, 3, 1] 降序</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>a</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=多个列表嵌套元素取法>多个列表嵌套元素取法</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>schoolName</span> <span class=o>=</span> <span class=p>[[</span><span class=s2>&#34;北京大学&#34;</span><span class=p>,</span><span class=s2>&#34;清华大学&#34;</span><span class=p>],[</span><span class=s2>&#34;南开大学&#34;</span><span class=p>,</span><span class=s2>&#34;天津大学&#34;</span><span class=p>,</span><span class=s2>&#34;天津师范大学&#34;</span><span class=p>],[</span><span class=s2>&#34;山东大学&#34;</span><span class=p>,</span><span class=s2>&#34;北京航空航天大学&#34;</span><span class=p>]]</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>schoolName</span><span class=p>[</span><span class=mi>0</span><span class=p>][</span><span class=mi>0</span><span class=p>])</span> <span class=c1># 北京大学</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=练习>练习</h3><p>需求：不同的人随机分配3个办公室，一个人只属于一个办公室，可以多人在一个办公室。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>random</span>
+</span></span><span class=line><span class=cl><span class=c1># 三个空办公室</span>
+</span></span><span class=line><span class=cl><span class=n>offices</span> <span class=o>=</span> <span class=p>[[],[],[]]</span>
+</span></span><span class=line><span class=cl><span class=c1># 6个待分配的人</span>
+</span></span><span class=line><span class=cl><span class=n>names</span> <span class=o>=</span> <span class=p>[</span><span class=s2>&#34;A&#34;</span><span class=p>,</span><span class=s2>&#34;B&#34;</span><span class=p>,</span><span class=s2>&#34;C&#34;</span><span class=p>,</span><span class=s2>&#34;D&#34;</span><span class=p>,</span><span class=s2>&#34;E&#34;</span><span class=p>,</span><span class=s2>&#34;F&#34;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=c1># 给6个人随机分配到3个办公室</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>name</span> <span class=ow>in</span> <span class=n>names</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>index</span> <span class=o>=</span> <span class=n>random</span><span class=o>.</span><span class=n>randint</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span><span class=mi>2</span><span class=p>)</span> <span class=c1># 获得0-2范围内随机整数</span>
+</span></span><span class=line><span class=cl>    <span class=n>offices</span><span class=p>[</span><span class=n>index</span><span class=p>]</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=n>name</span><span class=p>)</span> 
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 展示办公室活动人员基本信息 </span>
+</span></span><span class=line><span class=cl><span class=n>i</span> <span class=o>=</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>office</span> <span class=ow>in</span> <span class=n>offices</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;办公室</span><span class=si>%s</span><span class=s2>的人数为:</span><span class=si>%d</span><span class=s2>&#34;</span><span class=o>%</span><span class=p>(</span><span class=n>i</span><span class=p>,</span><span class=nb>len</span><span class=p>(</span><span class=n>office</span><span class=p>)))</span> <span class=c1># office的列表长度就是办公室中的人数</span>
+</span></span><span class=line><span class=cl>    <span class=n>i</span> <span class=o>+=</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>name</span> <span class=ow>in</span> <span class=n>office</span><span class=p>:</span> <span class=c1># 展示每个办公室中的人员信息</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;</span><span class=si>%s</span><span class=s2>&#34;</span><span class=o>%</span><span class=n>name</span><span class=p>,</span><span class=n>end</span><span class=o>=</span><span class=s2>&#34;</span><span class=se>\t</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;</span><span class=se>\n</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;_&#34;</span><span class=o>*</span><span class=mi>20</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>程序执行结果</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>办公室1的人数为</span><span class=p>:</span><span class=mi>1</span>
+</span></span><span class=line><span class=cl><span class=n>A</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>____________________</span>     
+</span></span><span class=line><span class=cl><span class=n>办公室2的人数为</span><span class=p>:</span><span class=mi>4</span>        
+</span></span><span class=line><span class=cl><span class=n>B</span>       <span class=n>C</span>       <span class=n>E</span>       <span class=n>F</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>____________________</span>     
+</span></span><span class=line><span class=cl><span class=n>办公室3的人数为</span><span class=p>:</span><span class=mi>1</span>        
+</span></span><span class=line><span class=cl><span class=n>D</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>____________________</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=列表同时取出下标和元素小技巧>列表同时取出下标和元素小技巧</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>mylist</span> <span class=o>=</span> <span class=p>[</span><span class=mi>1</span><span class=p>,</span><span class=mi>20</span><span class=p>,</span><span class=mi>200</span><span class=p>,</span><span class=mi>2000</span><span class=p>,</span><span class=mi>3</span><span class=p>,</span><span class=mi>90</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>i</span><span class=p>,</span><span class=n>v</span> <span class=ow>in</span> <span class=nb>enumerate</span><span class=p>(</span><span class=n>mylist</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>i</span><span class=p>,</span><span class=n>v</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>输出结果</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=mi>0</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl><span class=mi>1</span> <span class=mi>20</span>
+</span></span><span class=line><span class=cl><span class=mi>2</span> <span class=mi>200</span>
+</span></span><span class=line><span class=cl><span class=mi>3</span> <span class=mi>2000</span>
+</span></span><span class=line><span class=cl><span class=mi>4</span> <span class=mi>3</span>
+</span></span><span class=line><span class=cl><span class=mi>5</span> <span class=mi>90</span>
+</span></span></code></pre></td></tr></table></div></div><p>还可以从1开始计数</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>mylist</span> <span class=o>=</span> <span class=p>[</span><span class=mi>1</span><span class=p>,</span><span class=mi>20</span><span class=p>,</span><span class=mi>200</span><span class=p>,</span><span class=mi>2000</span><span class=p>,</span><span class=mi>3</span><span class=p>,</span><span class=mi>90</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>i</span><span class=p>,</span><span class=n>v</span> <span class=ow>in</span> <span class=nb>enumerate</span><span class=p>(</span><span class=n>mylist</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>i</span><span class=o>+</span><span class=mi>1</span><span class=p>,</span><span class=n>v</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>Updated on 2022-07-03</span></div></div><div class=post-info-line><div class=post-info-md><span><a class=link-to-markdown href=/python%E5%9B%9E%E7%82%89%E9%87%8D%E9%80%A0-%E5%88%97%E8%A1%A8/index.md target=_blank>Read Markdown</a></span></div><div class=post-info-share><span></span></div></div></div><div class=post-info-more><section class=post-tags></section><section><span><a href=javascript:void(0); onclick=window.history.back()>Back</a></span>&nbsp;|&nbsp;<span><a href=/>Home</a></span></section></div><div class=post-nav><a href=/python%E5%9B%9E%E7%82%89%E9%87%8D%E9%80%A0-%E5%AD%97%E5%85%B8/ class=prev rel=prev title=python回炉重造-字典><i class="fas fa-angle-left fa-fw" aria-hidden=true></i>python回炉重造-字典</a>
+<a href=/python%E5%9B%9E%E7%82%89%E9%87%8D%E9%80%A0-%E5%87%BD%E6%95%B0/ class=next rel=next title=python回炉重造-函数>python回炉重造-函数<i class="fas fa-angle-right fa-fw" aria-hidden=true></i></a></div></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line>Powered by <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.115.3">Hugo</a> | Theme - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden=true></i> LoveIt</a></div><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2021 - 2023</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=/ target=_blank>Peng</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top"><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=/lib/lightgallery/lightgallery.min.css><link rel=stylesheet href=/lib/katex/katex.min.css><link rel=stylesheet href=/lib/katex/copy-tex.min.css><link rel=stylesheet href=/lib/cookieconsent/cookieconsent.min.css><script type=text/javascript src=/lib/autocomplete/autocomplete.min.js></script><script type=text/javascript src=/lib/lunr/lunr.min.js></script><script type=text/javascript src=/lib/lazysizes/lazysizes.min.js></script><script type=text/javascript src=/lib/lightgallery/lightgallery.min.js></script><script type=text/javascript src=/lib/lightgallery/plugins/lg-thumbnail.min.js></script><script type=text/javascript src=/lib/lightgallery/plugins/lg-zoom.min.js></script><script type=text/javascript src=/lib/clipboard/clipboard.min.js></script><script type=text/javascript src=/lib/sharer/sharer.min.js></script><script type=text/javascript src=/lib/katex/katex.min.js></script><script type=text/javascript src=/lib/katex/auto-render.min.js></script><script type=text/javascript src=/lib/katex/copy-tex.min.js></script><script type=text/javascript src=/lib/katex/mhchem.min.js></script><script type=text/javascript src=/lib/cookieconsent/cookieconsent.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:50},comment:{},cookieconsent:{content:{dismiss:"Got it!",link:"Learn more",message:"This website uses Cookies to improve your experience."},enable:!0,palette:{button:{background:"#f0f0f0"},popup:{background:"#1aa3ff"}},theme:"edgeless"},lightgallery:!0,math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!0,left:"\\begin{equation}",right:"\\end{equation}"},{display:!0,left:"\\begin{equation*}",right:"\\end{equation*}"},{display:!0,left:"\\begin{align}",right:"\\end{align}"},{display:!0,left:"\\begin{align*}",right:"\\end{align*}"},{display:!0,left:"\\begin{alignat}",right:"\\end{alignat}"},{display:!0,left:"\\begin{alignat*}",right:"\\end{alignat*}"},{display:!0,left:"\\begin{gather}",right:"\\end{gather}"},{display:!0,left:"\\begin{CD}",right:"\\end{CD}"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{highlightTag:"em",lunrIndexURL:"/index.json",maxResultLength:10,noResultsFound:"No results found",snippetLength:50,type:"lunr"}}</script><script type=text/javascript src=/js/theme.min.js></script></body></html>

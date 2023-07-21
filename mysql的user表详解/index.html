@@ -1,0 +1,636 @@
+<!doctype html><html lang=zh-CN><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>mysql的user表详解 - Peng</title><meta name=Description content="One World,One Dream!"><meta property="og:title" content="mysql的user表详解"><meta property="og:description" content="mysql中引用了一张表来存储mysql的用户信息 mysql.user 基础字段 Host： 访问数据库客户端机器的IP地址。&rsquo;%&rsquo;:通配符"><meta property="og:type" content="article"><meta property="og:url" content="https://blog.haipengv.com/mysql%E7%9A%84user%E8%A1%A8%E8%AF%A6%E8%A7%A3/"><meta property="og:image" content="https://blog.haipengv.com/logo.png"><meta property="article:section" content="posts"><meta property="article:published_time" content="2022-01-03T20:40:22+00:00"><meta property="article:modified_time" content="2022-01-03T20:40:22+00:00"><meta property="og:site_name" content="我的网站"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://blog.haipengv.com/logo.png"><meta name=twitter:title content="mysql的user表详解"><meta name=twitter:description content="mysql中引用了一张表来存储mysql的用户信息 mysql.user 基础字段 Host： 访问数据库客户端机器的IP地址。&rsquo;%&rsquo;:通配符"><meta name=application-name content="我的网站"><meta name=apple-mobile-web-app-title content="我的网站"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://blog.haipengv.com/mysql%E7%9A%84user%E8%A1%A8%E8%AF%A6%E8%A7%A3/><link rel=prev href=https://blog.haipengv.com/mysql%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93/><link rel=next href=https://blog.haipengv.com/%E4%B8%8D%E5%90%8C%E6%9E%B6%E6%9E%84%E5%B9%B3%E5%8F%B0%E4%B8%8Bdoker%E5%AE%98%E6%96%B9%E9%95%9C%E5%83%8F%E5%8C%85%E6%9F%A5%E6%89%BE%E8%AF%B4%E6%98%8E/><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=/lib/fontawesome-free/all.min.css><link rel=stylesheet href=/lib/animate/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"mysql的user表详解","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/blog.haipengv.com\/mysql%E7%9A%84user%E8%A1%A8%E8%AF%A6%E8%A7%A3\/"},"genre":"posts","wordcount":5946,"url":"https:\/\/blog.haipengv.com\/mysql%E7%9A%84user%E8%A1%A8%E8%AF%A6%E8%A7%A3\/","datePublished":"2022-01-03T20:40:22+00:00","dateModified":"2022-01-03T20:40:22+00:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"Peng"},"description":""}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"auto"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"auto"==="dark")&&document.body.setAttribute("theme","dark")</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title=Peng>Peng</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>文章 </a><a class=menu-item href=/tags/>标签 </a><a class=menu-item href=/categories/>分类 </a><a class=menu-item href=/links/>友链 </a><a class=menu-item href=/about/>关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder=搜索文章标题或内容... id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=Search><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=Clear><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span>
+</span><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme"><i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title=Peng>Peng</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder=搜索文章标题或内容... id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=Search><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=Clear><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>Cancel</a></div><a class=menu-item href=/posts/ title>文章</a><a class=menu-item href=/tags/ title>标签</a><a class=menu-item href=/categories/ title>分类</a><a class=menu-item href=/links/ title>友链</a><a class=menu-item href=/about/ title>关于</a><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>Contents</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">mysql的user表详解</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=/ title=Author rel=author class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Peng</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw" aria-hidden=true></i>&nbsp;<time datetime=2022-01-03>2022-01-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden=true></i>&nbsp;5946 words&nbsp;
+<i class="far fa-clock fa-fw" aria-hidden=true></i>&nbsp;12 minutes&nbsp;</div></div><div class="details toc" id=toc-static data-kept=true><div class="details-summary toc-title"><span>Contents</span>
+<span><i class="details-icon fas fa-angle-right" aria-hidden=true></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><ul><li><a href=#基础字段>基础字段</a></li><li><a href=#权限字段>权限字段</a></li><li><a href=#mysqldb表>mysql.db表</a></li><li><a href=#基础命令>基础命令</a></li><li><a href=#创建用户>创建用户</a></li><li><a href=#赋予权限>赋予权限</a></li><li><a href=#收回权限>收回权限</a></li><li><a href=#删除用户>删除用户</a></li><li><a href=#查看某个用户的权限>查看某个用户的权限</a></li><li><a href=#查看mysql数据库中所有用户>查看MYSQL数据库中所有用户</a></li><li><a href=#查看数据库中具体某个用户的权限>查看数据库中具体某个用户的权限</a></li><li><a href=#查看user表中某个用户的具体权限>查看user表中某个用户的具体权限</a></li><li><a href=#修改账号密码>修改账号密码</a></li><li><a href=#mysql的各种权限共27种>mysql的各种权限（共27种）</a><ul><li><a href=#usage>usage</a></li><li><a href=#select>select</a></li><li><a href=#create>create</a></li><li><a href=#create-routine>create routine</a></li><li><a href=#create-temporary-tables注意这里是tables不是table>create temporary tables(注意这里是tables，不是table)</a></li><li><a href=#create-view>create view</a></li><li><a href=#create-user>create user</a></li><li><a href=#insert>insert</a></li><li><a href=#alter>alter</a></li><li><a href=#alter-routine>alter routine</a></li><li><a href=#update>update</a></li><li><a href=#delete>delete</a></li><li><a href=#drop>drop</a></li><li><a href=#show-database>show database</a></li><li><a href=#show-view>show view</a></li><li><a href=#index>index</a></li><li><a href=#excute>excute</a></li><li><a href=#lock-tables>lock tables</a></li><li><a href=#references>references</a></li><li><a href=#reload>reload</a></li><li><a href=#replication-client>replication client</a></li><li><a href=#replication-slave>replication slave</a></li><li><a href=#shutdown>Shutdown</a></li><li><a href=#grant-option>grant option</a></li><li><a href=#ile>ile</a></li><li><a href=#super>super</a></li><li><a href=#process>process</a></li></ul></li></ul></li></ul></nav></div></div><div class=content id=content><p>mysql中引用了一张表来存储mysql的用户信息 <code>mysql.user</code></p><h3 id=基础字段>基础字段</h3><p>Host： 访问数据库客户端机器的IP地址。&rsquo;%&rsquo;:通配符，匹配所有的ip地址
+User： 用户名。超级管理员为root
+authentication_string： 密码的加密字符串</p><p>要注意的是，mysql是通过用户名（user）和客户端ip（host）来唯一确定一个用户。即，可以设置同一个用户名在不同的客户端登陆时的密码不同，登陆后的权限也不同。通过查看mysql.user的表结构也可以看出，host和user是作为联合主键存在的。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>mysql&gt; desc mysql.user<span class=p>;</span>
+</span></span><span class=line><span class=cl>+------------------------+-----------------------------------+------+-----+-----------------------+-------+
+</span></span><span class=line><span class=cl><span class=p>|</span> Field                  <span class=p>|</span> Type                              <span class=p>|</span> Null <span class=p>|</span> Key <span class=p>|</span> Default               <span class=p>|</span> Extra <span class=p>|</span>
+</span></span><span class=line><span class=cl>+------------------------+-----------------------------------+------+-----+-----------------------+-------+
+</span></span><span class=line><span class=cl><span class=p>|</span> Host                   <span class=p>|</span> char<span class=o>(</span>60<span class=o>)</span>                          <span class=p>|</span> NO   <span class=p>|</span> PRI <span class=p>|</span>                       <span class=p>|</span>       <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> User                   <span class=p>|</span> char<span class=o>(</span>32<span class=o>)</span>                          <span class=p>|</span> NO   <span class=p>|</span> PRI <span class=p>|</span>                       <span class=p>|</span>       <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> Select_priv            <span class=p>|</span> enum<span class=o>(</span><span class=s1>&#39;N&#39;</span>,<span class=s1>&#39;Y&#39;</span><span class=o>)</span>                     <span class=p>|</span> NO   <span class=p>|</span>     <span class=p>|</span> N                     <span class=p>|</span>       <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> Insert_priv            <span class=p>|</span> enum<span class=o>(</span><span class=s1>&#39;N&#39;</span>,<span class=s1>&#39;Y&#39;</span><span class=o>)</span>                     <span class=p>|</span> NO   <span class=p>|</span>     <span class=p>|</span> N                     <span class=p>|</span>       <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> Update_priv            <span class=p>|</span> enum<span class=o>(</span><span class=s1>&#39;N&#39;</span>,<span class=s1>&#39;Y&#39;</span><span class=o>)</span>                     <span class=p>|</span> NO   <span class=p>|</span>     <span class=p>|</span> N                     <span class=p>|</span>       <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> Delete_priv            <span class=p>|</span> enum<span class=o>(</span><span class=s1>&#39;N&#39;</span>,<span class=s1>&#39;Y&#39;</span><span class=o>)</span>                     <span class=p>|</span> NO   <span class=p>|</span>     <span class=p>|</span> N                     <span class=p>|</span>       <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> Create_priv            <span class=p>|</span> enum<span class=o>(</span><span class=s1>&#39;N&#39;</span>,<span class=s1>&#39;Y&#39;</span><span class=o>)</span>                     <span class=p>|</span> NO   <span class=p>|</span>     <span class=p>|</span> N                     <span class=p>|</span>       <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> Drop_priv              <span class=p>|</span> enum<span class=o>(</span><span class=s1>&#39;N&#39;</span>,<span class=s1>&#39;Y&#39;</span><span class=o>)</span>                     <span class=p>|</span> NO   <span class=p>|</span>     <span class=p>|</span> N                     <span class=p>|</span>       <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> Reload_priv            <span class=p>|</span> enum<span class=o>(</span><span class=s1>&#39;N&#39;</span>,<span class=s1>&#39;Y&#39;</span><span class=o>)</span>                     <span class=p>|</span> NO   <span class=p>|</span>     <span class=p>|</span> N                     <span class=p>|</span>       <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> Shutdown_priv          <span class=p>|</span> enum<span class=o>(</span><span class=s1>&#39;N&#39;</span>,<span class=s1>&#39;Y&#39;</span><span class=o>)</span>                     <span class=p>|</span> NO   <span class=p>|</span>     <span class=p>|</span> N                     <span class=p>|</span>       <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> Process_priv           <span class=p>|</span> enum<span class=o>(</span><span class=s1>&#39;N&#39;</span>,<span class=s1>&#39;Y&#39;</span><span class=o>)</span>                     <span class=p>|</span> NO   <span class=p>|</span>     <span class=p>|</span> N                     <span class=p>|</span>       <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> File_priv              <span class=p>|</span> enum<span class=o>(</span><span class=s1>&#39;N&#39;</span>,<span class=s1>&#39;Y&#39;</span><span class=o>)</span>                     <span class=p>|</span> NO   <span class=p>|</span>     <span class=p>|</span> N                     <span class=p>|</span>       <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> Grant_priv             <span class=p>|</span> enum<span class=o>(</span><span class=s1>&#39;N&#39;</span>,<span class=s1>&#39;Y&#39;</span><span class=o>)</span>                     <span class=p>|</span> NO   <span class=p>|</span>     <span class=p>|</span> N                     <span class=p>|</span>       <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> References_priv        <span class=p>|</span> enum<span class=o>(</span><span class=s1>&#39;N&#39;</span>,<span class=s1>&#39;Y&#39;</span><span class=o>)</span>                     <span class=p>|</span> NO   <span class=p>|</span>     <span class=p>|</span> N                     <span class=p>|</span>       <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> Index_priv             <span class=p>|</span> enum<span class=o>(</span><span class=s1>&#39;N&#39;</span>,<span class=s1>&#39;Y&#39;</span><span class=o>)</span>                     <span class=p>|</span> NO   <span class=p>|</span>     <span class=p>|</span> N                     <span class=p>|</span>       <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> Alter_priv             <span class=p>|</span> enum<span class=o>(</span><span class=s1>&#39;N&#39;</span>,<span class=s1>&#39;Y&#39;</span><span class=o>)</span>                     <span class=p>|</span> NO   <span class=p>|</span>     <span class=p>|</span> N                     <span class=p>|</span>       <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> Show_db_priv           <span class=p>|</span> enum<span class=o>(</span><span class=s1>&#39;N&#39;</span>,<span class=s1>&#39;Y&#39;</span><span class=o>)</span>                     <span class=p>|</span> NO   <span class=p>|</span>     <span class=p>|</span> N                     <span class=p>|</span>       <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> Super_priv             <span class=p>|</span> enum<span class=o>(</span><span class=s1>&#39;N&#39;</span>,<span class=s1>&#39;Y&#39;</span><span class=o>)</span>                     <span class=p>|</span> NO   <span class=p>|</span>     <span class=p>|</span> N                     <span class=p>|</span>       <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> Create_tmp_table_priv  <span class=p>|</span> enum<span class=o>(</span><span class=s1>&#39;N&#39;</span>,<span class=s1>&#39;Y&#39;</span><span class=o>)</span>                     <span class=p>|</span> NO   <span class=p>|</span>     <span class=p>|</span> N                     <span class=p>|</span>       <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> Lock_tables_priv       <span class=p>|</span> enum<span class=o>(</span><span class=s1>&#39;N&#39;</span>,<span class=s1>&#39;Y&#39;</span><span class=o>)</span>                     <span class=p>|</span> NO   <span class=p>|</span>     <span class=p>|</span> N                     <span class=p>|</span>       <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> Execute_priv           <span class=p>|</span> enum<span class=o>(</span><span class=s1>&#39;N&#39;</span>,<span class=s1>&#39;Y&#39;</span><span class=o>)</span>                     <span class=p>|</span> NO   <span class=p>|</span>     <span class=p>|</span> N                     <span class=p>|</span>       <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> Repl_slave_priv        <span class=p>|</span> enum<span class=o>(</span><span class=s1>&#39;N&#39;</span>,<span class=s1>&#39;Y&#39;</span><span class=o>)</span>                     <span class=p>|</span> NO   <span class=p>|</span>     <span class=p>|</span> N                     <span class=p>|</span>       <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> Repl_client_priv       <span class=p>|</span> enum<span class=o>(</span><span class=s1>&#39;N&#39;</span>,<span class=s1>&#39;Y&#39;</span><span class=o>)</span>                     <span class=p>|</span> NO   <span class=p>|</span>     <span class=p>|</span> N                     <span class=p>|</span>       <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> Create_view_priv       <span class=p>|</span> enum<span class=o>(</span><span class=s1>&#39;N&#39;</span>,<span class=s1>&#39;Y&#39;</span><span class=o>)</span>                     <span class=p>|</span> NO   <span class=p>|</span>     <span class=p>|</span> N                     <span class=p>|</span>       <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> Show_view_priv         <span class=p>|</span> enum<span class=o>(</span><span class=s1>&#39;N&#39;</span>,<span class=s1>&#39;Y&#39;</span><span class=o>)</span>                     <span class=p>|</span> NO   <span class=p>|</span>     <span class=p>|</span> N                     <span class=p>|</span>       <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> Create_routine_priv    <span class=p>|</span> enum<span class=o>(</span><span class=s1>&#39;N&#39;</span>,<span class=s1>&#39;Y&#39;</span><span class=o>)</span>                     <span class=p>|</span> NO   <span class=p>|</span>     <span class=p>|</span> N                     <span class=p>|</span>       <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> Alter_routine_priv     <span class=p>|</span> enum<span class=o>(</span><span class=s1>&#39;N&#39;</span>,<span class=s1>&#39;Y&#39;</span><span class=o>)</span>                     <span class=p>|</span> NO   <span class=p>|</span>     <span class=p>|</span> N                     <span class=p>|</span>       <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> Create_user_priv       <span class=p>|</span> enum<span class=o>(</span><span class=s1>&#39;N&#39;</span>,<span class=s1>&#39;Y&#39;</span><span class=o>)</span>                     <span class=p>|</span> NO   <span class=p>|</span>     <span class=p>|</span> N                     <span class=p>|</span>       <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> Event_priv             <span class=p>|</span> enum<span class=o>(</span><span class=s1>&#39;N&#39;</span>,<span class=s1>&#39;Y&#39;</span><span class=o>)</span>                     <span class=p>|</span> NO   <span class=p>|</span>     <span class=p>|</span> N                     <span class=p>|</span>       <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> Trigger_priv           <span class=p>|</span> enum<span class=o>(</span><span class=s1>&#39;N&#39;</span>,<span class=s1>&#39;Y&#39;</span><span class=o>)</span>                     <span class=p>|</span> NO   <span class=p>|</span>     <span class=p>|</span> N                     <span class=p>|</span>       <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> Create_tablespace_priv <span class=p>|</span> enum<span class=o>(</span><span class=s1>&#39;N&#39;</span>,<span class=s1>&#39;Y&#39;</span><span class=o>)</span>                     <span class=p>|</span> NO   <span class=p>|</span>     <span class=p>|</span> N                     <span class=p>|</span>       <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> ssl_type               <span class=p>|</span> enum<span class=o>(</span><span class=s1>&#39;&#39;</span>,<span class=s1>&#39;ANY&#39;</span>,<span class=s1>&#39;X509&#39;</span>,<span class=s1>&#39;SPECIFIED&#39;</span><span class=o>)</span> <span class=p>|</span> NO   <span class=p>|</span>     <span class=p>|</span>                       <span class=p>|</span>       <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> ssl_cipher             <span class=p>|</span> blob                              <span class=p>|</span> NO   <span class=p>|</span>     <span class=p>|</span> NULL                  <span class=p>|</span>       <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> x509_issuer            <span class=p>|</span> blob                              <span class=p>|</span> NO   <span class=p>|</span>     <span class=p>|</span> NULL                  <span class=p>|</span>       <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> x509_subject           <span class=p>|</span> blob                              <span class=p>|</span> NO   <span class=p>|</span>     <span class=p>|</span> NULL                  <span class=p>|</span>       <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> max_questions          <span class=p>|</span> int<span class=o>(</span>11<span class=o>)</span> unsigned                  <span class=p>|</span> NO   <span class=p>|</span>     <span class=p>|</span> <span class=m>0</span>                     <span class=p>|</span>       <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> max_updates            <span class=p>|</span> int<span class=o>(</span>11<span class=o>)</span> unsigned                  <span class=p>|</span> NO   <span class=p>|</span>     <span class=p>|</span> <span class=m>0</span>                     <span class=p>|</span>       <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> max_connections        <span class=p>|</span> int<span class=o>(</span>11<span class=o>)</span> unsigned                  <span class=p>|</span> NO   <span class=p>|</span>     <span class=p>|</span> <span class=m>0</span>                     <span class=p>|</span>       <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> max_user_connections   <span class=p>|</span> int<span class=o>(</span>11<span class=o>)</span> unsigned                  <span class=p>|</span> NO   <span class=p>|</span>     <span class=p>|</span> <span class=m>0</span>                     <span class=p>|</span>       <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> plugin                 <span class=p>|</span> char<span class=o>(</span>64<span class=o>)</span>                          <span class=p>|</span> NO   <span class=p>|</span>     <span class=p>|</span> mysql_native_password <span class=p>|</span>       <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> authentication_string  <span class=p>|</span> text                              <span class=p>|</span> YES  <span class=p>|</span>     <span class=p>|</span> NULL                  <span class=p>|</span>       <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> password_expired       <span class=p>|</span> enum<span class=o>(</span><span class=s1>&#39;N&#39;</span>,<span class=s1>&#39;Y&#39;</span><span class=o>)</span>                     <span class=p>|</span> NO   <span class=p>|</span>     <span class=p>|</span> N                     <span class=p>|</span>       <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> password_last_changed  <span class=p>|</span> timestamp                         <span class=p>|</span> YES  <span class=p>|</span>     <span class=p>|</span> NULL                  <span class=p>|</span>       <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> password_lifetime      <span class=p>|</span> smallint<span class=o>(</span>5<span class=o>)</span> unsigned              <span class=p>|</span> YES  <span class=p>|</span>     <span class=p>|</span> NULL                  <span class=p>|</span>       <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> account_locked         <span class=p>|</span> enum<span class=o>(</span><span class=s1>&#39;N&#39;</span>,<span class=s1>&#39;Y&#39;</span><span class=o>)</span>                     <span class=p>|</span> NO   <span class=p>|</span>     <span class=p>|</span> N                     <span class=p>|</span>       <span class=p>|</span>
+</span></span><span class=line><span class=cl>+------------------------+-----------------------------------+------+-----+-----------------------+-------+
+</span></span></code></pre></td></tr></table></div></div><h3 id=权限字段>权限字段</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>Select_priv：   确定用户是否可以通过SELECT命令选择数据。
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Insert_priv：   确定用户是否可以通过INSERT命令插入数据。
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Update_priv：   确定用户是否可以通过UPDATE命令修改现有数据。
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Delete_priv：   确定用户是否可以通过DELETE命令删除现有数据。
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Create_priv：   确定用户是否可以创建新的数据库和表。
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Drop_priv：     确定用户是否可以删除现有数据库和表。
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Reload_priv：   确定用户是否可以执行刷新和重新加载MySQL所用各种内部缓存的特定命令，包括日志、权限、主机、查询和表。
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Shutdown_priv： 确定用户是否可以关闭MySQL服务器。在将此权限提供给root账户之外的任何用户时，都应当非常谨慎。
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Process_priv：  确定用户是否可以通过SHOW PROCESSLIST命令查看其他用户的进程。
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>File_priv： 确定用户是否可以执行SELECT INTO OUTFILE和LOAD DATA INFILE命令。
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Grant_priv：    确定用户是否可以将已经授予给该用户自己的权限再授予其他用户。例如，如果用户可以插入、选择和删除foo数据库中的信息，并且授予了GRANT权限，则该用户就可以将其任何或全部权限授予系统中的任何其他用户。
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>References_priv：   目前只是某些未来功能的占位符；现在没有作用。
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Index_priv：    确定用户是否可以创建和删除表索引。
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Alter_priv：    确定用户是否可以重命名和修改表结构。
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Show_db_priv：  确定用户是否可以查看服务器上所有数据库的名字，包括用户拥有足够访问权限的数据库。可以考虑对所有用户禁用这个权限，除非有特别不可抗拒的原因。
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Super_priv：    确定用户是否可以执行某些强大的管理功能，例如通过KILL命令删除用户进程，使用SET GLOBAL修改全局MySQL变量，执行关于复制和日志的各种命令。
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Create_tmp_table_priv： 确定用户是否可以创建临时表。
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Lock_tables_priv：  确定用户是否可以使用LOCK TABLES命令阻止对表的访问/修改。
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Execute_priv：  确定用户是否可以执行存储过程。此权限只在MySQL 5.0及更高版本中有意义。
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Repl_slave_priv：   确定用户是否可以读取用于维护复制数据库环境的二进制日志文件。此用户位于主系统中，有利于主机和客户机之间的通信。
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Repl_client_priv：  确定用户是否可以确定复制从服务器和主服务器的位置。
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Create_view_priv：  确定用户是否可以创建视图。此权限只在MySQL 5.0及更高版本中有意义。关于视图的更多信息，参见第34章。
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Show_view_priv：    确定用户是否可以查看视图或了解视图如何执行。此权限只在MySQL 5.0及更高版本中有意义。
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Create_routine_priv：   确定用户是否可以更改或放弃存储过程和函数。此权限是在MySQL 5.0中引入的。
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Alter_routine_priv：    确定用户是否可以修改或删除存储函数及函数。此权限是在MySQL 5.0中引入的。
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Create_user_priv：  确定用户是否可以执行CREATE USER命令，这个命令用于创建新的MySQL账户。
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Event_priv：    确定用户能否创建、修改和删除事件。这个权限是MySQL 5.1.6新增的。
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Trigger_priv：  确定用户能否创建和删除触发器，这个权限是MySQL 5.1.6新增的。
+</span></span></code></pre></td></tr></table></div></div><h3 id=mysqldb表>mysql.db表</h3><p>user表中的每项权限为Y的时候，则代表该用户对所有数据库的所有表都拥有该权限。
+而如果某个用户只对单独的某个数据库的某张表有该权限时，则user表中该权限对应的字段为N，并在db表中添加一条记录用来标识此项权限。</p><p>测试失败。给某个用户添加了一个权限，但是mysql.db中并没有增加记录。</p><h3 id=基础命令>基础命令</h3><h3 id=创建用户>创建用户</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>create user <span class=s1>&#39;username&#39;</span>@<span class=s1>&#39;host&#39;</span> identified by <span class=s1>&#39;password&#39;</span><span class=p>;</span> <span class=o>(</span>不建议用<span class=o>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>如果不填host（<code>create user 'username' identified by 'password';</code>），则默认为%:即所有ip的客户端均可访问。</p><h3 id=赋予权限>赋予权限</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>-- 赋予单个权限
+</span></span><span class=line><span class=cl>grant all on database_name.table_name to <span class=s1>&#39;username&#39;</span>@<span class=s1>&#39;host&#39;</span> <span class=o>[</span>identified by <span class=s1>&#39;password&#39;</span><span class=o>]</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>-- 赋予多个权限
+</span></span><span class=line><span class=cl>grant insert, <span class=k>select</span> on database_name.table_name to <span class=s1>&#39;username&#39;</span>@<span class=s1>&#39;host&#39;</span> <span class=o>[</span>identified by <span class=s1>&#39;password&#39;</span><span class=o>]</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><p>常见权限有：all, create, drop, insert, update, delete, select等。
+如果带上[]里面的内则相当于修改此用户的密码。</p><p>这里发现一个问题，当修改密码或修改权限时，如果此用户已经登陆，则不会立刻受到权限修改的影响（过一段时间以后会不会影响暂没做测试。），还是可以正常的使用已经收回的权限。</p><h3 id=收回权限>收回权限</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>-- 收回单个权限
+</span></span><span class=line><span class=cl>revoke all on database_name.table_name from <span class=s1>&#39;username&#39;</span>@<span class=s1>&#39;host&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>-- 收回多个权限
+</span></span><span class=line><span class=cl>revoke <span class=k>select</span>, insert on database_name.table_name from <span class=s1>&#39;username&#39;</span>@<span class=s1>&#39;host&#39;</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><p>与赋予权限不一样的是，收回权限时不允许同时修改密码，而且将<code>to user</code> 改为 <code>from user</code>。</p><h3 id=删除用户>删除用户</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>drop user <span class=s1>&#39;username&#39;</span>@<span class=s1>&#39;host&#39;</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=查看某个用户的权限>查看某个用户的权限</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>show grants <span class=k>for</span> <span class=s1>&#39;username&#39;</span>@<span class=s1>&#39;host&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>+---------------------------------------------------------------------+
+</span></span><span class=line><span class=cl><span class=p>|</span> Grants <span class=k>for</span> root@localhost                                           <span class=p>|</span>
+</span></span><span class=line><span class=cl>+---------------------------------------------------------------------+
+</span></span><span class=line><span class=cl><span class=p>|</span> GRANT ALL PRIVILEGES ON *.* TO <span class=s1>&#39;root&#39;</span>@<span class=s1>&#39;localhost&#39;</span> WITH GRANT OPTION <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> GRANT PROXY ON <span class=s1>&#39;&#39;</span>@<span class=s1>&#39;&#39;</span> TO <span class=s1>&#39;root&#39;</span>@<span class=s1>&#39;localhost&#39;</span> WITH GRANT OPTION        <span class=p>|</span>
+</span></span><span class=line><span class=cl>+---------------------------------------------------------------------+
+</span></span></code></pre></td></tr></table></div></div><h3 id=查看mysql数据库中所有用户>查看MYSQL数据库中所有用户</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>mysql</span><span class=o>&gt;</span> <span class=n>SELECT</span> <span class=n>DISTINCT</span> <span class=n>CONCAT</span><span class=p>(</span><span class=s1>&#39;User: &#39;&#39;&#39;</span><span class=p>,</span><span class=n>user</span><span class=p>,</span><span class=s1>&#39;&#39;&#39;@&#39;&#39;&#39;</span><span class=p>,</span><span class=n>host</span><span class=p>,</span><span class=s1>&#39;&#39;&#39;;&#39;) AS query FROM mysql.user;
+</span></span></span><span class=line><span class=cl><span class=s1>+------------------------------------+
+</span></span></span><span class=line><span class=cl><span class=s1>| query                              |
+</span></span></span><span class=line><span class=cl><span class=s1>+------------------------------------+
+</span></span></span><span class=line><span class=cl><span class=s1>| User: &#39;root&#39;@&#39;%&#39;;                  |
+</span></span></span><span class=line><span class=cl><span class=s1>| User: &#39;mysql.session&#39;@&#39;localhost&#39;; |
+</span></span></span><span class=line><span class=cl><span class=s1>| User: &#39;mysql.sys&#39;@&#39;localhost&#39;;     |
+</span></span></span><span class=line><span class=cl><span class=s1>| User: &#39;root&#39;@&#39;localhost&#39;;          |
+</span></span></span><span class=line><span class=cl><span class=s1>+------------------------------------+
+</span></span></span><span class=line><span class=cl><span class=s1>4 rows in set (0.00 sec)
+</span></span></span></code></pre></td></tr></table></div></div><h3 id=查看数据库中具体某个用户的权限>查看数据库中具体某个用户的权限</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>mysql</span><span class=o>&gt;</span> <span class=n>show</span> <span class=n>grants</span> <span class=k>for</span> <span class=s1>&#39;root&#39;</span><span class=o>@</span><span class=s1>&#39;%&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=o>+-------------------------------------------------------------+</span>
+</span></span><span class=line><span class=cl><span class=o>|</span> <span class=n>Grants</span> <span class=k>for</span> <span class=n>root</span><span class=o>@%</span>                                           <span class=o>|</span>
+</span></span><span class=line><span class=cl><span class=o>+-------------------------------------------------------------+</span>
+</span></span><span class=line><span class=cl><span class=o>|</span> <span class=n>GRANT</span> <span class=n>ALL</span> <span class=n>PRIVILEGES</span> <span class=n>ON</span> <span class=o>*.*</span> <span class=n>TO</span> <span class=s1>&#39;root&#39;</span><span class=o>@</span><span class=s1>&#39;%&#39;</span> <span class=n>WITH</span> <span class=n>GRANT</span> <span class=n>OPTION</span> <span class=o>|</span>
+</span></span><span class=line><span class=cl><span class=o>+-------------------------------------------------------------+</span>
+</span></span><span class=line><span class=cl><span class=mi>1</span> <span class=n>row</span> <span class=ow>in</span> <span class=nb>set</span> <span class=p>(</span><span class=mf>0.00</span> <span class=n>sec</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=查看user表中某个用户的具体权限>查看user表中某个用户的具体权限</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>mysql</span><span class=o>&gt;</span> <span class=n>select</span> <span class=o>*</span> <span class=kn>from</span> <span class=nn>mysql.user</span> <span class=n>where</span> <span class=n>user</span><span class=o>=</span><span class=s1>&#39;root&#39;</span> \<span class=n>G</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=o>***************************</span> <span class=mf>1.</span> <span class=n>row</span> <span class=o>***************************</span>
+</span></span><span class=line><span class=cl>                  <span class=n>Host</span><span class=p>:</span> <span class=n>localhost</span>
+</span></span><span class=line><span class=cl>                  <span class=n>User</span><span class=p>:</span> <span class=n>root</span>
+</span></span><span class=line><span class=cl>           <span class=n>Select_priv</span><span class=p>:</span> <span class=n>Y</span>
+</span></span><span class=line><span class=cl>           <span class=n>Insert_priv</span><span class=p>:</span> <span class=n>Y</span>
+</span></span><span class=line><span class=cl>           <span class=n>Update_priv</span><span class=p>:</span> <span class=n>Y</span>
+</span></span><span class=line><span class=cl>           <span class=n>Delete_priv</span><span class=p>:</span> <span class=n>Y</span>
+</span></span><span class=line><span class=cl>           <span class=n>Create_priv</span><span class=p>:</span> <span class=n>Y</span>
+</span></span><span class=line><span class=cl>             <span class=n>Drop_priv</span><span class=p>:</span> <span class=n>Y</span>
+</span></span><span class=line><span class=cl>           <span class=n>Reload_priv</span><span class=p>:</span> <span class=n>Y</span>
+</span></span><span class=line><span class=cl>         <span class=n>Shutdown_priv</span><span class=p>:</span> <span class=n>Y</span>
+</span></span><span class=line><span class=cl>          <span class=n>Process_priv</span><span class=p>:</span> <span class=n>Y</span>
+</span></span><span class=line><span class=cl>             <span class=n>File_priv</span><span class=p>:</span> <span class=n>Y</span>
+</span></span><span class=line><span class=cl>            <span class=n>Grant_priv</span><span class=p>:</span> <span class=n>Y</span>
+</span></span><span class=line><span class=cl>       <span class=n>References_priv</span><span class=p>:</span> <span class=n>Y</span>
+</span></span><span class=line><span class=cl>            <span class=n>Index_priv</span><span class=p>:</span> <span class=n>Y</span>
+</span></span><span class=line><span class=cl>            <span class=n>Alter_priv</span><span class=p>:</span> <span class=n>Y</span>
+</span></span><span class=line><span class=cl>          <span class=n>Show_db_priv</span><span class=p>:</span> <span class=n>Y</span>
+</span></span><span class=line><span class=cl>            <span class=n>Super_priv</span><span class=p>:</span> <span class=n>Y</span>
+</span></span><span class=line><span class=cl> <span class=n>Create_tmp_table_priv</span><span class=p>:</span> <span class=n>Y</span>
+</span></span><span class=line><span class=cl>      <span class=n>Lock_tables_priv</span><span class=p>:</span> <span class=n>Y</span>
+</span></span><span class=line><span class=cl>          <span class=n>Execute_priv</span><span class=p>:</span> <span class=n>Y</span>
+</span></span><span class=line><span class=cl>       <span class=n>Repl_slave_priv</span><span class=p>:</span> <span class=n>Y</span>
+</span></span><span class=line><span class=cl>      <span class=n>Repl_client_priv</span><span class=p>:</span> <span class=n>Y</span>
+</span></span><span class=line><span class=cl>      <span class=n>Create_view_priv</span><span class=p>:</span> <span class=n>Y</span>
+</span></span><span class=line><span class=cl>        <span class=n>Show_view_priv</span><span class=p>:</span> <span class=n>Y</span>
+</span></span><span class=line><span class=cl>   <span class=n>Create_routine_priv</span><span class=p>:</span> <span class=n>Y</span>
+</span></span><span class=line><span class=cl>    <span class=n>Alter_routine_priv</span><span class=p>:</span> <span class=n>Y</span>
+</span></span><span class=line><span class=cl>      <span class=n>Create_user_priv</span><span class=p>:</span> <span class=n>Y</span>
+</span></span><span class=line><span class=cl>            <span class=n>Event_priv</span><span class=p>:</span> <span class=n>Y</span>
+</span></span><span class=line><span class=cl>          <span class=n>Trigger_priv</span><span class=p>:</span> <span class=n>Y</span>
+</span></span><span class=line><span class=cl><span class=n>Create_tablespace_priv</span><span class=p>:</span> <span class=n>Y</span>
+</span></span><span class=line><span class=cl>              <span class=n>ssl_type</span><span class=p>:</span> 
+</span></span><span class=line><span class=cl>            <span class=n>ssl_cipher</span><span class=p>:</span> 
+</span></span><span class=line><span class=cl>           <span class=n>x509_issuer</span><span class=p>:</span> 
+</span></span><span class=line><span class=cl>          <span class=n>x509_subject</span><span class=p>:</span> 
+</span></span><span class=line><span class=cl>         <span class=n>max_questions</span><span class=p>:</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl>           <span class=n>max_updates</span><span class=p>:</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl>       <span class=n>max_connections</span><span class=p>:</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl>  <span class=n>max_user_connections</span><span class=p>:</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl>                <span class=n>plugin</span><span class=p>:</span> <span class=n>mysql_native_password</span>
+</span></span><span class=line><span class=cl> <span class=n>authentication_string</span><span class=p>:</span> <span class=o>*</span><span class=mi>064</span><span class=n>C811C8A9344D23DFC73BDBE590528C07A6FCC</span>
+</span></span><span class=line><span class=cl>      <span class=n>password_expired</span><span class=p>:</span> <span class=n>N</span>
+</span></span><span class=line><span class=cl> <span class=n>password_last_changed</span><span class=p>:</span> <span class=mi>2022</span><span class=o>-</span><span class=mi>07</span><span class=o>-</span><span class=mi>26</span> <span class=mi>13</span><span class=p>:</span><span class=mi>03</span><span class=p>:</span><span class=mi>51</span>
+</span></span><span class=line><span class=cl>     <span class=n>password_lifetime</span><span class=p>:</span> <span class=n>NULL</span>
+</span></span><span class=line><span class=cl>        <span class=n>account_locked</span><span class=p>:</span> <span class=n>N</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=修改账号密码>修改账号密码</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>-- 修改当前登录账号的密码
+</span></span><span class=line><span class=cl><span class=nb>set</span> <span class=nv>password</span> <span class=o>=</span> password<span class=o>(</span><span class=s1>&#39;pwd&#39;</span><span class=o>)</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>-- 修改别的账号密码
+</span></span><span class=line><span class=cl><span class=nb>set</span> password <span class=k>for</span> <span class=s1>&#39;username&#39;</span>@<span class=s1>&#39;host&#39;</span> <span class=o>=</span> password<span class=o>(</span><span class=s1>&#39;pwd&#39;</span><span class=o>)</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>-- 可以使用赋予权限的方式修改密码（上文提到过），用此种方式时最好赋予的是登陆权限，这样可以不影响账号当前的权限。
+</span></span><span class=line><span class=cl>grant usage on *.* to <span class=s1>&#39;username&#39;</span>@<span class=s1>&#39;host&#39;</span> identified by <span class=s1>&#39;pwd&#39;</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=mysql的各种权限共27种>mysql的各种权限（共27种）</h3><p>（以下操作都是以root身份登陆进行grant授权，以p1@localhost身份登陆执行各种命令。）</p><h4 id=usage>usage</h4><p>连接（登陆）权限，建立一个用户，就会自动授予其usage权限（默认授予）。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>grant usage on *.* to <span class=s1>&#39;p1&#39;</span>@<span class=s1>&#39;localhost&#39;</span> identified by <span class=s1>&#39;123&#39;</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><p>该权限只能用于数据库登陆，不能执行任何操作；且usage权限不能被回收，也即REVOKE用户并不能删除用户。</p><h4 id=select>select</h4><p>必须有select的权限，才可以使用select table</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>grant <span class=k>select</span> on pyt.* to ‘p1′@’localhost’<span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=k>select</span> * from shop<span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=create>create</h4><p>必须有create的权限，才可以使用create table</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>grant create on pyt.* to ‘p1′@’localhost’<span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=create-routine>create routine</h4><p>必须具有create routine的权限，才可以使用{create | alter | drop} {procedure | function}</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>grant create routine on pyt.* to ‘p1′@’localhost’<span class=p>;</span>
+</span></span><span class=line><span class=cl>-- 当授予create routine时，自动授予EXECUTE, ALTER ROUTINE权限给它的创建者：
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>show grants <span class=k>for</span> ‘p1′@’localhost’<span class=p>;</span>
+</span></span><span class=line><span class=cl> 
+</span></span><span class=line><span class=cl>+—————————————————————————+
+</span></span><span class=line><span class=cl>Grants <span class=k>for</span> p1@localhost
+</span></span><span class=line><span class=cl>+————————————————————————–+
+</span></span><span class=line><span class=cl><span class=p>|</span> GRANT USAGE ON *.* TO ‘p1′@’localhost’ IDENTIFIED BY PASSWORD ‘*23AE809DDACAF96AF0FD78ED04B6A265E05AA257′ <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> GRANT SELECT, CREATE, CREATE ROUTINE ON <span class=sb>`</span>pyt<span class=sb>`</span>.* TO ‘p1′@’localhost’<span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> GRANT EXECUTE, ALTER ROUTINE ON PROCEDURE <span class=sb>`</span>pyt<span class=sb>`</span>.<span class=sb>`</span>pro_shop1<span class=sb>`</span> TO ‘p1′@’localhost’ <span class=p>|</span>
+</span></span><span class=line><span class=cl>+————————————————————————————-+
+</span></span></code></pre></td></tr></table></div></div><h4 id=create-temporary-tables注意这里是tables不是table>create temporary tables(注意这里是tables，不是table)</h4><p>必须有create temporary tables的权限，才可以使用create temporary tables.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>grant create temporary tables on pyt.* to ‘p1′@’localhost’<span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>mysql@mydev ~<span class=o>]</span>$ mysql -h localhost -u p1 -p pyt
+</span></span><span class=line><span class=cl>create temporary table tt1<span class=o>(</span>id int<span class=o>)</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=create-view>create view</h4><p>必须有create view的权限，才可以使用create view</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>grant create view on pyt.* to ‘p1′@’localhost’<span class=p>;</span>
+</span></span><span class=line><span class=cl>create view v_shop as <span class=k>select</span> price from shop<span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=create-user>create user</h4><p>要使用CREATE USER，必须拥有mysql数据库的全局CREATE USER权限，或拥有INSERT权限。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>grant create user on *.* to ‘p1′@’localhost’<span class=p>;</span>
+</span></span><span class=line><span class=cl>-- 也可以使用
+</span></span><span class=line><span class=cl>grant insert on *.* to p1@localhost<span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=insert>insert</h4><p>必须有insert的权限，才可以使用insert into …… values….</p><h4 id=alter>alter</h4><p>必须有alter的权限，才可以使用alter table</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>alter table shop modify dealer char<span class=o>(</span>15<span class=o>)</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=alter-routine>alter routine</h4><p>必须具有alter routine的权限，才可以使用{alter |drop} {procedure|function}</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>grant alter routine on pyt.* to ‘p1′@’ localhost ‘<span class=p>;</span>
+</span></span><span class=line><span class=cl>drop procedure pro_shop<span class=p>;</span>
+</span></span><span class=line><span class=cl> 
+</span></span><span class=line><span class=cl>revoke alter routine on pyt.* from ‘p1′@’localhost’<span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>[</span>mysql@mydev ~<span class=o>]</span>$ mysql -h localhost -u p1 -p pyt
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>drop procedure pro_shop<span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>ERROR <span class=m>1370</span> <span class=o>(</span>42000<span class=o>)</span>: alter routine <span class=nb>command</span> denied to user ‘p1′@’localhost’ <span class=k>for</span> routine ‘pyt.pro_shop’
+</span></span></code></pre></td></tr></table></div></div><h4 id=update>update</h4><p>必须有update的权限，才可以使用update table</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>update shop <span class=nb>set</span> <span class=nv>price</span><span class=o>=</span>3.5 where <span class=nv>article</span><span class=o>=</span><span class=m>0001</span> and <span class=nv>dealer</span><span class=o>=</span>’A’<span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=delete>delete</h4><p>必须有delete的权限，才可以使用delete from ….where….(删除表中的记录)</p><h4 id=drop>drop</h4><p>必须有drop的权限，才可以使用drop database db_name; drop table tab_name;</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>drop view vi_name<span class=p>;</span> drop index in_name<span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=show-database>show database</h4><p>通过show database只能看到你拥有的某些权限的数据库，除非你拥有全局SHOW DATABASES权限。</p><p>对于p1@localhost用户来说，没有对mysql数据库的权限，所以以此身份登陆查询时，无法看到mysql数据库：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>show databases<span class=p>;</span>
+</span></span><span class=line><span class=cl>+——————–+
+</span></span><span class=line><span class=cl><span class=p>|</span> Database <span class=p>|</span>
+</span></span><span class=line><span class=cl>+——————–+
+</span></span><span class=line><span class=cl><span class=p>|</span> information_schema<span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> pyt <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> <span class=nb>test</span> <span class=p>|</span>
+</span></span><span class=line><span class=cl>+——————–+
+</span></span></code></pre></td></tr></table></div></div><h4 id=show-view>show view</h4><p>必须拥有show view权限，才能执行show create view。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>grant show view on pyt.* to p1@localho
+</span></span><span class=line><span class=cl>show create view v_shop<span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=index>index</h4><p>必须拥有index权限，才能执行[create |drop] index</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>grant index on pyt.* to p1@localhost<span class=p>;</span>
+</span></span><span class=line><span class=cl>create index ix_shop on shop<span class=o>(</span>article<span class=o>)</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>drop index ix_shop on shop<span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=excute>excute</h4><p>执行存在的Functions,Procedures</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>call pro_shop1<span class=o>(</span>0001,@a<span class=o>)</span>；
+</span></span><span class=line><span class=cl>+———+
+</span></span><span class=line><span class=cl><span class=p>|</span> article <span class=p>|</span>
+</span></span><span class=line><span class=cl>+———+
+</span></span><span class=line><span class=cl><span class=p>|</span> <span class=m>0001</span> <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> <span class=m>0001</span> <span class=p>|</span>
+</span></span><span class=line><span class=cl>+———+
+</span></span><span class=line><span class=cl><span class=k>select</span> @a<span class=p>;</span>
+</span></span><span class=line><span class=cl>+——+
+</span></span><span class=line><span class=cl><span class=p>|</span> @a <span class=p>|</span>
+</span></span><span class=line><span class=cl>+——+
+</span></span><span class=line><span class=cl><span class=p>|</span> <span class=m>2</span> <span class=p>|</span>
+</span></span><span class=line><span class=cl>+——+
+</span></span></code></pre></td></tr></table></div></div><h4 id=lock-tables>lock tables</h4><p>必须拥有lock tables权限，才可以使用lock tables</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>grant lock tables on pyt.* to p1@localhost<span class=p>;</span>
+</span></span><span class=line><span class=cl>lock tables a1 read<span class=p>;</span>
+</span></span><span class=line><span class=cl>unlock tables<span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=references>references</h4><p>有了REFERENCES权限，用户就可以将其它表的一个字段作为某一个表的外键约束。</p><h4 id=reload>reload</h4><p>必须拥有reload权限，才可以执行flush [tables | logs | privileges]</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>grant reload on pyt.* to p1@localhost<span class=p>;</span>
+</span></span><span class=line><span class=cl>ERROR <span class=m>1221</span> <span class=o>(</span>HY000<span class=o>)</span>: Incorrect usage of DB GRANT and GLOBAL PRIVILEGES
+</span></span><span class=line><span class=cl>grant reload on *.* to ‘p1′@’localhost’<span class=p>;</span>
+</span></span><span class=line><span class=cl>flush tables<span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=replication-client>replication client</h4><p>拥有此权限可以查询master server、slave server状态。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>show master status<span class=p>;</span>
+</span></span><span class=line><span class=cl>ERROR <span class=m>1227</span> <span class=o>(</span>42000<span class=o>)</span>: Access denied<span class=p>;</span> you need the SUPER,REPLICATION CLIENT privilege <span class=k>for</span> this operation
+</span></span><span class=line><span class=cl>grant Replication client on *.* to p1@localhost<span class=p>;</span>
+</span></span><span class=line><span class=cl>-- 也可以使用下面的命令
+</span></span><span class=line><span class=cl>grant super on *.* to p1@localhost<span class=p>;</span>
+</span></span><span class=line><span class=cl>show master status<span class=p>;</span>
+</span></span><span class=line><span class=cl>+——————+———-+————–+——————+
+</span></span><span class=line><span class=cl><span class=p>|</span> File <span class=p>|</span> Position <span class=p>|</span> Binlog_Do_DB <span class=p>|</span> Binlog_Ignore_DB <span class=p>|</span>
+</span></span><span class=line><span class=cl>+——————+———-+————–+——————+
+</span></span><span class=line><span class=cl><span class=p>|</span> mysql-bin.000006 <span class=p>|</span> <span class=m>2111</span> <span class=p>|</span> <span class=p>|</span> <span class=p>|</span>
+</span></span><span class=line><span class=cl>+——————+———-+————–+——————+
+</span></span><span class=line><span class=cl>show slave status<span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=replication-slave>replication slave</h4><p>拥有此权限可以查看从服务器，从主服务器读取二进制日志。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>show slave hosts<span class=p>;</span>
+</span></span><span class=line><span class=cl>ERROR <span class=m>1227</span> <span class=o>(</span>42000<span class=o>)</span>: Access denied<span class=p>;</span> you need the REPLICATION SLAVE privilege <span class=k>for</span> this operation
+</span></span><span class=line><span class=cl>show binlog events<span class=p>;</span>
+</span></span><span class=line><span class=cl>ERROR <span class=m>1227</span> <span class=o>(</span>42000<span class=o>)</span>: Access denied<span class=p>;</span> you need the REPLICATION SLAVE privilege <span class=k>for</span> this operation
+</span></span><span class=line><span class=cl>grant replication slave on *.* to p1@localhost<span class=p>;</span>
+</span></span><span class=line><span class=cl>show slave hosts<span class=p>;</span>
+</span></span><span class=line><span class=cl>show binlog events<span class=p>;</span>
+</span></span><span class=line><span class=cl>+—————+——-+—————-+———–+————-+————–+
+</span></span><span class=line><span class=cl><span class=p>|</span> Log_name <span class=p>|</span> Pos <span class=p>|</span> Event_type <span class=p>|</span> Server_id<span class=p>|</span> End_log_pos<span class=p>|</span>Info <span class=p>|</span>
+</span></span><span class=line><span class=cl>+—————+——-+————–+———–+————-+—————+
+</span></span><span class=line><span class=cl><span class=p>|</span> mysql-bin.000005 <span class=p>|</span> <span class=m>4</span> <span class=p>|</span> Format_desc <span class=p>|</span> <span class=m>1</span> <span class=p>|</span> <span class=m>98</span> <span class=p>|</span> Server ver: 5.0.77-log, Binlog ver: <span class=m>4</span> <span class=p>|</span> <span class=p>|</span>mysql-bin.000005<span class=p>|</span>98<span class=p>|</span>Query<span class=p>|</span>1<span class=p>|</span>197<span class=p>|</span>use <span class=sb>`</span>mysql<span class=sb>`</span><span class=p>;</span> create table a1<span class=o>(</span>i int<span class=o>)</span><span class=nv>engine</span><span class=o>=</span>myisam<span class=p>|</span>
+</span></span><span class=line><span class=cl>……………………………………
+</span></span></code></pre></td></tr></table></div></div><h4 id=shutdown>Shutdown</h4><p>关闭MySQL：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl><span class=o>[</span>mysql@mydev ~<span class=o>]</span>$ mysqladmin shutdown
+</span></span><span class=line><span class=cl>重新连接：
+</span></span><span class=line><span class=cl><span class=o>[</span>mysql@mydev ~<span class=o>]</span>$ mysql
+</span></span><span class=line><span class=cl><span class=m>4</span> ERROR <span class=m>2002</span> <span class=o>(</span>HY000<span class=o>)</span>: Can’t connect to <span class=nb>local</span> MySQL server through socket ‘/tmp/mysql.sock’ <span class=o>(</span>2<span class=o>)</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>mysql@mydev ~<span class=o>]</span>$ <span class=nb>cd</span> /u01/mysql/bin
+</span></span><span class=line><span class=cl><span class=o>[</span>mysql@mydev bin<span class=o>]</span>$ ./mysqld_safe <span class=p>&amp;</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>mysql@mydev bin<span class=o>]</span>$ mysql
+</span></span></code></pre></td></tr></table></div></div><h4 id=grant-option>grant option</h4><p>拥有grant option，就可以将自己拥有的权限授予其他用户（仅限于自己已经拥有的权限）</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>grant Grant option on pyt.* to p1@localhost<span class=p>;</span>
+</span></span><span class=line><span class=cl>grant <span class=k>select</span> on pyt.* to p2@localhost<span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=ile>ile</h4><p>拥有file权限才可以执行 select …into outfile和load data infile…操作，但是不要把file, process, super权限授予管理员以外的账号，这样存在严重的安全隐患。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>grant file on *.* to p1@localhost<span class=p>;</span>
+</span></span><span class=line><span class=cl>load data infile ‘/home/mysql/pet.txt’ into table pet<span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=super>super</h4><p>这个权限允许用户终止任何查询；修改全局变量的SET语句；使用CHANGE MASTER，PURGE MASTER LOGS。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>grant super on *.* to p1@localhost<span class=p>;</span>
+</span></span><span class=line><span class=cl>purge master logs before ‘mysql-bin.000006′<span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=process>process</h4><p>通过这个权限，用户可以执行SHOW PROCESSLIST和KILL命令。默认情况下，每个用户都可以执行SHOW PROCESSLIST命令，但是只能查询本用户的进程。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>show processlist<span class=p>;</span>
+</span></span><span class=line><span class=cl>+—-+——+———–+——+———+——+——-+——————+
+</span></span><span class=line><span class=cl><span class=p>|</span> Id <span class=p>|</span> User <span class=p>|</span> Host <span class=p>|</span> db <span class=p>|</span> Command <span class=p>|</span> Time <span class=p>|</span> State <span class=p>|</span> Info <span class=p>|</span>
+</span></span><span class=line><span class=cl>+—-+——+———–+——+———+——+——-+——————+
+</span></span><span class=line><span class=cl><span class=p>|</span> <span class=m>12</span> <span class=p>|</span> p1 <span class=p>|</span> localhost <span class=p>|</span> pyt <span class=p>|</span> Query <span class=p>|</span> <span class=m>0</span> <span class=p>|</span> NULL <span class=p>|</span> show processlist <span class=p>|</span>
+</span></span><span class=line><span class=cl>+—-+——+———–+——+———+——+——-+——————+
+</span></span></code></pre></td></tr></table></div></div></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>Updated on 2022-01-03</span></div></div><div class=post-info-line><div class=post-info-md><span><a class=link-to-markdown href=/mysql%E7%9A%84user%E8%A1%A8%E8%AF%A6%E8%A7%A3/index.md target=_blank>Read Markdown</a></span></div><div class=post-info-share><span></span></div></div></div><div class=post-info-more><section class=post-tags></section><section><span><a href=javascript:void(0); onclick=window.history.back()>Back</a></span>&nbsp;|&nbsp;<span><a href=/>Home</a></span></section></div><div class=post-nav><a href=/mysql%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93/ class=prev rel=prev title=mysql常用命令总结><i class="fas fa-angle-left fa-fw" aria-hidden=true></i>mysql常用命令总结</a>
+<a href=/%E4%B8%8D%E5%90%8C%E6%9E%B6%E6%9E%84%E5%B9%B3%E5%8F%B0%E4%B8%8Bdoker%E5%AE%98%E6%96%B9%E9%95%9C%E5%83%8F%E5%8C%85%E6%9F%A5%E6%89%BE%E8%AF%B4%E6%98%8E/ class=next rel=next title=不同架构平台下doker官方镜像包查找说明>不同架构平台下doker官方镜像包查找说明<i class="fas fa-angle-right fa-fw" aria-hidden=true></i></a></div></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line>Powered by <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.115.3">Hugo</a> | Theme - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden=true></i> LoveIt</a></div><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2021 - 2023</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=/ target=_blank>Peng</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top"><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=/lib/lightgallery/lightgallery.min.css><link rel=stylesheet href=/lib/katex/katex.min.css><link rel=stylesheet href=/lib/katex/copy-tex.min.css><link rel=stylesheet href=/lib/cookieconsent/cookieconsent.min.css><script type=text/javascript src=/lib/autocomplete/autocomplete.min.js></script><script type=text/javascript src=/lib/lunr/lunr.min.js></script><script type=text/javascript src=/lib/lazysizes/lazysizes.min.js></script><script type=text/javascript src=/lib/lightgallery/lightgallery.min.js></script><script type=text/javascript src=/lib/lightgallery/plugins/lg-thumbnail.min.js></script><script type=text/javascript src=/lib/lightgallery/plugins/lg-zoom.min.js></script><script type=text/javascript src=/lib/clipboard/clipboard.min.js></script><script type=text/javascript src=/lib/sharer/sharer.min.js></script><script type=text/javascript src=/lib/katex/katex.min.js></script><script type=text/javascript src=/lib/katex/auto-render.min.js></script><script type=text/javascript src=/lib/katex/copy-tex.min.js></script><script type=text/javascript src=/lib/katex/mhchem.min.js></script><script type=text/javascript src=/lib/cookieconsent/cookieconsent.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:50},comment:{},cookieconsent:{content:{dismiss:"Got it!",link:"Learn more",message:"This website uses Cookies to improve your experience."},enable:!0,palette:{button:{background:"#f0f0f0"},popup:{background:"#1aa3ff"}},theme:"edgeless"},lightgallery:!0,math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!0,left:"\\begin{equation}",right:"\\end{equation}"},{display:!0,left:"\\begin{equation*}",right:"\\end{equation*}"},{display:!0,left:"\\begin{align}",right:"\\end{align}"},{display:!0,left:"\\begin{align*}",right:"\\end{align*}"},{display:!0,left:"\\begin{alignat}",right:"\\end{alignat}"},{display:!0,left:"\\begin{alignat*}",right:"\\end{alignat*}"},{display:!0,left:"\\begin{gather}",right:"\\end{gather}"},{display:!0,left:"\\begin{CD}",right:"\\end{CD}"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{highlightTag:"em",lunrIndexURL:"/index.json",maxResultLength:10,noResultsFound:"No results found",snippetLength:50,type:"lunr"}}</script><script type=text/javascript src=/js/theme.min.js></script></body></html>

@@ -1,0 +1,260 @@
+<!doctype html><html lang=zh-CN><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>mysql常用命令总结 - Peng</title><meta name=Description content="One World,One Dream!"><meta property="og:title" content="mysql常用命令总结"><meta property="og:description" content="常见命令 连接本地数据库与远程数据库(10.4.xx.xx:3306) 1 2 3 mysql -h localhost -u root -p123 mysql -h 10.4.xx.xx -P 3306 -u root -p 显示数据库列表 1 show databases; 显示库中的数据表 1"><meta property="og:type" content="article"><meta property="og:url" content="https://blog.haipengv.com/mysql%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93/"><meta property="og:image" content="https://blog.haipengv.com/logo.png"><meta property="article:section" content="posts"><meta property="article:published_time" content="2022-01-03T20:40:08+00:00"><meta property="article:modified_time" content="2022-01-03T20:40:08+00:00"><meta property="og:site_name" content="我的网站"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://blog.haipengv.com/logo.png"><meta name=twitter:title content="mysql常用命令总结"><meta name=twitter:description content="常见命令 连接本地数据库与远程数据库(10.4.xx.xx:3306) 1 2 3 mysql -h localhost -u root -p123 mysql -h 10.4.xx.xx -P 3306 -u root -p 显示数据库列表 1 show databases; 显示库中的数据表 1"><meta name=application-name content="我的网站"><meta name=apple-mobile-web-app-title content="我的网站"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://blog.haipengv.com/mysql%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93/><link rel=prev href=https://blog.haipengv.com/mysql%E4%B8%BB%E4%BB%8E%E6%9E%B6%E6%9E%84/><link rel=next href=https://blog.haipengv.com/mysql%E7%9A%84user%E8%A1%A8%E8%AF%A6%E8%A7%A3/><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=/lib/fontawesome-free/all.min.css><link rel=stylesheet href=/lib/animate/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"mysql常用命令总结","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/blog.haipengv.com\/mysql%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93\/"},"genre":"posts","wordcount":2206,"url":"https:\/\/blog.haipengv.com\/mysql%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93\/","datePublished":"2022-01-03T20:40:08+00:00","dateModified":"2022-01-03T20:40:08+00:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"Peng"},"description":""}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"auto"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"auto"==="dark")&&document.body.setAttribute("theme","dark")</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title=Peng>Peng</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>文章 </a><a class=menu-item href=/tags/>标签 </a><a class=menu-item href=/categories/>分类 </a><a class=menu-item href=/links/>友链 </a><a class=menu-item href=/about/>关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder=搜索文章标题或内容... id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=Search><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=Clear><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span>
+</span><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme"><i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title=Peng>Peng</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder=搜索文章标题或内容... id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=Search><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=Clear><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>Cancel</a></div><a class=menu-item href=/posts/ title>文章</a><a class=menu-item href=/tags/ title>标签</a><a class=menu-item href=/categories/ title>分类</a><a class=menu-item href=/links/ title>友链</a><a class=menu-item href=/about/ title>关于</a><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>Contents</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">mysql常用命令总结</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=/ title=Author rel=author class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Peng</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw" aria-hidden=true></i>&nbsp;<time datetime=2022-01-03>2022-01-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden=true></i>&nbsp;2206 words&nbsp;
+<i class="far fa-clock fa-fw" aria-hidden=true></i>&nbsp;5 minutes&nbsp;</div></div><div class="details toc" id=toc-static data-kept=true><div class="details-summary toc-title"><span>Contents</span>
+<span><i class="details-icon fas fa-angle-right" aria-hidden=true></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><ul><li><a href=#常见命令>常见命令</a><ul><li><a href=#连接本地数据库与远程数据库104xxxx3306>连接本地数据库与远程数据库(10.4.xx.xx:3306)</a></li><li><a href=#显示数据库列表>显示数据库列表</a></li><li><a href=#显示库中的数据表>显示库中的数据表</a></li><li><a href=#显示数据表的结构>显示数据表的结构</a></li><li><a href=#建库>建库</a></li><li><a href=#建表>建表</a></li><li><a href=#删库和删表>删库和删表</a></li><li><a href=#将表中记录清空>将表中记录清空</a></li><li><a href=#显示表中的记录>显示表中的记录</a></li></ul></li><li><a href=#库的基本操作>库的基本操作</a><ul><li><a href=#创建数据库>创建数据库</a></li><li><a href=#连接数据库>连接数据库</a></li><li><a href=#查看当前使用的数据库>查看当前使用的数据库</a></li><li><a href=#当前数据库包含的表信息>当前数据库包含的表信息</a></li><li><a href=#删除数据库>删除数据库</a></li></ul></li><li><a href=#表的基本操作>表的基本操作</a><ul><li><a href=#命令>命令</a></li><li><a href=#获取表结构>获取表结构</a><ul><li><a href=#命令-1>命令</a></li></ul></li><li><a href=#插入数据>插入数据</a><ul><li><a href=#命令-2>命令</a></li></ul></li><li><a href=#查询表中的数据>查询表中的数据</a><ul><li><a href=#查询所有行>查询所有行</a></li><li><a href=#查询前几行数据>查询前几行数据</a></li></ul></li><li><a href=#删除表中数据>删除表中数据</a><ul><li><a href=#命令-3>命令</a></li><li><a href=#例如删除表-class-中编号为-6-的记录>例如:删除表 Class 中编号为 6 的记录</a></li></ul></li><li><a href=#修改表中数据>修改表中数据</a><ul><li><a href=#命令-4>命令</a></li><li><a href=#例如>例如</a></li></ul></li><li><a href=#在表中增加字段>在表中增加字段</a><ul><li><a href=#命令-5>命令</a></li><li><a href=#例如在表-class-中添加了一个字段-sex类型为-varchar25默认值为-0>例如:在表 Class 中添加了一个字段 sex,类型为 varchar(25),默认值为 0</a></li></ul></li><li><a href=#更改表名>更改表名</a><ul><li><a href=#命令-6>命令</a></li><li><a href=#例如在表-class-名字更改为-mclass>例如:在表 Class 名字更改为 MClass</a></li></ul></li><li><a href=#复制表>复制表</a></li><li><a href=#删除表>删除表</a><ul><li><a href=#例如删除表名为-mclass-的表>例如:删除表名为 MClass 的表</a></li></ul></li></ul></li><li><a href=#mysql查看触发器>Mysql查看触发器</a><ul><li><a href=#连接数据库并进入库>连接数据库并进入库</a></li><li><a href=#查看当前库中所有表的触发器>查看当前库中所有表的触发器</a></li><li><a href=#触发器的创建>触发器的创建</a></li><li><a href=#在triggers表中查看触发器信息>在triggers表中查看触发器信息</a></li></ul></li></ul></li></ul></nav></div></div><div class=content id=content><h3 id=常见命令>常见命令</h3><h4 id=连接本地数据库与远程数据库104xxxx3306>连接本地数据库与远程数据库(10.4.xx.xx:3306)</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>mysql -h localhost -u root -p123
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>mysql -h 10.4.xx.xx -P <span class=m>3306</span> -u root -p
+</span></span></code></pre></td></tr></table></div></div><h4 id=显示数据库列表>显示数据库列表</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>show databases<span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=显示库中的数据表>显示库中的数据表</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>show tables<span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=显示数据表的结构>显示数据表的结构</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>describe 表名<span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><p>默认表结构类型为MYISAM,并在/var/lib/mysql/abc 目录下建立student.frm(表定义文件)，student.MDY(数据文件)，student.MYI(索引文件)。</p><h4 id=建库>建库</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>create database 库名<span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=建表>建表</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>create table 表名 <span class=o>(</span>字段设定列表<span class=o>)</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><p>例如：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>mysql&gt; create table <span class=nb>test</span> <span class=o>(</span>id int<span class=o>(</span>20<span class=o>))</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=删库和删表>删库和删表</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>drop database 库名<span class=p>;</span>
+</span></span><span class=line><span class=cl>drop table 表名<span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=将表中记录清空>将表中记录清空</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>delete from 表名<span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=c1># 内容清空，自增id不会被清掉，自增id会保留</span>
+</span></span><span class=line><span class=cl>mysql&gt; truncate table users<span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=c1># 数据库返回：“Query OK, 0 rows affected (0.04 sec)”</span>
+</span></span><span class=line><span class=cl><span class=c1>#（成功返回0）（自增id也一同会被清掉)</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=显示表中的记录>显示表中的记录</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl><span class=k>select</span> * from 表名<span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=库的基本操作>库的基本操作</h3><h4 id=创建数据库>创建数据库</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>mysql&gt; create database ceshi<span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=连接数据库>连接数据库</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>mysql&gt; use ceshi<span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=查看当前使用的数据库>查看当前使用的数据库</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>mysql&gt; <span class=k>select</span> database<span class=o>()</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=当前数据库包含的表信息>当前数据库包含的表信息</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>mysql&gt; show tables<span class=p>;</span> 
+</span></span></code></pre></td></tr></table></div></div><h4 id=删除数据库>删除数据库</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>mysql&gt; drop database ceshi<span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=表的基本操作>表的基本操作</h3><h4 id=命令>命令</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>create table &lt;表名&gt; <span class=o>(</span>&lt;字段名 1&gt; &lt;类型 1&gt; <span class=o>[</span>,..&lt;字段名 n&gt; &lt;类型 n&gt;<span class=o>])</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>例如</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>mysql&gt; create table Class<span class=o>(</span>
+</span></span><span class=line><span class=cl>id int<span class=o>(</span>4<span class=o>)</span> not null primary key auto_increment, 
+</span></span><span class=line><span class=cl>name varchar<span class=o>(</span>25<span class=o>)</span> not null, 
+</span></span><span class=line><span class=cl>age int <span class=o>(</span>4<span class=o>)</span> not null default<span class=s1>&#39;0&#39;</span><span class=o>)</span><span class=p>;</span>    
+</span></span><span class=line><span class=cl><span class=c1># default&#39;0&#39; 设置默认值为0 ,not null(不能为空) ,primary key（主键）,auto_increment（自增长）</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=获取表结构>获取表结构</h4><h5 id=命令-1>命令</h5><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>desc 表名，或者show columns from 表名
+</span></span></code></pre></td></tr></table></div></div><p><strong>例如</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>mysql&gt; desc Class<span class=p>;</span>
+</span></span><span class=line><span class=cl>mysql&gt; describe Class<span class=p>;</span>
+</span></span><span class=line><span class=cl>mysql&gt; show columns from Class<span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=插入数据>插入数据</h4><h5 id=命令-2>命令</h5><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>insert into &lt;表名&gt; <span class=o>[(</span> &lt;字段名 1&gt;<span class=o>[</span>,..&lt;字段名 n &gt; <span class=o>])]</span> values <span class=o>(</span> 值 <span class=m>1</span> <span class=o>)[</span>, <span class=o>(</span> 值 n <span class=o>)]</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>例如</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>mysql&gt; insert into Class values<span class=o>(</span>1,<span class=s1>&#39;Wrry&#39;</span>,26<span class=o>)</span>,<span class=o>(</span>2,<span class=s1>&#39;ZJW&#39;</span>,28<span class=o>)</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=查询表中的数据>查询表中的数据</h4><h5 id=查询所有行>查询所有行</h5><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>mysql&gt; <span class=k>select</span> * from Class<span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><h5 id=查询前几行数据>查询前几行数据</h5><p><strong>例如:查看表 Class 中前 3 行数据</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>mysql&gt; <span class=k>select</span> * from Class limit 0,3<span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>或者</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>mysql&gt; <span class=k>select</span> * from Class order by id limit 0,3<span class=p>;</span>    <span class=c1># order by id:以id排序</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=删除表中数据>删除表中数据</h4><h5 id=命令-3>命令</h5><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>delete from 表名 where 表达式<span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><h5 id=例如删除表-class-中编号为-6-的记录>例如:删除表 Class 中编号为 6 的记录</h5><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>mysql&gt; delete from MyClass where <span class=nv>id</span><span class=o>=</span>6<span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=修改表中数据>修改表中数据</h4><h5 id=命令-4>命令</h5><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>update 表名 <span class=nb>set</span> 字段<span class=o>=</span>新值,... where 条件<span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><h5 id=例如>例如</h5><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>mysql&gt; update Class <span class=nb>set</span> <span class=nv>name</span><span class=o>=</span><span class=s1>&#39;AI&#39;</span> where <span class=nv>id</span><span class=o>=</span>1<span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=在表中增加字段>在表中增加字段</h4><h5 id=命令-5>命令</h5><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>alter table 表名 add 字段 类型 其他<span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><h5 id=例如在表-class-中添加了一个字段-sex类型为-varchar25默认值为-0>例如:在表 Class 中添加了一个字段 sex,类型为 varchar(25),默认值为 0</h5><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>mysql&gt; alter table Class add sex varchar<span class=o>(</span>25<span class=o>)</span> default <span class=s1>&#39;0&#39;</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=更改表名>更改表名</h4><h5 id=命令-6>命令</h5><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>rename table 原表名 to 新表名<span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><h5 id=例如在表-class-名字更改为-mclass>例如:在表 Class 名字更改为 MClass</h5><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>mysql&gt; rename table Class to MClass<span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=复制表>复制表</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>create table 新表名 like 原表名称<span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><p>例如</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>mysql&gt; create table Test like test<span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=删除表>删除表</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>命令:drop table &lt;表名&gt;
+</span></span></code></pre></td></tr></table></div></div><h5 id=例如删除表名为-mclass-的表>例如:删除表名为 MClass 的表</h5><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>mysql&gt; drop table MClass<span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><p>更多操作<a href=https://www.w3school.com.cn/sql/sql_autoincrement.asp target=_blank rel="noopener noreffer">参考</a></p><h3 id=mysql查看触发器>Mysql查看触发器</h3><h4 id=连接数据库并进入库>连接数据库并进入库</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>use test<span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=查看当前库中所有表的触发器>查看当前库中所有表的触发器</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>mysql&gt; show triggers \G;
+</span></span><span class=line><span class=cl>*************************** 1. row ***************************
+</span></span><span class=line><span class=cl>             Trigger: trigupdate
+</span></span><span class=line><span class=cl>               Event: UPDATE
+</span></span><span class=line><span class=cl>               Table: account
+</span></span><span class=line><span class=cl>           Statement: INSERT INTO myevent VALUES(1,&#39;after update&#39;)
+</span></span><span class=line><span class=cl>              Timing: AFTER
+</span></span><span class=line><span class=cl>             Created: NULL
+</span></span><span class=line><span class=cl>            sql_mode: 
+</span></span><span class=line><span class=cl>             Definer: root@localhost
+</span></span><span class=line><span class=cl>character_set_client: utf8
+</span></span><span class=line><span class=cl>collation_connection: utf8_general_ci
+</span></span><span class=line><span class=cl>  Database Collation: utf8_general_ci
+</span></span><span class=line><span class=cl>1 row in set (0.00 sec)
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>ERROR: 
+</span></span><span class=line><span class=cl>No query specified
+</span></span></code></pre></td></tr></table></div></div><h4 id=触发器的创建>触发器的创建</h4><p>新建表account，表中有两个字段，分别是 INT 类型的 accnum 和 DECIMAL 类型的 amount。SQL 语句和运行结果如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>mysql&gt; CREATE TABLE account(
+</span></span><span class=line><span class=cl>       accnum INT(4),
+</span></span><span class=line><span class=cl>       amount DECIMAL(10,2));
+</span></span><span class=line><span class=cl>Query OK, 0 rows affected (0.49 sec)
+</span></span></code></pre></td></tr></table></div></div><p>创建一个名为 trigupdate 的触发器，每次 account 表更新数据之后都向 myevent 数据表中插入一条数据。创建数据表 myevent 的 SQL 语句和运行结果如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>mysql&gt; CREATE TABLE myevent(
+</span></span><span class=line><span class=cl>       id INT(11) DEFAULT NULL,
+</span></span><span class=line><span class=cl>       evtname CHAR(20) DEFAULT NULL);
+</span></span><span class=line><span class=cl>Query OK, 0 rows affected (0.26 sec)
+</span></span></code></pre></td></tr></table></div></div><p>创建 trigupdate 触发器的 SQL 代码如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>mysql&gt; CREATE TRIGGER trigupdate AFTER UPDATE ON account
+</span></span><span class=line><span class=cl>       FOR EACH ROW INSERT INTO myevent VALUES(1,&#39;after update&#39;);
+</span></span><span class=line><span class=cl>Query OK, 0 rows affected (0.15 sec)
+</span></span></code></pre></td></tr></table></div></div><p>使用 SHOW TRIGGERS 语句查看触发器（在 SHOW TRIGGERS 命令后添加<code>\G</code>，这样显示信息会比较有条理），SQL 语句和运行结果如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>mysql&gt; show triggers\G;
+</span></span><span class=line><span class=cl>*************************** 1. row ***************************
+</span></span><span class=line><span class=cl>             Trigger: trigupdate
+</span></span><span class=line><span class=cl>               Event: INSERT
+</span></span><span class=line><span class=cl>               Table: account
+</span></span><span class=line><span class=cl>           Statement: INSERT INTO myevent VALUES(1,&#39;after insert&#39;)
+</span></span><span class=line><span class=cl>              Timing: AFTER
+</span></span><span class=line><span class=cl>             Created: NULL
+</span></span><span class=line><span class=cl>            sql_mode: 
+</span></span><span class=line><span class=cl>             Definer: root@localhost
+</span></span><span class=line><span class=cl>character_set_client: utf8
+</span></span><span class=line><span class=cl>collation_connection: utf8_general_ci
+</span></span><span class=line><span class=cl>  Database Collation: utf8_general_ci
+</span></span><span class=line><span class=cl>1 row in set (0.00 sec)
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>ERROR: 
+</span></span><span class=line><span class=cl>No query specified
+</span></span></code></pre></td></tr></table></div></div><p>由运行结果可以看到触发器的基本信息。对以上显示信息的说明如下：</p><ul><li>Trigger 表示触发器的名称，在这里触发器的名称为 trigupdate；</li><li>Event 表示激活触发器的事件，这里的触发事件为更新操作 UPDATE；</li><li>Table 表示激活触发器的操作对象表，这里为 account 表；</li><li>Statement 表示触发器执行的操作，这里是向 myevent 数据表中插入一条数据；</li><li>Timing 表示触发器触发的时间，这里为更新操作之后（AFTER）；</li><li>还有一些其他信息，比如触发器的创建时间、SQL 的模式、触发器的定义账户和字符集等，这里不再一一介绍。</li></ul><p>SHOW TRIGGERS 语句用来查看当前创建的所有触发器的信息。因为该语句无法查询指定的触发器，所以在触发器较少的情况下，使用该语句会很方便。如果要查看特定触发器的信息或者数据库中触发器较多时，可以直接从 information_schema 数据库中的 triggers 数据表中查找。</p><h4 id=在triggers表中查看触发器信息>在triggers表中查看触发器信息</h4><p>在 MySQL 中，所有触发器的信息都存在 information_schema 数据库的 triggers 表中，可以通过查询命令 SELECT 来查看，具体的语法如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>SELECT * FROM information_schema.triggers WHERE trigger_name= &#39;触发器名&#39;;
+</span></span></code></pre></td></tr></table></div></div><p>其中，<code>'触发器名'</code>用来指定要查看的触发器的名称，需要用单引号引起来。这种方式可以查询指定的触发器，使用起来更加方便、灵活。</p><p>下面使用 SELECT 命令查看 trigupdate 触发器，SQL 语句如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>SELECT * FROM information_schema.triggers WHERE TRIGGER_NAME= &#39;trigupdate&#39;\G;
+</span></span></code></pre></td></tr></table></div></div><p>上述命令通过 WHERE 来指定需要查看的触发器的名称，运行结果如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>mysql&gt; SELECT * FROM information_schema.triggers WHERE <span class=nv>TRIGGER_NAME</span><span class=o>=</span> <span class=s1>&#39;trigupdate&#39;</span><span class=se>\G</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>*************************** 1. row ***************************
+</span></span><span class=line><span class=cl>           TRIGGER_CATALOG: def
+</span></span><span class=line><span class=cl>            TRIGGER_SCHEMA: <span class=nb>test</span>
+</span></span><span class=line><span class=cl>              TRIGGER_NAME: trigupdate
+</span></span><span class=line><span class=cl>        EVENT_MANIPULATION: INSERT
+</span></span><span class=line><span class=cl>      EVENT_OBJECT_CATALOG: def
+</span></span><span class=line><span class=cl>       EVENT_OBJECT_SCHEMA: <span class=nb>test</span>
+</span></span><span class=line><span class=cl>        EVENT_OBJECT_TABLE: account
+</span></span><span class=line><span class=cl>              ACTION_ORDER: <span class=m>0</span>
+</span></span><span class=line><span class=cl>          ACTION_CONDITION: NULL
+</span></span><span class=line><span class=cl>          ACTION_STATEMENT: INSERT INTO myevent VALUES<span class=o>(</span>1,<span class=s1>&#39;after insert&#39;</span><span class=o>)</span>
+</span></span><span class=line><span class=cl>        ACTION_ORIENTATION: ROW
+</span></span><span class=line><span class=cl>             ACTION_TIMING: AFTER
+</span></span><span class=line><span class=cl>ACTION_REFERENCE_OLD_TABLE: NULL
+</span></span><span class=line><span class=cl>ACTION_REFERENCE_NEW_TABLE: NULL
+</span></span><span class=line><span class=cl>  ACTION_REFERENCE_OLD_ROW: OLD
+</span></span><span class=line><span class=cl>  ACTION_REFERENCE_NEW_ROW: NEW
+</span></span><span class=line><span class=cl>                   CREATED: NULL
+</span></span><span class=line><span class=cl>                  SQL_MODE: 
+</span></span><span class=line><span class=cl>                   DEFINER: root@localhost
+</span></span><span class=line><span class=cl>      CHARACTER_SET_CLIENT: utf8
+</span></span><span class=line><span class=cl>      COLLATION_CONNECTION: utf8_general_ci
+</span></span><span class=line><span class=cl>        DATABASE_COLLATION: utf8_general_ci
+</span></span><span class=line><span class=cl><span class=m>1</span> row in <span class=nb>set</span> <span class=o>(</span>0.01 sec<span class=o>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>由运行结果可以看到触发器的详细信息。对以上显示信息的说明如下：</p><ul><li>TRIGGER_SCHEMA 表示触发器所在的数据库；</li><li>TRIGGER_NAME 表示触发器的名称；</li><li>EVENT_OBJECT_TABLE 表示在哪个数据表上触发；</li><li>ACTION_STATEMENT 表示触发器触发的时候执行的具体操作；</li><li>ACTION_ORIENTATION 的值为 ROW，表示在每条记录上都触发；</li><li>ACTION_TIMING 表示触发的时刻是 AFTER；</li><li>还有一些其他信息，比如触发器的创建时间、SQL 的模式、触发器的定义账户和字符集等，这里不再一一介绍。</li></ul><p>上述 SQL 语句也可以不指定触发器名称，这样将查看所有的触发器，SQL 语句如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>SELECT * FROM information_schema.triggers \G;
+</span></span></code></pre></td></tr></table></div></div><p>这个语句会显示 triggers 数据表中所有的触发器信息。</p></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>Updated on 2022-01-03</span></div></div><div class=post-info-line><div class=post-info-md><span><a class=link-to-markdown href=/mysql%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93/index.md target=_blank>Read Markdown</a></span></div><div class=post-info-share><span></span></div></div></div><div class=post-info-more><section class=post-tags></section><section><span><a href=javascript:void(0); onclick=window.history.back()>Back</a></span>&nbsp;|&nbsp;<span><a href=/>Home</a></span></section></div><div class=post-nav><a href=/mysql%E4%B8%BB%E4%BB%8E%E6%9E%B6%E6%9E%84/ class=prev rel=prev title=mysql主从架构><i class="fas fa-angle-left fa-fw" aria-hidden=true></i>mysql主从架构</a>
+<a href=/mysql%E7%9A%84user%E8%A1%A8%E8%AF%A6%E8%A7%A3/ class=next rel=next title=mysql的user表详解>mysql的user表详解<i class="fas fa-angle-right fa-fw" aria-hidden=true></i></a></div></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line>Powered by <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.115.3">Hugo</a> | Theme - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden=true></i> LoveIt</a></div><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2021 - 2023</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=/ target=_blank>Peng</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top"><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=/lib/lightgallery/lightgallery.min.css><link rel=stylesheet href=/lib/katex/katex.min.css><link rel=stylesheet href=/lib/katex/copy-tex.min.css><link rel=stylesheet href=/lib/cookieconsent/cookieconsent.min.css><script type=text/javascript src=/lib/autocomplete/autocomplete.min.js></script><script type=text/javascript src=/lib/lunr/lunr.min.js></script><script type=text/javascript src=/lib/lazysizes/lazysizes.min.js></script><script type=text/javascript src=/lib/lightgallery/lightgallery.min.js></script><script type=text/javascript src=/lib/lightgallery/plugins/lg-thumbnail.min.js></script><script type=text/javascript src=/lib/lightgallery/plugins/lg-zoom.min.js></script><script type=text/javascript src=/lib/clipboard/clipboard.min.js></script><script type=text/javascript src=/lib/sharer/sharer.min.js></script><script type=text/javascript src=/lib/katex/katex.min.js></script><script type=text/javascript src=/lib/katex/auto-render.min.js></script><script type=text/javascript src=/lib/katex/copy-tex.min.js></script><script type=text/javascript src=/lib/katex/mhchem.min.js></script><script type=text/javascript src=/lib/cookieconsent/cookieconsent.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:50},comment:{},cookieconsent:{content:{dismiss:"Got it!",link:"Learn more",message:"This website uses Cookies to improve your experience."},enable:!0,palette:{button:{background:"#f0f0f0"},popup:{background:"#1aa3ff"}},theme:"edgeless"},lightgallery:!0,math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!0,left:"\\begin{equation}",right:"\\end{equation}"},{display:!0,left:"\\begin{equation*}",right:"\\end{equation*}"},{display:!0,left:"\\begin{align}",right:"\\end{align}"},{display:!0,left:"\\begin{align*}",right:"\\end{align*}"},{display:!0,left:"\\begin{alignat}",right:"\\end{alignat}"},{display:!0,left:"\\begin{alignat*}",right:"\\end{alignat*}"},{display:!0,left:"\\begin{gather}",right:"\\end{gather}"},{display:!0,left:"\\begin{CD}",right:"\\end{CD}"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{highlightTag:"em",lunrIndexURL:"/index.json",maxResultLength:10,noResultsFound:"No results found",snippetLength:50,type:"lunr"}}</script><script type=text/javascript src=/js/theme.min.js></script></body></html>

@@ -1,0 +1,244 @@
+<!doctype html><html lang=zh-CN><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>基于tcp的简单套接字通信 - Peng</title><meta name=Description content="One World,One Dream!"><meta property="og:title" content="基于tcp的简单套接字通信"><meta property="og:description" content="简单套接字通信 服务端 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 import socket #买手机 phone = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #tcp协议 #绑定手机 # phone.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1) phone.bind(('127.0.0.1', 9000)) #0-65535 #开机 phone.listen(5) #等待电话连"><meta property="og:type" content="article"><meta property="og:url" content="https://blog.haipengv.com/%E5%9F%BA%E4%BA%8Etcp%E7%9A%84%E7%AE%80%E5%8D%95%E5%A5%97%E6%8E%A5%E5%AD%97%E9%80%9A%E4%BF%A1/"><meta property="og:image" content="https://blog.haipengv.com/logo.png"><meta property="article:section" content="posts"><meta property="article:published_time" content="2022-04-11T21:02:12+00:00"><meta property="article:modified_time" content="2022-04-11T21:02:12+00:00"><meta property="og:site_name" content="我的网站"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://blog.haipengv.com/logo.png"><meta name=twitter:title content="基于tcp的简单套接字通信"><meta name=twitter:description content="简单套接字通信 服务端 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 import socket #买手机 phone = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #tcp协议 #绑定手机 # phone.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1) phone.bind(('127.0.0.1', 9000)) #0-65535 #开机 phone.listen(5) #等待电话连"><meta name=application-name content="我的网站"><meta name=apple-mobile-web-app-title content="我的网站"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://blog.haipengv.com/%E5%9F%BA%E4%BA%8Etcp%E7%9A%84%E7%AE%80%E5%8D%95%E5%A5%97%E6%8E%A5%E5%AD%97%E9%80%9A%E4%BF%A1/><link rel=prev href=https://blog.haipengv.com/%E9%9B%86%E5%90%88%E7%9A%84%E7%9B%B8%E5%85%B3%E7%89%B9%E6%80%A7/><link rel=next href=https://blog.haipengv.com/ansible/><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=/lib/fontawesome-free/all.min.css><link rel=stylesheet href=/lib/animate/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"基于tcp的简单套接字通信","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/blog.haipengv.com\/%E5%9F%BA%E4%BA%8Etcp%E7%9A%84%E7%AE%80%E5%8D%95%E5%A5%97%E6%8E%A5%E5%AD%97%E9%80%9A%E4%BF%A1\/"},"genre":"posts","wordcount":712,"url":"https:\/\/blog.haipengv.com\/%E5%9F%BA%E4%BA%8Etcp%E7%9A%84%E7%AE%80%E5%8D%95%E5%A5%97%E6%8E%A5%E5%AD%97%E9%80%9A%E4%BF%A1\/","datePublished":"2022-04-11T21:02:12+00:00","dateModified":"2022-04-11T21:02:12+00:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"Peng"},"description":""}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"auto"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"auto"==="dark")&&document.body.setAttribute("theme","dark")</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title=Peng>Peng</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>文章 </a><a class=menu-item href=/tags/>标签 </a><a class=menu-item href=/categories/>分类 </a><a class=menu-item href=/links/>友链 </a><a class=menu-item href=/about/>关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder=搜索文章标题或内容... id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=Search><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=Clear><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span>
+</span><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme"><i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title=Peng>Peng</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder=搜索文章标题或内容... id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=Search><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=Clear><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>Cancel</a></div><a class=menu-item href=/posts/ title>文章</a><a class=menu-item href=/tags/ title>标签</a><a class=menu-item href=/categories/ title>分类</a><a class=menu-item href=/links/ title>友链</a><a class=menu-item href=/about/ title>关于</a><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>Contents</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">基于tcp的简单套接字通信</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=/ title=Author rel=author class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Peng</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw" aria-hidden=true></i>&nbsp;<time datetime=2022-04-11>2022-04-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden=true></i>&nbsp;712 words&nbsp;
+<i class="far fa-clock fa-fw" aria-hidden=true></i>&nbsp;2 minutes&nbsp;</div></div><div class="details toc" id=toc-static data-kept=true><div class="details-summary toc-title"><span>Contents</span>
+<span><i class="details-icon fas fa-angle-right" aria-hidden=true></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#简单套接字通信>简单套接字通信</a><ul><li><a href=#服务端>服务端</a></li><li><a href=#客户端>客户端</a></li></ul></li></ul></nav></div></div><div class=content id=content><h2 id=简单套接字通信>简单套接字通信</h2><h3 id=服务端>服务端</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>socket</span>
+</span></span><span class=line><span class=cl><span class=c1>#买手机</span>
+</span></span><span class=line><span class=cl><span class=n>phone</span> <span class=o>=</span> <span class=n>socket</span><span class=o>.</span><span class=n>socket</span><span class=p>(</span><span class=n>socket</span><span class=o>.</span><span class=n>AF_INET</span><span class=p>,</span> <span class=n>socket</span><span class=o>.</span><span class=n>SOCK_STREAM</span><span class=p>)</span> <span class=c1>#tcp协议</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#绑定手机</span>
+</span></span><span class=line><span class=cl><span class=c1># phone.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)</span>
+</span></span><span class=line><span class=cl><span class=n>phone</span><span class=o>.</span><span class=n>bind</span><span class=p>((</span><span class=s1>&#39;127.0.0.1&#39;</span><span class=p>,</span> <span class=mi>9000</span><span class=p>))</span> <span class=c1>#0-65535</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#开机</span>
+</span></span><span class=line><span class=cl><span class=n>phone</span><span class=o>.</span><span class=n>listen</span><span class=p>(</span><span class=mi>5</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#等待电话连接</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=s1>&#39;staring....&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>conn</span><span class=p>,</span> <span class=n>client_addr</span><span class=o>=</span><span class=n>phone</span><span class=o>.</span><span class=n>accept</span><span class=p>()</span> <span class=c1>#(conn,client_addr)  .accept()会阻塞，等待建立连接。</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>conn</span><span class=p>,</span> <span class=n>client_addr</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#收、发消息</span>
+</span></span><span class=line><span class=cl><span class=n>data</span> <span class=o>=</span> <span class=n>conn</span><span class=o>.</span><span class=n>recv</span><span class=p>(</span><span class=mi>1024</span><span class=p>)</span> <span class=c1>#1024bytes? .recv()也会阻塞。等着接收数据。</span>
+</span></span><span class=line><span class=cl><span class=n>conn</span><span class=o>.</span><span class=n>send</span><span class=p>(</span><span class=n>data</span><span class=o>.</span><span class=n>upper</span><span class=p>())</span> <span class=c1>#.send()不会阻塞，只是发给缓存就结束了。</span>
+</span></span><span class=line><span class=cl><span class=c1>#挂电话连接</span>
+</span></span><span class=line><span class=cl><span class=n>conn</span><span class=o>.</span><span class=n>close</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#关机</span>
+</span></span><span class=line><span class=cl><span class=n>phone</span><span class=o>.</span><span class=n>close</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=客户端>客户端</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>socket</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#买手机</span>
+</span></span><span class=line><span class=cl><span class=n>phone</span><span class=o>=</span><span class=n>socket</span><span class=o>.</span><span class=n>socket</span><span class=p>(</span><span class=n>socket</span><span class=o>.</span><span class=n>AF_INET</span><span class=p>,</span> <span class=n>socket</span><span class=o>.</span><span class=n>SOCK_STREAM</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#拨电话</span>
+</span></span><span class=line><span class=cl><span class=n>phone</span><span class=o>.</span><span class=n>connect</span><span class=p>((</span><span class=s1>&#39;127.0.0.1&#39;</span><span class=p>,</span> <span class=mi>9000</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#发收消息</span>
+</span></span><span class=line><span class=cl><span class=n>phone</span><span class=o>.</span><span class=n>send</span><span class=p>(</span><span class=s2>&#34;hello&#34;</span><span class=o>.</span><span class=n>encode</span><span class=p>(</span><span class=s1>&#39;utf-8&#39;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>data</span> <span class=o>=</span> <span class=n>phone</span><span class=o>.</span><span class=n>recv</span><span class=p>(</span><span class=mi>1024</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>data</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#挂电话</span>
+</span></span><span class=line><span class=cl><span class=n>phone</span><span class=o>.</span><span class=n>close</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><p>结果：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1>#服务端</span>
+</span></span><span class=line><span class=cl><span class=n>staring</span><span class=o>....</span>
+</span></span><span class=line><span class=cl><span class=o>&lt;</span><span class=n>socket</span><span class=o>.</span><span class=n>socket</span> <span class=n>fd</span><span class=o>=</span><span class=mi>360</span><span class=p>,</span> <span class=n>family</span><span class=o>=</span><span class=n>AddressFamily</span><span class=o>.</span><span class=n>AF_INET</span><span class=p>,</span> <span class=nb>type</span><span class=o>=</span><span class=n>SocketKind</span><span class=o>.</span><span class=n>SOCK_STREAM</span><span class=p>,</span> <span class=n>proto</span><span class=o>=</span><span class=mi>0</span><span class=p>,</span> <span class=n>laddr</span><span class=o>=</span><span class=p>(</span><span class=s1>&#39;127.0.0.1&#39;</span><span class=p>,</span> <span class=mi>9000</span><span class=p>),</span> <span class=n>raddr</span><span class=o>=</span><span class=p>(</span><span class=s1>&#39;127.0.0.1&#39;</span><span class=p>,</span> <span class=mi>18455</span><span class=p>)</span><span class=o>&gt;</span> <span class=p>(</span><span class=s1>&#39;127.0.0.1&#39;</span><span class=p>,</span> <span class=mi>18455</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=c1>#客户端</span>
+</span></span><span class=line><span class=cl><span class=sa>b</span><span class=s1>&#39;HELLO&#39;</span>
+</span></span></code></pre></td></tr></table></div></div><p>优化：加上通信循环</p><p>服务端</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>socket</span>
+</span></span><span class=line><span class=cl><span class=n>phone</span> <span class=o>=</span> <span class=n>socket</span><span class=o>.</span><span class=n>socket</span><span class=p>(</span><span class=n>socket</span><span class=o>.</span><span class=n>AF_INET</span><span class=p>,</span> <span class=n>socket</span><span class=o>.</span><span class=n>SOCK_STREAM</span><span class=p>)</span> <span class=c1>#tcp协议</span>
+</span></span><span class=line><span class=cl><span class=c1># phone.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)</span>
+</span></span><span class=line><span class=cl><span class=n>phone</span><span class=o>.</span><span class=n>bind</span><span class=p>((</span><span class=s1>&#39;127.0.0.1&#39;</span><span class=p>,</span> <span class=mi>9000</span><span class=p>))</span> <span class=c1>#0-65535</span>
+</span></span><span class=line><span class=cl><span class=n>phone</span><span class=o>.</span><span class=n>listen</span><span class=p>(</span><span class=mi>5</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=s1>&#39;staring....&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>conn</span><span class=p>,</span> <span class=n>client_addr</span><span class=o>=</span><span class=n>phone</span><span class=o>.</span><span class=n>accept</span><span class=p>()</span> <span class=c1>#(conn,client_addr)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>conn</span><span class=p>,</span> <span class=n>client_addr</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>while</span> <span class=kc>True</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>data</span> <span class=o>=</span> <span class=n>conn</span><span class=o>.</span><span class=n>recv</span><span class=p>(</span><span class=mi>1024</span><span class=p>)</span> <span class=c1>#1024bytes?</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s1>&#39;客户端信息&#39;</span><span class=p>,</span> <span class=n>data</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>conn</span><span class=o>.</span><span class=n>send</span><span class=p>(</span><span class=n>data</span><span class=o>.</span><span class=n>upper</span><span class=p>())</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>conn</span><span class=o>.</span><span class=n>close</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>phone</span><span class=o>.</span><span class=n>close</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><p>客户端</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>socket</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>phone</span><span class=o>=</span><span class=n>socket</span><span class=o>.</span><span class=n>socket</span><span class=p>(</span><span class=n>socket</span><span class=o>.</span><span class=n>AF_INET</span><span class=p>,</span> <span class=n>socket</span><span class=o>.</span><span class=n>SOCK_STREAM</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>phone</span><span class=o>.</span><span class=n>connect</span><span class=p>((</span><span class=s1>&#39;127.0.0.1&#39;</span><span class=p>,</span> <span class=mi>9000</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=k>while</span> <span class=kc>True</span><span class=p>:</span> <span class=c1>#通信循环</span>
+</span></span><span class=line><span class=cl>    <span class=n>msg</span><span class=o>=</span><span class=nb>input</span><span class=p>(</span><span class=s1>&#39;&gt;&gt;: &#39;</span><span class=p>)</span><span class=o>.</span><span class=n>strip</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=ow>not</span> <span class=n>msg</span><span class=p>:</span> <span class=k>continue</span>  <span class=c1>#防止发送空信息</span>
+</span></span><span class=line><span class=cl>    <span class=n>phone</span><span class=o>.</span><span class=n>send</span><span class=p>(</span><span class=n>msg</span><span class=o>.</span><span class=n>encode</span><span class=p>(</span><span class=s1>&#39;utf-8&#39;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>    <span class=n>data</span> <span class=o>=</span> <span class=n>phone</span><span class=o>.</span><span class=n>recv</span><span class=p>(</span><span class=mi>1024</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>data</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>phone</span><span class=o>.</span><span class=n>close</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><p>防止服务端死掉，添加链接循环。并捕捉异常信号，防止客户端突然断掉导致服务端死掉。相当于服务端释放无效链接。</p><p>服务端</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>socket</span>
+</span></span><span class=line><span class=cl><span class=n>phone</span> <span class=o>=</span> <span class=n>socket</span><span class=o>.</span><span class=n>socket</span><span class=p>(</span><span class=n>socket</span><span class=o>.</span><span class=n>AF_INET</span><span class=p>,</span> <span class=n>socket</span><span class=o>.</span><span class=n>SOCK_STREAM</span><span class=p>)</span> <span class=c1>#tcp协议</span>
+</span></span><span class=line><span class=cl><span class=c1># phone.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)</span>
+</span></span><span class=line><span class=cl><span class=n>phone</span><span class=o>.</span><span class=n>bind</span><span class=p>((</span><span class=s1>&#39;127.0.0.1&#39;</span><span class=p>,</span> <span class=mi>9000</span><span class=p>))</span> <span class=c1>#0-65535</span>
+</span></span><span class=line><span class=cl><span class=n>phone</span><span class=o>.</span><span class=n>listen</span><span class=p>(</span><span class=mi>5</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=s1>&#39;staring....&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>while</span> <span class=kc>True</span><span class=p>:</span> <span class=c1>#链接循环</span>
+</span></span><span class=line><span class=cl>    <span class=n>conn</span><span class=p>,</span> <span class=n>client_addr</span><span class=o>=</span><span class=n>phone</span><span class=o>.</span><span class=n>accept</span><span class=p>()</span> <span class=c1>#(conn,client_addr)</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>client_addr</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>while</span> <span class=kc>True</span><span class=p>:</span> <span class=c1>#通信循环</span>
+</span></span><span class=line><span class=cl>        <span class=k>try</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>data</span> <span class=o>=</span> <span class=n>conn</span><span class=o>.</span><span class=n>recv</span><span class=p>(</span><span class=mi>1024</span><span class=p>)</span> <span class=c1>#1024bytes?</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=ow>not</span> <span class=n>data</span><span class=p>:</span><span class=k>break</span> <span class=c1>#针对的是Linux系统，因为linux不会抛异常。windows会抛异常。</span>
+</span></span><span class=line><span class=cl>            <span class=nb>print</span><span class=p>(</span><span class=s1>&#39;客户端信息&#39;</span><span class=p>,</span> <span class=n>data</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=n>conn</span><span class=o>.</span><span class=n>send</span><span class=p>(</span><span class=n>data</span><span class=o>.</span><span class=n>upper</span><span class=p>())</span>
+</span></span><span class=line><span class=cl>        <span class=k>except</span> <span class=ne>ConnectionResetError</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=k>break</span>
+</span></span><span class=line><span class=cl>    <span class=n>conn</span><span class=o>.</span><span class=n>close</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>phone</span><span class=o>.</span><span class=n>close</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><p>客户端</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>socket</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>phone</span><span class=o>=</span><span class=n>socket</span><span class=o>.</span><span class=n>socket</span><span class=p>(</span><span class=n>socket</span><span class=o>.</span><span class=n>AF_INET</span><span class=p>,</span> <span class=n>socket</span><span class=o>.</span><span class=n>SOCK_STREAM</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>phone</span><span class=o>.</span><span class=n>connect</span><span class=p>((</span><span class=s1>&#39;127.0.0.1&#39;</span><span class=p>,</span> <span class=mi>9000</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=k>while</span> <span class=kc>True</span><span class=p>:</span> <span class=c1>#通信循环</span>
+</span></span><span class=line><span class=cl>    <span class=n>msg</span><span class=o>=</span><span class=nb>input</span><span class=p>(</span><span class=s1>&#39;&gt;&gt;: &#39;</span><span class=p>)</span><span class=o>.</span><span class=n>strip</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=ow>not</span> <span class=n>msg</span><span class=p>:</span> <span class=k>continue</span>  <span class=c1>#防止发送空信息</span>
+</span></span><span class=line><span class=cl>    <span class=n>phone</span><span class=o>.</span><span class=n>send</span><span class=p>(</span><span class=n>msg</span><span class=o>.</span><span class=n>encode</span><span class=p>(</span><span class=s1>&#39;utf-8&#39;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>    <span class=n>data</span> <span class=o>=</span> <span class=n>phone</span><span class=o>.</span><span class=n>recv</span><span class=p>(</span><span class=mi>1024</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>data</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>phone</span><span class=o>.</span><span class=n>close</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><p>效果，客户端突然死掉后，服务端会释放链接。当再次有新客户端来连接时，服务端会再开新链接，释放旧链接。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1>#服务端</span>
+</span></span><span class=line><span class=cl><span class=n>staring</span><span class=o>....</span>
+</span></span><span class=line><span class=cl><span class=p>(</span><span class=s1>&#39;127.0.0.1&#39;</span><span class=p>,</span> <span class=mi>18939</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>(</span><span class=s1>&#39;127.0.0.1&#39;</span><span class=p>,</span> <span class=mi>18940</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>(</span><span class=s1>&#39;127.0.0.1&#39;</span><span class=p>,</span> <span class=mi>18941</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>(</span><span class=s1>&#39;127.0.0.1&#39;</span><span class=p>,</span> <span class=mi>18944</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=c1>#客户端</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;</span><span class=p>:</span> 
+</span></span><span class=line><span class=cl><span class=n>Process</span> <span class=n>finished</span> <span class=k>with</span> <span class=n>exit</span> <span class=n>code</span> <span class=o>-</span><span class=mi>1</span>
+</span></span><span class=line><span class=cl><span class=c1>#windows会查到链接</span>
+</span></span><span class=line><span class=cl> <span class=n>TCP</span>    <span class=mf>127.0.0.1</span><span class=p>:</span><span class=mi>9000</span>         <span class=mf>127.0.0.1</span><span class=p>:</span><span class=mi>18944</span>        <span class=n>ESTABLISHED</span>
+</span></span><span class=line><span class=cl> <span class=n>TCP</span>    <span class=mf>127.0.0.1</span><span class=p>:</span><span class=mi>18944</span>        <span class=mf>127.0.0.1</span><span class=p>:</span><span class=mi>9000</span>         <span class=n>ESTABLISHED</span>
+</span></span></code></pre></td></tr></table></div></div></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>Updated on 2022-04-11</span></div></div><div class=post-info-line><div class=post-info-md><span><a class=link-to-markdown href=/%E5%9F%BA%E4%BA%8Etcp%E7%9A%84%E7%AE%80%E5%8D%95%E5%A5%97%E6%8E%A5%E5%AD%97%E9%80%9A%E4%BF%A1/index.md target=_blank>Read Markdown</a></span></div><div class=post-info-share><span></span></div></div></div><div class=post-info-more><section class=post-tags></section><section><span><a href=javascript:void(0); onclick=window.history.back()>Back</a></span>&nbsp;|&nbsp;<span><a href=/>Home</a></span></section></div><div class=post-nav><a href=/%E9%9B%86%E5%90%88%E7%9A%84%E7%9B%B8%E5%85%B3%E7%89%B9%E6%80%A7/ class=prev rel=prev title=集合的相关特性><i class="fas fa-angle-left fa-fw" aria-hidden=true></i>集合的相关特性</a>
+<a href=/ansible/ class=next rel=next title=ansible基本环境搭建及升级版本>ansible基本环境搭建及升级版本<i class="fas fa-angle-right fa-fw" aria-hidden=true></i></a></div></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line>Powered by <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.115.3">Hugo</a> | Theme - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden=true></i> LoveIt</a></div><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2021 - 2023</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=/ target=_blank>Peng</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top"><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=/lib/lightgallery/lightgallery.min.css><link rel=stylesheet href=/lib/katex/katex.min.css><link rel=stylesheet href=/lib/katex/copy-tex.min.css><link rel=stylesheet href=/lib/cookieconsent/cookieconsent.min.css><script type=text/javascript src=/lib/autocomplete/autocomplete.min.js></script><script type=text/javascript src=/lib/lunr/lunr.min.js></script><script type=text/javascript src=/lib/lazysizes/lazysizes.min.js></script><script type=text/javascript src=/lib/lightgallery/lightgallery.min.js></script><script type=text/javascript src=/lib/lightgallery/plugins/lg-thumbnail.min.js></script><script type=text/javascript src=/lib/lightgallery/plugins/lg-zoom.min.js></script><script type=text/javascript src=/lib/clipboard/clipboard.min.js></script><script type=text/javascript src=/lib/sharer/sharer.min.js></script><script type=text/javascript src=/lib/katex/katex.min.js></script><script type=text/javascript src=/lib/katex/auto-render.min.js></script><script type=text/javascript src=/lib/katex/copy-tex.min.js></script><script type=text/javascript src=/lib/katex/mhchem.min.js></script><script type=text/javascript src=/lib/cookieconsent/cookieconsent.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:50},comment:{},cookieconsent:{content:{dismiss:"Got it!",link:"Learn more",message:"This website uses Cookies to improve your experience."},enable:!0,palette:{button:{background:"#f0f0f0"},popup:{background:"#1aa3ff"}},theme:"edgeless"},lightgallery:!0,math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!0,left:"\\begin{equation}",right:"\\end{equation}"},{display:!0,left:"\\begin{equation*}",right:"\\end{equation*}"},{display:!0,left:"\\begin{align}",right:"\\end{align}"},{display:!0,left:"\\begin{align*}",right:"\\end{align*}"},{display:!0,left:"\\begin{alignat}",right:"\\end{alignat}"},{display:!0,left:"\\begin{alignat*}",right:"\\end{alignat*}"},{display:!0,left:"\\begin{gather}",right:"\\end{gather}"},{display:!0,left:"\\begin{CD}",right:"\\end{CD}"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{highlightTag:"em",lunrIndexURL:"/index.json",maxResultLength:10,noResultsFound:"No results found",snippetLength:50,type:"lunr"}}</script><script type=text/javascript src=/js/theme.min.js></script></body></html>

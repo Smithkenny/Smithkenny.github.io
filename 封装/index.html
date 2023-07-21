@@ -1,0 +1,318 @@
+<!doctype html><html lang=zh-CN><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>封装 - Peng</title><meta name=Description content="One World,One Dream!"><meta property="og:title" content="封装"><meta property="og:description" content="封装与反射 片面理解：封装相当于隐藏。 如何将属性隐藏（设置成私有）？ 用双下划线开头方式将属性隐藏起来。 1.__开头的属性只是一种语法意义上的变"><meta property="og:type" content="article"><meta property="og:url" content="https://blog.haipengv.com/%E5%B0%81%E8%A3%85/"><meta property="og:image" content="https://blog.haipengv.com/logo.png"><meta property="article:section" content="posts"><meta property="article:published_time" content="2022-04-09T10:16:28+00:00"><meta property="article:modified_time" content="2022-04-09T10:16:28+00:00"><meta property="og:site_name" content="我的网站"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://blog.haipengv.com/logo.png"><meta name=twitter:title content="封装"><meta name=twitter:description content="封装与反射 片面理解：封装相当于隐藏。 如何将属性隐藏（设置成私有）？ 用双下划线开头方式将属性隐藏起来。 1.__开头的属性只是一种语法意义上的变"><meta name=application-name content="我的网站"><meta name=apple-mobile-web-app-title content="我的网站"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://blog.haipengv.com/%E5%B0%81%E8%A3%85/><link rel=prev href=https://blog.haipengv.com/vsftpd%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE/><link rel=next href=https://blog.haipengv.com/%E5%BC%82%E5%B8%B8/><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=/lib/fontawesome-free/all.min.css><link rel=stylesheet href=/lib/animate/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"封装","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/blog.haipengv.com\/%E5%B0%81%E8%A3%85\/"},"genre":"posts","wordcount":1999,"url":"https:\/\/blog.haipengv.com\/%E5%B0%81%E8%A3%85\/","datePublished":"2022-04-09T10:16:28+00:00","dateModified":"2022-04-09T10:16:28+00:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"Peng"},"description":""}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"auto"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"auto"==="dark")&&document.body.setAttribute("theme","dark")</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title=Peng>Peng</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>文章 </a><a class=menu-item href=/tags/>标签 </a><a class=menu-item href=/categories/>分类 </a><a class=menu-item href=/links/>友链 </a><a class=menu-item href=/about/>关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder=搜索文章标题或内容... id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=Search><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=Clear><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span>
+</span><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme"><i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title=Peng>Peng</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder=搜索文章标题或内容... id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=Search><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=Clear><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>Cancel</a></div><a class=menu-item href=/posts/ title>文章</a><a class=menu-item href=/tags/ title>标签</a><a class=menu-item href=/categories/ title>分类</a><a class=menu-item href=/links/ title>友链</a><a class=menu-item href=/about/ title>关于</a><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>Contents</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">封装</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=/ title=Author rel=author class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Peng</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw" aria-hidden=true></i>&nbsp;<time datetime=2022-04-09>2022-04-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden=true></i>&nbsp;1999 words&nbsp;
+<i class="far fa-clock fa-fw" aria-hidden=true></i>&nbsp;4 minutes&nbsp;</div></div><div class="details toc" id=toc-static data-kept=true><div class="details-summary toc-title"><span>Contents</span>
+<span><i class="details-icon fas fa-angle-right" aria-hidden=true></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#封装与反射>封装与反射</a><ul><li><a href=#如何将属性隐藏设置成私有>如何将属性隐藏（设置成私有）？</a></li><li><a href=#封装之property>封装之property</a><ul><li><a href=#为什么要用property>为什么要用property</a></li></ul></li></ul></li><li><a href=#反射>反射</a><ul><li><a href=#内置函数补充>内置函数补充</a></li></ul></li><li><a href=#类的内置方法>类的内置方法</a></li></ul></nav></div></div><div class=content id=content><h2 id=封装与反射>封装与反射</h2><p>片面理解：封装相当于隐藏。</p><h3 id=如何将属性隐藏设置成私有>如何将属性隐藏（设置成私有）？</h3><p>用双下划线开头方式将属性隐藏起来。</p><p>1.<code>__</code>开头的属性只是一种语法意义上的变形，并不会真的限制外部的访问。<code>_类名__属性名</code>可以访问但毫无意义。</p><p>2.这种变形只在类的定义阶段发送一次，类定义之后再新增的<code>__</code>开头的属性不会变形。</p><p>3.这种隐藏只对外不对内，因为类内部定义的属性在类定义阶段统一发生变形。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>class</span> <span class=nc>Foo</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>__N</span><span class=o>=</span><span class=mi>0</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>__X</span><span class=o>=</span><span class=mi>10</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>__foo</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>    <span class=c1>#相当于_Foo__foo()</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s1>&#39;from A&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>bar</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>__foo</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>f</span> <span class=o>=</span> <span class=n>Foo</span><span class=p>()</span> <span class=c1>#类实例化，f是对象。</span>
+</span></span><span class=line><span class=cl><span class=n>f</span><span class=o>.</span><span class=n>bar</span><span class=p>()</span> <span class=c1>#结果 &#39;from A&#39;。内部调用了__foo()验证第3条。</span>
+</span></span><span class=line><span class=cl><span class=n>f</span><span class=o>.</span><span class=n>__foo</span><span class=p>()</span> <span class=c1>#报错。AttributeError: &#39;Foo&#39; object has no attribute &#39;__foo&#39;，属性被隐藏，外部不可调用。验证第一条外部不能访问隐藏属性。</span>
+</span></span><span class=line><span class=cl><span class=c1># 可以用f._Foo__foo()调用，但毫无意义。验证第1条。</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>f</span><span class=o>.</span><span class=n>__N</span><span class=o>=</span><span class=mi>10</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>f</span><span class=o>.</span><span class=n>__N</span><span class=p>)</span> <span class=c1>#验证第二条。类定义时已经定义了__N=0,而__N=10是在类定义之后。此时可以调用__N.结果为10</span>
+</span></span></code></pre></td></tr></table></div></div><p>封装应用</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>class</span> <span class=nc>People</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span><span class=n>name</span><span class=p>,</span><span class=n>age</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=c1># self.__name=name</span>
+</span></span><span class=line><span class=cl>        <span class=c1># self.__age=age</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>set_info</span><span class=p>(</span><span class=n>name</span><span class=p>,</span><span class=n>age</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>tell_info</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;姓名：&lt;</span><span class=si>%s</span><span class=s2>&gt; 年龄：&lt;</span><span class=si>%s</span><span class=s2>&gt;&#34;</span><span class=o>%</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>__name</span><span class=p>,</span><span class=bp>self</span><span class=o>.</span><span class=n>__age</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>set_info</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span><span class=n>name</span><span class=p>,</span><span class=n>age</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=nb>type</span><span class=p>(</span><span class=n>name</span><span class=p>)</span> <span class=ow>is</span> <span class=ow>not</span> <span class=nb>str</span><span class=p>:</span> <span class=c1>#判断name是否是str类型</span>
+</span></span><span class=line><span class=cl>            <span class=k>raise</span> <span class=ne>TypeError</span><span class=p>(</span><span class=s1>&#39;name must be str&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=nb>type</span><span class=p>(</span><span class=n>age</span><span class=p>)</span> <span class=ow>is</span> <span class=ow>not</span> <span class=nb>int</span><span class=p>:</span> <span class=c1>#判断age是否是int类型</span>
+</span></span><span class=line><span class=cl>            <span class=k>raise</span> <span class=ne>TypeError</span><span class=p>(</span><span class=s1>&#39;age must be int&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>__name</span><span class=o>=</span><span class=n>name</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>__age</span><span class=o>=</span><span class=n>age</span>
+</span></span><span class=line><span class=cl><span class=n>p</span><span class=o>=</span><span class=n>People</span><span class=p>(</span><span class=mi>12312323</span><span class=p>,</span><span class=mi>18</span><span class=p>)</span> <span class=c1>#TypeError: name must be str</span>
+</span></span><span class=line><span class=cl><span class=n>p</span><span class=o>.</span><span class=n>tell_info</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><p>核心思想：通过设置<code>set_info()</code>方法统一接口，把<code>name</code>、<code>age</code>隐藏。用户只需要调用<code>tell_info()</code>方法，不需要了解其中的过程。</p><h3 id=封装之property>封装之property</h3><p><code>property</code>是一种特殊属性，访问它时会执行一段功能（函数）然后返回值。</p><p>成人的<code>BMI数值</code>：</p><p>过轻：低于18.5</p><p>正常：18.5-23.9</p><p>过重：24-27</p><p>肥胖：28-32</p><p>非常肥胖, 高于32</p><p>　　<code>体质指数（BMI）=体重（kg）÷身高^2（m）</code></p><p>　　<code>EX：70kg÷（1.75×1.75）=22.86</code></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>class</span> <span class=nc>People</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span><span class=n>name</span><span class=p>,</span><span class=n>age</span><span class=p>,</span><span class=n>height</span><span class=p>,</span><span class=n>weight</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>name</span><span class=o>=</span><span class=n>name</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>age</span><span class=o>=</span><span class=n>age</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>height</span><span class=o>=</span><span class=n>height</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>weight</span><span class=o>=</span><span class=n>weight</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nd>@property</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>bmi</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=bp>self</span><span class=o>.</span><span class=n>weight</span> <span class=o>/</span> <span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>height</span> <span class=o>**</span> <span class=mi>2</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>jack</span><span class=o>=</span><span class=n>People</span><span class=p>(</span><span class=s1>&#39;jack&#39;</span><span class=p>,</span><span class=mi>18</span><span class=p>,</span><span class=mf>1.80</span><span class=p>,</span><span class=mi>75</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=c1># jack.height=1.82</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>jack</span><span class=o>.</span><span class=n>bmi</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p><code>bmi</code>应该是不断变化的，是一种数据属性。</p><h4 id=为什么要用property>为什么要用property</h4><p>将一个类的函数定义成特性以后，对象再去使用的时候<code>ojb.name</code>，根本无法察觉自己的<code>name</code>是执行了一个而函数然后计算出来，这种特性的使用方式遵循了统一访问的原则。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>class</span> <span class=nc>People</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span><span class=n>name</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>__name</span> <span class=o>=</span> <span class=n>name</span> <span class=c1>#将所有的数据属性都隐藏起来</span>
+</span></span><span class=line><span class=cl>    <span class=nd>@property</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>name</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=bp>self</span><span class=o>.</span><span class=n>__name</span> <span class=c1>#obj.name访问的是self.__name（这也是真实值的存放位置）</span>
+</span></span><span class=line><span class=cl><span class=n>jack</span><span class=o>=</span><span class=n>Pepole</span><span class=p>(</span><span class=s1>&#39;jack&#39;</span><span class=p>)</span> <span class=c1>#类实例化</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>jack</span><span class=o>.</span><span class=n>name</span><span class=p>)</span> <span class=c1>#jack</span>
+</span></span></code></pre></td></tr></table></div></div><p>此时名字不能修改,修改会报异常。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>jack</span><span class=o>.</span><span class=n>name</span><span class=o>=</span><span class=s1>&#39;smith&#39;</span> <span class=c1>#AttributeError: can&#39;t set attribute</span>
+</span></span></code></pre></td></tr></table></div></div><p>怎样可以修改呢？</p><p>设置<code>同名的属性.setter()</code>方法</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>class</span> <span class=nc>People</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span><span class=n>name</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>__name</span> <span class=o>=</span> <span class=n>name</span> 
+</span></span><span class=line><span class=cl>    <span class=nd>@property</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>name</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=bp>self</span><span class=o>.</span><span class=n>__name</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=nd>@name.setter</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>name</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span><span class=n>obj</span><span class=p>):</span> 
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=nb>type</span><span class=p>(</span><span class=n>obj</span><span class=p>)</span> <span class=ow>is</span> <span class=ow>not</span> <span class=nb>str</span><span class=p>:</span> <span class=c1>#在设定值之前进行类型检查</span>
+</span></span><span class=line><span class=cl>            <span class=k>raise</span> <span class=ne>TypeError</span><span class=p>(</span><span class=s2>&#34;name must be str&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>__name</span><span class=o>=</span><span class=n>obj</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl><span class=n>jack</span><span class=o>=</span><span class=n>Pepole</span><span class=p>(</span><span class=s1>&#39;jack&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>jack</span><span class=o>.</span><span class=n>name</span><span class=o>=</span><span class=s1>&#39;smith&#39;</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>jack</span><span class=o>.</span><span class=n>name</span><span class=p>)</span> <span class=c1>#smith </span>
+</span></span></code></pre></td></tr></table></div></div><p>如何删除属性呢？</p><p>添加<code>同名属性.deleter</code></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>class</span> <span class=nc>People</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span><span class=n>name</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>__name</span> <span class=o>=</span> <span class=n>name</span> 
+</span></span><span class=line><span class=cl>    <span class=nd>@property</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>name</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=bp>self</span><span class=o>.</span><span class=n>__name</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=nd>@name.setter</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>name</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span><span class=n>obj</span><span class=p>):</span> 
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=nb>type</span><span class=p>(</span><span class=n>obj</span><span class=p>)</span> <span class=ow>is</span> <span class=ow>not</span> <span class=nb>str</span><span class=p>:</span> <span class=c1>#在设定值之前进行类型检查</span>
+</span></span><span class=line><span class=cl>            <span class=k>raise</span> <span class=ne>TypeError</span><span class=p>(</span><span class=s2>&#34;name must be str&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>__name</span><span class=o>=</span><span class=n>obj</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>    <span class=nd>@name.deleter</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>name</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span><span class=n>obj</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=k>del</span> <span class=bp>self</span><span class=o>.</span><span class=n>__name</span>
+</span></span><span class=line><span class=cl><span class=n>jack</span><span class=o>=</span><span class=n>Pepole</span><span class=p>(</span><span class=s1>&#39;jack&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>jack</span><span class=o>.</span><span class=n>name</span><span class=o>=</span><span class=s1>&#39;smith&#39;</span>
+</span></span><span class=line><span class=cl><span class=k>del</span> <span class=n>jack</span><span class=o>.</span><span class=n>name</span> 
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>jack</span><span class=o>.</span><span class=n>name</span><span class=p>)</span> <span class=c1>#AttributeError: &#39;People&#39; object has no attribute &#39;_People__name&#39; 成功删除了。 </span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=反射>反射</h2><h3 id=内置函数补充>内置函数补充</h3><p><code>isinstance</code>判断类型</p><p><code>issubclass</code>:判断是不是子类</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>l</span><span class=o>=</span><span class=p>[]</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=nb>type</span><span class=p>(</span><span class=n>l</span><span class=p>)</span> <span class=ow>is</span> <span class=nb>list</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=nb>isinstance</span><span class=p>(</span><span class=n>l</span><span class=p>,</span><span class=nb>list</span><span class=p>))</span> <span class=c1>#True</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Foo</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>pass</span>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Bar</span><span class=p>(</span><span class=n>Foo</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>pass</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=nb>issubclass</span><span class=p>(</span><span class=n>Bar</span><span class=p>,</span><span class=n>Foo</span><span class=p>))</span> <span class=c1>#True</span>
+</span></span></code></pre></td></tr></table></div></div><p>反射</p><p>通过字符串映射或修改程序运行时的状态、属性、方法有以下4个方法：</p><p><code>hasattr(obj,name_str)</code>:判断一个对象里是否有对应的<code>name_str</code>字符串的方法</p><p><code>setattr(obj,y,v)</code>：设置属性,相当于<code>obj.y=v</code></p><p><code>getattr(obj,name_str,default=None)</code>：根据字符串<code>name_str</code>去获取<code>obj对象</code>里的方法内存地址</p><p><code>delattr(x,y)</code>：删除某种属性</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>class</span> <span class=nc>Foo</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span><span class=n>name</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>name</span><span class=o>=</span><span class=n>name</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>f1</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s1>&#39;from f1&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>obj</span><span class=o>=</span><span class=n>Foo</span><span class=p>(</span><span class=s1>&#39;jack&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=c1># print(obj.name) #等同于obj.__dict__[&#39;name&#39;]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#hasattr</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=nb>hasattr</span><span class=p>(</span><span class=n>obj</span><span class=p>,</span><span class=s1>&#39;name&#39;</span><span class=p>))</span> <span class=c1>#True</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=nb>hasattr</span><span class=p>(</span><span class=n>obj</span><span class=p>,</span><span class=s1>&#39;f1&#39;</span><span class=p>))</span> <span class=c1>#True</span>
+</span></span><span class=line><span class=cl><span class=c1>#setattr</span>
+</span></span><span class=line><span class=cl><span class=nb>setattr</span><span class=p>(</span><span class=n>obj</span><span class=p>,</span><span class=s1>&#39;x&#39;</span><span class=p>,</span><span class=mi>1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>obj</span><span class=o>.</span><span class=vm>__dict__</span><span class=p>)</span> <span class=c1>#结果是：{&#39;name&#39;: &#39;jack&#39;, &#39;x&#39;: 1}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#getattr</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=nb>hasattr</span><span class=p>(</span><span class=n>obj</span><span class=p>,</span> <span class=s1>&#39;f1&#39;</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>f</span> <span class=o>=</span> <span class=nb>getattr</span><span class=p>(</span><span class=n>obj</span><span class=p>,</span> <span class=s1>&#39;f1&#39;</span><span class=p>)</span> <span class=c1># f=obj.f1</span>
+</span></span><span class=line><span class=cl>    <span class=c1># print(f) #&lt;bound method Foo.f1 of &lt;__main__.Foo object at 0x000002A8A3677DC0&gt;&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=n>f</span><span class=p>()</span> <span class=c1>#from f1</span>
+</span></span><span class=line><span class=cl><span class=c1>#delattr</span>
+</span></span><span class=line><span class=cl><span class=nb>delattr</span><span class=p>(</span><span class=n>obj</span><span class=p>,</span><span class=s1>&#39;name&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>obj</span><span class=o>.</span><span class=vm>__dict__</span><span class=p>)</span> <span class=c1>#{&#39;x&#39;: 1}</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=类的内置方法>类的内置方法</h2><p><code>__str__</code>：改变对象字符串显示</p><p>不使用<code>__str__</code>显示</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>class</span> <span class=nc>People</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span><span class=n>name</span><span class=p>,</span><span class=n>age</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>name</span><span class=o>=</span><span class=n>name</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>age</span><span class=o>=</span><span class=n>age</span>
+</span></span><span class=line><span class=cl><span class=n>jack</span><span class=o>=</span><span class=n>People</span><span class=p>(</span><span class=s1>&#39;jack&#39;</span><span class=p>,</span><span class=mi>18</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>jack</span><span class=p>)</span> <span class=c1>#&lt;__main__.People object at 0x000001D7DEF31310&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><p>使用之后可以自定义显示内容</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>class</span> <span class=nc>People</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span><span class=n>name</span><span class=p>,</span><span class=n>age</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>name</span><span class=o>=</span><span class=n>name</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>age</span><span class=o>=</span><span class=n>age</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__str__</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=s1>&#39;&lt;name: </span><span class=si>%s</span><span class=s1>,age: </span><span class=si>%s</span><span class=s1>&gt;&#39;</span> <span class=o>%</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>name</span><span class=p>,</span><span class=bp>self</span><span class=o>.</span><span class=n>age</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>jack</span><span class=o>=</span><span class=n>People</span><span class=p>(</span><span class=s1>&#39;jack&#39;</span><span class=p>,</span><span class=mi>18</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>jack</span><span class=p>)</span> <span class=c1>#&lt;name: jack,age: 18&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><p><code>__del__</code>：析构方法，当对象在内存种被释放时，自动触发执行。</p><p>注：如果产生的对象仅仅只是python程序级别的（用户级），那么无需定义<code>__del__</code>,如果产生的对象的同时还会向操作系统发起系统调用，即一个对象有用户级与内核级两种资源，比如（打开一个文件，创建一个数据库链接），则必须在清除对象的同时回收系统资源，这就用到了<code>__del__</code>。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>class</span> <span class=nc>Foo</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__del__</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s1>&#39;执行我啦&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>f1</span><span class=o>=</span><span class=n>Foo</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=k>del</span> <span class=n>f1</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=s2>&#34;------&gt;&#34;</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>结果：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>执行我啦</span>
+</span></span><span class=line><span class=cl><span class=o>------&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><p>如果去掉<code>del f1</code>那么结果又不一样了。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>class</span> <span class=nc>Foo</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__del__</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s1>&#39;执行我啦&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>f1</span><span class=o>=</span><span class=n>Foo</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=s2>&#34;------&gt;&#34;</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>结果</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=o>------&gt;</span>
+</span></span><span class=line><span class=cl><span class=n>执行我啦</span>
+</span></span></code></pre></td></tr></table></div></div></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>Updated on 2022-04-09</span></div></div><div class=post-info-line><div class=post-info-md><span><a class=link-to-markdown href=/%E5%B0%81%E8%A3%85/index.md target=_blank>Read Markdown</a></span></div><div class=post-info-share><span></span></div></div></div><div class=post-info-more><section class=post-tags></section><section><span><a href=javascript:void(0); onclick=window.history.back()>Back</a></span>&nbsp;|&nbsp;<span><a href=/>Home</a></span></section></div><div class=post-nav><a href=/vsftpd%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE/ class=prev rel=prev title=vsftpd相关配置><i class="fas fa-angle-left fa-fw" aria-hidden=true></i>vsftpd相关配置</a>
+<a href=/%E5%BC%82%E5%B8%B8/ class=next rel=next title=异常>异常<i class="fas fa-angle-right fa-fw" aria-hidden=true></i></a></div></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line>Powered by <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.115.3">Hugo</a> | Theme - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden=true></i> LoveIt</a></div><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2021 - 2023</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=/ target=_blank>Peng</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top"><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=/lib/lightgallery/lightgallery.min.css><link rel=stylesheet href=/lib/katex/katex.min.css><link rel=stylesheet href=/lib/katex/copy-tex.min.css><link rel=stylesheet href=/lib/cookieconsent/cookieconsent.min.css><script type=text/javascript src=/lib/autocomplete/autocomplete.min.js></script><script type=text/javascript src=/lib/lunr/lunr.min.js></script><script type=text/javascript src=/lib/lazysizes/lazysizes.min.js></script><script type=text/javascript src=/lib/lightgallery/lightgallery.min.js></script><script type=text/javascript src=/lib/lightgallery/plugins/lg-thumbnail.min.js></script><script type=text/javascript src=/lib/lightgallery/plugins/lg-zoom.min.js></script><script type=text/javascript src=/lib/clipboard/clipboard.min.js></script><script type=text/javascript src=/lib/sharer/sharer.min.js></script><script type=text/javascript src=/lib/katex/katex.min.js></script><script type=text/javascript src=/lib/katex/auto-render.min.js></script><script type=text/javascript src=/lib/katex/copy-tex.min.js></script><script type=text/javascript src=/lib/katex/mhchem.min.js></script><script type=text/javascript src=/lib/cookieconsent/cookieconsent.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:50},comment:{},cookieconsent:{content:{dismiss:"Got it!",link:"Learn more",message:"This website uses Cookies to improve your experience."},enable:!0,palette:{button:{background:"#f0f0f0"},popup:{background:"#1aa3ff"}},theme:"edgeless"},lightgallery:!0,math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!0,left:"\\begin{equation}",right:"\\end{equation}"},{display:!0,left:"\\begin{equation*}",right:"\\end{equation*}"},{display:!0,left:"\\begin{align}",right:"\\end{align}"},{display:!0,left:"\\begin{align*}",right:"\\end{align*}"},{display:!0,left:"\\begin{alignat}",right:"\\end{alignat}"},{display:!0,left:"\\begin{alignat*}",right:"\\end{alignat*}"},{display:!0,left:"\\begin{gather}",right:"\\end{gather}"},{display:!0,left:"\\begin{CD}",right:"\\end{CD}"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{highlightTag:"em",lunrIndexURL:"/index.json",maxResultLength:10,noResultsFound:"No results found",snippetLength:50,type:"lunr"}}</script><script type=text/javascript src=/js/theme.min.js></script></body></html>

@@ -1,0 +1,752 @@
+<!doctype html><html lang=zh-CN><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>功能强大的硬件信息获取工具-inxi - Peng</title><meta name=Description content="One World,One Dream!"><meta property="og:title" content="功能强大的硬件信息获取工具-inxi"><meta property="og:description" content="安装inxi 1 2 3 $ sudo apt-get install inxi [On Debian/Ubuntu/Linux Mint] $ sudo yum install inxi [On CentOs/RHEL/Fedora] $ sudo dnf install inxi [On Fedora 22+] 查看 Inxi 所有依赖和推荐的应用，以及各种目录，并显示需要安装哪些包来支持给定的功"><meta property="og:type" content="article"><meta property="og:url" content="https://blog.haipengv.com/%E5%8A%9F%E8%83%BD%E5%BC%BA%E5%A4%A7%E7%9A%84%E7%A1%AC%E4%BB%B6%E4%BF%A1%E6%81%AF%E8%8E%B7%E5%8F%96%E5%B7%A5%E5%85%B7-inxi/"><meta property="og:image" content="https://blog.haipengv.com/logo.png"><meta property="article:section" content="posts"><meta property="article:published_time" content="2022-10-21T13:21:17+00:00"><meta property="article:modified_time" content="2022-10-21T13:21:17+00:00"><meta property="og:site_name" content="我的网站"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://blog.haipengv.com/logo.png"><meta name=twitter:title content="功能强大的硬件信息获取工具-inxi"><meta name=twitter:description content="安装inxi 1 2 3 $ sudo apt-get install inxi [On Debian/Ubuntu/Linux Mint] $ sudo yum install inxi [On CentOs/RHEL/Fedora] $ sudo dnf install inxi [On Fedora 22+] 查看 Inxi 所有依赖和推荐的应用，以及各种目录，并显示需要安装哪些包来支持给定的功"><meta name=application-name content="我的网站"><meta name=apple-mobile-web-app-title content="我的网站"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://blog.haipengv.com/%E5%8A%9F%E8%83%BD%E5%BC%BA%E5%A4%A7%E7%9A%84%E7%A1%AC%E4%BB%B6%E4%BF%A1%E6%81%AF%E8%8E%B7%E5%8F%96%E5%B7%A5%E5%85%B7-inxi/><link rel=prev href=https://blog.haipengv.com/vsftp%E4%B8%8D%E5%90%8C%E7%94%A8%E6%88%B7%E6%8B%A5%E6%9C%89%E4%B8%8D%E5%90%8C%E6%9D%83%E9%99%90/><link rel=next href=https://blog.haipengv.com/rsyslog%E6%97%A5%E5%BF%97%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=/lib/fontawesome-free/all.min.css><link rel=stylesheet href=/lib/animate/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"功能强大的硬件信息获取工具-inxi","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/blog.haipengv.com\/%E5%8A%9F%E8%83%BD%E5%BC%BA%E5%A4%A7%E7%9A%84%E7%A1%AC%E4%BB%B6%E4%BF%A1%E6%81%AF%E8%8E%B7%E5%8F%96%E5%B7%A5%E5%85%B7-inxi\/"},"genre":"posts","wordcount":2841,"url":"https:\/\/blog.haipengv.com\/%E5%8A%9F%E8%83%BD%E5%BC%BA%E5%A4%A7%E7%9A%84%E7%A1%AC%E4%BB%B6%E4%BF%A1%E6%81%AF%E8%8E%B7%E5%8F%96%E5%B7%A5%E5%85%B7-inxi\/","datePublished":"2022-10-21T13:21:17+00:00","dateModified":"2022-10-21T13:21:17+00:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"Peng"},"description":""}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"auto"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"auto"==="dark")&&document.body.setAttribute("theme","dark")</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title=Peng>Peng</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>文章 </a><a class=menu-item href=/tags/>标签 </a><a class=menu-item href=/categories/>分类 </a><a class=menu-item href=/links/>友链 </a><a class=menu-item href=/about/>关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder=搜索文章标题或内容... id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=Search><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=Clear><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span>
+</span><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme"><i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title=Peng>Peng</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder=搜索文章标题或内容... id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=Search><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=Clear><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>Cancel</a></div><a class=menu-item href=/posts/ title>文章</a><a class=menu-item href=/tags/ title>标签</a><a class=menu-item href=/categories/ title>分类</a><a class=menu-item href=/links/ title>友链</a><a class=menu-item href=/about/ title>关于</a><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>Contents</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">功能强大的硬件信息获取工具-inxi</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=/ title=Author rel=author class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Peng</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw" aria-hidden=true></i>&nbsp;<time datetime=2022-10-21>2022-10-21</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden=true></i>&nbsp;2841 words&nbsp;
+<i class="far fa-clock fa-fw" aria-hidden=true></i>&nbsp;6 minutes&nbsp;</div></div><div class="details toc" id=toc-static data-kept=true><div class="details-summary toc-title"><span>Contents</span>
+<span><i class="details-icon fas fa-angle-right" aria-hidden=true></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#安装inxi>安装inxi</a></li></ul></nav></div></div><div class=content id=content><h2 id=安装inxi>安装inxi</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ sudo apt-get install inxi   [On Debian/Ubuntu/Linux Mint] 
+</span></span><span class=line><span class=cl>$ sudo yum install inxi       [On CentOs/RHEL/Fedora] 
+</span></span><span class=line><span class=cl>$ sudo dnf install inxi       [On Fedora 22+] 
+</span></span></code></pre></td></tr></table></div></div><p><strong>查看 Inxi 所有依赖和推荐的应用，以及各种目录，并显示需要安装哪些包来支持给定的功能。</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ inxi --recommends 
+</span></span></code></pre></td></tr></table></div></div><p>输出如下</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>  1
+</span><span class=lnt>  2
+</span><span class=lnt>  3
+</span><span class=lnt>  4
+</span><span class=lnt>  5
+</span><span class=lnt>  6
+</span><span class=lnt>  7
+</span><span class=lnt>  8
+</span><span class=lnt>  9
+</span><span class=lnt> 10
+</span><span class=lnt> 11
+</span><span class=lnt> 12
+</span><span class=lnt> 13
+</span><span class=lnt> 14
+</span><span class=lnt> 15
+</span><span class=lnt> 16
+</span><span class=lnt> 17
+</span><span class=lnt> 18
+</span><span class=lnt> 19
+</span><span class=lnt> 20
+</span><span class=lnt> 21
+</span><span class=lnt> 22
+</span><span class=lnt> 23
+</span><span class=lnt> 24
+</span><span class=lnt> 25
+</span><span class=lnt> 26
+</span><span class=lnt> 27
+</span><span class=lnt> 28
+</span><span class=lnt> 29
+</span><span class=lnt> 30
+</span><span class=lnt> 31
+</span><span class=lnt> 32
+</span><span class=lnt> 33
+</span><span class=lnt> 34
+</span><span class=lnt> 35
+</span><span class=lnt> 36
+</span><span class=lnt> 37
+</span><span class=lnt> 38
+</span><span class=lnt> 39
+</span><span class=lnt> 40
+</span><span class=lnt> 41
+</span><span class=lnt> 42
+</span><span class=lnt> 43
+</span><span class=lnt> 44
+</span><span class=lnt> 45
+</span><span class=lnt> 46
+</span><span class=lnt> 47
+</span><span class=lnt> 48
+</span><span class=lnt> 49
+</span><span class=lnt> 50
+</span><span class=lnt> 51
+</span><span class=lnt> 52
+</span><span class=lnt> 53
+</span><span class=lnt> 54
+</span><span class=lnt> 55
+</span><span class=lnt> 56
+</span><span class=lnt> 57
+</span><span class=lnt> 58
+</span><span class=lnt> 59
+</span><span class=lnt> 60
+</span><span class=lnt> 61
+</span><span class=lnt> 62
+</span><span class=lnt> 63
+</span><span class=lnt> 64
+</span><span class=lnt> 65
+</span><span class=lnt> 66
+</span><span class=lnt> 67
+</span><span class=lnt> 68
+</span><span class=lnt> 69
+</span><span class=lnt> 70
+</span><span class=lnt> 71
+</span><span class=lnt> 72
+</span><span class=lnt> 73
+</span><span class=lnt> 74
+</span><span class=lnt> 75
+</span><span class=lnt> 76
+</span><span class=lnt> 77
+</span><span class=lnt> 78
+</span><span class=lnt> 79
+</span><span class=lnt> 80
+</span><span class=lnt> 81
+</span><span class=lnt> 82
+</span><span class=lnt> 83
+</span><span class=lnt> 84
+</span><span class=lnt> 85
+</span><span class=lnt> 86
+</span><span class=lnt> 87
+</span><span class=lnt> 88
+</span><span class=lnt> 89
+</span><span class=lnt> 90
+</span><span class=lnt> 91
+</span><span class=lnt> 92
+</span><span class=lnt> 93
+</span><span class=lnt> 94
+</span><span class=lnt> 95
+</span><span class=lnt> 96
+</span><span class=lnt> 97
+</span><span class=lnt> 98
+</span><span class=lnt> 99
+</span><span class=lnt>100
+</span><span class=lnt>101
+</span><span class=lnt>102
+</span><span class=lnt>103
+</span><span class=lnt>104
+</span><span class=lnt>105
+</span><span class=lnt>106
+</span><span class=lnt>107
+</span><span class=lnt>108
+</span><span class=lnt>109
+</span><span class=lnt>110
+</span><span class=lnt>111
+</span><span class=lnt>112
+</span><span class=lnt>113
+</span><span class=lnt>114
+</span><span class=lnt>115
+</span><span class=lnt>116
+</span><span class=lnt>117
+</span><span class=lnt>118
+</span><span class=lnt>119
+</span><span class=lnt>120
+</span><span class=lnt>121
+</span><span class=lnt>122
+</span><span class=lnt>123
+</span><span class=lnt>124
+</span><span class=lnt>125
+</span><span class=lnt>126
+</span><span class=lnt>127
+</span><span class=lnt>128
+</span><span class=lnt>129
+</span><span class=lnt>130
+</span><span class=lnt>131
+</span><span class=lnt>132
+</span><span class=lnt>133
+</span><span class=lnt>134
+</span><span class=lnt>135
+</span><span class=lnt>136
+</span><span class=lnt>137
+</span><span class=lnt>138
+</span><span class=lnt>139
+</span><span class=lnt>140
+</span><span class=lnt>141
+</span><span class=lnt>142
+</span><span class=lnt>143
+</span><span class=lnt>144
+</span><span class=lnt>145
+</span><span class=lnt>146
+</span><span class=lnt>147
+</span><span class=lnt>148
+</span><span class=lnt>149
+</span><span class=lnt>150
+</span><span class=lnt>151
+</span><span class=lnt>152
+</span><span class=lnt>153
+</span><span class=lnt>154
+</span><span class=lnt>155
+</span><span class=lnt>156
+</span><span class=lnt>157
+</span><span class=lnt>158
+</span><span class=lnt>159
+</span><span class=lnt>160
+</span><span class=lnt>161
+</span><span class=lnt>162
+</span><span class=lnt>163
+</span><span class=lnt>164
+</span><span class=lnt>165
+</span><span class=lnt>166
+</span><span class=lnt>167
+</span><span class=lnt>168
+</span><span class=lnt>169
+</span><span class=lnt>170
+</span><span class=lnt>171
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl>inxi will now begin checking <span class=k>for</span> the programs it needs to operate.
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Check inxi --help or the man page <span class=o>(</span>man inxi<span class=o>)</span> to see what options are 
+</span></span><span class=line><span class=cl>available. 
+</span></span><span class=line><span class=cl>------------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>Test: core tools:
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Perl version:  5.016003
+</span></span><span class=line><span class=cl>Current shell: 
+</span></span><span class=line><span class=cl>Default shell: bash
+</span></span><span class=line><span class=cl>sh links to: /usr/bin/bash
+</span></span><span class=line><span class=cl>Package manager: rpm
+</span></span><span class=line><span class=cl>------------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>Test: required system directories:
+</span></span><span class=line><span class=cl> 
+</span></span><span class=line><span class=cl>/proc: ........................................................... Present
+</span></span><span class=line><span class=cl>/sys: ............................................................ Present
+</span></span><span class=line><span class=cl> 
+</span></span><span class=line><span class=cl>All required system directories are present
+</span></span><span class=line><span class=cl>------------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>Test: recommended system programs:
+</span></span><span class=line><span class=cl> 
+</span></span><span class=line><span class=cl>Note: IPMI sensors are generally only found on servers. To access that data, 
+</span></span><span class=line><span class=cl>you only need one of the ipmi items. 
+</span></span><span class=line><span class=cl> 
+</span></span><span class=line><span class=cl>blockdev: --admin -p/-P <span class=o>(</span>filesystem blocksize<span class=o>)</span>.................... Present
+</span></span><span class=line><span class=cl>bt-adapter: -E bluetooth data <span class=o>(</span><span class=k>if</span> no hciconfig<span class=o>)</span>................... Missing
+</span></span><span class=line><span class=cl>dig: -i wlan IP................................................... Present
+</span></span><span class=line><span class=cl>dmidecode: -M <span class=k>if</span> no sys machine data<span class=p>;</span> -m.......................... Present
+</span></span><span class=line><span class=cl>doas: -Dx hddtemp-user<span class=p>;</span> -o file-user <span class=o>(</span>alt <span class=k>for</span> sudo<span class=o>)</span>............... Missing
+</span></span><span class=line><span class=cl>fdisk: -D partition scheme <span class=o>(</span>fallback<span class=o>)</span>............................. Present
+</span></span><span class=line><span class=cl>file: -o unmounted file system <span class=o>(</span><span class=k>if</span> no lsblk<span class=o>)</span>...................... Present
+</span></span><span class=line><span class=cl>fruid_print: -M machine data, Elbrus only......................... Missing
+</span></span><span class=line><span class=cl>hciconfig: -E bluetooth data <span class=o>(</span>deprecated, good report<span class=o>)</span>............ Present
+</span></span><span class=line><span class=cl>hddtemp: -Dx show hdd temp, <span class=k>if</span> no drivetemp module................ Present
+</span></span><span class=line><span class=cl>ifconfig: -i ip LAN <span class=o>(</span>deprecated<span class=o>)</span>.................................. Present
+</span></span><span class=line><span class=cl>ip: -i ip LAN..................................................... Present
+</span></span><span class=line><span class=cl>ipmitool: -s IPMI sensors <span class=o>(</span>servers<span class=o>)</span>............................... Present
+</span></span><span class=line><span class=cl>ipmi-sensors: -s IPMI sensors <span class=o>(</span>servers<span class=o>)</span>........................... Present
+</span></span><span class=line><span class=cl>lsblk: -L LUKS/bcache<span class=p>;</span> -o unmounted file system <span class=o>(</span>best option<span class=o>)</span>..... Present
+</span></span><span class=line><span class=cl>lsusb: -A usb audio<span class=p>;</span> -J <span class=o>(</span>optional<span class=o>)</span><span class=p>;</span> -N usb networking............. Present
+</span></span><span class=line><span class=cl>lvs: -L LVM data.................................................. Missing
+</span></span><span class=line><span class=cl>mdadm: -Ra advanced mdraid data................................... Missing
+</span></span><span class=line><span class=cl>modinfo: Ax<span class=p>;</span> -Nx module version................................... Present
+</span></span><span class=line><span class=cl>runlevel: -I fallback to Perl..................................... Present
+</span></span><span class=line><span class=cl>sensors: -s sensors output........................................ Present
+</span></span><span class=line><span class=cl>smartctl: -Da advanced data....................................... Missing
+</span></span><span class=line><span class=cl>strings: -I sysvinit version...................................... Present
+</span></span><span class=line><span class=cl>sudo: -Dx hddtemp-user<span class=p>;</span> -o file-user <span class=o>(</span>try doas!<span class=o>)</span>.................. Present
+</span></span><span class=line><span class=cl>tree: --debugger 20,21 /sys tree.................................. Missing
+</span></span><span class=line><span class=cl>upower: -sx attached device battery info.......................... Present
+</span></span><span class=line><span class=cl>uptime: -I uptime................................................. Present
+</span></span><span class=line><span class=cl> 
+</span></span><span class=line><span class=cl>The following recommended system programs are missing:
+</span></span><span class=line><span class=cl>Program: bt-adapter ~ Install package: bluez-tools
+</span></span><span class=line><span class=cl>Program: doas ~ Install package: doas
+</span></span><span class=line><span class=cl>Program: fruid_print ~ Install package: N/A
+</span></span><span class=line><span class=cl>Program: lvs ~ Install package: lvm2
+</span></span><span class=line><span class=cl>Program: mdadm ~ Install package: mdadm
+</span></span><span class=line><span class=cl>Program: smartctl ~ Install package: smartmontools
+</span></span><span class=line><span class=cl>Program: tree ~ Install package: tree
+</span></span><span class=line><span class=cl>------------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>Test: recommended display information programs:
+</span></span><span class=line><span class=cl> 
+</span></span><span class=line><span class=cl>glxinfo: -G <span class=o>(</span>X<span class=o>)</span> glx info.......................................... Present
+</span></span><span class=line><span class=cl>wmctrl: -S active window manager <span class=o>(</span>fallback<span class=o>)</span>....................... Present
+</span></span><span class=line><span class=cl>xdpyinfo: -G <span class=o>(</span>X<span class=o>)</span> Screen resolution, dpi<span class=p>;</span> -Ga Screen size.......... Present
+</span></span><span class=line><span class=cl>xprop: -S <span class=o>(</span>X<span class=o>)</span> desktop data........................................ Present
+</span></span><span class=line><span class=cl>xrandr: -G <span class=o>(</span>X<span class=o>)</span> monitors<span class=o>(</span>s<span class=o>)</span> resolution<span class=p>;</span> -Ga monitor data........... Present
+</span></span><span class=line><span class=cl> 
+</span></span><span class=line><span class=cl>All recommended display information programs are present
+</span></span><span class=line><span class=cl>------------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>Test: recommended downloader programs <span class=o>(</span>You only need one of these<span class=o>)</span>:
+</span></span><span class=line><span class=cl> 
+</span></span><span class=line><span class=cl>Perl HTTP::Tiny is the default downloader tool <span class=k>if</span> IO::Socket::SSL is present. 
+</span></span><span class=line><span class=cl>See --help --alt 40-44 options <span class=k>for</span> how to override default downloader<span class=o>(</span>s<span class=o>)</span> in 
+</span></span><span class=line><span class=cl><span class=k>case</span> of issues. 
+</span></span><span class=line><span class=cl> 
+</span></span><span class=line><span class=cl>If dig is installed, it is the default <span class=k>for</span> WAN IP data. Strongly recommended. 
+</span></span><span class=line><span class=cl>Dig is fast and accurate. 
+</span></span><span class=line><span class=cl> 
+</span></span><span class=line><span class=cl>curl: -i <span class=o>(</span><span class=k>if</span> no dig<span class=o>)</span><span class=p>;</span> -w,-W<span class=p>;</span> -U................................... Present
+</span></span><span class=line><span class=cl>dig: -i wlan IP................................................... Present
+</span></span><span class=line><span class=cl>wget: -i <span class=o>(</span><span class=k>if</span> no dig<span class=o>)</span><span class=p>;</span> -w,-W<span class=p>;</span> -U................................... Missing
+</span></span><span class=line><span class=cl> 
+</span></span><span class=line><span class=cl>The following recommended downloader programs are missing. However, you really 
+</span></span><span class=line><span class=cl>only need dig in most cases. All systems should have at least one of the 
+</span></span><span class=line><span class=cl>downloader options present.: 
+</span></span><span class=line><span class=cl>Program: wget ~ Install package: wget
+</span></span><span class=line><span class=cl>------------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>Test: recommended kernel modules:
+</span></span><span class=line><span class=cl> 
+</span></span><span class=line><span class=cl>GPU modules are only needed <span class=k>if</span> applicable. NVMe drives <span class=k>do</span> not need drivetemp 
+</span></span><span class=line><span class=cl>but other types <span class=k>do</span>. 
+</span></span><span class=line><span class=cl> 
+</span></span><span class=line><span class=cl>To load a module: modprobe &lt;module-name&gt; - To permanently load add to 
+</span></span><span class=line><span class=cl>/etc/modules or /etc/modules-load.d/modules.conf <span class=o>(</span>check your system paths <span class=k>for</span> 
+</span></span><span class=line><span class=cl>exact file/directory names<span class=o>)</span>. 
+</span></span><span class=line><span class=cl> 
+</span></span><span class=line><span class=cl>amdgpu: -s AMD GPU sensor data <span class=o>(</span>newer AMD GPUs<span class=o>)</span>................... Missing
+</span></span><span class=line><span class=cl>drivetemp: -Dx drive temperature <span class=o>(</span>kernel &gt;<span class=o>=</span> 5.6<span class=o>)</span>.................. Missing
+</span></span><span class=line><span class=cl>nouveau: -s Nvidia GPU sensor data <span class=o>(</span><span class=k>if</span> using free driver<span class=o>)</span>......... Missing
+</span></span><span class=line><span class=cl> 
+</span></span><span class=line><span class=cl>The following recommended kernel modules are missing:
+</span></span><span class=line><span class=cl>Kernel Module: amdgpu
+</span></span><span class=line><span class=cl>Kernel Module: drivetemp
+</span></span><span class=line><span class=cl>Kernel Module: nouveau
+</span></span><span class=line><span class=cl>------------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>Test: recommended Perl modules <span class=o>(</span>Optional<span class=o>)</span>:
+</span></span><span class=line><span class=cl> 
+</span></span><span class=line><span class=cl>None of these are strictly required, but <span class=k>if</span> you have them all, you can 
+</span></span><span class=line><span class=cl>eliminate some recommended non Perl programs from the install. 
+</span></span><span class=line><span class=cl> 
+</span></span><span class=line><span class=cl>HTTP::Tiny and IO::Socket::SSL must both be present to use as a downloader 
+</span></span><span class=line><span class=cl>option. For json <span class=nb>export</span> Cpanel::JSON::XS is preferred over JSON::XS, but 
+</span></span><span class=line><span class=cl>JSON::PP is in core modules. To run --debug 20-22 File::Copy, File::Find, and 
+</span></span><span class=line><span class=cl>File::Spec::Functions must be present <span class=o>(</span>most distros have these in Core 
+</span></span><span class=line><span class=cl>Modules<span class=o>)</span>. 
+</span></span><span class=line><span class=cl> 
+</span></span><span class=line><span class=cl>File::Copy: --debug 20-22 - required to run debugger.............. Present
+</span></span><span class=line><span class=cl>File::Find: --debug 20-22 - required to run debugger.............. Present
+</span></span><span class=line><span class=cl>File::Spec::Functions: --debug 20-22 - required to run debugger... Present
+</span></span><span class=line><span class=cl>HTTP::Tiny: -U<span class=p>;</span> -w,-W<span class=p>;</span> -i <span class=o>(</span><span class=k>if</span> dig not installed<span class=o>)</span>.................. Present
+</span></span><span class=line><span class=cl>IO::Socket::SSL: -U<span class=p>;</span> -w,-W<span class=p>;</span> -i <span class=o>(</span><span class=k>if</span> dig not installed<span class=o>)</span>............. Missing
+</span></span><span class=line><span class=cl>Time::HiRes: -C cpu sleep <span class=o>(</span>not required<span class=o>)</span><span class=p>;</span> --debug timers.......... Present
+</span></span><span class=line><span class=cl>JSON::PP: --output json <span class=o>(</span>in CoreModules, but slower<span class=o>)</span>.............. Missing
+</span></span><span class=line><span class=cl>Cpanel::JSON::XS: --output json <span class=o>(</span>faster than JSON::PP<span class=o>)</span>............ Present
+</span></span><span class=line><span class=cl>JSON::XS: --output json <span class=o>(</span>legacy<span class=o>)</span>.................................. Present
+</span></span><span class=line><span class=cl>XML::Dumper: --output xml - Crude and raw......................... Present
+</span></span><span class=line><span class=cl>Net::FTP: --debug 21,22........................................... Present
+</span></span><span class=line><span class=cl> 
+</span></span><span class=line><span class=cl>The following recommended Perl modules are missing:
+</span></span><span class=line><span class=cl>Perl Module: IO::Socket::SSL ~ Install package: perl-IO-Socket-SSL
+</span></span><span class=line><span class=cl>Perl Module: JSON::PP ~ Install package: perl-JSON-PP
+</span></span><span class=line><span class=cl>------------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>Test: recommended directories:
+</span></span><span class=line><span class=cl> 
+</span></span><span class=line><span class=cl>/dev: -l,-u,-o,-p,-P,-D disk partition data....................... Present
+</span></span><span class=line><span class=cl>/dev/disk/by-id: -D serial numbers................................ Present
+</span></span><span class=line><span class=cl>/dev/disk/by-label: -l,-o,-p,-P partition labels.................. Missing
+</span></span><span class=line><span class=cl>/dev/disk/by-path: -D extra data.................................. Present
+</span></span><span class=line><span class=cl>/dev/disk/by-uuid: -u,-o,-p,-P partition uuid..................... Present
+</span></span><span class=line><span class=cl>/sys/class/dmi/id: -M system, motherboard, bios................... Present
+</span></span><span class=line><span class=cl> 
+</span></span><span class=line><span class=cl>The following recommended directories are missing:
+</span></span><span class=line><span class=cl>Directory: /dev/disk/by-label
+</span></span><span class=line><span class=cl>------------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>Test: recommended files:
+</span></span><span class=line><span class=cl> 
+</span></span><span class=line><span class=cl>Note that not all of these are used by every system, so <span class=k>if</span> one is missing it<span class=err>&#39;</span>s 
+</span></span><span class=line><span class=cl>usually not a big deal. 
+</span></span><span class=line><span class=cl> 
+</span></span><span class=line><span class=cl>/etc/lsb-release: -S distro version data <span class=o>(</span>older version<span class=o>)</span>.......... Missing
+</span></span><span class=line><span class=cl>/etc/os-release: -S distro version data <span class=o>(</span>newer version<span class=o>)</span>........... Present
+</span></span><span class=line><span class=cl>/proc/asound/cards: -A sound card data............................ Missing
+</span></span><span class=line><span class=cl>/proc/asound/version: -A ALSA data................................ Missing
+</span></span><span class=line><span class=cl>/proc/cpuinfo: -C cpu data........................................ Present
+</span></span><span class=line><span class=cl>/proc/mdstat: -R mdraid data <span class=o>(</span><span class=k>if</span> you use dm-raid<span class=o>)</span>................. Present
+</span></span><span class=line><span class=cl>/proc/meminfo: -I,-tm, -m memory data............................. Present
+</span></span><span class=line><span class=cl>/proc/modules: -G module data <span class=o>(</span>sometimes<span class=o>)</span>......................... Present
+</span></span><span class=line><span class=cl>/proc/mounts: -P,-p partition advanced data....................... Present
+</span></span><span class=line><span class=cl>/proc/scsi/scsi: -D Advanced hard disk data <span class=o>(</span>used rarely<span class=o>)</span>......... Present
+</span></span><span class=line><span class=cl>/var/log/Xorg.0.log: -G graphics driver load status............... Missing
+</span></span><span class=line><span class=cl> 
+</span></span><span class=line><span class=cl>The following recommended files are missing:
+</span></span><span class=line><span class=cl>File: /etc/lsb-release
+</span></span><span class=line><span class=cl>File: /proc/asound/cards
+</span></span><span class=line><span class=cl>File: /proc/asound/version
+</span></span><span class=line><span class=cl>File: /var/log/Xorg.0.log
+</span></span><span class=line><span class=cl>------------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>Ok, all <span class=k>done</span> with the checks. Have a nice day.
+</span></span></code></pre></td></tr></table></div></div><p><strong>获取 Linux 系统信息</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>[root@QZ ~]# inxi 
+</span></span><span class=line><span class=cl>CPU: 8-core Intel Xeon E5-2609 v4 (-MCP-) speed/min/max: 1220/1200/1700 MHz
+</span></span><span class=line><span class=cl>Kernel: 3.10.0-1160.el7.x86_64 x86_64 Up: 13d 4h 6m Mem: 2730.4/15774.7 MiB
+</span></span><span class=line><span class=cl>(17.3%) Storage: 1.13 TiB (1.1% used) Procs: 169 Shell: Bash inxi: 3.3.21
+</span></span></code></pre></td></tr></table></div></div><p><strong>获取内核和发行版本信息</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>[root@QZ ~]# inxi -S 
+</span></span><span class=line><span class=cl>System:
+</span></span><span class=line><span class=cl>  Host: QZ Kernel: 3.10.0-1160.el7.x86_64 arch: x86_64 bits: 64
+</span></span><span class=line><span class=cl>    Console: pty pts/0 Distro: CentOS Linux release 7.9.2009 (Core)
+</span></span></code></pre></td></tr></table></div></div><p><strong>获取电脑机型</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>[root@QZ ~]# inxi -M
+</span></span><span class=line><span class=cl>Machine:
+</span></span><span class=line><span class=cl>  Type: Server Mobo: N/A model: SC612DI-8F v: 1.01 serial: ZM194S005553
+</span></span><span class=line><span class=cl>    UEFI: American Megatrends v: 3.1 date: 06/07/2018
+</span></span></code></pre></td></tr></table></div></div><p><strong>获取 CPU 及主频信息</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>[root@QZ ~]# inxi -C
+</span></span><span class=line><span class=cl>CPU:
+</span></span><span class=line><span class=cl>  Info: 8-core model: Intel Xeon E5-2609 v4 bits: 64 type: MCP cache:
+</span></span><span class=line><span class=cl>    L2: 2 MiB
+</span></span><span class=line><span class=cl>  Speed (MHz): avg: 1204 min/max: 1200/1700 cores: 1: 1236 2: 1200 3: 1200
+</span></span><span class=line><span class=cl>    4: 1200 5: 1200 6: 1200 7: 1200 8: 1200
+</span></span></code></pre></td></tr></table></div></div><p><strong>获取显卡信息</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=o>[</span>root@QZ ~<span class=o>]</span><span class=c1># inxi -G</span>
+</span></span><span class=line><span class=cl>Graphics:
+</span></span><span class=line><span class=cl>  Device-1: ASPEED Graphics Family driver: ast v: kernel
+</span></span><span class=line><span class=cl>  Display: server: No display server data found. Headless machine?
+</span></span><span class=line><span class=cl>  Message: GL data unavailable <span class=k>for</span> root.
+</span></span></code></pre></td></tr></table></div></div><p><strong>获取声卡信息</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=o>[</span>root@QZ ~<span class=o>]</span><span class=c1># inxi -A</span>
+</span></span><span class=line><span class=cl>Audio:
+</span></span><span class=line><span class=cl>  Message: No device data found.
+</span></span></code></pre></td></tr></table></div></div><p><strong>获取网卡信息</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=o>[</span>root@QZ ~<span class=o>]</span><span class=c1># inxi -N</span>
+</span></span><span class=line><span class=cl>Network:
+</span></span><span class=line><span class=cl>  Device-1: Intel 82599ES 10-Gigabit SFI/SFP+ Network driver: ixgbe
+</span></span><span class=line><span class=cl>  Device-2: Intel 82599ES 10-Gigabit SFI/SFP+ Network driver: ixgbe
+</span></span><span class=line><span class=cl>  Device-3: Intel I350 Gigabit Network driver: igb
+</span></span><span class=line><span class=cl>  Device-4: Intel I350 Gigabit Network driver: igb
+</span></span><span class=line><span class=cl>  Device-5: Intel I210 Gigabit Network driver: igb
+</span></span><span class=line><span class=cl>  Device-6: Intel I210 Gigabit Network driver: igb
+</span></span></code></pre></td></tr></table></div></div><p><strong>获取硬盘信息</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=o>[</span>root@QZ ~<span class=o>]</span><span class=c1># inxi -D</span>
+</span></span><span class=line><span class=cl>Drives:
+</span></span><span class=line><span class=cl>  Local Storage: total: 1.13 TiB used: 12.9 GiB <span class=o>(</span>1.1%<span class=o>)</span>
+</span></span><span class=line><span class=cl>  ID-1: /dev/sda vendor: Samsung model: MZ7LH240HAHQ-00005 size: 223.57 GiB
+</span></span><span class=line><span class=cl>  ID-2: /dev/sdb vendor: Seagate model: ST1000NM0055-1V410C
+</span></span><span class=line><span class=cl>    size: 931.51 GiB
+</span></span></code></pre></td></tr></table></div></div><p><strong>获取简要的系统信息</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=o>[</span>root@QZ ~<span class=o>]</span><span class=c1># inxi -b</span>
+</span></span><span class=line><span class=cl>System:
+</span></span><span class=line><span class=cl>  Host: QZ Kernel: 3.10.0-1160.el7.x86_64 arch: x86_64 bits: <span class=m>64</span>
+</span></span><span class=line><span class=cl>    Console: pty pts/0 Distro: CentOS Linux release 7.9.2009 <span class=o>(</span>Core<span class=o>)</span>
+</span></span><span class=line><span class=cl>Machine:
+</span></span><span class=line><span class=cl>  Type: Server Mobo: N/A model: SC612DI-8F v: 1.01 serial: ZM194S005553
+</span></span><span class=line><span class=cl>    UEFI: American Megatrends v: 3.1 date: 06/07/2018
+</span></span><span class=line><span class=cl>CPU:
+</span></span><span class=line><span class=cl>  Info: 8-core Intel Xeon E5-2609 v4 <span class=o>[</span>MCP<span class=o>]</span> speed <span class=o>(</span>MHz<span class=o>)</span>: avg: <span class=m>1207</span>
+</span></span><span class=line><span class=cl>    min/max: 1200/1700
+</span></span><span class=line><span class=cl>Graphics:
+</span></span><span class=line><span class=cl>  Device-1: ASPEED Graphics Family driver: ast v: kernel
+</span></span><span class=line><span class=cl>  Display: server: No display server data found. Headless machine?
+</span></span><span class=line><span class=cl>  Message: GL data unavailable <span class=k>for</span> root.
+</span></span><span class=line><span class=cl>Network:
+</span></span><span class=line><span class=cl>  Device-1: Intel 82599ES 10-Gigabit SFI/SFP+ Network driver: ixgbe
+</span></span><span class=line><span class=cl>  Device-2: Intel 82599ES 10-Gigabit SFI/SFP+ Network driver: ixgbe
+</span></span><span class=line><span class=cl>  Device-3: Intel I350 Gigabit Network driver: igb
+</span></span><span class=line><span class=cl>  Device-4: Intel I350 Gigabit Network driver: igb
+</span></span><span class=line><span class=cl>  Device-5: Intel I210 Gigabit Network driver: igb
+</span></span><span class=line><span class=cl>  Device-6: Intel I210 Gigabit Network driver: igb
+</span></span><span class=line><span class=cl>Drives:
+</span></span><span class=line><span class=cl>  Local Storage: total: 1.13 TiB used: 12.89 GiB <span class=o>(</span>1.1%<span class=o>)</span>
+</span></span><span class=line><span class=cl>Info:
+</span></span><span class=line><span class=cl>  Processes: <span class=m>169</span> Uptime: 13d 4h 12m Memory: 15.41 GiB used: 2.56 GiB <span class=o>(</span>16.6%<span class=o>)</span>
+</span></span><span class=line><span class=cl>  Shell: Bash inxi: 3.3.21
+</span></span></code></pre></td></tr></table></div></div><p><strong>获取硬盘分区信息</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=o>[</span>root@QZ ~<span class=o>]</span><span class=c1># inxi -p</span>
+</span></span><span class=line><span class=cl>Partition:
+</span></span><span class=line><span class=cl>  ID-1: / size: 49.09 GiB used: 6.32 GiB <span class=o>(</span>12.9%<span class=o>)</span> fs: ext4 dev: /dev/sda3
+</span></span><span class=line><span class=cl>  ID-2: /boot size: 487.9 MiB used: 101.6 MiB <span class=o>(</span>20.8%<span class=o>)</span> fs: ext4
+</span></span><span class=line><span class=cl>    dev: /dev/sda2
+</span></span><span class=line><span class=cl>  ID-3: /boot/efi size: 511.7 MiB used: 11.2 MiB <span class=o>(</span>2.2%<span class=o>)</span> fs: vfat
+</span></span><span class=line><span class=cl>    dev: /dev/sda1
+</span></span><span class=line><span class=cl>  ID-4: /home size: 49.09 GiB used: <span class=m>52</span> MiB <span class=o>(</span>0.1%<span class=o>)</span> fs: ext4 dev: /dev/sda4
+</span></span><span class=line><span class=cl>  ID-5: /tmpdisk size: 424.61 GiB used: <span class=m>72</span> MiB <span class=o>(</span>0.0%<span class=o>)</span> fs: ext4
+</span></span><span class=line><span class=cl>    dev: /dev/sdb2
+</span></span><span class=line><span class=cl>  ID-6: /var size: 492.03 GiB used: 6.33 GiB <span class=o>(</span>1.3%<span class=o>)</span> fs: ext4 dev: /dev/sdb1
+</span></span><span class=line><span class=cl>  ID-7: swap-1 size: <span class=m>16</span> GiB used: <span class=m>0</span> KiB <span class=o>(</span>0.0%<span class=o>)</span> fs: swap dev: /dev/sda5
+</span></span></code></pre></td></tr></table></div></div><p><strong>获取完整的 Linux 系统信息</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=o>[</span>root@QZ ~<span class=o>]</span><span class=c1># inxi -F</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>监控 Linux 进程的内存使用</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=o>[</span>root@QZ ~<span class=o>]</span><span class=c1># inxi  -I</span>
+</span></span><span class=line><span class=cl>Info:
+</span></span><span class=line><span class=cl>  Processes: <span class=m>169</span> Uptime: 13d 4h 16m Memory: 15.41 GiB used: 2.81 GiB <span class=o>(</span>18.3%<span class=o>)</span>
+</span></span><span class=line><span class=cl>  Shell: Bash inxi: 3.3.21
+</span></span></code></pre></td></tr></table></div></div><p><strong>监控进程占用的 CPU 和内存资源</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl><span class=o>[</span>root@QZ ~<span class=o>]</span><span class=c1># inxi  -tc </span>
+</span></span><span class=line><span class=cl>Processes:
+</span></span><span class=line><span class=cl>  CPU top: <span class=m>5</span> of <span class=m>168</span>
+</span></span><span class=line><span class=cl>  1: cpu: 3.4% command: clickhouse-server pid: <span class=m>1481</span>
+</span></span><span class=line><span class=cl>  2: cpu: 1.5% command: etcd pid: <span class=m>972</span>
+</span></span><span class=line><span class=cl>  3: cpu: 0.7% command: node_exporter pid: <span class=m>971</span>
+</span></span><span class=line><span class=cl>  4: cpu: 0.2% command: prometheus pid: <span class=m>973</span>
+</span></span><span class=line><span class=cl>  5: cpu: 0.2% command: mysqld pid: <span class=m>1562</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>root@QZ ~<span class=o>]</span><span class=c1># inxi  -tm</span>
+</span></span><span class=line><span class=cl>Processes:
+</span></span><span class=line><span class=cl>  System RAM: total: 15.41 GiB used: 2.67 GiB <span class=o>(</span>17.3%<span class=o>)</span>
+</span></span><span class=line><span class=cl>  Memory top: <span class=m>5</span> <span class=o>(</span> <span class=m>1</span> processes<span class=o>)</span> of <span class=m>168</span>
+</span></span><span class=line><span class=cl>  1: mem: 917.8 MiB <span class=o>(</span>5.8%<span class=o>)</span> command: clickhouse-server pid: <span class=m>1481</span>
+</span></span><span class=line><span class=cl>  2: mem: 424.1 MiB <span class=o>(</span>2.6%<span class=o>)</span> command: mysqld pid: <span class=m>1562</span>
+</span></span><span class=line><span class=cl>  3: mem: 94.4 MiB <span class=o>(</span>0.5%<span class=o>)</span> command: etcd pid: <span class=m>972</span>
+</span></span><span class=line><span class=cl>  4: mem: 74.3 MiB <span class=o>(</span>0.4%<span class=o>)</span> command: prometheus pid: <span class=m>973</span>
+</span></span><span class=line><span class=cl>  5: mem: 70.1 MiB <span class=o>(</span>0.4%<span class=o>)</span> command: ysyapi-dashboard pid: <span class=m>3058</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>root@QZ ~<span class=o>]</span><span class=c1># inxi  -tcm</span>
+</span></span><span class=line><span class=cl>Processes:
+</span></span><span class=line><span class=cl>  CPU top: <span class=m>5</span> of <span class=m>168</span>
+</span></span><span class=line><span class=cl>  1: cpu: 3.4% command: clickhouse-server pid: <span class=m>1481</span>
+</span></span><span class=line><span class=cl>  2: cpu: 1.5% command: etcd pid: <span class=m>972</span>
+</span></span><span class=line><span class=cl>  3: cpu: 0.7% command: node_exporter pid: <span class=m>971</span>
+</span></span><span class=line><span class=cl>  4: cpu: 0.2% command: prometheus pid: <span class=m>973</span>
+</span></span><span class=line><span class=cl>  5: cpu: 0.2% command: mysqld pid: <span class=m>1562</span>
+</span></span><span class=line><span class=cl>  System RAM: total: 15.41 GiB used: 2.69 GiB <span class=o>(</span>17.4%<span class=o>)</span>
+</span></span><span class=line><span class=cl>  Memory top: <span class=m>5</span> of <span class=m>168</span>
+</span></span><span class=line><span class=cl>  1: mem: 932.9 MiB <span class=o>(</span>5.9%<span class=o>)</span> command: clickhouse-server pid: <span class=m>1481</span>
+</span></span><span class=line><span class=cl>  2: mem: 424.1 MiB <span class=o>(</span>2.6%<span class=o>)</span> command: mysqld pid: <span class=m>1562</span>
+</span></span><span class=line><span class=cl>  3: mem: 94.4 MiB <span class=o>(</span>0.5%<span class=o>)</span> command: etcd pid: <span class=m>972</span>
+</span></span><span class=line><span class=cl>  4: mem: 74.3 MiB <span class=o>(</span>0.4%<span class=o>)</span> command: prometheus pid: <span class=m>973</span>
+</span></span><span class=line><span class=cl>  5: mem: 70.1 MiB <span class=o>(</span>0.4%<span class=o>)</span> command: ysyapi-dashboard pid: <span class=m>3058</span>
+</span></span></code></pre></td></tr></table></div></div><p>可以在选项 cm 后跟一个整数(在 1-20 之间)设置显示多少个进程，下面的命令显示了前 10 个最消耗 CPU 和内存的进程：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl><span class=o>[</span>root@QZ ~<span class=o>]</span><span class=c1># inxi  -tcm10 </span>
+</span></span><span class=line><span class=cl>Processes:
+</span></span><span class=line><span class=cl>  CPU top: <span class=m>10</span> of <span class=m>168</span>
+</span></span><span class=line><span class=cl>  1: cpu: 3.4% command: clickhouse-server pid: <span class=m>1481</span>
+</span></span><span class=line><span class=cl>  2: cpu: 1.5% command: etcd pid: <span class=m>972</span>
+</span></span><span class=line><span class=cl>  3: cpu: 0.7% command: node_exporter pid: <span class=m>971</span>
+</span></span><span class=line><span class=cl>  4: cpu: 0.2% command: prometheus pid: <span class=m>973</span>
+</span></span><span class=line><span class=cl>  5: cpu: 0.2% command: mysqld pid: <span class=m>1562</span>
+</span></span><span class=line><span class=cl>  6: cpu: 0.1% command: networkmanager pid: <span class=m>711</span>
+</span></span><span class=line><span class=cl>  7: cpu: 0.1% command: ysyapi-dashboard pid: <span class=m>3058</span>
+</span></span><span class=line><span class=cl>  8: cpu: 0.0% command: systemd pid: <span class=m>1</span>
+</span></span><span class=line><span class=cl>  9: cpu: 0.0% command: <span class=o>[</span>kthreadd<span class=o>]</span> pid: <span class=m>2</span>
+</span></span><span class=line><span class=cl>  10: cpu: 0.0% command: <span class=o>[</span>kworker/0:0h<span class=o>]</span> pid: <span class=m>4</span>
+</span></span><span class=line><span class=cl>  System RAM: total: 15.41 GiB used: 2.53 GiB <span class=o>(</span>16.4%<span class=o>)</span>
+</span></span><span class=line><span class=cl>  Memory top: <span class=m>10</span> of <span class=m>168</span>
+</span></span><span class=line><span class=cl>  1: mem: 774.8 MiB <span class=o>(</span>4.9%<span class=o>)</span> command: clickhouse-server pid: <span class=m>1481</span>
+</span></span><span class=line><span class=cl>  2: mem: 424.1 MiB <span class=o>(</span>2.6%<span class=o>)</span> command: mysqld pid: <span class=m>1562</span>
+</span></span><span class=line><span class=cl>  3: mem: 94.4 MiB <span class=o>(</span>0.5%<span class=o>)</span> command: etcd pid: <span class=m>972</span>
+</span></span><span class=line><span class=cl>  4: mem: 75.1 MiB <span class=o>(</span>0.4%<span class=o>)</span> command: prometheus pid: <span class=m>973</span>
+</span></span><span class=line><span class=cl>  5: mem: 70.1 MiB <span class=o>(</span>0.4%<span class=o>)</span> command: ysyapi-dashboard pid: <span class=m>3058</span>
+</span></span><span class=line><span class=cl>  6: mem: 64.1 MiB <span class=o>(</span>0.4%<span class=o>)</span> command: systemd-journald pid: <span class=m>449</span>
+</span></span><span class=line><span class=cl>  7: mem: 39.2 MiB <span class=o>(</span>0.2%<span class=o>)</span> command: rsyslogd pid: <span class=m>978</span>
+</span></span><span class=line><span class=cl>  8: mem: 38.6 MiB <span class=o>(</span>0.2%<span class=o>)</span> command: nginx: pid: <span class=m>9622</span>
+</span></span><span class=line><span class=cl>  9: mem: 38.6 MiB <span class=o>(</span>0.2%<span class=o>)</span> command: nginx: pid: <span class=m>9625</span>
+</span></span><span class=line><span class=cl>  10: mem: 38.3 MiB <span class=o>(</span>0.2%<span class=o>)</span> command: nginx: pid: <span class=m>9621</span>
+</span></span></code></pre></td></tr></table></div></div><p>下面的命令会列出网卡信息，包括接口信息、网络频率、mac 地址、网卡状态和网络 IP 等信息。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl><span class=o>[</span>root@QZ ~<span class=o>]</span><span class=c1># inxi  -Nni </span>
+</span></span><span class=line><span class=cl>Network:
+</span></span><span class=line><span class=cl>  Device-1: Intel 82599ES 10-Gigabit SFI/SFP+ Network driver: ixgbe
+</span></span><span class=line><span class=cl>  IF: enp2s0f0 state: down mac: 68:91:d0:6a:74:6a
+</span></span><span class=line><span class=cl>  Device-2: Intel 82599ES 10-Gigabit SFI/SFP+ Network driver: ixgbe
+</span></span><span class=line><span class=cl>  IF: enp2s0f1 state: down mac: 68:91:d0:6a:74:6b
+</span></span><span class=line><span class=cl>  Device-3: Intel I350 Gigabit Network driver: igb
+</span></span><span class=line><span class=cl>  IF: ens1f0 state: down mac: 58:53:c0:44:0a:70
+</span></span><span class=line><span class=cl>  Device-4: Intel I350 Gigabit Network driver: igb
+</span></span><span class=line><span class=cl>  IF: ens1f1 state: down mac: 58:53:c0:44:0a:71
+</span></span><span class=line><span class=cl>  Device-5: Intel I210 Gigabit Network driver: igb
+</span></span><span class=line><span class=cl>  IF: eth0 state: up speed: <span class=m>100</span> Mbps duplex: full mac: ac:1f:6b:d2:3f:30
+</span></span><span class=line><span class=cl>  Message: Output throttled. IPs: 1<span class=p>;</span> Limit: 10<span class=p>;</span> Override: --limit <span class=o>[</span>1-x<span class=p>;</span>-1
+</span></span><span class=line><span class=cl>    all<span class=o>]</span>
+</span></span><span class=line><span class=cl>  Device-6: Intel I210 Gigabit Network driver: igb
+</span></span><span class=line><span class=cl>  IF: eth1 state: up speed: <span class=m>1000</span> Mbps duplex: full mac: ac:1f:6b:d2:3f:31
+</span></span><span class=line><span class=cl>  Message: Output throttled. IPs: 1<span class=p>;</span> Limit: 10<span class=p>;</span> Override: --limit <span class=o>[</span>1-x<span class=p>;</span>-1
+</span></span><span class=line><span class=cl>    all<span class=o>]</span>
+</span></span><span class=line><span class=cl>  WAN IP: 111.207.167.18
+</span></span></code></pre></td></tr></table></div></div><p><strong>监控 CPU 温度和电脑风扇转速</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=o>[</span>root@QZ ~<span class=o>]</span><span class=c1># inxi -s </span>
+</span></span><span class=line><span class=cl>Sensors:
+</span></span><span class=line><span class=cl>  System Temperatures: ipmi cpu: <span class=m>32</span> C mobo: <span class=m>28</span> C
+</span></span><span class=line><span class=cl>  Fan Speeds <span class=o>(</span>RPM<span class=o>)</span>: ipmi fan-1: <span class=m>1200</span> fan-3: <span class=m>1200</span> fan-10: <span class=m>1100</span>
+</span></span><span class=line><span class=cl>  System Temperatures: lm-sensors cpu: 24.0 C mobo: N/A
+</span></span><span class=line><span class=cl>  Fan Speeds <span class=o>(</span>RPM<span class=o>)</span>: lm-sensors N/A
+</span></span></code></pre></td></tr></table></div></div><p><strong>用 Linux 查看天气预报</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=o>[</span>root@QZ ~<span class=o>]</span><span class=c1># inxi -w</span>
+</span></span><span class=line><span class=cl>Weather:
+</span></span><span class=line><span class=cl>  Report: temperature: <span class=m>20</span> C <span class=o>(</span><span class=m>68</span> F<span class=o>)</span> conditions: Clear sky
+</span></span><span class=line><span class=cl>  Locale: Beijing, 22, CHN current time: Fri <span class=m>21</span> Oct <span class=m>2022</span> 01:37:06 PM CST
+</span></span><span class=line><span class=cl>    <span class=o>(</span>Asia/Harbin<span class=o>)</span> Source: WeatherBit.io
+</span></span></code></pre></td></tr></table></div></div><p><strong>查看所有的 Linux 仓库信息</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=o>[</span>root@QZ ~<span class=o>]</span><span class=c1># inxi -r </span>
+</span></span><span class=line><span class=cl>Repos:
+</span></span><span class=line><span class=cl>  No active yum repos in: /etc/yum.conf
+</span></span><span class=line><span class=cl>  No active yum repos in: /etc/yum.repos.d/CentOS-Base.repo
+</span></span><span class=line><span class=cl>  No active yum repos in: /etc/yum.repos.d/CentOS-CR.repo
+</span></span><span class=line><span class=cl>  No active yum repos in: /etc/yum.repos.d/CentOS-Debuginfo.repo
+</span></span><span class=line><span class=cl>  No active yum repos in: /etc/yum.repos.d/CentOS-Media.repo
+</span></span><span class=line><span class=cl>  Active yum repos in: /etc/yum.repos.d/CentOS-SCLo-scl-rh.repo
+</span></span><span class=line><span class=cl>    1: centos-sclo-rh ~ http://mirrorlist.centos.org?arch<span class=o>=</span><span class=nv>$basearch</span><span class=p>&amp;</span><span class=nv>release</span><span class=o>=</span>7<span class=p>&amp;</span><span class=nv>repo</span><span class=o>=</span>sclo-rh
+</span></span><span class=line><span class=cl>  Active yum repos in: /etc/yum.repos.d/CentOS-SCLo-scl.repo
+</span></span><span class=line><span class=cl>    1: centos-sclo-sclo ~ http://mirrorlist.centos.org?arch<span class=o>=</span><span class=nv>$basearch</span><span class=p>&amp;</span><span class=nv>release</span><span class=o>=</span>7<span class=p>&amp;</span><span class=nv>repo</span><span class=o>=</span>sclo-sclo
+</span></span><span class=line><span class=cl>  No active yum repos in: /etc/yum.repos.d/CentOS-Sources.repo
+</span></span><span class=line><span class=cl>  No active yum repos in: /etc/yum.repos.d/CentOS-Vault.repo
+</span></span><span class=line><span class=cl>  No active yum repos in: /etc/yum.repos.d/CentOS-fasttrack.repo
+</span></span><span class=line><span class=cl>  No active yum repos in: /etc/yum.repos.d/CentOS-x86_64-kernel.repo
+</span></span><span class=line><span class=cl>  No active yum repos in: /etc/yum.repos.d/epel-testing.repo
+</span></span><span class=line><span class=cl>  Active yum repos in: /etc/yum.repos.d/epel.repo
+</span></span><span class=line><span class=cl>    1: epel ~ https://mirrors.fedoraproject.org/metalink?repo<span class=o>=</span>epel-7<span class=p>&amp;</span><span class=nv>arch</span><span class=o>=</span><span class=nv>$basearch</span><span class=p>&amp;</span><span class=nv>infra</span><span class=o>=</span><span class=nv>$infra</span><span class=p>&amp;</span><span class=nv>content</span><span class=o>=</span><span class=nv>$contentdir</span>
+</span></span><span class=line><span class=cl>  No active yum repos in: /etc/yum.repos.d/mysql-community-source.repo
+</span></span><span class=line><span class=cl>  Active yum repos in: /etc/yum.repos.d/mysql-community.repo
+</span></span><span class=line><span class=cl>    1: mysql-connectors-community ~ http://repo.mysql.com/yum/mysql-connectors-community/el/7/<span class=nv>$basearch</span>/
+</span></span><span class=line><span class=cl>    2: mysql-tools-community ~ http://repo.mysql.com/yum/mysql-tools-community/el/7/<span class=nv>$basearch</span>/
+</span></span><span class=line><span class=cl>    3: mysql-tools-preview ~ http://repo.mysql.com/yum/mysql-tools-preview/el/7/<span class=nv>$basearch</span>/
+</span></span></code></pre></td></tr></table></div></div><p><strong>显示基础信息</strong> <code>-v</code>后数字1-8 简要信息到完整信息。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>inxi -v <span class=m>4</span> 
+</span></span></code></pre></td></tr></table></div></div></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>Updated on 2022-10-21</span></div></div><div class=post-info-line><div class=post-info-md><span><a class=link-to-markdown href=/%E5%8A%9F%E8%83%BD%E5%BC%BA%E5%A4%A7%E7%9A%84%E7%A1%AC%E4%BB%B6%E4%BF%A1%E6%81%AF%E8%8E%B7%E5%8F%96%E5%B7%A5%E5%85%B7-inxi/index.md target=_blank>Read Markdown</a></span></div><div class=post-info-share><span></span></div></div></div><div class=post-info-more><section class=post-tags></section><section><span><a href=javascript:void(0); onclick=window.history.back()>Back</a></span>&nbsp;|&nbsp;<span><a href=/>Home</a></span></section></div><div class=post-nav><a href=/vsftp%E4%B8%8D%E5%90%8C%E7%94%A8%E6%88%B7%E6%8B%A5%E6%9C%89%E4%B8%8D%E5%90%8C%E6%9D%83%E9%99%90/ class=prev rel=prev title=VSFTP不同用户拥有不同权限><i class="fas fa-angle-left fa-fw" aria-hidden=true></i>VSFTP不同用户拥有不同权限</a>
+<a href=/rsyslog%E6%97%A5%E5%BF%97%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/ class=next rel=next title=rsyslog日志服务器搭建>rsyslog日志服务器搭建<i class="fas fa-angle-right fa-fw" aria-hidden=true></i></a></div></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line>Powered by <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.115.3">Hugo</a> | Theme - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden=true></i> LoveIt</a></div><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2021 - 2023</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=/ target=_blank>Peng</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top"><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=/lib/lightgallery/lightgallery.min.css><link rel=stylesheet href=/lib/katex/katex.min.css><link rel=stylesheet href=/lib/katex/copy-tex.min.css><link rel=stylesheet href=/lib/cookieconsent/cookieconsent.min.css><script type=text/javascript src=/lib/autocomplete/autocomplete.min.js></script><script type=text/javascript src=/lib/lunr/lunr.min.js></script><script type=text/javascript src=/lib/lazysizes/lazysizes.min.js></script><script type=text/javascript src=/lib/lightgallery/lightgallery.min.js></script><script type=text/javascript src=/lib/lightgallery/plugins/lg-thumbnail.min.js></script><script type=text/javascript src=/lib/lightgallery/plugins/lg-zoom.min.js></script><script type=text/javascript src=/lib/clipboard/clipboard.min.js></script><script type=text/javascript src=/lib/sharer/sharer.min.js></script><script type=text/javascript src=/lib/katex/katex.min.js></script><script type=text/javascript src=/lib/katex/auto-render.min.js></script><script type=text/javascript src=/lib/katex/copy-tex.min.js></script><script type=text/javascript src=/lib/katex/mhchem.min.js></script><script type=text/javascript src=/lib/cookieconsent/cookieconsent.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:50},comment:{},cookieconsent:{content:{dismiss:"Got it!",link:"Learn more",message:"This website uses Cookies to improve your experience."},enable:!0,palette:{button:{background:"#f0f0f0"},popup:{background:"#1aa3ff"}},theme:"edgeless"},lightgallery:!0,math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!0,left:"\\begin{equation}",right:"\\end{equation}"},{display:!0,left:"\\begin{equation*}",right:"\\end{equation*}"},{display:!0,left:"\\begin{align}",right:"\\end{align}"},{display:!0,left:"\\begin{align*}",right:"\\end{align*}"},{display:!0,left:"\\begin{alignat}",right:"\\end{alignat}"},{display:!0,left:"\\begin{alignat*}",right:"\\end{alignat*}"},{display:!0,left:"\\begin{gather}",right:"\\end{gather}"},{display:!0,left:"\\begin{CD}",right:"\\end{CD}"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{highlightTag:"em",lunrIndexURL:"/index.json",maxResultLength:10,noResultsFound:"No results found",snippetLength:50,type:"lunr"}}</script><script type=text/javascript src=/js/theme.min.js></script></body></html>
