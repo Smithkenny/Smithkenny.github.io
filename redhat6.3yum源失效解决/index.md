@@ -1,4 +1,4 @@
-# redhat6.3-yum源失效解决
+# redhat6.3的yum源失效解决
 
 ## 备份原repo
 
