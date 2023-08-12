@@ -1,7 +1,7 @@
 # 网站访客统计搭建
 
 ## 一、使用zeabur平台搭建umami
-`zeabur`官方[部署说明](https://zeabur.com/docs/zh-CN/marketplace/umami)
+`zeabur`官方[<span style="color:orange">部署说明</span>](https://zeabur.com/docs/zh-CN/marketplace/umami)
 根据官方说明，首先需要部署`PostageSQL`数据库，用来存储`umami`的数据。需要注意的是，部署好数据库后需要手动创建一个名称为`umami`的数据库。由于平台没有用于连接数据库的终端，所以我这里使用`DBeaver`连接数据库。
 
 ### 1.连接数据库
