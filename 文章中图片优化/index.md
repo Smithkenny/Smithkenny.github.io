@@ -3,7 +3,7 @@
 ### 一、需求
 由于文章中图片比较大，所以迫切需要将原图片压缩但质量又不会丢失太多。`google`发现可以将`png`、`jpeg`等格式的图片转换成`webp`格式。体积缩小的同时又不失真。
 
-工具[<span style="color:orange">官网</span>](https://storage.googleapis.com/downloads.webmproject.org/releases/webp/index.html)。
+工具[<span style="color:rgb(87, 147, 247)">官网</span>](https://storage.googleapis.com/downloads.webmproject.org/releases/webp/index.html)。
 
 我的环境是windows,下载：`libwebp-1.3.1-windows-x64.zip`。解压后添加环境变量。
 我的电脑->属性->高级->环境变量->系统变量中找到path->新增`cwebp`程序路径：`C:\Users\1\Downloads\libwebp-1.3.1-windows-x64\bin`。
