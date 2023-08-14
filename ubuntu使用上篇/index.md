@@ -1,4 +1,4 @@
-# ubuntu系统使用说明
+# ubuntu使用上篇
 
 ### 一、Ubuntu20.10 server LTS安装
 
@@ -16,9 +16,9 @@ s390x (IBM Z and LinuxONE)
 最低配置
 
 ```shell
-CPU: 1 gigahertz or better
-RAM: 1 gigabyte or more
-Disk: a minimum of 2.5 gigabytes
+CPU: 1g或者更高
+RAM: 1g或者更高
+Disk: 不小于2.5G
 ```
 
 #### **桌面版和服务器版不同**
@@ -26,8 +26,6 @@ Disk: a minimum of 2.5 gigabytes
 Ubuntu服务器版和Ubuntu桌面版使用相同的Apt库。
 
 一个主要区别是用于桌面版的图形环境没有为服务器安装。这包括图形服务器本身、图形实用程序和应用程序，以及桌面用户所需的各种用户支持服务。
-
-如果这不是第一次在您的计算机上安装操作系统，您可能需要重新分区您的磁盘以为 Ubuntu 腾出空间。
 
 #### 镜像下载地址
 ```shell
@@ -138,86 +136,23 @@ APT 包索引本质上是`/etc/apt/sources.list`文件和`/etc/apt/sources.list.
 sudo apt update
 ```
 
-#### **升级包**
-
-随着时间的推移，您计算机上当前安装的包的更新版本可能会从包存储库中获得（例如安全更新）。要升级你的系统，首先，更新你的包索引，如上所述，然后输入：
-
-```shell
-sudo apt upgrade
-```
-
-**从低版本到高版本的升级过程**
-
-从16.04到20.04升级路径
-
-需要升级两次，不能跨版本升级。
-
-Ubuntu 16.04 LTS ->Ubuntu 18.04 LTS 
-
-Ubuntu 18.04 LTS->Ubuntu 20.04 LTS
-
-相关版本及状态查阅
-
-```shell
-https://wiki.ubuntu.com/Releases?_ga=2.249587526.1765783651.1631927770-1233097571.1631927770
-```
-
-要升级运行以下命令：
-
-```shell
-sudo apt update
-sudo apt upgrade
-```
-
-建议使用`do-release-upgrade`服务器版和云镜像上的命令升级系统。此命令可以处理在不同版本之间有时需要的系统配置更改。
-
-```shell
-sudo do-release-upgrade
-```
-
-可以使用该`-d`标志升级到 Ubuntu 的开发版本。但是，不建议在生产环境中使用开发版本或此标志。
-
-从一个 LTS 升级到下一个 LTS 版本仅在第一个点发布后可用。例如，Ubuntu 18.04 LTS 只会在 20.04.1 点发布后升级到 Ubuntu 20.04 LTS。如果用户希望在点发布之前更新（例如在评估 LTS 升级的机器子集上），用户可以通过`-d`标志强制升级。
-
-```shell
-sudo do-release-upgrade -d 
-```
-
-**升级文章相关参考**
-
-```shell
-https://soulteary.com/2020/04/25/server-upgrade-ubuntu-20-04-lts.html
-```
-
-**操作日志**（包括安装、删除软件包）
-
-```shell
-/var/log/dpkg.log
-```
-
-**帮助**
-
-```shell
-apt help
-```
-
-### aptitude-包管理工具
+#### aptitude-包管理工具
 
 aptitude 在删除一个包时，会同时删除本身所依赖的包。这样，系统中不会残留无用的包，整个系统更为干净。
 
 #### **常用包管理命令**
 
 ```shell
-aptitude update                   更新可用的包列表
-　　aptitude upgrade               升级可用的包
-　　aptitude dist-upgrade        将系统升级到新的发行版
-　　aptitude install pkgname     安装包
-　　aptitude remove pkgname  删除包
-　　aptitude purge pkgname    删除包及其配置文件
-　　aptitude search string        搜索包
-　　aptitude show pkgname     显示包的详细信息
-　　aptitude clean                   删除下载的包文件
-　　aptitude autoclean            仅删除过期的包文件
+aptitude update                更新可用的包列表
+aptitude upgrade               升级可用的包
+aptitude dist-upgrade          将系统升级到新的发行版
+aptitude install pkgname       安装包
+aptitude remove pkgname        删除包
+aptitude purge pkgname         删除包及其配置文件
+aptitude search string         搜索包
+aptitude show pkgname          显示包的详细信息
+aptitude clean                 删除下载的包文件
+aptitude autoclean             仅删除过期的包文件
 ```
 
 #### **查看程序所需依赖包**
@@ -244,21 +179,21 @@ freeradius
   建议: freeradius-krb5
 ```
 
-aptitude 安装nmap
+#### aptitude 安装nmap
 
 ```shell
 sudo aptitude install nmap
 ```
 
-aptitude 卸载nmap
+#### aptitude 卸载nmap
 
 ```shell
 sudo aptitude remove nmap
 ```
 
-### dpkg-包管理器
+#### dpkg-包管理器
 
-**它可以安装、删除和构建包，但与其他包管理系统不同，它不能自动下载和安装包或其依赖项。Apt 和 Aptitude 是较新的，并且在 dpkg 之上添加了附加功能。**
+**它可以安装、删除和构建包，但与其他包管理系统不同，它不能自动下载和安装包或其依赖项。Apt和Aptitude 是较新的，并且在 dpkg 之上添加了附加功能。**
 
 列出系统包数据库中的所有包，包括所有已安装和已卸载的包。
 
@@ -292,8 +227,6 @@ dpkg -S /etc/host.conf base-files: /etc/host.conf
 sudo dpkg -i zip_3.0-4_amd64.deb
 ```
 
-更改`zip_3.0-4_amd64.deb`为要安装的本地 .deb 文件的实际文件名。
-
 卸载软件包可以通过以下方式完成：
 
 ```
@@ -301,76 +234,6 @@ sudo dpkg -r zip
 ```
 
 注意：在大多数情况下，不推荐使用 dpkg 卸载软件包。最好使用处理依赖关系的包管理器，以确保系统处于一致状态。它不会卸载相关依赖包。
-
-### 自动更新
-
-unattended-upgrades 软件包可用于自动安装更新的软件包，并可配置为更新所有软件包或仅安装安全更新。首先，通过在终端中输入以下内容来安装包
-
-```shell
-sudo apt install unattended-upgrades
-```
-
-要配置无人值守升级，请编辑`/etc/apt/apt.conf.d/50unattended-upgrades`和调整以下内容以满足您的需要：
-
-```
-Unattended-Upgrade::Allowed-Origins {
-        "${distro_id}:${distro_codename}";
-        "${distro_id}:${distro_codename}-security";
-//      "${distro_id}:${distro_codename}-updates";
-//      "${distro_id}:${distro_codename}-proposed";
-//      "${distro_id}:${distro_codename}-backports";
-};
-```
-
-某些软件包也可能被*列入黑名单*，因此不会自动更新。要将软件包列入黑名单，请将其添加到列表中：
-
-```
-Unattended-Upgrade::Package-Blacklist {
-//      "vim";
-//      "libc6";
-//      "libc6-dev";
-//      "libc6-i686";
-};
-```
-
-// 用作注释
-
-要启用自动更新，请编辑`/etc/apt/apt.conf.d/20auto-upgrades`并设置适当的 apt 配置选项：
-
-```
-APT::Periodic::Update-Package-Lists "1";
-APT::Periodic::Download-Upgradeable-Packages "1";
-APT::Periodic::AutocleanInterval "7";
-APT::Periodic::Unattended-Upgrade "1";
-```
-
-以上配置每天更新包列表、下载和安装可用升级。本地下载存档每周清理一次。在升级到较新版本 Ubuntu 的服务器上，根据您的回答，上面列出的文件可能不存在。在这种情况下，创建此名称的新文件也应该有效。
-
-**帮助文档**
-
-您可以在`apt.conf(5)`联机帮助页和`/usr/lib/apt/apt.systemd.daily`脚本标题中阅读有关 apt Periodic 配置选项的更多信息。
-
-无人值守升级的结果将被记录到`/var/log/unattended-upgrades`.
-
-### apticron 
-
-定时向系统管理员发邮件，类似于计划任务。
-
-apticron 将配置一个 cron 作业，以通过电子邮件向管理员发送有关系统上具有可用更新的任何软件包的信息，以及每个软件包中更改的摘要。
-
-安装 apticron 软件包
-
-```shell
-sudo apt install apticron
-```
-
-安装包后 edit `/etc/apticron/apticron.conf`，设置电子邮件地址和其他选项：
-
-```
-EMAIL="root@example.com"
-```
-
-
 
 ### 三、无人值守批量安装Ubuntu server 20.04.3
 
@@ -389,7 +252,7 @@ apt install dnsmasq
 
 #### PXE 安装流程
 
-PXE（Pre-boot Execution Environment/预启动执行环境）的实现依赖于网卡，只有支持PXE Client的网卡才能实现网络自动安装。这种网卡实现DHCP Client和 TFTP Client，在BIOS的引导下通过DHCP协议自动分配IP地址，通过TFTP获取最小内核，然后在最小内核环境下通过HTTP协议或NFS协议获取Ubuntu安装版本。之后最小内核引导进行Ubuntu 20.04的安装。下图是详细的安装流程。
+​	PXE（Pre-boot Execution Environment/预启动执行环境）的实现依赖于网卡，只有支持PXE Client的网卡才能实现网络自动安装。这种网卡实现DHCP Client和 TFTP Client，在BIOS的引导下通过DHCP协议自动分配IP地址，通过TFTP获取最小内核，然后在最小内核环境下通过HTTP协议或NFS协议获取Ubuntu安装版本。之后最小内核引导进行Ubuntu 20.04的安装。下图是详细的安装流程。
 
 ![无人值守1](/postimages/无人值守1.webp)
 
@@ -424,7 +287,7 @@ PXE（Pre-boot Execution Environment/预启动执行环境）的实现依赖于�
    ```
 
 2. 下载ubuntu 20.04 server iso
-   这个直接去官网下载，我下载的是 ubuntu-20.04.3-live-server-amd64.iso，需要注意的是只有live版本才能支持subiquity
+   这个直接去官网下载，我下载的是`ubuntu-20.04.3-live-server-amd64.iso`，需要注意的是只有live版本才能支持subiquity
    `https://ubuntu.com/download/server`
 
 #### 创建TFTP 文件夹
@@ -507,7 +370,7 @@ cp /media/grub/font.pf2       /tftp/grub
 cp /media/grub/grub.cfg       /tftp/grub
 ```
 
-### 配置dnsmasq（默认端口53udp）
+#### 配置dnsmasq（默认端口53udp）
 
 tftp默认端口69
 
@@ -545,7 +408,7 @@ log-facility=/var/log/dnsmasq.log
 
 修改配置后，重启dnsmasq服务才能生效。
 
-### 创建HTTP文件夹
+#### 创建HTTP文件夹
 
 apache2的默认服务根目录是 /var/www/html，不修改他，在他下面创建目录
 
@@ -586,7 +449,7 @@ touch /var/www/html/autoinstall/user-data
 touch /var/www/html/autoinstall/meta-data
 ```
 
-### 配置grub.cfg
+#### 配置grub.cfg
 
 ```routeros
 if loadfont /grub/font.pf2 ; then
@@ -615,20 +478,20 @@ menuentry 之前是配置样式，也可以删除，重点关注`menuentry "Ubun
 2. root=/dev/ram0 ramdisk_size=1500000 为了指定内核镜像挂载空间，是否可删除待确认
 3. ip=dhcp 指定内核镜像挂载后使用DHCP 获取IP地址
 4. url= 指定ISO文件的网络存放路径
-5. `autoinstall ds=nocloud-net\;s=http://10.4.7.150/autoinstall/ ---` 该配置指明参数自动填写，并指明配置文件所在路径
+5. `autoinstall ds=nocloud-net\;s=http://10.4.7.150/autoinstall/ `---该配置指明参数自动填写，并指明配置文件所在路径
 
 #### 坑
 
 网上很多文章配置是这么写的`ds=nocloud-net;s=http://10.4.7.150/autoinstall/`，我试了很多次，都没有自动安装。
-在网上查到，由于UEFI启动使用了grub，grub将;识别为了特殊字符，所以要在;前加\转义。
+在网上查到，由于UEFI启动使用了grub，grub将`;`识别为了特殊字符，所以要在`;`前加`\`转义。
 
-### 配置user-data
+#### 配置user-data
 
 ```yaml
 #cloud-config
 autoinstall:
   version: 1
-  # 修改apt 服务地址
+  # 修改apt服务地址
   apt:
     primary:
     - arches: [default]
@@ -636,7 +499,7 @@ autoinstall:
   user-data:
     # 配置时区
     timezone: Asia/Shanghai
-    # 去使能 root账号
+    # 使用root账号
     disable_root: true
   # 配置用户  
   identity:
@@ -670,14 +533,14 @@ autoinstall:
     - {device: format-0, path: /boot/efi, type: mount, id: mount-0}
 ```
 
-#### 说明
+说明
 
 1. 密码需要加密，可以先用工具对自己的密码进行加密后填入
 2. 代理不是必须的配置，与网络拓扑有关
 3. 磁盘分区配置要注意，配置不对会导致自动安装走不下去，提示crash；这个配置的整体思路是先格式化disk-sda，然后在disk-sda下划分/dev/sda1 、/dev/sda2 ，然后分别mount /,/boot/efi目录
 4. 安装过程日志在 /var/log/installer/，如果安装失败可以通过nc 等工具实时发出去
 
-### 网络拓扑
+#### 网络拓扑
 
 1. 我在电脑上搭建了DHCP、TFTP、HTTP三种服务
 2. 目标机器不能上网，三台机器在同一个局域网
@@ -839,7 +702,7 @@ ip addr flush eth0
 >
 > 使用 ip 命令刷新 IP 配置不会清除`/etc/resolv.conf`. 您必须手动删除或修改这些条目，或者重新启动，这也应该导致`/etc/resolv.conf`，它是到 的符号链接`/run/systemd/resolve/stub-resolv.conf`，被重写。
 
-### 动态 IP 地址分配（DHCP 客户端）
+#### 动态 IP 地址分配（DHCP 客户端）
 
 要将您的服务器配置为使用 DHCP 进行动态地址分配，请在文件`/etc/netplan/99_config.yaml`. 下面的示例假设您正在配置标识为*enp3s0 的*第一个以太网接口。
 
@@ -858,7 +721,7 @@ network:
 sudo netplan apply
 ```
 
-### 静态 IP 地址分配
+#### 静态 IP 地址分配
 
 要将系统配置为使用静态地址分配，请在文件`/etc/netplan/99_config.yaml`. 下面的示例假设您正在配置标识为*eth0 的*第一个以太网接口。更改*address*、*gateway4*和*nameservers*值以满足您的网络要求。
 
@@ -890,7 +753,7 @@ sudo netplan apply
 ip link set ens33 down ip link set ens33 up 
 ```
 
-### 环回接口
+#### 环回接口
 
 环回接口由系统标识为*lo*，默认 IP 地址为 127.0.0.1。可以使用ip命令查看。
 
@@ -904,11 +767,11 @@ ip address show lo
        valid_lft forever preferred_lft forever
 ```
 
-### 名称解析
+#### 名称解析
 
 与 IP 网络相关的名称解析是将 IP 地址映射到主机名的过程，从而更容易识别网络上的资源。以下部分将解释如何正确配置系统以使用 DNS 和静态主机名记录进行名称解析。
 
-### DNS 客户端配置
+#### DNS 客户端配置
 
 传统上，该文件`/etc/resolv.conf`是一个静态配置文件，很少需要更改或通过 DCHP 客户端挂钩自动更改。Systemd-resolved 处理名称服务器配置，它应该通过`systemd-resolve`命令进行交互。Netplan 配置 systemd-resolved 以生成要放入的名称服务器和域列表`/etc/resolv.conf`，这是一个符号链接：
 
@@ -958,7 +821,7 @@ network:
 
 如果未找到匹配项，DNS 服务器将提供*notfound*结果并且 DNS 查询将失败。
 
-### 静态主机名
+#### 静态主机名
 
 静态主机名是位于文件中的本地定义的主机名到 IP 的映射`/etc/hosts`。`hosts`默认情况下，文件中的条目优先于 DNS。这意味着如果您的系统尝试解析主机名并且它与 /etc/hosts 中的条目匹配，则它不会尝试在 DNS 中查找记录。在某些配置中，尤其是当不需要访问 Internet 时，可以方便地将与有限数量资源通信的服务器设置为使用静态主机名而不是 DNS。
 
@@ -977,7 +840,7 @@ network:
 >
 > 在上面的示例中，请注意，除了专有名称和 FQDN 之外，每个服务器还被赋予了别名。*Server1*已映射到名称*vpn*，*server2*称为*mail*，*server3*称为*www*，*server4*称为*file*。
 
-### 名称服务交换机配置
+#### 名称服务交换机配置
 
 系统选择将主机名解析为 IP 地址的方法的顺序由名称服务交换机 (NSS) 配置文件控制`/etc/nsswitch.conf`。如上一节所述，通常在系统`/etc/hosts`文件中定义的静态主机名优先于从 DNS 解析的名称。以下是负责文件中主机名查找顺序的行的示例`/etc/nsswitch.conf`。
 
@@ -997,7 +860,7 @@ hosts:          files mdns4_minimal [NOTFOUND=return] dns mdns4
 hosts: files dns [NOTFOUND=return] mdns4_minimal mdns4
 ```
 
-### 桥接
+#### 桥接
 
 桥接多个接口是一种更高级的配置，但在多个场景中非常有用。一种方案是建立具有多个网络接口的网桥，然后使用防火墙过滤两个网段之间的流量。另一种情况是在具有一个接口的系统上使用桥接器，以允许虚拟机直接访问外部网络。以下示例涵盖了后一种情况。
 
@@ -1029,7 +892,7 @@ sudo netplan apply
 
 新的桥接接口现在应该已经启动并运行了。brctl 提供有关网桥状态的有用信息，控制哪些接口是网桥的一部分等。有关`man brctl`更多信息，请参见。
 
-### DHCP
+#### DHCP
 
 DHCP 服务器可以使用以下方法提供配置设置：
 
@@ -1090,7 +953,7 @@ INTERFACESv4="eth4"
 sudo systemctl restart isc-dhcp-server.service
 ```
 
-### NTP
+#### NTP
 
 NTP 是一种 TCP/IP 协议，用于通过网络同步时间。基本上，客户端从服务器请求当前时间，并使用它来设置自己的时钟。
 
@@ -1164,7 +1027,7 @@ Sep 23 02:41:56 lhp-server systemd[1]: Stopped Network Time Synchronization.
 
 可以从这两个配置文件中获取到根域名服务器的时间：/etc/systemd/timesyncd.conf和/etc/systemd/timesyncd.conf.d/，更多信息可以查看man timesyncd.conf。
 
-### Chrony
+#### Chrony
 
 安装
 
@@ -1211,7 +1074,7 @@ root@lhp-server:~# chronyc sources 210 Number of sources = 8MS Name/IP address  
 
 ### 五、安全
 
-用户管理
+#### 用户管理
 
 root用户默认禁止访问。
 
@@ -1288,7 +1151,7 @@ sudo deluser username
   sudo adduser username groupname
   ```
 
-用户配置文件安全
+#### 用户配置文件安全
 
 创建新用户时， adduser 实用程序会创建一个名为 的全新主目录`/home/username`。默认配置文件以 目录中的内容为模型`/etc/skel`，其中包括所有配置文件基础。
 
@@ -1334,7 +1197,7 @@ sudo deluser username
   drwxr-x---   2 username username    4096 2007-10-02 20:03 username
   ```
 
-密码策略
+#### 密码策略
 
 最小长度密码
 
@@ -1444,238 +1307,9 @@ Sep 23 07:33:07 lhp-server sshd[5801]: error: Received disconnect from 10.4.7.1 
 Sep 23 07:33:07 lhp-server sshd[5801]: Disconnected from invalid user test 10.4.7.1 port 1047 [preauth]
 ```
 
-**apparmor**
-
-AppArmor 是默认安装和加载的。它使用应用程序的*配置文件*来确定应用程序需要哪些文件和权限。一些包会安装它们自己的配置文件，额外的配置文件可以在 apparmor-profiles 包中找到。
-
-从终端提示安装 apparmor-profiles 包：
-
-```
-sudo apt install apparmor-profiles
-```
-
-**AppArmor 配置文件有两种执行模式**
-
-Enforcement – 在这种模式下，配置文件里列出的限制条件都会得到执行，并且对于违反这些限制条件的程序会进行日志记录。
-
-Complain – 在这种模式下，配置文件里的限制条件不会得到执行，Apparmor只是对程序的行为进行记录。例如程序可以写一个在配置文件里注明只读的文件，但Apparmor不会对程序的行为进行限制，只是进行记录。
-
-那既然complain不能限制程序，为什么还需要这种模式呢，因为——如果某个程序的行为不符合其配置文件的限制，可以将其行为记录到系统日志，并且可以根据程序的行为，将日志转换成配置文件。
-
-当然我们可以随时对配置文件进行修改，选择自己需要的模式。
-
-可选的 apparmor-utils 包包含可用于更改 AppArmor 执行模式、查找配置文件状态、创建新配置文件等的命令行实用程序。
-
-- apparmor_status 用于查看 AppArmor 配置文件的当前状态。
-
-  ```
-  sudo apparmor_status
-  ```
-
-- aa-complain 将配置文件置于complain模式。
-
-  ```
-  sudo aa-complain /path/to/bin
-  ```
-
-- aa-enforce 将配置文件置于enforcement模式。
-
-  ```
-  sudo aa-enforce /path/to/bin
-  ```
-
-- 该`/etc/apparmor.d`目录是 AppArmor 配置文件所在的位置。它可用于操纵所有配置文件的*模式*。
-
-  输入以下内容将所有配置文件置于complain模式：
-
-  ```
-  sudo aa-complain /etc/apparmor.d/*
-  ```
-
-  将所有配置文件置于enforcement模式：
-
-  ```
-  sudo aa-enforce /etc/apparmor.d/*
-  ```
-
-
-
-- apparmor_parser 用于将配置文件加载到内核中。它还可用于在修改当前加载的配置文件后使用*-r*选项重新加载它以使更改生效。
-  要重新加载配置文件：
-
-  ```
-  sudo apparmor_parser -r /etc/apparmor.d/profile.name
-  ```
-
-- `systemctl`可用于*重新加载*所有配置文件：
-
-  ```
-  sudo systemctl reload apparmor.service
-  ```
-
-- 该`/etc/apparmor.d/disable`目录可以与 apparmor_parser -R 选项一起使用以*禁用*配置文件。
-
-  ```
-  sudo ln -s /etc/apparmor.d/profile.name /etc/apparmor.d/disable/
-  sudo apparmor_parser -R /etc/apparmor.d/profile.name
-  ```
-
-  要*重新启用*禁用的配置文件，请删除`/etc/apparmor.d/disable/`. 然后使用*-a*选项加载配置文件。
-
-  ```
-  sudo rm /etc/apparmor.d/disable/profile.name
-  cat /etc/apparmor.d/profile.name | sudo apparmor_parser -a
-  ```
-
-- 可以禁用 AppArmor，并通过输入以下内容卸载内核模块：
-
-  ```
-  sudo systemctl stop apparmor.service
-  sudo systemctl disable apparmor.service
-  ```
-
-- 要重新启用 AppArmor，请输入：
-
-  ```
-  sudo systemctl enable apparmor.service
-  sudo systemctl start apparmor.service
-  ```
-
-> **笔记**
->
-> 将*profile.name*替换为您要操作的配置文件的名称。另外，替换`/path/to/bin/`为实际的可执行文件路径。例如对于 ping 命令使用`/bin/ping`
-
-简介
-
-AppArmor 配置文件是位于`/etc/apparmor.d/`. 这些文件以它们分析的可执行文件的完整路径命名，将“/”替换为“.”。例如`/etc/apparmor.d/bin.ping`，该`/bin/ping`命令的 AppArmor 配置文件。
-
-配置文件中使用了两种主要类型的规则：
-
-- *路径条目：*详细说明应用程序可以访问文件系统中的哪些文件。
-- *能力条目：*确定允许受限进程使用哪些权限。
-
-举个例子，看看`/etc/apparmor.d/bin.ping`：
-
-```
-#include <tunables/global>
-/bin/ping flags=(complain) {
-  #include <abstractions/base>
-  #include <abstractions/consoles>
-  #include <abstractions/nameservice>
-
-  capability net_raw,
-  capability setuid,
-  network inet raw,
-  
-  /bin/ping mixr,
-  /etc/modules.conf r,
-}
-```
-
-- *#include <tunables/global>：*包含来自其他文件的语句。这允许将与多个应用程序有关的语句放在一个公共文件中。
-- */bin/ping flags=(complain):*分析程序的路径，还将模式设置为*抱怨*。
-- *能力 net_raw，：*允许应用程序访问 CAP_NET_RAW Posix.1e 能力。
-- */bin/ping mixr,：*允许应用程序对文件进行读取和执行访问。
-
-> **笔记**
->
-> 编辑配置文件后，必须重新加载配置文件。有关详细信息，请参阅上面的[使用 AppArmor](https://ubuntu.com/server/docs/security-apparmor#loadrules)。
-
-### 创建配置文件
-
-- 设计一个测试计划：尝试考虑应该如何运行应用程序。测试计划应该分成小的测试用例。每个测试用例都应该有一个简短的描述并列出要遵循的步骤。
-
-  一些标准测试用例是：
-
-  - 启动程序。
-  - 停止程序。
-  - 重新加载程序。
-  - 测试 init 脚本支持的所有命令。
-
-- 生成新配置文件：使用 aa-genprof 生成新配置文件。
-
-  ```
-  sudo aa-genprof executable
-  ```
-
-  例如：
-
-  ```
-  sudo aa-genprof slapd
-  ```
-
-- 要将您的新配置文件包含在 apparmor-profiles 包中，请在Launchpad 中针对[AppArmor](https://bugs.launchpad.net/ubuntu/+source/apparmor/+filebug)包提交错误：
-
-  - 包括您的测试计划和测试用例。
-  - 将您的新配置文件附加到错误。
-
-### 更新配置文件
-
-当程序出现异常时，审核消息会发送到日志文件。程序 aa-logprof 可用于扫描 AppArmor 审核消息的日志文件，查看它们并更新配置文件。从终端：
-
-```
-sudo aa-logprof
-```
-
-### 其他预先存在的配置文件
-
-为 AppArmor 安全策略打包`apport-profiles`并提供`apparmor-profiles-extra`一些实验性配置文件。
-不要指望这些配置文件开箱即用，但是当您尝试通过从现有的基础开始创建新配置文件时，它们可以为您提供一个良好的开端。
-
-默认情况下，这些配置文件被认为不够成熟，无法以强制模式发送。因此，它们以抱怨模式发送，以便用户可以测试它们，选择所需的，并在需要时帮助上游改进它们。
-
-包装中携带的一些更多的实验配置文件被放置在` /usr/share/doc/apparmor-profiles/extras/`
-
-### 检查和调试拒绝
-
-如果您遇到拒绝，您将在“dmesg”和任何收集内核消息的日志中看到。
-立即值得知道的是，这将涵盖任何被拒绝的访问`because it was not allowed`，但`explicit denies`根本不会在您的日志中放置任何消息。
-
-示例可能如下所示：
-
-```
-[1521056.552037] audit: type=1400 audit(1571868402.378:24425): apparmor="DENIED" operation="open" profile="/usr/sbin/cups-browsed" name="/var/lib/libvirt/dnsmasq/" pid=1128 comm="cups-browsed" requested_mask="r" denied_mask="r" fsuid=0 ouid=0
-[1482106.651527] audit: type=1400 audit(1571829452.330:24323): apparmor="DENIED" operation="sendmsg" profile="snap.lxd.lxc" pid=24115 comm="lxc" laddr=10.7.0.69 lport=48796 faddr=10.7.0.231 fport=445 family="inet" sock_type="stream" protocol=6 requested_mask="send" denied_mask="send"
-```
-
-这遵循以时间戳、审计标记和类别开头的通用结构`apparmor="DENIED"`。
-从以下字段中，您可以得出正在发生的事情以及失败的原因。
-
-在上面的例子中，这将是
-
-第一个例子：
-
-- 操作：（`open`程序试图打开一个文件）
-- 个人资料：（`/usr/sbin/cups-browsed`你会发现`/etc/apparmor.d/usr.bin.cups-browsed`）
-- 名称：（`/var/lib/libvirt/dnsmasq`它想访问什么）
-- pid/comm：触发访问的程序
-- requested_mask/denied_mask/fsuid/ouid：该公开调用的参数
-
-第二个例子：
-
-- 操作：（`sendmsg`程序尝试通过网络发送）
-- 简介：（`snap.lxd.lxc`快照很特别，你会发现`/var/lib/snapd/apparmor/profiles/snap.lxd.lxc`）
-- pid/comm：触发访问的程序
-- laddr/lport/faddr/fport/family/sock_type/protocol：sendmsg 调用的参数
-
-这样，如果您考虑调试或调整配置文件，您就可以知道在哪个配置文件中以及在什么操作中必须开始。
-
-### 个人资料定制
-
-配置文件旨在提供安全性，因此不能太开放。但通常一个非常特殊的设置可以与配置文件一起使用，如果它只*允许这个额外的访问*。可以通过三种方式来处理。
-
-- 修改配置文件本身
-  - 总是有效，但有一个缺点，即配置文件在 /etc 中并被视为 conffiles。因此，在对相关软件包更新进行修改后，您可能会收到一个 conffile 提示。最坏的情况取决于配置自动更新甚至可能覆盖它并且您的自定义规则消失了。
-- 使用可调参数
-  - 那些提供了可在模板中使用的变量，例如，如果您希望将自定义目录视为主目录，您可以修改`/etc/apparmor.d/tunables/home`它定义用于主目录的基本路径规则
-  - 通过设计，这些变量只会影响使用它们的配置文件
-- 修改本地覆盖
-  - 为了减轻上述方法的缺点，*本地包括*引入了添加编写将要使用的任意规则的能力，并且不会在修改打包规则的升级中出现问题。
-  - 这些文件可以在`/etc/apparmor.d/local/`已知有时需要为特殊设置稍作调整的软件包中找到并存在
-
 ### 六、防火墙
 
-**uwf**
+**ufw**
 
 Ubuntu 的默认防火墙配置工具是 ufw。为简化 iptables 防火墙配置而开发，ufw 提供了一种用户友好的方式来创建基于 IPv4 或 IPv6 的基于主机的防火墙。
 
@@ -1776,7 +1410,7 @@ sudo ufw allow proto tcp from 192.168.0.2 to any port 22
 
 更多详细参数见：man ufw手册
 
-**ufw 应用集成**
+#### **ufw 应用集成**
 
 打开端口的应用程序可以包含一个 ufw 配置文件，其中详细说明了应用程序正常运行所需的端口。配置文件保存在 中`/etc/ufw/applications.d`，如果默认端口已更改，则可以对其进行编辑。
 
@@ -1809,12 +1443,6 @@ sudo ufw allow proto tcp from 192.168.0.2 to any port 22
   ```
   sudo ufw app info Samba
   ```
-
-并非所有需要打开网络端口的应用程序都带有 ufw 配置文件，但是如果您对应用程序进行了配置文件并希望将文件包含在包中，请在 Launchpad 中针对该包提交错误。
-
-```
-ubuntu-bug nameofpackage
-```
 
 #### IP伪装
 
@@ -1877,7 +1505,7 @@ IP 伪装的目的是允许网络上具有私有、不可路由 IP 地址的机�
   sudo ufw disable && sudo ufw enable
   ```
 
-现在应该启用 IP 伪装。您还可以将任何其他 FORWARD 规则添加到`/etc/ufw/before.rules`. 建议将这些附加规则添加到*ufw-before-forward*链中。
+现在应该启用 IP 伪装。您还可以将任何其他 FORWARD 规则添加到`/etc/ufw/before.rules`. 建议将这些附加规则添加到`ufw-before-forward`链中。
 
 #### iptables 伪装
 
@@ -1946,7 +1574,7 @@ sudo ufw logging on
 如果使用 iptables 而不是 ufw，请输入：
 
 ```
-sudo iptables -A INPUT -m state --state NEW -p tcp --dport 80 \
+sudo iptables -A INPUT -m state --state NEW -p tcp --dport 80 \ 
 -j LOG --log-prefix "NEW_HTTP_CONN: "
 ```
 
@@ -1959,1163 +1587,5 @@ SPT=53981 DPT=80 WINDOW=32767 RES=0x00 SYN URGP=0
 ```
 
 上面的日志也会出现在`/var/log/messages`、`/var/log/syslog`、 和 中`/var/log/kern.log`。可以通过`/etc/syslog.conf`适当编辑或安装和配置 ulogd 并使用 ULOG 目标而不是 LOG来修改此行为。ulogd 守护进程是一个用户空间服务器，它专门为防火墙侦听来自内核的日志记录指令，并且可以记录到您喜欢的任何文件，甚至是 PostgreSQL 或 MySQL 数据库。使用日志分析工具（例如 logwatch、fwanalog、fwlogwatch 或 lire）可以简化理解防火墙日志的过程。
-
-### 八、证书
-
-Ubuntu server 20.04.3  给apache2创建自签名证书
-
-**介绍**
-
-**TLS**或“传输层安全”——及其前身**SSL——**是用于将正常流量包装在受保护的加密包装器中的协议。使用这项技术，服务器可以安全地向其客户端发送信息，而不会被外界拦截或读取其消息。
-
-**注意：**自签名证书将加密您的服务器和任何客户端之间的通信。但是，由于它不是由 Web 浏览器和操作系统中包含的任何受信任的证书颁发机构签署的，因此用户无法使用该证书来自动验证您的服务器的身份。因此，您的用户在访问您的网站时会看到安全错误。
-
-由于此限制，自签名证书不适用于为公众服务的生产环境。它们通常用于测试或保护单个用户或一小群用户使用的非关键服务，这些用户可以通过备用通信渠道建立对证书有效性的信任。如需更适合生产的证书解决方案，请查看[Let's Encrypt](https://letsencrypt.org/)，一个免费的证书颁发机构。
-
-先决条件
-
-- 使用非**root 用户**、启用 sudo 的用户访问 Ubuntu 20.04 服务器。我们的[Ubuntu 20.04 初始服务器设置](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-20-04)指南可以向您展示如何创建此帐户。
-- 您还需要安装 Apache。
-
-```shell
-sudo apt update
-```
-
-然后，安装`apache2`软件包：
-
-```bash
-sudo apt install apache2
-```
-
-最后，如果您`ufw`设置了防火墙，请打开`http`和`https`端口：
-
-```bash
-sudo ufw allow "Apache Full"
-```
-
-#### 步骤1：启用mod_ssl
-
-在我们可以使用*任何*SSL 证书之前，我们首先必须启用`mod_ssl`Apache 模块，它提供对 SSL 加密的支持。
-
-`mod_ssl`使用以下`a2enmod`命令启用：
-
-```bash
-sudo a2enmod ssl
-```
-
-重启Apache激活模块：
-
-```bash
-sudo systemctl restart apache2
-```
-
-该`mod_ssl`模块现已启用并可以使用。
-
-#### 步骤2：创建ssl证书
-
-现在 Apache 已准备好使用加密，我们可以继续生成新的 SSL 证书。该证书将存储有关您站点的一些基本信息，并附带一个允许服务器安全处理加密数据的密钥文件。
-
-我们可以使用以下`openssl`命令创建 SSL 密钥和证书文件：
-
-```shell
-sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/apache-selfsigned.key -out /etc/ssl/certs/apache-selfsigned.crt
-```
-
-参数详解：
-
-- `openssl`：这是用于创建和管理 OpenSSL 证书、密钥和其他文件的命令行工具。
-- `req -x509`：这指定我们要使用 X.509 证书签名请求 (CSR) 管理。X.509 是 SSL 和 TLS 遵守的用于密钥和证书管理的公钥基础结构标准。
-- `-nodes`：这告诉 OpenSSL 跳过使用密码保护我们的证书的选项。当服务器启动时，我们需要 Apache 能够在没有用户干预的情况下读取文件。密码可以防止这种情况发生，因为我们必须在每次重新启动后输入它。
-- `-days 365`：此选项设置证书被视为有效的时间长度。我们在这里设置了一年。许多现代浏览器会拒绝任何有效期超过一年的证书。
-- `-newkey rsa:2048`：这指定我们要同时生成新证书和新密钥。我们没有在上一步中创建签署证书所需的密钥，因此我们需要将其与证书一起创建。该`rsa:2048`部分告诉它制作一个 2048 位长的 RSA 密钥。
-- `-keyout`：这一行告诉 OpenSSL 在哪里放置我们正在创建的生成的私钥文件。
-- `-out`：这告诉 OpenSSL 在哪里放置我们正在创建的证书。
-
-**最重要的一行是请求`Common Name`. 您需要输入用于访问服务器的主机名或服务器的公共 IP**。重要的是，此字段与您将放入浏览器地址栏中以访问该站点的任何内容相匹配，因为不匹配会导致更多的安全错误。
-
-完整的提示列表如下所示：
-
-```
-Country Name (2 letter code) [XX]:US
-State or Province Name (full name) []:Example
-Locality Name (eg, city) [Default City]:Example 
-Organization Name (eg, company) [Default Company Ltd]:Example Inc
-Organizational Unit Name (eg, section) []:Example Dept
-Common Name (eg, your name or your server's hostname) []:your_domain_or_ip
-Email Address []:webmaster@example.com
-```
-
-您创建的两个文件都将放置在`/etc/ssl`.
-
-接下来，我们将更新我们的 Apache 配置以使用新的证书和密钥。
-
-#### 步骤3：配置apache以使用ssl
-
-现在我们有了自签名证书和密钥，我们需要更新我们的 Apache 配置以使用它们。在 Ubuntu 上，您可以将新的 Apache 配置文件（它们必须以 结尾`.conf`）放入`/etc/apache2/sites-available/`，它们将在下次重新加载或重新启动 Apache 进程时加载。
-
-在本教程中，我们将创建一个新的最小配置文件。（如果您已经`<Virtualhost>`设置了Apache并且只需要向其中添加 SSL，您可能需要复制以 开头的配置行`SSL`，并将`VirtualHost`端口从切换`80`到`443`。我们将`80`在下一步中处理端口。 )
-
-在 /etc/apache2/sites-available 目录中打开一个新文件：
-
-```bash
-sudo nano /etc/apache2/sites-available/your_domain_or_ip.conf
-```
-
-粘贴以下最小的 VirtualHost 配置：
-
-/etc/apache2/sites-available/your_domain_or_ip.conf
-
-```bash
-<VirtualHost *:443>
-   ServerName your_domain_or_ip
-   DocumentRoot /var/www/your_domain_or_ip
-
-   SSLEngine on
-   SSLCertificateFile /etc/ssl/certs/apache-selfsigned.crt
-   SSLCertificateKeyFile /etc/ssl/private/apache-selfsigned.key
-</VirtualHost>
-```
-
-请务必将`ServerName`行更新为您打算寻址服务器的任何方式。这可以是主机名、完整域名或 IP 地址。确保您选择的任何内容与`Common Name`您在制作证书时选择的内容相匹配。
-
-剩下的几行指定一个`DocumentRoot`目录来提供文件，以及将 Apache 指向我们新创建的证书和密钥所需的 SSL 选项。
-
-现在让我们创建我们`DocumentRoot`的 HTML 文件并将其放入其中，仅用于测试目的：
-
-```bash
-sudo mkdir /var/www/your_domain_or_ip
-```
-
-`index.html`使用文本编辑器打开一个新文件：
-
-```bash
-sudo nano /var/www/your_domain_or_ip/index.html
-```
-
-将以下内容粘贴到空白文件中：
-
-/var/www/your_domain_or_ip/index.html
-
-```bash
-<h1>it worked!</h1>
-```
-
-当然，这不是一个完整的 HTML 文件，但浏览器很宽松，足以验证我们的配置。
-
-保存并关闭文件
-接下来，我们需要使用`a2ensite`工具启用配置文件：
-
-```bash
-sudo a2ensite your_domain_or_ip.conf
-```
-
-接下来，让我们测试一下配置错误：
-
-```bash
-sudo apache2ctl configtest
-```
-
-如果一切顺利，您将得到如下所示的结果：
-
-```
-OutputAH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 127.0.1.1. Set the 'ServerName' directive globally to suppress this messageSyntax OK
-```
-
-第一行是一条消息，告诉您该`ServerName`指令未全局设置。如果你想摆脱那条消息，你可以`ServerName`在`/etc/apache2/apache2.conf`. 这是可选的，因为该消息不会造成伤害。
-
-如果您的输出包含`Syntax OK`在其中，则您的配置文件没有语法错误。我们可以安全地重新加载 Apache 以实现我们的更改：
-
-```bash
-sudo systemctl reload apache2
-```
-
-现在在浏览器中加载您的站点，确保`https://`在开始时使用。
-
-您应该会看到一个错误。这对于自签名证书来说是正常的！浏览器警告您它无法验证服务器的身份，因为我们的证书没有由任何已知的证书颁发机构签署。对于测试目的和个人使用，这可以很好。您应该能够点击进入高级信息或更多信息，然后选择继续。
-
-执行此操作后，您的浏览器将加载该`it worked!`消息。
-
-**注意：**如果您的浏览器根本没有连接到服务器，请确保您的连接没有被防火墙阻止。如果您使用的是`ufw`，以下命令将打开端口`80`和`443`：` sudo ufw allow "Apache Full" ` 复制
-
-接下来，我们将`VirtualHost`在我们的配置中添加另一个部分，以提供纯 HTTP 请求并将它们重定向到 HTTPS。
-
-#### 步骤4：将http重定向到https
-
-目前，我们的配置只会响应端口上的 HTTPS 请求`443`。`80`即使您想强制加密所有流量，也最好在 port 上做出响应。让我们设置一个`VirtualHost`来响应这些未加密的请求并将它们重定向到 HTTPS。
-
-打开我们在前面的步骤中启动的同一个 Apache 配置文件：
-
-```bash
-sudo nano /etc/apache2/sites-available/your_domain_or_ip.conf
-```
-
-在底部，创建另一个`VirtualHost`块以匹配端口上的请求`80`。使用该`ServerName`指令再次匹配您的域名或 IP 地址。然后，用于`Redirect`匹配任何请求并将它们发送到 SSL `VirtualHost`。确保包含尾部斜杠：
-
-/etc/apache2/sites-available/your_domain_or_ip.conf
-
-```bash
-<VirtualHost *:80>
-    ServerName your_domain_or_ip
-    Redirect / https://your_domain_or_ip/
-</VirtualHost>
-```
-
-完成后保存并关闭此文件，然后再次测试您的配置语法，并重新加载 Apache：
-
-```bash
-sudo apachectl configtest
-sudo systemctl reload apache2
-```
-
-您可以通过`http://`在地址前面使用纯文本访问您的站点来测试新的重定向功能。您应该会被`https://`自动重定向到。
-
-结果：
-
-未重定向前访问http://10.4.7.142
-
-![未重定向前](/postimages/未重定向前.webp)
-
-访问：https://10.4.7.142
-
-将请求到http上的流量重定向到https上后访问：http://10.4.7.142 和 https://10.4.7.142
-
-![重定向后](/postimages/重定向后.webp)
-
-谷歌浏览器f12 security 选项可以查看自建的证书详细信息。
-
-![证书详细信息](/postimages/证书详细信息.webp)
-
-#### 控制台安全
-
-禁用ctrl+alt+delete 
-
-任何对键盘有物理访问权限的人都可以简单地使用Ctrl+Alt+Delete组合键来重新启动服务器，而无需登录。虽然有人可以简单地拔掉电源，但您仍应防止在生产服务器上使用此组合键。这迫使攻击者采取更严厉的措施重启服务器，同时防止意外重启。
-
-要禁用通过按Ctrl+Alt+Delete组合键执行的重启操作，请运行以下两个命令：
-
-```
-sudo systemctl mask ctrl-alt-del.target
-sudo systemctl daemon-reload
-```
-
-https://multipass.run/?_ga=2.172781731.1854281748.1632272954-1233097571.1631927770
-
-#### multipass 
-
-Ubuntu虚拟机
-
-[Multipass](https://multipass.run/?_ga=2.172781731.1854281748.1632272954-1233097571.1631927770)是在 Ubuntu 上创建 Ubuntu VM 的推荐方法。它专为希望通过单个命令获得全新 Ubuntu 环境并可在 Linux、Windows 和 macOS 上运行的开发人员而设计。
-
-在 Linux 上，它可以快速使用：
-
-```
-sudo snap install multipass --beta --classic
-```
-
-用法：
-
-**查找镜像**
-
-```shell
-$ multipass find
-Image                   Aliases           Version          Description
-core                    core16            20190424         Ubuntu Core 16
-core18                                    20190213         Ubuntu Core 18
-16.04                   xenial            20190628         Ubuntu 16.04 LTS
-18.04                   bionic,lts        20190627.1       Ubuntu 18.04 LTS
-18.10                   cosmic            20190628         Ubuntu 18.10
-19.04                   disco             20190628         Ubuntu 19.04
-daily:19.10             devel,eoan        20190623         Ubuntu 19.10
-```
-
-**在当前Ubuntu系统中创建新实例**
-
-```shell
-$ multipass launch ubuntu
-Launching dancing-chipmunk...
-Downloading Ubuntu 18.04 LTS..........
-Launched: dancing chipmunk
-```
-
-**检查正在运行中的实例**
-
-```shell
-$ multipass info dancing-chipmunk
-Name:           dancing-chipmunk
-State:          RUNNING
-IPv4:           10.125.174.247
-Release:        Ubuntu 18.04.1 LTS
-Image hash:     19e9853d8267 (Ubuntu 18.04 LTS)
-Load:           0.97 0.30 0.10
-Disk usage:     1.1G out of 4.7G
-Memory usage:   85.1M out of 985.4M
-```
-
-**显示刚才创建实例的详细信息**
-
-```shell
-$ multipass info dancing-chipmunkName:           dancing-chipmunkState:          RUNNINGIPv4:           10.125.174.247Release:        Ubuntu 18.04.1 LTSImage hash:     19e9853d8267 (Ubuntu 18.04 LTS)Load:           0.97 0.30 0.10Disk usage:     1.1G out of 4.7GMemory usage:   85.1M out of 985.4M
-```
-
-**进入到刚刚创建实例的系统中**
-
-```shell
-$ multipass shell dancing-chipmunk
-Welcome to Ubuntu 18.04.1 LTS (GNU/Linux 4.15.0-42-generic x86_64)
-
-...
-```
-
-**在刚刚创建的虚拟机外部查看创建的虚拟机的相关信息**
-
-```shell
-$ multipass exec dancing-chipmunk -- lsb_release -a
-No LSB modules are available.
-Distributor ID:  Ubuntu
-Description:     Ubuntu 18.04.1 LTS
-Release:         18.04
-Codename:        bionic
-```
-
-**停止刚才创建的实例**
-
-```shell
-multipass stop dancing-chipmunk
-```
-
-**删除实例**
-
-```shell
- multipass delete dancing-chipmunk
-```
-
-它会显示删除了
-
-```shell
-Name                    State             IPv4             Release
-snapcraft-asciinema     STOPPED           --               Ubuntu Snapcraft builder for Core 18
-dancing-chipmunk        DELETED           --               Not Available
-```
-
-**彻底删除**
-
-```shell
-multipass purge
-```
-
-### 九、容器
-
-LXD
-
-LXD（发音为 lex-dee）是更轻的管理程序，或轻量级容器管理程序。LXC (lex-see) 是一个在本地系统上创建和管理“容器”的程序。它还提供了一个 API 以允许更高级别的管理器（例如 LXD）管理容器。从某种意义上说，可以将 LXC 与 QEMU 进行比较，同时将 LXD 与 libvirt 进行比较。
-
-LXC API 处理“容器”。LXD API 处理“远程”，它提供图像和容器。这通过网络扩展了 LXC 功能，并允许对容器迁移和容器映像发布等任务进行简洁的管理。
-
-LXD 在幕后使用 LXC 来完成一些容器管理任务。但是，它保留自己的容器配置信息并有自己的约定，因此最好不要将经典的 LXC 命令与 LXD 容器一起使用.
-
-#### ubuntu server 预装LXD。其他系统可以使用以下命令安装 lxd 包
-
-```shell
-sudo snap install lxd
-```
-
-配置
-
-lxd 初始化（必须以root身份运行）
-
-```shell
-sudo lxd init
-```
-
-详细参数：
-
-LXD Clustering：不需要
-New storage pool：需要创建一个存储池
-Name of storage pool：给存储池命名
-storage backend：存储后端，使用 ZFS
-Create a new ZFS pool：需要创建一个 ZFS 池
-Use an existing block device：Yes
-Path to block device：使用已有的磁盘分区用于 ZFS 的存储后端
-MAAS server?：不知道是啥，不需要
-New local network bridge?：需要，我只需要使用 LXD 默认的网桥即可
-New bridge be called：给网桥命名
-IPv4：默认 auto
-IPv6：默认 auto
-LXD available over the network？：默认 no
-Stale cached？：默认 yes
-YAML printed？：打印信息，yes/no 都行
-
-如果不能用root用户，普通用户如lhp 需要加入lxd用户组。
-
-```shell
-adduser lhp lxd 
-```
-
-查看lxd配置信息
-
-```shell
-sudo lxc info
-```
-
-查看默认容器配置
-
-```shell
-sudo lxc profile show default
-```
-
-查看容器列表
-
-```shell
-sudo lxc list
-```
-
-#### 创建容器模板
-
-- 配置清华镜像源
-
-https://mirrors.tuna.tsinghua.edu.cn/help/lxc-images/
-
-**LXD/LXC 2.0及以上版本使用镜像加速的方法**:
-
-创建一个remote链接，指向镜像站即可，或替换掉默认的images链接。
-
-```
-# lxc remote add tuna-images https://mirrors.tuna.tsinghua.edu.cn/lxc-images/ --protocol=simplestreams --public
-# lxc image list tuna-images:
-```
-
-- 查看镜像列表，寻找合适的镜像的FINGERPRINT，用于下载(注意选择x86_64架构)
-
-```shell
-sudo lxc image list tuna-images:
-```
-
-```shell
-root@lhp-server:~/snap/lxd/common/config# lxc image list tuna-images:ubuntu | grep x86_64 
-| ubuntu/16.04 (7 more)               | 4f34b9f8a490 | yes    | Ubuntu xenial amd64 (20210924_07:42)    | x86_64       | VIRTUAL-MACHINE | 204.25MB  | Sep 24, 2021 at 12:00am (UTC) |
-| ubuntu/16.04 (7 more)               | 10c1476cf890 | yes    | Ubuntu xenial amd64 (20210924_07:42)    | x86_64       | CONTAINER       | 84.59MB   | Sep 24, 2021 at 12:00am (UTC) |
-| ubuntu/16.04/cloud (3 more)         | 31a69e3218ef | yes    | Ubuntu xenial amd64 (20210924_07:42)    | x86_64       | CONTAINER       | 103.50MB  | Sep 24, 2021 at 12:00am (UTC) |
-| ubuntu/16.04/cloud (3 more)         | b3637c07e450 | yes    | Ubuntu xenial amd64 (20210924_07:42)    | x86_64       | VIRTUAL-MACHINE | 233.88MB  | Sep 24, 2021 at 12:00am (UTC) |
-| ubuntu/18.04 (7 more)               | 89e249e9c85d | yes    | Ubuntu bionic amd64 (20210924_07:42)    | x86_64       | CONTAINER       | 100.45MB  | Sep 24, 2021 at 12:00am (UTC) |
-```
-
-
-
-- FINGERPRINT是镜像的指纹，在上条命令下查找，ContainerTemplateName为容器模板名称，自己定义
-
-```shell
-sudo lxc launch tuna-images:<FINGERPRINT> <ContainerTemplateName>
-```
-
-- 举例，创建一个名为ubuntu的容器。在lxc清华源中10c1476cf890是Ubuntu16.04的fingerprint
-
-```shell
-sudo lxc launch tuna-images:10c1476cf890 ubuntu
-```
-
-- 进行容器列表查看
-
-```
-sudo lxc list
-+--------+---------+----------------------+-----------------------------------------------+-----------+-----------+
-|  NAME  |  STATE  |         IPV4         |                     IPV6                      |   TYPE    | SNAPSHOTS |
-+--------+---------+----------------------+-----------------------------------------------+-----------+-----------+
-| ubuntu | RUNNING | 10.235.54.209 (eth0) | fd42:1082:67cd:27dd:216:3eff:fec0:6ed1 (eth0) | CONTAINER | 0         |
-+--------+---------+----------------------+-----------------------------------------------+-----------+-----------+
-
-```
-
-- 可进入容器的 root 用户下 bash
-
-```
-sudo lxc exec <ContainerTemplateName> bash
-```
-
-- 用户切换
-
-```
-sudo susu ubuntu
-```
-
-#### 配置共享目录
-
-- 设置共享目录来实现宿主机与容器之间的文件传输
-- 设置键值
-
-```shell
-sudo lxc config set <ContainerTemplateName> security.privileged true
-```
-
-- 设置共享目录，其中shareName为虚拟的设备名称，lxd会虚拟出该设备并导通接通两者共享目录，path1为宿主机下共享目录路径，path2为容器下共享目录路径
-
-```shell
-sudo lxc config device add <ContainerTemplateName> <shareName> disk source=<path1> path=<path2>
-```
-
-实例：
-
-```shell
-oot@lhp-server:~# lxc config set ubuntu security.privileged true
-root@lhp-server:~# lxc config device add ubuntu share disk source=/share path=/media
-Device share added to ubuntu
-```
-
-可以在宿主机/media中创建文件测试，容器/share中文件是否存在。
-
-设置用户名密码：
-
-```shell
-sudo lxc exec <ContainerTemplateName> bashpasswd
-```
-
-#### 容器克隆
-
-- 克隆容器 参数一为模板容器名称，参数二为目标容器名称
-
-```shell
-sudo lxc copy <ContainerTemplateName> <newContainerName>
-```
-
-- 运行新容器
-
-```shell
-sudo lxc start <newContainerName>
-```
-
-- 进入新容器bash
-
-```shell
-sudo lxc exec <newContainerName> bash
-```
-
-注意，此步骤后需要修改Frp的端口，重新建立内外网穿透，建议修改后使用snapshot快照备份`sudo lxc snapshot <ContainerName>`。
-
-实例：
-
-```shell
-root@lhp-server:~# lxc list 
-+---------+---------+----------------------+-----------------------------------------------+-----------+-----------+
-|  NAME   |  STATE  |         IPV4         |                     IPV6                      |   TYPE    | SNAPSHOTS |
-+---------+---------+----------------------+-----------------------------------------------+-----------+-----------+
-| ubuntu  | RUNNING | 10.235.54.122 (eth0) | fd42:1082:67cd:27dd:216:3eff:fefa:fea3 (eth0) | CONTAINER | 0         |
-+---------+---------+----------------------+-----------------------------------------------+-----------+-----------+
-| ubuntu2 | STOPPED |                      |                                               | CONTAINER | 0         |
-+---------+---------+----------------------+-----------------------------------------------+-----------+-----------+
-```
-
-```shell
-root@lhp-server:~# lxc start ubuntu2 
-root@lhp-server:~# lxc list 
-+---------+---------+----------------------+-----------------------------------------------+-----------+-----------+
-|  NAME   |  STATE  |         IPV4         |                     IPV6                      |   TYPE    | SNAPSHOTS |
-+---------+---------+----------------------+-----------------------------------------------+-----------+-----------+
-| ubuntu  | RUNNING | 10.235.54.122 (eth0) | fd42:1082:67cd:27dd:216:3eff:fefa:fea3 (eth0) | CONTAINER | 0         |
-+---------+---------+----------------------+-----------------------------------------------+-----------+-----------+
-| ubuntu2 | RUNNING | 10.235.54.50 (eth0)  |                                               | CONTAINER | 0         |
-+---------+---------+----------------------+-----------------------------------------------+-----------+-----------+
-```
-
-#### 可视化管理
-
-- 下载源码
-
-```shell
-git clone https://github.com/AdaptiveScale/lxdui.git
-```
-
-- 安装前环境检查
-
-```shell
-https://github.com/AdaptiveScale/lxdui/wiki/Installing-the-Prerequisites
-```
-
-```shell
-git status
-which python 
-python --version 
-pip --version
-apt search python3-virtualenv
-apt install pip #安装pip
-apt install python3-virtualenv #安装python虚拟环境
-
-root@lhp-server:~# pip list | grep  virtualenv
-virtualenv             20.0.17 
-```
-
-- 创建虚拟环境并检查环境
-
-```shell
-cd /lxdui
-python3 -m venv test
-source test/bin/activate
-
-(test) root@lhp-server:~/lxdui# which pip 
-/root/lxdui/test/bin/pip
-(test) root@lhp-server:~/lxdui# which python 
-/root/lxdui/test/bin/python
-
-(test) root@lhp-server:~/lxdui# pip list 
-Package       Version
-------------- -------
-pip           20.0.2 
-pkg-resources 0.0.0  
-setuptools    44.0.0 
-```
-
-- 安装LXDUI面板并再次检查环境
-
-```shell
-python3 setup.py install
-(test) root@lhp-server:~/lxdui# pip list 
-Package             Version  
-------------------- ---------
-certifi             2021.5.30
-cffi                1.15.0rc1
-chardet             3.0.4    
-click               6.7      
-cryptography        3.4.8    
-Flask               1.0      
-Flask-JWT           0.3.2    
-Flask-Login         0.4.1    
-idna                2.7      
-itsdangerous        2.0.1    
-Jinja2              3.0.1    
-jsonschema          2.6.0    
-LXDUI               2.1.2    
-MarkupSafe          2.0.1    
-netaddr             0.7.19   
-pbr                 5.6.0    
-pip                 20.0.2   
-pkg-resources       0.0.0    
-psutil              5.6.6    
-ptyprocess          0.7.0    
-pycparser           2.20     
-PyJWT               1.4.2    
-pylxd               2.2.7    
-pyOpenSSL           17.5.0   
-python-dateutil     2.8.2    
-requests            2.20.0   
-requests-toolbelt   0.9.1    
-requests-unixsocket 0.2.0    
-setuptools          44.0.0   
-six                 1.16.0   
-terminado           0.8.1    
-tornado             5.0.2    
-tornado-xstatic     0.2      
-urllib3             1.24.3   
-Werkzeug            2.0.1    
-ws4py               0.5.1    
-XStatic             1.0.1    
-XStatic-term.js     0.0.7.0 
-```
-
-- 启动面板
-
-```shell
-python3 run.py start
-```
-
-- 登录面板[http://127.0.0.1:15151](http://127.0.0.1:15151/)，默认账户密码均为admin
-
-![lxdui](/postimages/lxdui.webp)
-
-参考：https://blog.csdn.net/CrazyBusby/article/details/114886340 
-
-https://www.youtube.com/watch?v=Fzb6jN6GYL8&ab_channel=JustmeandOpensource
-
-#### 查看容器日志
-
-要查看有关 LXD 本身的调试信息，请在基于 systemd 的主机上使用
-
-```auto
-journalctl -u lxd
-```
-
-可以使用以下方式查看容器 c1 的容器日志文件：
-
-```auto
-lxc info c1 --show-log
-```
-
-#### 创建快照
-
-可以使用以下`lxc move`命令重命名和实时迁移容器：
-
-```auto
-lxc move c1 final-beta
-```
-
-它们也可以被快照：
-
-```auto
-lxc snapshot c1 YYYY-MM-DD
-```
-
-然后可以通过恢复快照来恢复对 c1 的后续更改：
-
-```auto
-lxc restore u1 YYYY-MM-DD
-```
-
-也可以通过复制容器或快照来创建新容器：
-
-```auto
-lxc copy u1/YYYY-MM-DD testcontainer
-```
-
-限制：
-
-LXD 支持灵活限制容器可以消耗的资源。限制分为以下几类：
-
-- CPU：以多种方式限制容器可用的 CPU。
-- 磁盘：配置负载下I/O请求的优先级
-- RAM：配置内存和交换可用性
-- 网络：配置负载下的网络优先级
-- 进程数：限制容器中的并发进程数。
-
-#### lxd 容器端口暴露，使得外面能够访问容器内业务。
-
-前提条件：
-
-lxd容器:Ubuntu
-
-宿主机:Ubuntu
-
-lxd容器内安装apache2 ,并将访问端口更改为8080,重启apache2
-
-```shell
-apt install apache2
-vi /etc/apache2/ports.conf 
-Listen 8080
-systemctl restart apache2
-```
-
-将宿主机的80端口和容器内8080做映射。外部通过访问宿主机的ip+80来访问容器内的业务。
-
-![lxc-expose](/postimages/lxc-expose.webp)
-
-```shell
-lxc config device add ubuntu myport80 proxy listen=tcp:0.0.0.0:80 connect=tcp:127.0.0.1:8080
-```
-
-删除映射
-
-```shell
-lxc config device remove ubuntu myport80
-```
-
-### 十、数据库
-
-#### PostgreSQL
-
-PostgreSQL 是一个对象关系数据库系统，它具有传统商业数据库系统的特性，并在下一代 DBMS 系统中进行了增强。
-
-#### 安装
-
-```shell
-sudo apt install postgresql
-```
-
-#### 配置
-
-要使其他计算机能够连接到您的 PostgreSQL 服务器，请编辑文件 `/etc/postgresql/12/main/postgresql.conf`
-
-找到*#listen_addresses = 'localhost' 行*并将其更改为：
-
-```shell
-listen_addresses = '*'
-```
-
-**笔记**
-
-要同时允许 IPv4 和 IPv6 连接，请将 'localhost' 替换为 '::'
-
-现在我们可以连接到我们的 PostgreSQL 服务器，下一步是为*postgres*用户设置密码。在终端提示符下运行以下命令以连接到默认的 PostgreSQL 模板数据库：
-
-```
-sudo -u postgres psql template1
-```
-
-上面的命令以用户*postgres*连接到 PostgreSQL 数据库*template1*。连接到 PostgreSQL 服务器后，您将看到 SQL 提示符。您可以在 psql 提示符下运行以下 SQL 命令来配置用户*postgres*的密码。
-
-```
-ALTER USER postgres with encrypted password 'your_password';
-```
-
-配置密码后，编辑文件`/etc/postgresql/12/main/pg_hba.conf`以对*postgres*用户使用*MD5*身份验证：
-
-```
-local   all         postgres                          md5
-```
-
-最后，您应该重新启动 PostgreSQL 服务以初始化新配置。从终端提示输入以下内容以重新启动 PostgreSQL：
-
-```
-sudo systemctl restart postgresql.service
-```
-
-> **警告**
->
-> 以上配置无论如何都不完整。更多参数请参考《[PostgreSQL 管理员指南》](http://www.postgresql.org/docs/current/static/admin.html)。
-
-您可以使用 PostgreSQL 客户端测试来自其他机器的服务器连接。
-
-```
-sudo apt install postgresql-client
-psql -h postgres.example.com -U postgres -W 
-```
-
-> **笔记**
->
-> 将域名替换为您的实际服务器域名。
-
-参考：https://ubuntu.com/server/docs/databases-postgresql
-
-### 十一、监控
-
-集群监控软件：
-
-- Prometheus
-- Prometheus Alertmanager
-- Grafana
-- Telegraf
-
-所需端口：
-
-| Prometheus   | monitor:9090  |
-| ------------ | ------------- |
-| Alertmanager | monitor:9093  |
-| Grafana      | monitor:3000  |
-| Telegraf     | workload:9273 |
-
-nagios 安装
-
-```sh
-https://www.osradar.com/how-to-install-nagios-on-ubuntu-20-04/#:~:text=How%20To%20Install%20Nagios%20on%20Ubuntu%2020.04%201,pre-checks%20are%20okay.%20...%209%20Access%20Web%20Dashboard
-```
-
-![nagios](/postimages/nagios.webp)
-
-### 十二、备份
-
-备份软件：
-
-方案1：bacula 
-
-方案2：NFS+shell script + crontab 
-
-场景：nfs server ：10.4.7.141  共享目录： /mnt/backup
-
-​           nfs client : 10.4.7.142 新建目录/opt/example 需要与 10.4.7.141的/mnt/backup 目录做绑定。
-
-server：
-
-```shell
-sudo apt install nfs-kernel-server
-sudo systemctl start nfs-kernel-server.service
-```
-
-配置：
-
-```shell
-vim /etc/exports
-/mnt/backup *(ro,sync,subtree_check)
-```
-
-如果/mnt/backup 不存在先创建该目录。
-
-```shell
-mkdir -p /mnt/backup
-```
-
-配置生效
-
-```shell
-sudo exportfs -a
-```
-
-client:
-
-安装nfs客户端
-
-```shell
-sudo apt install nfs-common
-```
-
-创建目录
-
-```shell
-sudo mkdir /opt/example
-sudo mount 10.4.7.141:/mnt/backup /opt/example
-```
-
-最后需要配置fstab
-
-```shell
-vim /etc/fstab
-10.4.7.141:/mnt/backup /opt/example nfs rsize=8192,wsize=8192,timeo=14,intr
-```
-
-备份脚本编写：
-
-场景：定时将client中 /home /var/spool/mail /etc /opt 中文件备份到server 的/mnt/backup 中。每天凌晨12：00 备份一次。
-
-backup.sh
-
-```shell
-#!/bin/bash
-####################################
-#
-# Backup to NFS mount script.
-#
-####################################
-
-# What to backup. 
-backup_files="/home /var/spool/mail /etc /opt"
-
-# Where to backup to.
-dest="/mnt/backup"
-
-# Create archive filename.
-day=$(date +%A)
-hostname=$(hostname -s)
-archive_file="$hostname-$day.tgz"
-
-# Print start status message.
-echo "Backing up $backup_files to $dest/$archive_file"
-date
-echo
-
-# Backup the files using tar.
-tar czf $dest/$archive_file $backup_files
-
-# Print end status message.
-echo
-echo "Backup finished"
-date
-
-# Long listing of files in $dest to check file sizes.
-ls -lh $dest
-```
-
-crontab 
-
-```shell
-0 0 * * * bash  /usr/local/bin/backup.sh
-```
-
-从备份中恢复
-
-- 查看存档内容的列表。从终端提示输入：
-
-  ```
-  tar -tzvf /mnt/backup/host-Monday.tgz
-  ```
-
-- 要将文件从存档恢复到不同的目录，请输入：
-
-  ```
-  tar -xzvf /mnt/backup/host-Monday.tgz -C /tmp etc/hosts
-  ```
-
-  tar的*-C*选项将提取的文件重定向到指定的目录。上面的例子将`/etc/hosts`文件解压到`/tmp/etc/hosts`. tar 重新创建它包含的目录结构。
-
-  另外，请注意前导*“/”*不在要恢复的文件路径之外。
-
-- 要恢复存档中的所有文件，请输入以下内容：
-
-  ```
-  cd /sudo tar -xzvf /mnt/backup/host-Monday.tgz
-  ```
-
-> **笔记**
->
-> 这将覆盖当前文件系统上的文件。
-
-### 十三、邮件服务
-
-dovecot 
-
-postfix 
-
-### 十四、web服务
-
-状态码：
-
-- **1xx** : *Informational* - 收到请求，继续处理
-- **2xx** : *成功*- 动作被成功接收、理解和接受
-- **3xx** : *重定向*- 必须采取进一步行动才能完成请求
-- **4xx** : *客户端错误*- 请求包含错误的语法或无法完成
-- **5xx**： *服务器错误*- 服务器未能满足明显有效的请求
-
-- **静态 Web 服务器**：服务器响应的内容将是托管文件“原样”。
-- **动态 Web 服务器**：由一个 Web 服务器和一个额外的软件组成，通常是一个应用服务器和一个数据库。例如，要生成您在 Web 浏览器中看到的 Web 页面，应用程序服务器可能会用数据库中的内容填充 HTML 模板。因此，我们说服务器响应的内容是动态生成的。
-
-#### apache2
-
-Apache 是 Linux 系统上最常用的 Web 服务器。Web 服务器用于为客户端计算机请求的网页提供服务。客户端通常使用 Firefox、Opera、Chromium 或 Internet Explorer 等 Web 浏览器应用程序请求和查看网页.
-
-用于传输网页的最常用协议是超文本传输协议 (HTTP)。还支持诸如基于安全套接字层的超文本传输协议 (HTTPS) 和文件传输协议 (FTP)（用于上传和下载文件的协议）等协议。
-
-Apache Web 服务器通常与 MySQL 数据库引擎、超文本预处理器 (PHP) 脚本语言和其他流行的脚本语言（如 Python 和 Perl）结合使用。这种配置被称为 LAMP（Linux、Apache、MySQL 和 Perl/Python/PHP），它为基于 Web 的应用程序的开发和部署形成了一个强大而健壮的平台。
-
-#### 安装
-
-在终端提示符下输入以下命令：
-
-```
-sudo apt install apache2
-```
-
-#### 配置
-
-Apache2 是通过在纯文本配置文件中放置*指令*来配置的。这些*指令*在以下文件和目录之间分开：
-
-- *apache2.conf：* Apache2 的主要配置文件。包含对 Apache2*全局的*设置。
-- *httpd.conf：*历史上主要的 Apache2 配置文件，以 httpd 守护进程命名。在其他发行版（或旧版本的 Ubuntu）中，该文件可能存在。在 Ubuntu 中，所有配置选项已移至*apache2.conf*及以下引用目录，该文件不再存在。
-- *conf-available：*该目录包含可用的配置文件。以前在的所有文件`/etc/apache2/conf.d`都应移动到`/etc/apache2/conf-available`.
-- *conf-enabled*：*持有*符号链接*到文件`/etc/apache2/conf-available`。当配置文件被符号链接时，它将在下次重新启动 apache2 时启用。
-- *envvars：*设置Apache2*环境*变量的文件。
-- *mods-available：*此目录包含加载*模块*和配置它们的配置文件。然而，并非所有模块都有特定的配置文件。
-- *mods-enabled*：*持有*符号链接*到文件`/etc/apache2/mods-available`。当模块配置文件被符号链接时，它将在下次重新启动 apache2 时启用。
-- *ports.conf：*包含确定 Apache2 正在侦听的 TCP 端口的指令。
-- *sites-available:*：*此目录包含 Apache2*虚拟主机的*配置文件。虚拟主机允许为具有单独配置的多个站点配置 Apache2。
-- *sites-enabled*：*与*mods-enabled一样，`sites-enabled`包含指向`/etc/apache2/sites-available`目录的符号链接。类似地，当sites-available 中的配置文件被符号链接时，一旦Apache2 重新启动，由它配置的站点将处于活动状态。
-- *magic：*根据文件的前几个字节确定 MIME 类型的说明。
-
-新建站点或虚拟主机
-
-```shell
-sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/mynewsite.conf
-```
-
-**最终要访问的域名或IP和/etc/apache2/sites-available/中.conf文件同名**
-
-更改默认监听端口在：
-
-```shell
-/etc/apache2/ports.conf
-```
-
-您可能还希望您的站点响应`www.mynewsite.com`，因为许多用户会认为 www 前缀是合适的。为此使用*ServerAlias*指令。您还可以在 ServerAlias 指令中使用通配符。
-
-例如，以下配置将使您的站点响应任何以*.mynewsite.com*结尾的域请求。
-
-```
-ServerAlias *.mynewsite.com
-```
-
-默认站点位置：
-
-```shell
-/var/www/html
-```
-
-示例：将80端口重定向到443端口
-
-/etc/apache2/sites-available/10.4.7.142.conf
-
-```shell
-<VirtualHost *:443>
-   ServerName 10.4.7.142
-   DocumentRoot /var/www/10.4.7.142
-
-   SSLEngine on
-   SSLCertificateFile /etc/ssl/certs/apache-selfsigned.crt
-   SSLCertificateKeyFile /etc/ssl/private/apache-selfsigned.key
-</VirtualHost>
-<VirtualHost *:80>
-    ServerName 10.4.7.142
-    Redirect / https://10.4.7.142/
-</VirtualHost>
-```
-
-站点主页：
-
-/var/www/10.4.7.142/index.html
-
-```shell
-<h1>it worked!</h1>
-```
-
-自签名证书需要自行创建：
-
-```shell
-/etc/ssl/certs/apache-selfsigned.crt 和/etc/ssl/private/apache-selfsigned.key
-```
-
-开启应用配置：
-
-```shell
-sudo a2ensite l0.4.7.142
-sudo systemctl restart apache2.service
-```
-
-禁用站点配置：
-
-```shell
-sudo a2dissite 10.4.7.142
-sudo systemctl restart apache2.service
-```
-
-启动ssl模块
-
-```shell
-sudo a2enmod ssl
-```
-
-您可以通过`https://your_hostname/url/`在浏览器地址栏中键入来访问安全服务器页面。
-
-### 十五、密码管理
-
-#### root密码忘记重置
-
-重启系统 按F1进入。
-
-重启Ubuntu 在启动界面选择 （高级）
-
--》
-
-选择 recovery mode
-
--》
-
-首先重建GRUB引导，否则改密码可能会出现 **Authentication token manipulation error** 错误
-
--》
-
-完成后回车，继续选择root
-
-接下来输入，按照提示修改密码就可以
-
-```shell
-passwd root
-```
-
-修改完成后，重启服务器
-
-```shell
-reboot
-```
-
-### 十六、ubuntu20.04 进入命令行模式
-
-启动时禁用GUI
-
-```shell
-sudo systemctl set-default multi-user
-```
-
-重新启动或退出当前会话以退出GUI:
-
-```shell
-gnome-session-quit
-```
-
-**恢复图形模式**
-
-```shell
-sudo systemctl set-default graphical
-```
 
 
