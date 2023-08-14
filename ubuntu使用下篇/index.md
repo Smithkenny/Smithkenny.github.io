@@ -7,9 +7,9 @@ Ubuntu server 20.04.3  给apache2创建自签名证书
 
 **介绍**
 
-**TLS**或“传输层安全”——及其前身**SSL——**是用于将正常流量包装在受保护的加密包装器中的协议。使用这项技术，服务器可以安全地向其客户端发送信息，而不会被外界拦截或读取其消息。
+**TLS**（传输层安全）及其前身**SSL**是用于将正常流量包装在受保护的加密包装器中的协议。使用这项技术，服务器可以安全地向其客户端发送信息，而不会被外界拦截或读取其消息。
 
-**注意：**自签名证书将加密您的服务器和任何客户端之间的通信。但是，由于它不是由 Web 浏览器和操作系统中包含的任何受信任的证书颁发机构签署的，因此用户无法使用该证书来自动验证您的服务器的身份。因此，您的用户在访问您的网站时会看到安全错误。
+注意：自签名证书将加密您的服务器和任何客户端之间的通信。但是，由于它不是由 Web 浏览器和操作系统中包含的任何受信任的证书颁发机构签署的，因此用户无法使用该证书来自动验证您的服务器的身份。因此，您的用户在访问您的网站时会看到安全错误。
 
 由于此限制，自签名证书不适用于为公众服务的生产环境。它们通常用于测试或保护单个用户或一小群用户使用的非关键服务，这些用户可以通过备用通信渠道建立对证书有效性的信任。如需更适合生产的证书解决方案，请查看[Let's Encrypt](https://letsencrypt.org/)，一个免费的证书颁发机构。
 
@@ -176,7 +176,7 @@ sudo systemctl reload apache2
 
 执行此操作后，您的浏览器将加载该`it worked!`消息。
 
-**注意：**如果您的浏览器根本没有连接到服务器，请确保您的连接没有被防火墙阻止。如果您使用的是`ufw`，以下命令将打开端口`80`和`443`：` sudo ufw allow "Apache Full" ` 复制
+注意：如果您的浏览器根本没有连接到服务器，请确保您的连接没有被防火墙阻止。如果您使用的是`ufw`，以下命令将打开端口`80`和`443`：` sudo ufw allow "Apache Full" ` 复制
 
 接下来，我们将`VirtualHost`在我们的配置中添加另一个部分，以提供纯 HTTP 请求并将它们重定向到 HTTPS。
 
@@ -1012,17 +1012,17 @@ sudo apt install apache2
 
 Apache2 是通过在纯文本配置文件中放置*指令*来配置的。这些*指令*在以下文件和目录之间分开：
 
-- *apache2.conf：* Apache2 的主要配置文件。包含对 Apache2*全局的*设置。
-- *httpd.conf：*历史上主要的 Apache2 配置文件，以 httpd 守护进程命名。在其他发行版（或旧版本的 Ubuntu）中，该文件可能存在。在 Ubuntu 中，所有配置选项已移至*apache2.conf*及以下引用目录，该文件不再存在。
-- *conf-available：*该目录包含可用的配置文件。以前在的所有文件`/etc/apache2/conf.d`都应移动到`/etc/apache2/conf-available`.
-- *conf-enabled*：*持有*符号链接*到文件`/etc/apache2/conf-available`。当配置文件被符号链接时，它将在下次重新启动 apache2 时启用。
-- *envvars：*设置Apache2*环境*变量的文件。
-- *mods-available：*此目录包含加载*模块*和配置它们的配置文件。然而，并非所有模块都有特定的配置文件。
-- *mods-enabled*：*持有*符号链接*到文件`/etc/apache2/mods-available`。当模块配置文件被符号链接时，它将在下次重新启动 apache2 时启用。
-- *ports.conf：*包含确定 Apache2 正在侦听的 TCP 端口的指令。
-- *sites-available:*：*此目录包含 Apache2*虚拟主机的*配置文件。虚拟主机允许为具有单独配置的多个站点配置 Apache2。
-- *sites-enabled*：*与*mods-enabled一样，`sites-enabled`包含指向`/etc/apache2/sites-available`目录的符号链接。类似地，当sites-available 中的配置文件被符号链接时，一旦Apache2 重新启动，由它配置的站点将处于活动状态。
-- *magic：*根据文件的前几个字节确定 MIME 类型的说明。
+- apache2.conf：Apache2 的主要配置文件。包含对 Apache2*全局的*设置。
+- httpd.conf：历史上主要的 Apache2 配置文件，以 httpd 守护进程命名。在其他发行版（或旧版本的 Ubuntu）中，该文件可能存在。在 Ubuntu 中，所有配置选项已移至apache2.conf及以下引用目录，该文件不再存在。
+- conf-available：该目录包含可用的配置文件。以前在的所有文件`/etc/apache2/conf.d`都应移动到`/etc/apache2/conf-available`.
+- conf-enabled：*持有*符号链接*到文件`/etc/apache2/conf-available`。当配置文件被符号链接时，它将在下次重新启动 apache2 时启用。
+- envvars：设置Apache2*环境*变量的文件。
+- mods-available：此目录包含加载模块和配置它们的配置文件。然而，并非所有模块都有特定的配置文件。
+- mods-enabled：持有符号链接到文件`/etc/apache2/mods-available`。当模块配置文件被符号链接时，它将在下次重新启动 apache2 时启用。
+- ports.conf：包含确定 Apache2 正在侦听的 TCP 端口的指令。
+- sites-available: 此目录包含 Apache2*虚拟主机的*配置文件。虚拟主机允许为具有单独配置的多个站点配置 Apache2。
+- sites-enabled：与mods-enabled一样，`sites-enabled`包含指向`/etc/apache2/sites-available`目录的符号链接。类似地，当sites-available 中的配置文件被符号链接时，一旦Apache2 重新启动，由它配置的站点将处于活动状态。
+- magic：根据文件的前几个字节确定 MIME 类型的说明。
 
 新建站点或虚拟主机
 
@@ -1038,9 +1038,9 @@ sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-availab
 /etc/apache2/ports.conf
 ```
 
-您可能还希望您的站点响应`www.mynewsite.com`，因为许多用户会认为 www 前缀是合适的。为此使用*ServerAlias*指令。您还可以在 ServerAlias 指令中使用通配符。
+您可能还希望您的站点响应`www.mynewsite.com`，因为许多用户会认为 www 前缀是合适的。为此使用ServerAlias指令。您还可以在 ServerAlias 指令中使用通配符。
 
-例如，以下配置将使您的站点响应任何以*.mynewsite.com*结尾的域请求。
+例如，以下配置将使您的站点响应任何以`.mynewsite.com`结尾的域请求。
 
 ```
 ServerAlias *.mynewsite.com
@@ -1119,9 +1119,7 @@ sudo a2enmod ssl
 
 首先重建GRUB引导，否则改密码可能会出现 **Authentication token manipulation error** 错误-》
 
-完成后回车，继续选择root
-
-接下来输入，按照提示修改密码就可以
+完成后回车，继续选择root，接下来按照提示修改密码就可以。
 
 ```shell
 passwd root

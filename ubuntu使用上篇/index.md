@@ -266,7 +266,7 @@ apt install dnsmasq
 
 ![无人值守2](/postimages/无人值守2.webp)
 
-![noskip](/postimages/noskip.png)
+![noskip](/postimages/noskip.webp)
 
 #### 安装必须的服务端软件
 
