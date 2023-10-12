@@ -14,9 +14,19 @@ gpconfig -c optimizer -v off
 此GUC减少不必要的日志，避免日志输出对I/O性能的干扰。
 gpconfig -c log_statement -v none
 
-注意：参数配置修改后，我使用gpstop -u重新加了配置，并用gpconfig -s检查了各个参数确为修改成功
+注意：参数配置修改后，我使用gpstop -u重新加载配置，并用gpconfig -s检查了各个参数确为修改成功
 
 ```
+
+注意：如果命令无法使用可以在`postgresql.conf`配置文件中追加参数,并使用`gpstop -u`重新加载配置。
+
+```sh
+optimizer=off
+gp_enable_global_deadlock_detector=on
+log_statement=none
+```
+
+
 
 登录库：
 
