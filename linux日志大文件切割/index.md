@@ -61,10 +61,10 @@
 split是用户将大文件切割为多个小文件，如果需要将多个小文件合并为一个文件怎么处理呢？可以使用文件重定向方式实现，如下演示两个小文件合并为一个文件。
 
 ```sh
-[root@oneway_out /tmpdisk/test]$ cat split-size00 split-size01 > messages1
-[root@oneway_out /tmpdisk/test]$ ls
+[root@localhost /tmpdisk/test]$ cat split-size00 split-size01 > messages1
+[root@localhost /tmpdisk/test]$ ls
 messages  messages1  split-size00  split-size01  split-size02  split-size03  split-size04  split-size05  split-size06  split-size07
-[root@oneway_out /tmpdisk/test]$ ls -lh
+[root@localhost /tmpdisk/test]$ ls -lh
 总用量 843M
 -rw-------. 1 root root 372M 10月 26 09:08 messages
 -rw-r--r--. 1 root root 100M 10月 26 09:27 messages1
