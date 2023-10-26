@@ -39,7 +39,37 @@ public void info(String name){
 
 - 方法执行的目的：如果方法的主要目的是执行一些操作或修改对象的状态，而不需要返回结果，那么可以定义一个无返回值的方法（返回类型为void）。
 
-​	
+## 方法重载的理解
+
+Java允许在一个类中定义**多个名称相同的方法**，但是参数的类型或个数必须不同，这就是方法的重载。
+
+特点：
+
+- [x] 方法名一定相同
+- [x] 参数类型或者参数个数一定不同
+- [x] 一定在同一个类中
+
+举例：
+
+参数个数不同：如`method(int x)`与`method(int x,int y)`不同。
+
+参数类型不同：如`method(int x)`与`method(double x)`不同。
+
+参数顺序不同：如`method(int x,double y)`与`method(double x,int y)`不同。
+
+**重载只与方法名与参数类型相关与返回值无关**
+
+如`void method(int x)`与`int method(int y)`不是方法重载，不能同时存在。
+
+**重载与具体的变量标识符无关**
+
+如`method(int x)`与`method(int y)`不是方法重载，不能同时存在。
+
+
+
+
+
+
 
 ​	
 
