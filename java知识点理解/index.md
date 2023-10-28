@@ -68,7 +68,7 @@ Java允许在一个类中定义**多个名称相同的方法**，但是参数的
 ## 面向对象完成具体功能的操作的三步流程（非常重要）
 
 - 创建类，并设计类的内部成员（属性、方法）
-- 创建类的对象。比如：Phone p1 = new Phone();
+- 创建类的对象。比如：`Phone p1 = new Phone();`
 - 通过对象，调用其内部声明的属性或方法，完成相关的功能。
 
 ## 类的成员之一： 属性
@@ -163,7 +163,7 @@ public class MymethodTest {
 
 ### 使用方法的好处
 
-方法的理解： `方法` 是类或对象行为特征的抽象，用来完成某个功能操作。
+方法的理解： 方法 是类或对象行为特征的抽象，用来完成某个功能操作。
 
 方法的好处：实现代码重用，减少冗余，简化代码。
 
@@ -194,21 +194,132 @@ public class MymethodTest {
 
 #### 权限修饰符
 
-Java中规定了那些权限修饰符呢？ 有四种： private、缺省、protected、public 
+`Java`中规定了那些权限修饰符呢？ 有四种：`private`、缺省、`protected`、`public `
 
 返回值类型：描述当调用完此方法时，是否需要返回一个结果。
 
-分类：
+##### 分类：
 
 - 无返回值类型：使用void表示即可。比如`System.out.println(x)` 的`println(x)` 方法、`Arrays`的`sort()`方法。
 - 有具体的返回值类型：需要指明返回的数据的类型。可以是基本数据类型，也可以引用数据类型。
 - 需要在方法内部配合使用“return + 返回值类型的变量或常量”
 - 比如：`Math.random() 、new Scanner(System.in).netxInt()`等
 
-【经验】我们在声明方法时，要不要提供返回值类型呢？
+**【经验】我们在声明方法时，要不要提供返回值类型呢？**
 
 - 根据方法具体实现的功能来决定。换句话说，具体问题具体分析
 - 根据题目要求
+
+#### 方法名：
+
+属于标识符。需要满足标识符的规定和规范。“见名知意”。
+
+#### 形参列表：
+
+形参，属于局部变量，且可以声明多个。
+
+##### 格式：
+
+形参类型1 形参1,形参类型2 形参2,....）
+
+##### 分类：
+
+##### 无形参列表、有形参列表
+
+- 无形参列表：不能省略一对()。比如：`Math.random()、new Scanner(System.in).nextIn();`
+- 有形参列表：根据方法调用时，需要的不确定的变量的类型和个数，确定形参的类型和个数。
+
+比如：`Array`类中的`binarySearch()`方法、`sort()`方法、`equals()`方法。
+
+**【经验】我们在声明方法时，要不要形参列表呢？**
+
+- 根据方法具体实现的功能来决定。换句话说，具体问题具体分析
+- 根据题目要求
+
+#### 方法体：
+
+当我们调用一个方法时。真正执行的代码。体现了此方法的功能。
+
+**注意点：**
+
+- `Java`里的方法不能独立存在，所有的方法必须定义在类里。
+- `Java`中的方法不调用，不执行。每调用一次，执行一次。
+- 方法内可以调用本类中的（其他）方法或属性。
+- 方法内不能定义方法
+
+#### 关键字：
+
+`return`
+
+##### return的作用
+
+- 结束一个方法
+- 结束一个方法的同时，可以返回数据给方法的调用者（方法声明中如果有返回值类型，则方法内需要搭配return使用）
+
+**使用注意点：**
+
+`return`后面不能声明执行语句。
+
+#### 代码理解：
+
+```java
+public class MethodTest {
+    public static void main(String[] args) {
+        Person p1 = new Person();
+        p1.eat();
+        p1.info();
+    }
+}
+class Person{
+    // 属性
+    String name;
+    int age;
+    public void eat(){
+
+        System.out.println("人吃饭");
+        sleep(8);
+        System.out.println("name= " + name);
+    }
+    public void sleep(int hours){
+        System.out.println("人每天至少需要睡" + hours + "小时。");
+    }
+    public String interests(String hobby){
+        String info = "我的爱好是" + hobby;
+        System.out.println(info);
+        return info;
+    }
+    public int getAge(){
+        return age;
+    }
+
+    public void info(){
+        System.out.println("Person info()");
+//        info(); // 自己调用自己发生栈溢出。StackOverflowError。
+        // 方法内不能定义方法
+//        public void show(){
+//
+//        }
+    }
+    public void printNumber(int targetNUmber){
+        for(int i = 1;i<=targetNUmber;i++){
+            if( i == 4){
+                return; //用于结束方法。
+                // return 后面不能声明执行语句
+//                System.out.println("666");
+            }
+            System.out.println(i);
+        }
+    }
+}
+```
+
+
+
+
+
+
+
+
 
 
 
