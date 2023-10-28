@@ -159,6 +159,65 @@ public class MymethodTest {
     篮球
 ```
 
+## 类成员之二： 方法（method）
+
+### 使用方法的好处
+
+方法的理解： `方法` 是类或对象行为特征的抽象，用来完成某个功能操作。
+
+方法的好处：实现代码重用，减少冗余，简化代码。
+
+### 使用举例
+
+- Math.random()的 random方法
+- Math.sqrt(x)的sqrt(x)方法 
+- System.out.println(x)的println(x)方法 
+- new Scanner(System.in).nextInt()的nextInt()方法 
+- Arrays类中的binarySearch()方法、sort()方法、equals()方法
+
+### 声明举例
+
+- public void eat()
+- public void sleep(int hour)
+- public String interests(String hobby)
+- public int getAge()
+
+### 方法声明的格式（重要）
+
+```sh
+权限修饰符 [其他修饰符]  返回值类型 方法名(形参列表) [throws 异常类型] { // 方法头
+
+	// 方法体
+
+}
+```
+
+#### 权限修饰符
+
+Java中规定了那些权限修饰符呢？ 有四种： private、缺省、protected、public 
+
+返回值类型：描述当调用完此方法时，是否需要返回一个结果。
+
+分类：
+
+- 无返回值类型：使用void表示即可。比如`System.out.println(x)` 的`println(x)` 方法、`Arrays`的`sort()`方法。
+- 有具体的返回值类型：需要指明返回的数据的类型。可以是基本数据类型，也可以引用数据类型。
+- 需要在方法内部配合使用“return + 返回值类型的变量或常量”
+- 比如：`Math.random() 、new Scanner(System.in).netxInt()`等
+
+【经验】我们在声明方法时，要不要提供返回值类型呢？
+
+- 根据方法具体实现的功能来决定。换句话说，具体问题具体分析
+- 根据题目要求
+
+
+
+
+
+
+
+
+
 
 
 
