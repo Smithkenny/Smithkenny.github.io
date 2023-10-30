@@ -315,6 +315,154 @@ class Person{
 
 
 
+## 对象数组
+
+### 何为对象数组？如何理解？
+
+数组的元素可以是基本数据类型，也可以是引用数据类型。当元素是引用数据类型时，我们称为对象数组。
+
+举例：
+
+`String[]、Person[]、Student[]、Customer[]等`
+
+### 案例：
+
+```sh
+定义类Student，包含三个属性：学号number(int)，年级state(int)，成绩score(int)。 创建20个学生对象，
+学号为1到20，年级和成绩都由随机数确定。
+问题一：打印出3年级(state值为3）的学生信息。
+问题二：使用冒泡排序按学生成绩排序，并遍历所有学生信息
+提示：
+1) 生成随机数：Math.random()，返回值类型double;
+2) 四舍五入取整：Math.round(double d)，返回值类型long。
+```
+
+创建类：`Student.java`
+
+```java
+package Project1.MyMethod;
+
+/**
+ * ClassName: Student
+ * Package: Project1.MyMethod
+ * Description:
+ *
+ * @Author LHP
+ * @Create 2023/10/30 21:41
+ * @Version 1.0
+ */
+public class Student {
+    int number;
+    int state;
+    int score;
+    public String show(){
+        return "number = " + number + ",state = " + state + ",score = " + score;
+    }
+}
+```
+
+将需求封装成方法方便调用`StudentTools.java`
+
+```java
+package Project1.MyMethod;
+
+/**
+ * ClassName: StudentTools
+ * Package: Project1.MyMethod
+ * Description:
+ *
+ * @Author LHP
+ * @Create 2023/10/30 21:42
+ * @Version 1.0
+ */
+public class StudentTools {
+    /**
+     * 打印出指定年级的学生信息
+     */
+    public void printStudentWithState(Student[] students,int state){
+        for (int i = 0; i < students.length; i++) {
+            if(state == students[i].state){
+                Student stu = students[i];
+                System.out.println(stu.show());
+            }
+
+        }
+    }
+    /**
+     * 遍历指定学生数组
+     */
+    public void printStudents(Student[] students){
+        for (int i = 0; i < students.length; i++) {
+            System.out.println(students[i].show());
+        }
+    }
+    /**
+     * 针对学生数组，按照score属性从低到高排列
+     */
+    public void sortStudents(Student[] students){
+        for (int i = 0; i < students.length -1; i++) {
+            for (int j = 0; j < students.length -1 -i; j++) {
+                if(students[j].score > students[j + 1].score){
+                    Student temp = students[j];
+                    students[j] = students[j + 1];
+                    students[j + 1] = temp;
+                }
+            }
+
+        }
+    }
+}
+```
+
+创建测试类，方便测试功能。`StudentTest.java`
+
+```java
+package Project1.MyMethod;
+
+/**
+ * ClassName: StudentTest
+ * Package: Project1.MyMethod
+ * Description:
+ *
+ * @Author LHP
+ * @Create 2023/10/30 21:41
+ * @Version 1.0
+ */
+public class StudentTest {
+    public static void main(String[] args) {
+        // 创建student[]
+        Student[] students = new Student[20];
+        // 使用循环给数组元素赋值。
+        for (int i = 0; i < students.length ; i++) {
+            students[i] = new Student();
+            // 给每一个学生对象的number、state、score属性赋值。
+            students[i].number = i + 1;
+            students[i].state = (int)(Math.random() * 6 + 1);
+            students[i].score = (int)(Math.random() * 101);
+        }
+        // 需求1： 打印出3年级（state 为 3） 的学生信息
+            StudentTools studentTools = new StudentTools();
+            studentTools.printStudentWithState(students,3);
+        System.out.println("******************************************");
+
+        // 需求2：使用冒泡排序按学生成绩排序，并遍历所有学生信息。
+        // 排序前遍历
+        studentTools.printStudents(students);
+        System.out.println("**************************************");
+        for (int i = 0; i < students.length; i++) {
+            System.out.println(students[i].show());
+        }
+
+        studentTools.sortStudents(students);
+        System.out.println("******************");
+        // 排序后遍历
+        studentTools.printStudents(students);
+    }
+}
+```
+
+
+
 
 
 
