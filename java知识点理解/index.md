@@ -39,7 +39,33 @@ public void info(String name){
 
 - 方法执行的目的：如果方法的主要目的是执行一些操作或修改对象的状态，而不需要返回结果，那么可以定义一个无返回值的方法（返回类型为void）。
 
-## 方法重载的理解
+## 方法重载的理解（overload）
+
+### 定义：
+
+在同一个类中，允许存在一个以上的同名方法，只要他们的参数列表不同即可。
+
+满足这样特征的多个方法，彼此之间构成方法的重载。
+
+### 总结为：
+
+“两同一不同”
+
+**两同：**同一个类、相同的方法名
+
+**一不同：**参数列表不同。①参数个数不同 ②参数类型不同
+
+**注意：方法的重载与形参的名、权限修饰符、返回值类型都没有关系**
+
+### 如何判断两个方法是相同的呢？
+
+**方法名相同，且形参列表相同。（形参列表相同指的是参数个数和类型相同，与形参名无关。）**
+
+要求：在一个类中，允许存在多个相同名字的方法，只要他们的形参列表不同即可。
+
+**编译器是如何确定调用的某个具体的方法呢？**
+
+先通过方法名确定了一波重载的方法，进而通过不同的形参列表，确定具体的方法。
 
 Java允许在一个类中定义**多个名称相同的方法**，但是参数的类型或个数必须不同，这就是方法的重载。
 
@@ -64,6 +90,33 @@ Java允许在一个类中定义**多个名称相同的方法**，但是参数的
 **重载与具体的变量标识符无关**
 
 如`method(int x)`与`method(int y)`不是方法重载，不能同时存在。
+
+### 代码举例
+
+```java
+public class ArgsTest {
+    public static void main(String[] args) {
+        ArgsTest test = new ArgsTest();
+        test.print();
+        test.print(1);
+        test.print(1,2);
+    }
+    public void print(int ...nums){
+        System.out.println("1111");
+        for (int i = 0; i < nums.length; i++) {
+            System.out.println(nums[i]);
+        }
+    }
+    public void print(int i){
+        System.out.println("2222");
+    }
+    public void print(int i,int j){
+        System.out.println("3333");
+    }
+}
+```
+
+三个`print()`方法互为重载。
 
 ## 面向对象完成具体功能的操作的三步流程（非常重要）
 
@@ -460,6 +513,63 @@ public class StudentTest {
     }
 }
 ```
+
+## 可变个数形参的方法（jdk5.0）
+
+### 使用场景
+
+在调用方法时，可能会出现方法形参的类型是确定的，但是参数的个数不确定。此时我们就可以使用可变个数形参的方法。
+
+### 格式
+
+```sh
+(参数类型 ...参数名)
+```
+
+### 说明
+
+- 可变个数形参的方法在调用时，针对于可变的参数赋的实参个数可以为：0个、1个或多个。
+- 可变个数形参的方法与同一个类中，同名的多个方法之间可以构成重载。
+- 特例：可变个数形参的方法与同一个类中方法名相同，且与可变个数形参的类型相同的**数组参数**不构成重载。
+- 可变个数的形参必须声明在形参列表的最后。
+- 可变个数的形参最多再一个方法的形参列表中出现一次。
+
+### 举例
+
+```java
+public class ArgsTest {
+    public static void main(String[] args) {
+        ArgsTest test = new ArgsTest();
+        test.print();
+        test.print(1);
+        test.print(1,2);
+    }
+    public void print(int ...nums){
+        System.out.println("1111");
+        for (int i = 0; i < nums.length; i++) {
+            System.out.println(nums[i]);
+        }
+    }
+    public void print(int i){
+        System.out.println("2222");
+    }
+    public void print(int i,int j){
+        System.out.println("3333");
+    }
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
