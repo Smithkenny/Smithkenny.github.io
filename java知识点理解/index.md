@@ -397,7 +397,8 @@ public class StudentTools {
         }
     }
     /**
-     * 针对学生数组，按照score属性从低到高排列
+     * 针对学生数组，按照score属性从低到高排列（冒泡排序）
+     * for循环: 外层i控制遍历次数，内层j控制相邻元素的比较和交换。比较相邻两个成绩的大小，如果前一个成绩大于后一个成绩，触发交换机制。交换的是内存地址。
      */
     public void sortStudents(Student[] students){
         for (int i = 0; i < students.length -1; i++) {
