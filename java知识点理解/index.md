@@ -328,7 +328,8 @@ class Person{
 ### 案例：
 
 ```sh
-定义类Student，包含三个属性：学号number(int)，年级state(int)，成绩score(int)。 创建20个学生对象，
+定义类Student，包含三个属性：学号number(int)，年级state(int)，成绩score(int)。
+创建20个学生对象，
 学号为1到20，年级和成绩都由随机数确定。
 问题一：打印出3年级(state值为3）的学生信息。
 问题二：使用冒泡排序按学生成绩排序，并遍历所有学生信息
@@ -385,7 +386,6 @@ public class StudentTools {
                 Student stu = students[i];
                 System.out.println(stu.show());
             }
-
         }
     }
     /**
@@ -398,7 +398,9 @@ public class StudentTools {
     }
     /**
      * 针对学生数组，按照score属性从低到高排列（冒泡排序）
-     * for循环: 外层i控制遍历次数，内层j控制相邻元素的比较和交换。比较相邻两个成绩的大小，如果前一个成绩大于后一个成绩，触发交换机制。交换的是内存地址。
+     * for循环: 外层i控制遍历次数，内层j控制相邻元素的比较和交换。
+     * 比较相邻两个成绩的大小，如果前一个成绩大于后一个成绩，触发交换机制。
+     * 交换的是内存地址。
      */
     public void sortStudents(Student[] students){
         for (int i = 0; i < students.length -1; i++) {
@@ -450,10 +452,7 @@ public class StudentTest {
         // 排序前遍历
         studentTools.printStudents(students);
         System.out.println("**************************************");
-        for (int i = 0; i < students.length; i++) {
-            System.out.println(students[i].show());
-        }
-
+        System.out.println("开始排序...");
         studentTools.sortStudents(students);
         System.out.println("******************");
         // 排序后遍历
