@@ -559,6 +559,85 @@ public class ArgsTest {
 }
 ```
 
+## 方法的值传递机制
+
+对于方法内声明的局部变量来说，如果出现赋值操作
+
+- 如果是基本数据类型的变量，则将此变量保存的数据值传递出去。
+- 如果是引用数据类型的变量，则将此变量保存的地址值传递出去。
+
+形参：在定义方法时，方法名后面括号（）中声明的变量成为形式参数，简称形参。
+
+实参：在调用方法时，方法名后面括号（）中使用的值/变量/表达式成为实际参数，简称实参。
+
+### 规则：
+
+实参给形参赋值的过程
+
+- 如果形参是基本数据类型的变量，则将实参保存的数据值赋给形参。
+- 如果形参是引用数据类型的变量，则将实参保存的地址值赋给形参。
+
+Java中的参数传递机制是什么？值传递（不是引用传递）。
+
+### 举例：
+
+```java
+public class ValueTransferTest {
+    public static void main(String[] args) {
+        // 1.基本数据类型的局部变量
+        int m = 10;
+        int n = m;
+        System.out.println("m = " + m + " n = " + n); // m =10 n =10
+        m++;
+        System.out.println("m = " + m + " n = " + n); // m = 11 n = 10
+        // 2.引用数据类型的局部变量
+        // 2.1 数组类型
+        int[] arr1 = new int[]{1,2,3,4,5};
+        int[] arr2 = arr1;
+        arr2[0] = 10;
+        System.out.println(arr1[0]); //10
+        // 2.2 对象类型
+        Order order1 = new Order();
+        order1.orderId = 1001;
+        Order order2 = order1;
+        order2.orderId = 1002;
+        System.out.println(order1.orderId);//1002
+    }
+}
+class Order{
+    int orderId;
+}
+```
+
+### 交换举例：
+
+```java
+public class ValueTransferTest3 {
+    public static void main(String[] args) {
+        ValueTransferTest3 test = new ValueTransferTest3();
+        Data data = new Data();
+        data.m = 10;
+        data.n = 20;
+        System.out.println("交换前：" + "m = " + data.m + ",n = " + data.n);
+        test.swap(data);
+        System.out.println("交换后：" + "m = " + data.m + ",n = " + data.n);
+        }
+    public void swap(Data data) {
+        int temp = data.m;
+        data.m = data.n;
+        data.n = temp;
+    }
+    }
+    class Data{
+    int m;
+    int n;
+    }
+```
+
+
+
+
+
 
 
 
