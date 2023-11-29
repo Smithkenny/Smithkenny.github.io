@@ -13,16 +13,16 @@
 
 [第三方镜像](yandex/clickhouse-server)
 
-### 2.部署第三方镜像
+#### 1.1部署第三方镜像
 
-#### 2.1 镜像拉取
+#### 1.1.1 镜像拉取
 
 ```bash
 docker pull yandex/clickhouse-server
 docker pull yandex/clickhouse-client
 ```
 
-#### 2.2 启动server端
+#### 1.1.2 启动server端
 
 方式一：
 
@@ -42,10 +42,36 @@ mkdir /work/clickhouse/clickhouse-test-db       ## 创建数据文件目录
 docker run -d --name clickhouse-test-server --ulimit nofile=262144:262144 --volume=/work/clickhouse/clickhouse_test_db:/var/lib/clickhouse yandex/clickhouse-server
 ```
 
-#### 2.3 启动client端
+#### 1.1.3 启动client端
 
 ```bash
 docker run -it --rm --link clickhouse-test-server:clickhouse-server yandex/clickhouse-client --host clickhouse-client
+```
+
+### 2.使用`rpm`方式部署
+
+#### 2.1 所需[rpm](https://github.com/ClickHouse/ClickHouse/releases)包
+
+- `clickhouse-server-23.10.5.20.x86_64.rpm`
+- `clickhouse-common-static-23.10.5.20.x86_64.rpm`
+- `clickhouse-client-23.10.5.20.x86_64.rpm`
+
+#### 2.2 安装顺序
+
+`common-static`->`server`->`client`
+
+#### 2.3 开放远程权限
+
+```bash
+vi /etc/clickhouse-server/config.xml
+220 行注释去掉
+    220      <listen_host>::</listen_host>
+```
+
+#### 2.4 启动
+
+```bash
+systemctl start clickhouse-server.service
 ```
 
 ## 三、使用
