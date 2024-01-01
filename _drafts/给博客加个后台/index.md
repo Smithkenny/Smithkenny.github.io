@@ -70,3 +70,11 @@ https://vercel.com/new/clone?repository-url=https://github.com/am-abudu/Qexo
 
 进入 `Project`—>`View Domains`，输入待解析的域名点击 `Add`，按要求添加解析记录然后刷新。
 
+我是用 `cloudflare`作为cnd来加速网站访问的。首先登录[cloudflare](https://dash.cloudflare.com/)根据vercel中你的项目-->settings->domains中输入你的网址（我这里的是qexo.haipengv.com）点击 `add`。再回到[cloudflare](https://dash.cloudflare.com/)，添加 `CNAME`，将所有流量指向 `vercel`项目。
+
+配置
+
+github/gitlab 仓库
+
+您的 hugo 源代码所在的仓库（）
+
