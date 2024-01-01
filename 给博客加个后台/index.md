@@ -7,8 +7,8 @@
 * 创建新文章（hugo new posts/新文章.md）
 * 手动更改文章分类
 * 写文章内容
-* 最后上传文章（git add .. \ git commit -m ""\ git push origin master）
-* 使用github action自动发布到主页
+* 上传文章（git add .. \ git commit -m ""\ git push origin master）
+* 最后使用github action自动发布到主页
 
 由于hugo没有web页面，所以每次写文章都要经过以上过程，非常的繁琐。最近看到有人推荐一款开源的博客web，于是开始搜集相关资料自己动手搭建了一个。好处是代码开源而且线上布署，再也没有复杂的创建过程，文章写好后点击上传按钮一键上传，大大提高工作效率。
 
