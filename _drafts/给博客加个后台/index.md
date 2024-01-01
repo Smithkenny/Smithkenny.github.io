@@ -124,3 +124,5 @@ prj_xxxxxxx
 * 编写文章内容
 * 保存、发布
 
+搭建全过程[参考](https://daiyu.fun/posts/da27.html)
+
