@@ -68,5 +68,5 @@ https://vercel.com/new/clone?repository-url=https://github.com/am-abudu/Qexo
 
 若没有 Error 信息即可打开域名进入初始化引导，国内可能无法使用默认域名进入，我们要解析一个自己的域名：
 
-进入 `Project`—>`View Domains`，输入待解析的域名点击 `Add`，按要求添加解析记录然后刷新
+进入 `Project`—>`View Domains`，输入待解析的域名点击 `Add`，按要求添加解析记录然后刷新。
 
