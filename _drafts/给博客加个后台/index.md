@@ -72,9 +72,47 @@ https://vercel.com/new/clone?repository-url=https://github.com/am-abudu/Qexo
 
 我是用 `cloudflare`作为cnd来加速网站访问的。首先登录[cloudflare](https://dash.cloudflare.com/)根据vercel中你的项目-->settings->domains中输入你的网址（我这里的是qexo.haipengv.com）点击 `add`。再回到[cloudflare](https://dash.cloudflare.com/)，添加 `CNAME`，将所有流量指向 `vercel`项目。
 
-配置
+## 配置
 
-github/gitlab 仓库
+### github/gitlab 仓库
 
-您的 hugo 源代码所在的仓库（）
+您的 hugo 源代码所在的仓库（不是发布后的web页面）
+
+```
+username/repo
+```
+
+### 项目分支
+
+您的hego自动化部署所在仓库的分支
+
+```
+master
+```
+
+### GitHub/Gitlab密钥（token）
+
+在 [Github 设置](https://github.com/settings/tokens) / [Gitlab 设置](https://gitlab.com/-/profile/personal_access_tokens) 生成的 Token 需要 Repo 下的至少读取和写入权限不建议给出所有权限。
+
+`GitHub Settings（右上角头像）`—>`Developer settings`—>`Personal access tokens`—>`Tokens(classic)`：
+
+### 仓库路径
+
+hugo自动化部署所在仓库的路径，若为目录请留空
+
+```
+path/
+```
+
+### Vercel_token
+
+您的Vercel 账户密钥在[此处](https://vercel.com/account/tokens)生成
+
+### Project_ID
+
+您的qexo部署所在项目的ID位于 `Project Settings` —> `General` —> `Project ID`
+
+```
+prj_xxxxxxx
+```
 
