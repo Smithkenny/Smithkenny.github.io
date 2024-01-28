@@ -1,4 +1,4 @@
-# 
+# windows平台安装oracle
 
 ## 安装版本
 
