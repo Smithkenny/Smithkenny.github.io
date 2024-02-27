@@ -1,6 +1,5 @@
 # centos7.3离线安装docker
 
-
 ## 离线安装
 
 ```sh
@@ -154,7 +153,7 @@ write /var/lib/docker/vfs/dir/3bf1a7e9505dff94e1c4ba0293a90e1d17c1b5b4318ec7a355
 vi /etc/docker/daemon.json
 {
   "storage-driver": "vfs",
-"graph": "/tmpdisk/mysql5.7"
+"data-root": "/tmpdisk/mysql5.7"
 }
 ```
 
@@ -210,6 +209,26 @@ tomcat项目访问mysql数据库
 docker inspect -f='{{.Name}} {{.NetworkSettings.IPAddress}} {{.HostConfig.PortBindings}}' $(docker ps -aq)
 ````
 
+docker 镜像释放报错
 
+```
+docker load -i mysql.tgz 
+open /etc/.pwd.lock: no such device or address
+```
 
+原因是docker 所在安装目录硬盘空间不足。更改docker硬盘安装路径后正常了。
+
+docker 离线安装包：
+
+```bash
+https://download.docker.com/linux/static/stable/x86_64/
+```
+
+docker-compose 安装包
+
+下载`docker-compose-linux-x86_64`
+
+```bash
+https://github.com/docker/compose/releases 
+```
 
