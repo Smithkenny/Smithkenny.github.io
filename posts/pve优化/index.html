@@ -1,0 +1,297 @@
+<!doctype html><html lang=zh-CN><head><meta name=viewport content="width=device-width,initial-scale=1"><meta charset=utf-8><meta name=description content="PVE优化 - https://t.haipengv.com/posts/pve%E4%BC%98%E5%8C%96/"><meta name=author content="Smith - https://t.haipengv.com/"><meta name=msvalidate.01 content="B46311949B856F2A7015F366FB3CE878"><title>PVE优化</title><base target=_blank><link rel=icon type=image/png href=/favicon.ico><link rel=stylesheet href=https://t.haipengv.com/style.min.9a0cea23154ac1941e15c25aa2d31b77285a217d2606ec05b55236428cf1c3e6.css><script>const DARK=!1</script><script type=text/javascript src=/main.js defer></script></head><body class=active-animate><div class=cool-before></div><div id=header><div class=container-header><div class=right><h1 class=title>PVE优化</h1><div id=toc>📜</div></div></div></div><div id=content><div class="container-main container-page"><div class=rel><div class=curtag-desc><a href=https://t.haipengv.com/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/><img src=/imgs/icons/tag.svg width=16> 相关文章：虚拟化 <sup>1</sup></a></div><div class=curtag-post><div class="curtag-post-item curtag-post-item--active"><a href=https://t.haipengv.com/posts/pve%E4%BC%98%E5%8C%96/>PVE优化</a></div></div></div><div class=desc><span><svg t="1656736000388" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="7409" width="12" height="12"><path d="M524.885333 338.986667l-324.522666 324.48c-17.28 15.274667-27.989333 36.693333-29.696 56.234666v133.76l130.730666.085334c22.784-1.621333 43.989333-12.245333 61.013334-31.701334L685.098667 499.2 524.885333 338.986667zM585.258667 278.656l160.170666 160.213333 102.144-102.144a19.712 19.712.0 000-27.861333l-132.48-132.437333a19.456 19.456.0 00-27.605333.0L585.258667 278.613333zM701.312 85.333333c27.946667.0 54.741333 11.136 74.282667 30.848L907.904 248.490667a105.045333 105.045333.0 010 148.565333L424.874667 879.957333C395.050667 914.304 352.768 935.424 304.426667 938.752H85.333333v-42.666667l.128-179.84c3.626667-44.970667 24.576-86.826667 56.448-114.944l485.12-485.034666a104.789333 104.789333.0 0174.24-30.933334z" p-id="7410" fill="#adb5bd"/></svg>2025-03-16&nbsp;&nbsp;&nbsp;<svg t="1656737270708" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="23838" width="11" height="11"><path d="M824.264 95.36c0-23.859 25.043-44.16 48.902-44.16s49.714 20.301 49.714 44.16v190.08c0 23.859-19.054 52.868-42.913 52.868h-190.08c-23.859.0-46.696-25.96-46.696-49.819s22.55-46.249 46.409-46.249h82.025C702.344 175.534 610.22 155.853 512 155.853c-206.775.0-360.398 149.372-360.398 356.147S305.225 870.23 512 870.23c206.775.0 357.467-151.455 357.467-358.23.0-23.859 23.634-50.706 53.413-50.706 29.78.0 49.92 26.847 49.92 50.706.0 254.493-206.307 460.8-460.8 460.8s-460.8-206.307-460.8-460.8C51.2 257.507 257.507 51.2 512 51.2c122.4.0 226.684 33.296 312.264 117.369.358.351.358-24.052.0-73.209z" p-id="23839" fill="#adb5bd"/></svg>
+2025-03-16&nbsp;&nbsp;&nbsp;</span>
+<span><svg t="1656737548689" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="33866" width="12" height="12"><path d="M832.038608 64.662657H192.030028c-70.774903.0-128.089859 57.325793-128.089859 128.03206v446.793671c0 70.7171050000001 57.314956 128.154884 128.089859 128.154884h133.353183a63.940169 63.940169.0 0155.219742 31.576328l76.099638 129.83828c12.358154 21.093031 33.790754 31.626903 55.216129 31.626903s42.832688-10.544709 55.198067-31.619678l76.222461-129.870792a63.940169 63.940169.0 0155.212517-31.551041h133.54103c70.576219.0 127.732228-57.289669 127.732227-127.800865V192.391272c0-70.536482-57.181295-127.728615-127.786414-127.728615zM895.884854 639.842407A63.85347 63.85347.0 01832.092795 703.703103h-133.54103a127.753903 127.753903.0 00-110.349172 63.09847l-76.222461 129.856342a.274545.274545.0 010-.050574h-.032512s-.021675.061411-.032512.061412l-76.1466-129.85273a127.804477 127.804477.0 00-110.385297-63.11292H192.030028A64.207489 64.207489.0 01127.880338 639.488388V192.694717a64.102729 64.102729.0 0164.14969-64.091891h640.00858a63.799284 63.799284.0 0163.846246 63.788446v447.451135z" fill="#adb5bd" p-id="33867"/><path d="M608.154093 288.092004a31.970084 31.970084.0 00-31.970084 31.970085v160.078006L441.53396 300.861976a31.970084 31.970084.0 00-57.531702 19.200113v255.760676a31.970084 31.970084.0 0063.940169.0V415.863969l134.650048 179.274507a31.970084 31.970084.0 0057.531703-19.200113V320.062089a31.970084 31.970084.0 00-31.970085-31.970085z" fill="#adb5bd" p-id="33868"/></svg>2261 字</span>&nbsp;
+<span><svg t="1656737462334" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="32892" width="12" height="12"><path d="M512 74.666667C270.933333 74.666667 74.666667 270.933333 74.666667 512S270.933333 949.333333 512 949.333333 949.333333 753.066667 949.333333 512 753.066667 74.666667 512 74.666667zm0 810.666666C307.2 885.333333 138.666667 716.8 138.666667 512S307.2 138.666667 512 138.666667 885.333333 307.2 885.333333 512 716.8 885.333333 512 885.333333z" p-id="32893" fill="#adb5bd"/><path d="M695.466667 567.466667 544 497.066667V277.333333c0-17.066667-14.933333-32-32-32s-32 14.933333-32 32v238.933334c0 12.8 6.4 23.466667 19.2 29.866666L669.866667 627.2c4.266667 2.133333 8.533333 2.133333 12.8 2.133333 12.8.0 23.466667-6.4 29.866666-19.2 6.4-14.933333.0-34.133333-17.066666-42.666666z" p-id="32894" fill="#adb5bd"/></svg>5 分钟</span><div class=container-ctgtag><div class=taxonomy><div class=tag><a href=/tags/%E8%99%9A%E6%8B%9F%E5%8C%96>虚拟化</a></div></div></div></div><div class=toc><div class=container-page-operation><div class=page-operation><div><a href=/><img src=/imgs/icons/home-2.svg alt></a></div><div><a href=/nav><img src=/imgs/icons/iov-navigate-1.svg alt></a></div><div><a href=/wiki><img src=/imgs/icons/wiki.svg alt></a></div><div><a href=/tags><img src=/imgs/icons/treetags.svg alt></a></div><div id=light-dark><a><img src=/imgs/icons/moon2.svg alt></a></div><div><a href=#><img src=/imgs/icons/up2.svg alt></a></div></div></div><nav id=TableOfContents><ul><li><ul><li><a href=#pve优化>pve优化</a></li><li><a href=#1proxmox-vepve系统移除无有效订阅弹窗提示通知>1.Proxmox VE(PVE)系统移除《无有效订阅》弹窗提示通知</a></li><li><a href=#2proxmox-ve更换apt源并更新软件包数据库>2.Proxmox VE更换apt源并更新软件包数据库</a></li><li><a href=#3pve更改安装时绑定的网卡>3.PVE更改安装时绑定的网卡</a></li><li><a href=#4pve中虚拟机无法关闭解决方法>4.pve中虚拟机无法关闭，解决方法。</a></li><li><a href=#5centos79常用工具一键安装>5.centos7.9常用工具一键安装</a></li><li><a href=#6proxmox-ve-72-iso-镜像重置-pve-root密码>6.Proxmox VE 7.2 iso 镜像重置 pve root密码</a></li><li><a href=#7proxmox集群部分节点出现问号>7.Proxmox集群部分节点出现问号</a></li><li><a href=#8解决pve创建的虚拟机无法复制粘贴>8.解决pve创建的虚拟机无法复制粘贴</a></li></ul></li></ul></nav></div><div class=content><h3 id=pve优化>pve优化</h3><h3 id=1proxmox-vepve系统移除无有效订阅弹窗提示通知>1.Proxmox VE(PVE)系统移除《无有效订阅》弹窗提示通知</h3><p>Proxmox VE(PVE)系统安装完成后，输入账号密码登录系统后会有提示：无有效订阅，本文主要介绍如何去除此弹窗提示。</p><pre tabindex=0><code>提示：无有效订阅
+
+You do not have a valid subscription for this server. Please visit www.proxmox.com to get a list of available options.
+</code></pre><p>形成此问题的主要原因是因为我们使用的是免费版Proxmox VE系统，所以每次登录后都会提示这个《无有效订阅》弹窗。</p><p>此教程演示系统环境为：Proxmox Virtual Environment 7.2 ，更新日期为：2022年11月10日，其他版本请参考本教程.</p><p>需要修改文件路径为：/usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js 修改之前请做好文件备份，防止误操作造成不可预知的错误。</p><p>解决方法</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>搜索关键词：Ext.Msg.show
+</span></span><span style=display:flex><span>将：Ext.Msg.show<span style=color:#000;font-weight:700>({</span>修改为：Ext.Msg.noshow<span style=color:#000;font-weight:700>({</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>文件修改后保存上传，执行 systemctl restart pveproxy 命令重启网页服务
+</span></span></code></pre></td></tr></table></div></div><pre tabindex=0><code>root@pve:~# systemctl restart pveproxy
+</code></pre><p>注销后登陆，使用 CTRL+F5 快捷键强制重新加载网页页面，或清理浏览器缓存（很多修改后没有反应的童学记得清缓存）</p><p>再次打开登陆 Proxmox VE系统控制台主界面，就没有弹窗提示了。</p><p>注意：此方法可能在升级 pve 后失效，失效后再修改即可。</p><h3 id=2proxmox-ve更换apt源并更新软件包数据库>2.Proxmox VE更换apt源并更新软件包数据库</h3><p>1、查看当前镜像源配置</p><pre tabindex=0><code>cat /etc/apt/sources.list
+</code></pre><p>2、查看当前pve版本</p><pre tabindex=0><code>pveversion -v
+</code></pre><p>3、注释默认配置，修改为中科大镜像源</p><pre tabindex=0><code>nano /etc/apt/sources.list
+
+deb https://mirrors.ustc.edu.cn/debian bullseye main contrib
+deb https://mirrors.ustc.edu.cn/debian bullseye-updates main contrib
+deb https://mirrors.ustc.edu.cn/debian-security bullseye-security main contrib
+</code></pre><p>4、注释proxmox企业版更新源
+因为我们安装的是社区版，没有订阅企业版的服务，这个默认启用，所以会报错，使用时我们可以注释掉它。</p><pre tabindex=0><code>nano /etc/apt/sources.list.d/pve-enterprise.list
+</code></pre><p>5、运行 <code>apt update</code> 更新索引以生效</p><p>6、查看可以更新的包</p><pre tabindex=0><code>apt list --upgradable
+</code></pre><p>7、执行软件包数据库更新</p><pre tabindex=0><code>apt update &amp;&amp; apt upgrade -y
+</code></pre><p>8、也可以在页面更新</p><p><strong>pve-更新-刷新</strong></p><h3 id=3pve更改安装时绑定的网卡>3.PVE更改安装时绑定的网卡</h3><p>当服务器有多个网卡时，安装pve后，绑定的网卡非管理口网卡导致局域网中机器无法连接pve。此时需要更改pve安装时绑定的网卡。</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">33
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>root@www:~#  ip a
+</span></span><span style=display:flex><span>1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu <span style=color:#099>65536</span> qdisc noqueue state UNKNOWN group default qlen <span style=color:#099>1000</span>
+</span></span><span style=display:flex><span>    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+</span></span><span style=display:flex><span>    inet 127.0.0.1/8 scope host lo
+</span></span><span style=display:flex><span>       valid_lft forever preferred_lft forever
+</span></span><span style=display:flex><span>    inet6 ::1/128 scope host 
+</span></span><span style=display:flex><span>       valid_lft forever preferred_lft forever
+</span></span><span style=display:flex><span>2: eno1: &lt;BROADCAST,MULTICAST&gt; mtu <span style=color:#099>1500</span> qdisc noop state DOWN group default qlen <span style=color:#099>1000</span>
+</span></span><span style=display:flex><span>    link/ether 3c:ec:ef:90:ea:96 brd ff:ff:ff:ff:ff:ff
+</span></span><span style=display:flex><span>    altname enp181s0f0
+</span></span><span style=display:flex><span>3: enp101s0f0: &lt;BROADCAST,MULTICAST&gt; mtu <span style=color:#099>1500</span> qdisc noop state DOWN group default qlen <span style=color:#099>1000</span>
+</span></span><span style=display:flex><span>    link/ether 58:53:c0:64:19:94 brd ff:ff:ff:ff:ff:ff
+</span></span><span style=display:flex><span>4: eno2: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu <span style=color:#099>1500</span> qdisc mq master vmbr0 state UP group default qlen <span style=color:#099>1000</span>
+</span></span><span style=display:flex><span>    link/ether 3c:ec:ef:90:ea:97 brd ff:ff:ff:ff:ff:ff
+</span></span><span style=display:flex><span>    altname enp181s0f1
+</span></span><span style=display:flex><span>5: enp23s0f0: &lt;BROADCAST,MULTICAST&gt; mtu <span style=color:#099>1500</span> qdisc noop state DOWN group default qlen <span style=color:#099>1000</span>
+</span></span><span style=display:flex><span>    link/ether 68:91:d0:6a:66:a6 brd ff:ff:ff:ff:ff:ff
+</span></span><span style=display:flex><span>6: enp101s0f1: &lt;BROADCAST,MULTICAST&gt; mtu <span style=color:#099>1500</span> qdisc noop state DOWN group default qlen <span style=color:#099>1000</span>
+</span></span><span style=display:flex><span>    link/ether 58:53:c0:64:19:95 brd ff:ff:ff:ff:ff:ff
+</span></span><span style=display:flex><span>7: enp23s0f1: &lt;BROADCAST,MULTICAST&gt; mtu <span style=color:#099>1500</span> qdisc noop state DOWN group default qlen <span style=color:#099>1000</span>
+</span></span><span style=display:flex><span>    link/ether 68:91:d0:6a:66:a7 brd ff:ff:ff:ff:ff:ff
+</span></span><span style=display:flex><span>8: enp182s0f0: &lt;BROADCAST,MULTICAST&gt; mtu <span style=color:#099>1500</span> qdisc noop state DOWN group default qlen <span style=color:#099>1000</span>
+</span></span><span style=display:flex><span>    link/ether 68:91:d0:6a:66:a0 brd ff:ff:ff:ff:ff:ff
+</span></span><span style=display:flex><span>9: enp182s0f1: &lt;BROADCAST,MULTICAST&gt; mtu <span style=color:#099>1500</span> qdisc noop state DOWN group default qlen <span style=color:#099>1000</span>
+</span></span><span style=display:flex><span>    link/ether 68:91:d0:6a:66:a1 brd ff:ff:ff:ff:ff:ff
+</span></span><span style=display:flex><span>10: vmbr0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu <span style=color:#099>1500</span> qdisc noqueue state UP group default qlen <span style=color:#099>1000</span>
+</span></span><span style=display:flex><span>    link/ether 3c:ec:ef:90:ea:97 brd ff:ff:ff:ff:ff:ff
+</span></span><span style=display:flex><span>    inet 192.168.1.191/24 scope global vmbr0
+</span></span><span style=display:flex><span>       valid_lft forever preferred_lft forever
+</span></span><span style=display:flex><span>    inet6 fe80::3eec:efff:fe90:ea97/64 scope link 
+</span></span><span style=display:flex><span>       valid_lft forever preferred_lft forever
+</span></span><span style=display:flex><span>12: tap100i0: &lt;BROADCAST,MULTICAST,PROMISC,UP,LOWER_UP&gt; mtu <span style=color:#099>1500</span> qdisc pfifo_fast master vmbr0 state UNKNOWN group default qlen <span style=color:#099>1000</span>
+</span></span><span style=display:flex><span>    link/ether 2e:dd:9f:18:5d:41 brd ff:ff:ff:ff:ff:ff
+</span></span></code></pre></td></tr></table></div></div><p>由以上信息可知pve的虚拟网卡vmbr0是桥接到mac为3c:ec:ef:90:ea:97的网卡即eno2上，需要将vmbr0更改桥接到eno1上。</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>nano /etc/network/interfaces
+</span></span></code></pre></td></tr></table></div></div><p>原内容</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>auto lo
+</span></span><span style=display:flex><span>iface lo inet loopback
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>iface eno2 inet manual
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>auto vmbr0
+</span></span><span style=display:flex><span>iface vmbr0 inet static
+</span></span><span style=display:flex><span>        address 192.168.1.191/24
+</span></span><span style=display:flex><span>        gateway 192.168.1.254
+</span></span><span style=display:flex><span>        bridge-ports eno2
+</span></span><span style=display:flex><span>        bridge-stp off
+</span></span><span style=display:flex><span>        bridge-fd <span style=color:#099>0</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>iface enp101s0f0 inet manual
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>iface enp101s0f1 inet manual
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>iface enp23s0f0 inet manual
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>iface enp23s0f1 inet manual
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>iface eno2 inet manual
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>iface enp182s0f0 inet manual
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>iface enp182s0f1 inet manual
+</span></span></code></pre></td></tr></table></div></div><p>需要更改为</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>auto lo
+</span></span><span style=display:flex><span>iface lo inet loopback
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>iface eno1 inet manual
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>auto vmbr0
+</span></span><span style=display:flex><span>iface vmbr0 inet static
+</span></span><span style=display:flex><span>        address 192.168.1.191/24
+</span></span><span style=display:flex><span>        gateway 192.168.1.254
+</span></span><span style=display:flex><span>        bridge-ports eno1
+</span></span><span style=display:flex><span>        bridge-stp off
+</span></span><span style=display:flex><span>        bridge-fd <span style=color:#099>0</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>iface enp101s0f0 inet manual
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>iface enp101s0f1 inet manual
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>iface enp23s0f0 inet manual
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>iface enp23s0f1 inet manual
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>iface eno2 inet manual
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>iface enp182s0f0 inet manual
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>iface enp182s0f1 inet manual
+</span></span></code></pre></td></tr></table></div></div><p>重启机器</p><h3 id=4pve中虚拟机无法关闭解决方法>4.pve中虚拟机无法关闭，解决方法。</h3><p>删除虚拟机ID对应的配置文件</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span> rm /var/lock/qemu-server/lock-102.conf    <span style=color:#998;font-style:italic>#102是你的虚拟机编号</span>
+</span></span></code></pre></td></tr></table></div></div><p>然后关闭虚拟机</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>qm stop <span style=color:#099>102</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=5centos79常用工具一键安装>5.centos7.9常用工具一键安装</h3><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>yum -y install wget gcc gcc-c++ pcre pcre-devel zlib zlib-devel ruby openssl openssl-devel patch lsof unzip zip lrzsz bash-completion net-tools nmap-ncat
+</span></span></code></pre></td></tr></table></div></div><h3 id=6proxmox-ve-72-iso-镜像重置-pve-root密码>6.Proxmox VE 7.2 iso 镜像重置 pve root密码</h3><ul><li><p>u盘引导进入pve安装界面，选择Advanced Options。</p></li><li><p>选择 Debug mode</p></li><li><p>进入后发现默认在/路径下，继续按CTRL D，进入root@proxmox:/</p></li><li><p>验证LVM并挂载</p></li></ul><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#998;font-style:italic>#查看VG，输出应该是有VG PVE</span>
+</span></span><span style=display:flex><span>vgs
+</span></span><span style=display:flex><span> 
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#查看LV，可以看到 data root </span>
+</span></span><span style=display:flex><span>lvs
+</span></span></code></pre></td></tr></table></div></div><ul><li>激活VG</li></ul><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>vgchange -a y 
+</span></span></code></pre></td></tr></table></div></div><ul><li>挂载lvm</li></ul><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>mount /dev/mapper/pve-root /mnt
+</span></span></code></pre></td></tr></table></div></div><ul><li>chroot</li></ul><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>chroot /mnt
+</span></span></code></pre></td></tr></table></div></div><ul><li>修改root密码，更改完成密码重启服务器</li></ul><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>passwd root
+</span></span></code></pre></td></tr></table></div></div><h3 id=7proxmox集群部分节点出现问号>7.Proxmox集群部分节点出现问号</h3><p>决定pve上状态的服务是pvestat daemon，也就是<code>pvestatd</code>，因此查看它的运行状况，果然有问题！</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>root@www:~# service pvestatd status
+</span></span><span style=display:flex><span>● pvestatd.service - PVE Status Daemon
+</span></span><span style=display:flex><span>     Loaded: loaded <span style=color:#000;font-weight:700>(</span>/lib/systemd/system/pvestatd.service; enabled; vendor preset: enabled<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>     Active: failed <span style=color:#000;font-weight:700>(</span>Result: signal<span style=color:#000;font-weight:700>)</span> since Wed 2022-11-16 09:23:04 CST; 10min ago
+</span></span><span style=display:flex><span>    Process: <span style=color:#099>1146</span> <span style=color:teal>ExecStart</span><span style=color:#000;font-weight:700>=</span>/usr/bin/pvestatd start <span style=color:#000;font-weight:700>(</span><span style=color:teal>code</span><span style=color:#000;font-weight:700>=</span>killed, <span style=color:teal>signal</span><span style=color:#000;font-weight:700>=</span>KILL<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>        CPU: 286ms
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Nov <span style=color:#099>16</span> 09:23:03 www systemd<span style=color:#000;font-weight:700>[</span>1<span style=color:#000;font-weight:700>]</span>: Starting PVE Status Daemon...
+</span></span><span style=display:flex><span>Nov <span style=color:#099>16</span> 09:23:04 www systemd<span style=color:#000;font-weight:700>[</span>1<span style=color:#000;font-weight:700>]</span>: pvestatd.service: Control process exited, <span style=color:teal>code</span><span style=color:#000;font-weight:700>=</span>killed, <span style=color:teal>status</span><span style=color:#000;font-weight:700>=</span>9/KILL
+</span></span><span style=display:flex><span>Nov <span style=color:#099>16</span> 09:23:04 www systemd<span style=color:#000;font-weight:700>[</span>1<span style=color:#000;font-weight:700>]</span>: pvestatd.service: Failed with result <span style=color:#d14>&#39;signal&#39;</span>.
+</span></span><span style=display:flex><span>Nov <span style=color:#099>16</span> 09:23:04 www systemd<span style=color:#000;font-weight:700>[</span>1<span style=color:#000;font-weight:700>]</span>: Failed to start PVE Status Daemon.
+</span></span></code></pre></td></tr></table></div></div><p>重启该服务状态恢复正常</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>root@www:~# service pvestatd restart 
+</span></span><span style=display:flex><span>root@www:~# service pvestatd status
+</span></span><span style=display:flex><span>● pvestatd.service - PVE Status Daemon
+</span></span><span style=display:flex><span>     Loaded: loaded <span style=color:#000;font-weight:700>(</span>/lib/systemd/system/pvestatd.service; enabled; vendor preset: enabled<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>     Active: active <span style=color:#000;font-weight:700>(</span>running<span style=color:#000;font-weight:700>)</span> since Wed 2022-11-16 09:34:06 CST; 1s ago
+</span></span><span style=display:flex><span>    Process: <span style=color:#099>1510</span> <span style=color:teal>ExecStart</span><span style=color:#000;font-weight:700>=</span>/usr/bin/pvestatd start <span style=color:#000;font-weight:700>(</span><span style=color:teal>code</span><span style=color:#000;font-weight:700>=</span>exited, <span style=color:teal>status</span><span style=color:#000;font-weight:700>=</span>0/SUCCESS<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>   Main PID: <span style=color:#099>1511</span> <span style=color:#000;font-weight:700>(</span>pvestatd<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>      Tasks: <span style=color:#099>1</span> <span style=color:#000;font-weight:700>(</span>limit: 18701<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>     Memory: 79.2M
+</span></span><span style=display:flex><span>        CPU: 851ms
+</span></span><span style=display:flex><span>     CGroup: /system.slice/pvestatd.service
+</span></span><span style=display:flex><span>             └─1511 pvestatd
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Nov <span style=color:#099>16</span> 09:34:05 www systemd<span style=color:#000;font-weight:700>[</span>1<span style=color:#000;font-weight:700>]</span>: Starting PVE Status Daemon...
+</span></span><span style=display:flex><span>Nov <span style=color:#099>16</span> 09:34:06 www pvestatd<span style=color:#000;font-weight:700>[</span>1511<span style=color:#000;font-weight:700>]</span>: starting server
+</span></span><span style=display:flex><span>Nov <span style=color:#099>16</span> 09:34:06 www systemd<span style=color:#000;font-weight:700>[</span>1<span style=color:#000;font-weight:700>]</span>: Started PVE Status Daemon.
+</span></span></code></pre></td></tr></table></div></div><h3 id=8解决pve创建的虚拟机无法复制粘贴>8.解决pve创建的虚拟机无法复制粘贴</h3><p><strong>配置xterm.js</strong></p><p>PVE创建虚拟机后默认只有novnc方法连接虚拟机，无法复制粘贴，很不方便，因此可以打开xterm.js的方式弥补此缺陷。</p><p>关闭 VM，并且新增 serial port 给 VM 在PVE Host 中用 qm 命令建立 serial port，假设我的 VM ID 是 100</p><pre tabindex=0><code>qm set 100 -serial0 socket
+</code></pre><p>重新开启 VM，用 dmesg 验证是否有 ttyS 出现。</p><pre tabindex=0><code>dmesg | grep ttyS
+</code></pre><p>如果出现如下代表有了</p><pre tabindex=0><code>[    3.521757] 00:04: ttyS0 at I/O 0x3f8 (irq = 4, base_baud = 115200) is a 16550A
+</code></pre><p>接下来配置VM的grub，进入VM的ssh</p><pre tabindex=0><code>cd /etc/default/
+vi grub
+</code></pre><p>修改grub中的GRUB_CMDLINE_LINUX值</p><pre tabindex=0><code>GRUB_CMDLINE_LINUX=&#34;quiet console=tty0 console=ttyS0,115200”
+</code></pre><p>更新grub</p><p>debian based</p><pre tabindex=0><code>update-grub
+</code></pre><p>redhat based</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>grub2-mkconfig --output<span style=color:#000;font-weight:700>=</span>/boot/grub2/grub.cfg
+</span></span></code></pre></td></tr></table></div></div><p>在虚拟机添加</p><pre tabindex=0><code>/etc/init/ttyS0.conf
+</code></pre><p>并添加如下</p><pre tabindex=0><code># ttyS0 - getty
+#
+# This service maintains a getty on ttyS0 from the point the system is
+# started until it is shut down again.
+start on stopped rc RUNLEVEL=[12345]
+stop on runlevel [!12345]
+respawn
+exec /sbin/getty -L 115200 ttyS0 vt102
+</code></pre><p>设置自启动</p><pre tabindex=0><code>systemctl enable serial-getty@ttyS0.service
+systemctl start serial-getty@ttyS0.service
+</code></pre><p>重启VM，测试xterm，已经可以用。</p><p>官方文档如下：https://pve.proxmox.com/wiki/Serial_Terminal</p></div></div></div><div id=footer><div class=container-footer><div class=beian><a target=_blank href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode="></a><a href target=_blank><span class=some>icp...<span></a></div><div class=info><a href=https://github.com/loveminimal/hugo-theme-virgo>🕊️</a> 2021 - <span id=info-date></span></div></div></div><div class=cool-after></div></body></html>

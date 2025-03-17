@@ -1,0 +1,332 @@
+<!doctype html><html lang=zh-CN><head><meta name=viewport content="width=device-width,initial-scale=1"><meta charset=utf-8><meta name=description content="Shell小练习答案 - https://t.haipengv.com/posts/shell%E5%B0%8F%E7%BB%83%E4%B9%A0%E7%AD%94%E6%A1%88/"><meta name=author content="Smith - https://t.haipengv.com/"><meta name=msvalidate.01 content="B46311949B856F2A7015F366FB3CE878"><title>Shell小练习答案</title><base target=_blank><link rel=icon type=image/png href=/favicon.ico><link rel=stylesheet href=https://t.haipengv.com/style.min.9a0cea23154ac1941e15c25aa2d31b77285a217d2606ec05b55236428cf1c3e6.css><script>const DARK=!1</script><script type=text/javascript src=/main.js defer></script></head><body class=active-animate><div class=cool-before></div><div id=header><div class=container-header><div class=right><h1 class=title>Shell小练习答案</h1><div id=toc>📜</div></div></div></div><div id=content><div class="container-main container-page"><div class=rel><div class=curtag-desc><a href=https://t.haipengv.com/tags/shell/><img src=/imgs/icons/tag.svg width=16> 相关文章：Shell <sup>5</sup></a></div><div class=curtag-post><div class=curtag-post-item><a href=https://t.haipengv.com/posts/shell%E4%B8%AD%E7%9A%84eof%E7%94%A8%E6%B3%95/>Shell中的EOF用法</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/shell%E5%B0%8F%E7%BB%83%E4%B9%A0/>Shell小练习</a></div><div class="curtag-post-item curtag-post-item--active"><a href=https://t.haipengv.com/posts/shell%E5%B0%8F%E7%BB%83%E4%B9%A0%E7%AD%94%E6%A1%88/>Shell小练习答案</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/shell%E8%84%9A%E6%9C%AC%E5%B8%B8%E7%94%A8%E5%8F%82%E8%80%83/>Shell脚本常用参考</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/shell%E8%84%9A%E6%9C%AC%E5%BA%94%E7%94%A8%E9%95%BF%E6%9C%9F%E6%9B%B4%E6%96%B0/>Shell脚本应用（长期更新）</a></div></div></div><div class=desc><span><svg t="1656736000388" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="7409" width="12" height="12"><path d="M524.885333 338.986667l-324.522666 324.48c-17.28 15.274667-27.989333 36.693333-29.696 56.234666v133.76l130.730666.085334c22.784-1.621333 43.989333-12.245333 61.013334-31.701334L685.098667 499.2 524.885333 338.986667zM585.258667 278.656l160.170666 160.213333 102.144-102.144a19.712 19.712.0 000-27.861333l-132.48-132.437333a19.456 19.456.0 00-27.605333.0L585.258667 278.613333zM701.312 85.333333c27.946667.0 54.741333 11.136 74.282667 30.848L907.904 248.490667a105.045333 105.045333.0 010 148.565333L424.874667 879.957333C395.050667 914.304 352.768 935.424 304.426667 938.752H85.333333v-42.666667l.128-179.84c3.626667-44.970667 24.576-86.826667 56.448-114.944l485.12-485.034666a104.789333 104.789333.0 0174.24-30.933334z" p-id="7410" fill="#adb5bd"/></svg>2025-03-16&nbsp;&nbsp;&nbsp;<svg t="1656737270708" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="23838" width="11" height="11"><path d="M824.264 95.36c0-23.859 25.043-44.16 48.902-44.16s49.714 20.301 49.714 44.16v190.08c0 23.859-19.054 52.868-42.913 52.868h-190.08c-23.859.0-46.696-25.96-46.696-49.819s22.55-46.249 46.409-46.249h82.025C702.344 175.534 610.22 155.853 512 155.853c-206.775.0-360.398 149.372-360.398 356.147S305.225 870.23 512 870.23c206.775.0 357.467-151.455 357.467-358.23.0-23.859 23.634-50.706 53.413-50.706 29.78.0 49.92 26.847 49.92 50.706.0 254.493-206.307 460.8-460.8 460.8s-460.8-206.307-460.8-460.8C51.2 257.507 257.507 51.2 512 51.2c122.4.0 226.684 33.296 312.264 117.369.358.351.358-24.052.0-73.209z" p-id="23839" fill="#adb5bd"/></svg>
+2025-03-16&nbsp;&nbsp;&nbsp;</span>
+<span><svg t="1656737548689" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="33866" width="12" height="12"><path d="M832.038608 64.662657H192.030028c-70.774903.0-128.089859 57.325793-128.089859 128.03206v446.793671c0 70.7171050000001 57.314956 128.154884 128.089859 128.154884h133.353183a63.940169 63.940169.0 0155.219742 31.576328l76.099638 129.83828c12.358154 21.093031 33.790754 31.626903 55.216129 31.626903s42.832688-10.544709 55.198067-31.619678l76.222461-129.870792a63.940169 63.940169.0 0155.212517-31.551041h133.54103c70.576219.0 127.732228-57.289669 127.732227-127.800865V192.391272c0-70.536482-57.181295-127.728615-127.786414-127.728615zM895.884854 639.842407A63.85347 63.85347.0 01832.092795 703.703103h-133.54103a127.753903 127.753903.0 00-110.349172 63.09847l-76.222461 129.856342a.274545.274545.0 010-.050574h-.032512s-.021675.061411-.032512.061412l-76.1466-129.85273a127.804477 127.804477.0 00-110.385297-63.11292H192.030028A64.207489 64.207489.0 01127.880338 639.488388V192.694717a64.102729 64.102729.0 0164.14969-64.091891h640.00858a63.799284 63.799284.0 0163.846246 63.788446v447.451135z" fill="#adb5bd" p-id="33867"/><path d="M608.154093 288.092004a31.970084 31.970084.0 00-31.970084 31.970085v160.078006L441.53396 300.861976a31.970084 31.970084.0 00-57.531702 19.200113v255.760676a31.970084 31.970084.0 0063.940169.0V415.863969l134.650048 179.274507a31.970084 31.970084.0 0057.531703-19.200113V320.062089a31.970084 31.970084.0 00-31.970085-31.970085z" fill="#adb5bd" p-id="33868"/></svg>1273 字</span>&nbsp;
+<span><svg t="1656737462334" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="32892" width="12" height="12"><path d="M512 74.666667C270.933333 74.666667 74.666667 270.933333 74.666667 512S270.933333 949.333333 512 949.333333 949.333333 753.066667 949.333333 512 753.066667 74.666667 512 74.666667zm0 810.666666C307.2 885.333333 138.666667 716.8 138.666667 512S307.2 138.666667 512 138.666667 885.333333 307.2 885.333333 512 716.8 885.333333 512 885.333333z" p-id="32893" fill="#adb5bd"/><path d="M695.466667 567.466667 544 497.066667V277.333333c0-17.066667-14.933333-32-32-32s-32 14.933333-32 32v238.933334c0 12.8 6.4 23.466667 19.2 29.866666L669.866667 627.2c4.266667 2.133333 8.533333 2.133333 12.8 2.133333 12.8.0 23.466667-6.4 29.866666-19.2 6.4-14.933333.0-34.133333-17.066666-42.666666z" p-id="32894" fill="#adb5bd"/></svg>3 分钟</span><div class=container-ctgtag><div class=taxonomy><div class=tag><a href=/tags/shell>Shell</a></div></div></div></div><div class=toc><div class=container-page-operation><div class=page-operation><div><a href=/><img src=/imgs/icons/home-2.svg alt></a></div><div><a href=/nav><img src=/imgs/icons/iov-navigate-1.svg alt></a></div><div><a href=/wiki><img src=/imgs/icons/wiki.svg alt></a></div><div><a href=/tags><img src=/imgs/icons/treetags.svg alt></a></div><div id=light-dark><a><img src=/imgs/icons/moon2.svg alt></a></div><div><a href=#><img src=/imgs/icons/up2.svg alt></a></div></div></div><nav id=TableOfContents></nav></div><div class=content><h1 id=shell小练习答案>shell小练习答案</h1><p>job1:检索本机的IP、NETMASK、MAC地址、广播地址</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>IP: <span style=color:#099>172.20.10.3</span>
+</span></span><span style=display:flex><span>NetMask: <span style=color:#099>255.255.255.240</span>
+</span></span><span style=display:flex><span>Broadcast: <span style=color:#099>172.20.10.15</span>
+</span></span><span style=display:flex><span>MAC Address: <span style=color:#099>00</span>:<span style=color:#099>0</span>c:<span style=color:#099>29</span>:<span style=color:#099>8</span>d:<span style=color:#099>49</span>:ea
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>ifconfig eth0 | grep inet | tr -s <span style=color:#d14>&#34; &#34;</span> | cut -d <span style=color:#d14>&#34; &#34;</span> -f <span style=color:#099>3</span> | xargs <span style=color:#0086b3>echo</span> <span style=color:#d14>&#34;IP: &#34;</span>
+</span></span><span style=display:flex><span>ifconfig eth0 | grep inet | tr -s <span style=color:#d14>&#34; &#34;</span> | cut -d <span style=color:#d14>&#34; &#34;</span> -f <span style=color:#099>5</span> | xargs <span style=color:#0086b3>echo</span> <span style=color:#d14>&#34;NetMask: &#34;</span>
+</span></span><span style=display:flex><span>ifconfig eth0 | grep inet | tr -s <span style=color:#d14>&#34; &#34;</span> | cut -d <span style=color:#d14>&#34; &#34;</span> -f <span style=color:#099>7</span> | xargs <span style=color:#0086b3>echo</span> <span style=color:#d14>&#34;Broadcast: &#34;</span>
+</span></span><span style=display:flex><span>ifconfig eth0 | grep ether | tr -s <span style=color:#d14>&#34; &#34;</span> | cut -d <span style=color:#d14>&#34; &#34;</span> -f <span style=color:#099>3</span> | xargs <span style=color:#0086b3>echo</span> <span style=color:#d14>&#34;MAC Address: &#34;</span>
+</span></span></code></pre></td></tr></table></div></div><p>job2:将系统中所有普通用户的用户名、密码和默认shell保存到一个文件中，要求用户名密码和默认shell之间用tab分隔</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>ayitula x <span style=color:#000;font-weight:700>/</span><span style=color:#0086b3>bin</span><span style=color:#000;font-weight:700>/</span>bash
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>cat 1.txt | grep -i bash | grep -v <span style=color:#d14>&#34;root&#34;</span> | cut -d <span style=color:#d14>&#34;:&#34;</span> -f 1,2,7 | tr -s <span style=color:#d14>&#34;:&#34;</span> <span style=color:#d14>&#34;\t&#34;</span> &gt; res      
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#998;font-style:italic># 1.txt 文本</span>
+</span></span><span style=display:flex><span>root:x:0:0:root:/root:/bin/bash
+</span></span><span style=display:flex><span>bin:x:1:1:bin:/bin:/sbin/nologin
+</span></span><span style=display:flex><span>daemon:x:2:2:daemon:/sbin:/sbin/nologin
+</span></span><span style=display:flex><span>adm:x:3:4:adm:/var/adm:/sbin/nologin
+</span></span><span style=display:flex><span>lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
+</span></span><span style=display:flex><span>sync:x:5:0:sync:/sbin:/bin/sync
+</span></span><span style=display:flex><span>shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown
+</span></span><span style=display:flex><span>halt:x:7:0:halt:/sbin:/sbin/halt
+</span></span><span style=display:flex><span>mail:x:8:12:mail:/var/spool/mail:/sbin/nologin
+</span></span><span style=display:flex><span>operator:x:11:0:operator:/root:/sbin/nologin
+</span></span><span style=display:flex><span>games:x:12:100:games:/usr/games:/sbin/nologin
+</span></span><span style=display:flex><span>ftp:x:14:50:FTP User:/var/ftp:/sbin/nologin
+</span></span><span style=display:flex><span>nobody:x:65534:65534:Kernel Overflow User:/:/sbin/nologin
+</span></span><span style=display:flex><span>dbus:x:81:81:System message bus:/:/sbin/nologin
+</span></span><span style=display:flex><span>systemd-coredump:x:999:997:systemd Core Dumper:/:/sbin/nologin
+</span></span><span style=display:flex><span>systemd-resolve:x:193:193:systemd Resolver:/:/sbin/nologin
+</span></span><span style=display:flex><span>hello:x:1500:1000:this is a <span style=color:#0086b3>test</span> user:/home/hello:/bin/bash
+</span></span></code></pre></td></tr></table></div></div><p>job3</p><p><code>disk_partition.sh</code></p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">41
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">42
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">43
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">44
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">45
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">46
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">47
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">48
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">49
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">50
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">51
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">52
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">53
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">54
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">55
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">56
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">57
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#999;font-weight:700;font-style:italic>#!/bin/bash
+</span></span></span><span style=display:flex><span><span style=color:#999;font-weight:700;font-style:italic></span>fdisk /dev/sdb <span style=color:#d14>&lt;&lt;EOF
+</span></span></span><span style=display:flex><span><span style=color:#d14>n
+</span></span></span><span style=display:flex><span><span style=color:#d14>p
+</span></span></span><span style=display:flex><span><span style=color:#d14>3
+</span></span></span><span style=display:flex><span><span style=color:#d14>
+</span></span></span><span style=display:flex><span><span style=color:#d14>+543M
+</span></span></span><span style=display:flex><span><span style=color:#d14>
+</span></span></span><span style=display:flex><span><span style=color:#d14>n
+</span></span></span><span style=display:flex><span><span style=color:#d14>e
+</span></span></span><span style=display:flex><span><span style=color:#d14>4
+</span></span></span><span style=display:flex><span><span style=color:#d14>
+</span></span></span><span style=display:flex><span><span style=color:#d14>
+</span></span></span><span style=display:flex><span><span style=color:#d14>n
+</span></span></span><span style=display:flex><span><span style=color:#d14>l
+</span></span></span><span style=display:flex><span><span style=color:#d14>
+</span></span></span><span style=display:flex><span><span style=color:#d14>+2G
+</span></span></span><span style=display:flex><span><span style=color:#d14>
+</span></span></span><span style=display:flex><span><span style=color:#d14>n
+</span></span></span><span style=display:flex><span><span style=color:#d14>l
+</span></span></span><span style=display:flex><span><span style=color:#d14>
+</span></span></span><span style=display:flex><span><span style=color:#d14>+3G
+</span></span></span><span style=display:flex><span><span style=color:#d14>
+</span></span></span><span style=display:flex><span><span style=color:#d14>w
+</span></span></span><span style=display:flex><span><span style=color:#d14>EOF</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#2、创建逻辑卷</span>
+</span></span><span style=display:flex><span>   <span style=color:#998;font-style:italic>#2.1 创建物理卷</span>
+</span></span><span style=display:flex><span>    pvcreate /dev/sdb5 /dev/sdb6
+</span></span><span style=display:flex><span>   <span style=color:#998;font-style:italic>#2.2 创建卷组</span>
+</span></span><span style=display:flex><span>    vgcreate -s 16M vg100 /dev/sdb<span style=color:#000;font-weight:700>{</span>5..6<span style=color:#000;font-weight:700>}</span> <span style=color:#d14>&lt;&lt;EOF
+</span></span></span><span style=display:flex><span><span style=color:#d14>y
+</span></span></span><span style=display:flex><span><span style=color:#d14>EOF</span>
+</span></span><span style=display:flex><span>   <span style=color:#998;font-style:italic>#2.3 创建逻辑卷</span>
+</span></span><span style=display:flex><span>    lvcreate -L 2.5G -n lv100 vg100 <span style=color:#d14>&lt;&lt;EOF
+</span></span></span><span style=display:flex><span><span style=color:#d14>y
+</span></span></span><span style=display:flex><span><span style=color:#d14>EOF</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#3、格式化</span>
+</span></span><span style=display:flex><span>mkfs.ext4 /dev/sdb3
+</span></span><span style=display:flex><span>mkfs.xfs /dev/vg100/lv100
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#4、修改/etc/fstab,实现自动挂载</span>
+</span></span><span style=display:flex><span><span style=color:#0086b3>echo</span>  <span style=color:#d14>&#34;/dev/sdb3   /data/data1 ext4  defaults   0 0&#34;</span> &gt;&gt; /etc/fstab
+</span></span><span style=display:flex><span><span style=color:#0086b3>echo</span> <span style=color:#d14>&#34;/dev/vg100/lv100 /data/data2  xfs   defaults 0 0&#34;</span> &gt;&gt; /etc/fstab
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#5、挂载分区</span>
+</span></span><span style=display:flex><span>mkdir -p /data/data<span style=color:#000;font-weight:700>{</span>1..2<span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>mount -a
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#6、验证并输出挂载结果</span>
+</span></span><span style=display:flex><span>mount |grep <span style=color:#d14>&#34;/dev/sdb3&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#0086b3>test</span> <span style=color:teal>$?</span> -eq 0<span style=color:#000;font-weight:700>&amp;&amp;</span><span style=color:#0086b3>echo</span> <span style=color:#d14>&#34;/dev/sdb3 挂载成功&#34;</span> <span style=color:#000;font-weight:700>||</span> <span style=color:#0086b3>echo</span> <span style=color:#d14>&#34;/dev/sdb3挂载失败&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>##注意检索的时候，mount输出中LV的表示方式，或者直接检索挂载点/data/data2也可以。</span>
+</span></span><span style=display:flex><span>mount |grep <span style=color:#d14>&#34;vg100-lv100&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#0086b3>test</span> <span style=color:teal>$?</span> -eq 0<span style=color:#000;font-weight:700>&amp;&amp;</span><span style=color:#0086b3>echo</span> <span style=color:#d14>&#34;/dev/vg100/lv100 挂载成功&#34;</span> <span style=color:#000;font-weight:700>||</span> <span style=color:#0086b3>echo</span> <span style=color:#d14>&#34;/dev/vg100/lv100挂载失败&#34;</span>
+</span></span></code></pre></td></tr></table></div></div><p>job4</p><p><code>back_init.sh</code></p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#999;font-weight:700;font-style:italic>#!/bin/bash
+</span></span></span><span style=display:flex><span><span style=color:#999;font-weight:700;font-style:italic></span>umount /data/data1
+</span></span><span style=display:flex><span>umount /data/data2
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>vgremove vg100 <span style=color:#d14>&lt;&lt;EOF
+</span></span></span><span style=display:flex><span><span style=color:#d14>y
+</span></span></span><span style=display:flex><span><span style=color:#d14>
+</span></span></span><span style=display:flex><span><span style=color:#d14>y
+</span></span></span><span style=display:flex><span><span style=color:#d14>EOF</span>
+</span></span><span style=display:flex><span>pvremove /dev/sdb5
+</span></span><span style=display:flex><span>pvremove /dev/sdb6
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>fdisk /dev/sdb <span style=color:#d14>&lt;&lt;EOF
+</span></span></span><span style=display:flex><span><span style=color:#d14>d
+</span></span></span><span style=display:flex><span><span style=color:#d14>
+</span></span></span><span style=display:flex><span><span style=color:#d14>d
+</span></span></span><span style=display:flex><span><span style=color:#d14>
+</span></span></span><span style=display:flex><span><span style=color:#d14>d
+</span></span></span><span style=display:flex><span><span style=color:#d14>
+</span></span></span><span style=display:flex><span><span style=color:#d14>d
+</span></span></span><span style=display:flex><span><span style=color:#d14>
+</span></span></span><span style=display:flex><span><span style=color:#d14>w
+</span></span></span><span style=display:flex><span><span style=color:#d14>EOF</span>
+</span></span><span style=display:flex><span>sed -i <span style=color:#d14>&#39;/^\/dev\/sdb3/&#39;</span>d /etc/fstab
+</span></span><span style=display:flex><span>sed -i <span style=color:#d14>&#39;/^\/dev\/vg100/&#39;</span>d /etc/fstab
+</span></span></code></pre></td></tr></table></div></div><p>Tips:</p><p>使用EOF ,表示后续的输入作为子命令或子shell的输入，直到遇到EOF为止。再返回到主shell。</p><p>job5小练习答案：</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#999;font-weight:700;font-style:italic>#!/bin/bash
+</span></span></span><span style=display:flex><span><span style=color:#999;font-weight:700;font-style:italic></span><span style=color:#998;font-style:italic>#</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#Author: Mr.Lee</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#Description: 仿真登陆</span>
+</span></span><span style=display:flex><span><span style=color:teal>IP</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>`</span>ifconfig eth0 | egrep -w <span style=color:#d14>&#34;inet&#34;</span>| awk <span style=color:#d14>&#39;{print $2}&#39;</span><span style=color:#d14>`</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#清屏</span>
+</span></span><span style=display:flex><span>clear
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#输出提示信息</span>
+</span></span><span style=display:flex><span><span style=color:#0086b3>echo</span> <span style=color:#d14>&#34;Centos Linux 8 (Core)&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#0086b3>echo</span> -e <span style=color:#d14>&#34;Kernal `uname -r` on an `uname -m`&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#0086b3>echo</span> -e <span style=color:#d14>&#34;Web console: https://localhost:9000/ or https://</span><span style=color:teal>$IP</span><span style=color:#d14>:9090/ \n&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#交互输入登录名</span>
+</span></span><span style=display:flex><span><span style=color:#0086b3>echo</span> -n <span style=color:#d14>&#34;</span><span style=color:teal>$HOSTNAME</span><span style=color:#d14> login: &#34;</span>
+</span></span><span style=display:flex><span><span style=color:#0086b3>read</span> account
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#交互输入密码</span>
+</span></span><span style=display:flex><span><span style=color:#0086b3>read</span> -s -t30 -p <span style=color:#d14>&#34;Password: &#34;</span> pw
+</span></span><span style=display:flex><span><span style=color:#0086b3>echo</span>
+</span></span></code></pre></td></tr></table></div></div><p>job6:</p><p>分析：</p><p>1.获取内存总量</p><p>2.获取内存使用量</p><p>3.运算输出结果</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#999;font-weight:700;font-style:italic>#!/bin/bash
+</span></span></span><span style=display:flex><span><span style=color:#999;font-weight:700;font-style:italic></span><span style=color:#998;font-style:italic>#Author: Mr.lee</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#Release</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#Description: 内存使用率计算脚本</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#获取内存总量</span>
+</span></span><span style=display:flex><span><span style=color:teal>Mem_total</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>`</span>free -m | grep Mem | awk <span style=color:#d14>&#39;{print $2}&#39;</span><span style=color:#d14>`</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#获取内存使用的量</span>
+</span></span><span style=display:flex><span><span style=color:teal>Mem_used</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>`</span>free -m | grep Mem | awk <span style=color:#d14>&#39;{print $3}&#39;</span><span style=color:#d14>`</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#计算输出</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#浮点运算中：同优先级的情况下，大数除以小数 尽可能保证精确。先乘后除。</span>
+</span></span><span style=display:flex><span><span style=color:#0086b3>echo</span> <span style=color:#d14>&#34;内存使用率: `echo &#34;</span><span style=color:teal>scale</span><span style=color:#000;font-weight:700>=</span>2;<span style=color:teal>$Mem_used</span>*100/<span style=color:teal>$Mem_total</span><span style=color:#d14>&#34;|bc`%&#34;</span>
+</span></span></code></pre></td></tr></table></div></div><p>job7 :</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#999;font-weight:700;font-style:italic>#!/bin/bash
+</span></span></span><span style=display:flex><span><span style=color:#999;font-weight:700;font-style:italic></span><span style=color:#998;font-style:italic>#Author: Mr.lee</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#Release</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#Description: 四则运算计算器</span>
+</span></span><span style=display:flex><span><span style=color:#0086b3>echo</span> <span style=color:#d14>&#34;</span><span style=color:teal>$1</span><span style=color:#d14> </span><span style=color:teal>$2</span><span style=color:#d14> </span><span style=color:teal>$3</span><span style=color:#d14>&#34;</span> |bc
+</span></span></code></pre></td></tr></table></div></div><p>job8</p><p>基本思路：截取uptime命令输出结果中最后3个数字，分别代表1min、5min、15min cpu的负载。</p><p>普通方法实现</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span><span style=color:#999;font-weight:700;font-style:italic>#!/bin/bash
+</span></span></span><span style=display:flex><span><span style=color:#999;font-weight:700;font-style:italic></span><span style=color:#998;font-style:italic>#Author: Mr.Lee</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#Release:</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#Description: 打印cpu 1min 5min 15min的负载值</span>
+</span></span><span style=display:flex><span><span style=color:teal>one_min</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>`</span>uptime | tr -s <span style=color:#d14>&#34; &#34;</span> | cut -d <span style=color:#d14>&#34;,&#34;</span> -f4 | cut -d <span style=color:#d14>&#34;:&#34;</span> -f2<span style=color:#d14>`</span>
+</span></span><span style=display:flex><span><span style=color:teal>five_min</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>`</span>uptime | tr -s <span style=color:#d14>&#34; &#34;</span> | cut -d <span style=color:#d14>&#34;,&#34;</span> -f5<span style=color:#d14>`</span>
+</span></span><span style=display:flex><span><span style=color:teal>fiveteen_min</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>`</span>uptime | tr -s <span style=color:#d14>&#34; &#34;</span> | cut -d <span style=color:#d14>&#34;,&#34;</span> -f6<span style=color:#d14>`</span>
+</span></span><span style=display:flex><span><span style=color:#0086b3>echo</span> -ne <span style=color:#d14>&#34;CPU 1min平均负载为: &#34;</span><span style=color:teal>$one_min</span>
+</span></span><span style=display:flex><span><span style=color:#0086b3>echo</span> -ne <span style=color:#d14>&#34;\nCPU 5min平均负载为: &#34;</span><span style=color:teal>$five_min</span> 
+</span></span><span style=display:flex><span><span style=color:#0086b3>echo</span> -ne <span style=color:#d14>&#34;\nCPU 15min平均负载为: &#34;</span><span style=color:teal>$fiveteen_min</span> 
+</span></span><span style=display:flex><span><span style=color:#0086b3>echo</span>
+</span></span></code></pre></td></tr></table></div></div><p>使用数组实现</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">8
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span><span style=color:#999;font-weight:700;font-style:italic>#!/bin/bash
+</span></span></span><span style=display:flex><span><span style=color:#999;font-weight:700;font-style:italic></span><span style=color:#998;font-style:italic>#Author: Mr.Lee</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#Release:</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#Description: 打印cpu 1min 5min 15min的负载值</span>
+</span></span><span style=display:flex><span><span style=color:teal>cpu_load</span><span style=color:#000;font-weight:700>=(</span><span style=color:#d14>`</span>uptime | tr -s <span style=color:#d14>&#34; &#34;</span>| cut -d <span style=color:#d14>&#34; &#34;</span> -f11-13| tr <span style=color:#d14>&#34;,&#34;</span> <span style=color:#d14>&#34; &#34;</span><span style=color:#d14>`</span><span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span><span style=color:#0086b3>echo</span> <span style=color:#d14>&#34;CPU 1min平均负载: </span><span style=color:#d14>${</span><span style=color:teal>cpu_load</span>[0]<span style=color:#d14>}</span><span style=color:#d14>&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#0086b3>echo</span> <span style=color:#d14>&#34;CPU 5min平均负载: </span><span style=color:#d14>${</span><span style=color:teal>cpu_load</span>[1]<span style=color:#d14>}</span><span style=color:#d14>&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#0086b3>echo</span> <span style=color:#d14>&#34;CPU 15min平均负载: </span><span style=color:#d14>${</span><span style=color:teal>cpu_load</span>[2]<span style=color:#d14>}</span><span style=color:#d14>&#34;</span>
+</span></span></code></pre></td></tr></table></div></div></div></div></div><div id=footer><div class=container-footer><div class=beian><a target=_blank href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode="></a><a href target=_blank><span class=some>icp...<span></a></div><div class=info><a href=https://github.com/loveminimal/hugo-theme-virgo>🕊️</a> 2021 - <span id=info-date></span></div></div></div><div class=cool-after></div></body></html>

@@ -1,0 +1,608 @@
+<!doctype html><html lang=zh-CN><head><meta name=viewport content="width=device-width,initial-scale=1"><meta charset=utf-8><meta name=description content="豆瓣电影爬虫 - https://t.haipengv.com/posts/%E8%B1%86%E7%93%A3%E7%94%B5%E5%BD%B1%E7%88%AC%E8%99%AB/"><meta name=author content="Smith - https://t.haipengv.com/"><meta name=msvalidate.01 content="B46311949B856F2A7015F366FB3CE878"><title>豆瓣电影爬虫</title><base target=_blank><link rel=icon type=image/png href=/favicon.ico><link rel=stylesheet href=https://t.haipengv.com/style.min.9a0cea23154ac1941e15c25aa2d31b77285a217d2606ec05b55236428cf1c3e6.css><script>const DARK=!1</script><script type=text/javascript src=/main.js defer></script></head><body class=active-animate><div class=cool-before></div><div id=header><div class=container-header><div class=right><h1 class=title>豆瓣电影爬虫</h1><div id=toc>📜</div></div></div></div><div id=content><div class="container-main container-page"><div class=rel><div class=curtag-desc><a href=https://t.haipengv.com/tags/python/><img src=/imgs/icons/tag.svg width=16> 相关文章：Python <sup>31</sup></a></div><div class=curtag-post><div class=curtag-post-item><a href=https://t.haipengv.com/posts/jupyter%E6%9B%B4%E6%94%B9%E7%99%BB%E5%BD%95%E5%AF%86%E7%A0%81/>Jupyter更改登录密码</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E5%9B%9E%E7%82%89%E9%87%8D%E9%80%A0-%E5%87%BD%E6%95%B0/>Python回炉重造 函数</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E5%9B%9E%E7%82%89%E9%87%8D%E9%80%A0-%E5%85%83%E7%BB%84/>Python回炉重造-元组</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E5%9B%9E%E7%82%89%E9%87%8D%E9%80%A0-%E5%88%97%E8%A1%A8/>Python回炉重造-列表</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E5%9B%9E%E7%82%89%E9%87%8D%E9%80%A0-%E5%AD%97%E5%85%B8/>Python回炉重造-字典</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E5%9B%9E%E7%82%89%E9%87%8D%E9%80%A0-%E5%AD%97%E7%AC%A6%E4%B8%B2/>Python回炉重造-字符串</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E5%9B%9E%E7%82%89%E9%87%8D%E9%80%A0-%E9%9B%86%E5%90%88/>Python回炉重造-集合</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E5%9B%9E%E7%82%89%E9%87%8D%E9%80%A0-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B%E5%85%A5%E9%97%A8/>Python回炉重造-面向对象编程入门</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E5%A4%9A%E7%BA%BF%E7%A8%8B/>Python多线程</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E5%AF%B9%E8%B1%A1%E5%92%8C%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/>Python对象和数据结构基础</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E5%B0%81%E8%A3%85/>Python封装</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97/>Python常用模块</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E6%80%BB%E7%BB%93/>Python数据结构总结</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/>Python文件处理</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E6%96%B9%E6%B3%95%E5%92%8C%E5%87%BD%E6%95%B0/>Python方法和函数</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E8%87%AA%E5%8A%A8%E5%8C%96%E5%8A%9E%E5%85%AC/>Python自动化办公</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E8%87%AA%E5%8A%A8%E5%8C%96%E5%8A%9E%E5%85%AC%E4%B9%8Bexcel/>Python自动化办公之excel</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E8%AF%AD%E6%B3%95/>Python语法</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/sqlite3%E4%BD%BF%E7%94%A8/>Sqlite3使用</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/urllib%E5%BA%93%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/>Urllib库的基本使用</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E4%BD%BF%E7%94%A8python%E5%AE%9E%E7%8E%B0unix%E6%97%B6%E9%97%B4%E6%88%B3%E8%BD%AC%E6%8D%A2/>使用python实现unix时间戳转换</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E5%9F%BA%E4%BA%8Etcp%E7%9A%84%E7%AE%80%E5%8D%95%E5%A5%97%E6%8E%A5%E5%AD%97%E9%80%9A%E4%BF%A1/>基于TCP的简单套接字通信</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E5%AE%89%E8%A3%85%E4%BB%BB%E6%84%8F%E7%89%88%E6%9C%ACpython/>安装任意版本Python</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/>序列化与反序列化</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E5%BC%82%E5%B8%B8/>异常</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E6%A8%A1%E5%9D%97%E4%B8%8E%E5%8C%85/>模块与包</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E7%94%9F%E6%88%90%E5%99%A8-%E5%8F%AF%E8%BF%AD%E4%BB%A3%E5%AF%B9%E8%B1%A1-%E8%BF%AD%E4%BB%A3%E5%99%A8-%E8%BF%AD%E4%BB%A3/>生成器 可迭代对象 迭代器 迭代</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1/>类和对象</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E8%B1%86%E7%93%A3%E5%B1%95%E7%A4%BA%E9%A1%B5/>豆瓣展示页</a></div><div class="curtag-post-item curtag-post-item--active"><a href=https://t.haipengv.com/posts/%E8%B1%86%E7%93%A3%E7%94%B5%E5%BD%B1%E7%88%AC%E8%99%AB/>豆瓣电影爬虫</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E9%9B%86%E5%90%88%E7%9A%84%E7%9B%B8%E5%85%B3%E7%89%B9%E6%80%A7/>集合的相关特性</a></div></div></div><div class=desc><span><svg t="1656736000388" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="7409" width="12" height="12"><path d="M524.885333 338.986667l-324.522666 324.48c-17.28 15.274667-27.989333 36.693333-29.696 56.234666v133.76l130.730666.085334c22.784-1.621333 43.989333-12.245333 61.013334-31.701334L685.098667 499.2 524.885333 338.986667zM585.258667 278.656l160.170666 160.213333 102.144-102.144a19.712 19.712.0 000-27.861333l-132.48-132.437333a19.456 19.456.0 00-27.605333.0L585.258667 278.613333zM701.312 85.333333c27.946667.0 54.741333 11.136 74.282667 30.848L907.904 248.490667a105.045333 105.045333.0 010 148.565333L424.874667 879.957333C395.050667 914.304 352.768 935.424 304.426667 938.752H85.333333v-42.666667l.128-179.84c3.626667-44.970667 24.576-86.826667 56.448-114.944l485.12-485.034666a104.789333 104.789333.0 0174.24-30.933334z" p-id="7410" fill="#adb5bd"/></svg>2025-03-16&nbsp;&nbsp;&nbsp;<svg t="1656737270708" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="23838" width="11" height="11"><path d="M824.264 95.36c0-23.859 25.043-44.16 48.902-44.16s49.714 20.301 49.714 44.16v190.08c0 23.859-19.054 52.868-42.913 52.868h-190.08c-23.859.0-46.696-25.96-46.696-49.819s22.55-46.249 46.409-46.249h82.025C702.344 175.534 610.22 155.853 512 155.853c-206.775.0-360.398 149.372-360.398 356.147S305.225 870.23 512 870.23c206.775.0 357.467-151.455 357.467-358.23.0-23.859 23.634-50.706 53.413-50.706 29.78.0 49.92 26.847 49.92 50.706.0 254.493-206.307 460.8-460.8 460.8s-460.8-206.307-460.8-460.8C51.2 257.507 257.507 51.2 512 51.2c122.4.0 226.684 33.296 312.264 117.369.358.351.358-24.052.0-73.209z" p-id="23839" fill="#adb5bd"/></svg>
+2025-03-16&nbsp;&nbsp;&nbsp;</span>
+<span><svg t="1656737548689" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="33866" width="12" height="12"><path d="M832.038608 64.662657H192.030028c-70.774903.0-128.089859 57.325793-128.089859 128.03206v446.793671c0 70.7171050000001 57.314956 128.154884 128.089859 128.154884h133.353183a63.940169 63.940169.0 0155.219742 31.576328l76.099638 129.83828c12.358154 21.093031 33.790754 31.626903 55.216129 31.626903s42.832688-10.544709 55.198067-31.619678l76.222461-129.870792a63.940169 63.940169.0 0155.212517-31.551041h133.54103c70.576219.0 127.732228-57.289669 127.732227-127.800865V192.391272c0-70.536482-57.181295-127.728615-127.786414-127.728615zM895.884854 639.842407A63.85347 63.85347.0 01832.092795 703.703103h-133.54103a127.753903 127.753903.0 00-110.349172 63.09847l-76.222461 129.856342a.274545.274545.0 010-.050574h-.032512s-.021675.061411-.032512.061412l-76.1466-129.85273a127.804477 127.804477.0 00-110.385297-63.11292H192.030028A64.207489 64.207489.0 01127.880338 639.488388V192.694717a64.102729 64.102729.0 0164.14969-64.091891h640.00858a63.799284 63.799284.0 0163.846246 63.788446v447.451135z" fill="#adb5bd" p-id="33867"/><path d="M608.154093 288.092004a31.970084 31.970084.0 00-31.970084 31.970085v160.078006L441.53396 300.861976a31.970084 31.970084.0 00-57.531702 19.200113v255.760676a31.970084 31.970084.0 0063.940169.0V415.863969l134.650048 179.274507a31.970084 31.970084.0 0057.531703-19.200113V320.062089a31.970084 31.970084.0 00-31.970085-31.970085z" fill="#adb5bd" p-id="33868"/></svg>2724 字</span>&nbsp;
+<span><svg t="1656737462334" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="32892" width="12" height="12"><path d="M512 74.666667C270.933333 74.666667 74.666667 270.933333 74.666667 512S270.933333 949.333333 512 949.333333 949.333333 753.066667 949.333333 512 753.066667 74.666667 512 74.666667zm0 810.666666C307.2 885.333333 138.666667 716.8 138.666667 512S307.2 138.666667 512 138.666667 885.333333 307.2 885.333333 512 716.8 885.333333 512 885.333333z" p-id="32893" fill="#adb5bd"/><path d="M695.466667 567.466667 544 497.066667V277.333333c0-17.066667-14.933333-32-32-32s-32 14.933333-32 32v238.933334c0 12.8 6.4 23.466667 19.2 29.866666L669.866667 627.2c4.266667 2.133333 8.533333 2.133333 12.8 2.133333 12.8.0 23.466667-6.4 29.866666-19.2 6.4-14.933333.0-34.133333-17.066666-42.666666z" p-id="32894" fill="#adb5bd"/></svg>6 分钟</span><div class=container-ctgtag><div class=taxonomy><div class=tag><a href=/tags/python>Python</a></div></div></div></div><div class=toc><div class=container-page-operation><div class=page-operation><div><a href=/><img src=/imgs/icons/home-2.svg alt></a></div><div><a href=/nav><img src=/imgs/icons/iov-navigate-1.svg alt></a></div><div><a href=/wiki><img src=/imgs/icons/wiki.svg alt></a></div><div><a href=/tags><img src=/imgs/icons/treetags.svg alt></a></div><div id=light-dark><a><img src=/imgs/icons/moon2.svg alt></a></div><div><a href=#><img src=/imgs/icons/up2.svg alt></a></div></div></div><nav id=TableOfContents><ul><li><a href=#爬虫分析步骤>爬虫分析步骤</a><ul><li></li><li><a href=#url分析>url分析</a></li><li><a href=#保存到excel表格中代码如下>保存到excel表格中，代码如下</a></li><li><a href=#保存到数据库中代码如下>保存到数据库中，代码如下</a></li></ul></li></ul></nav></div><div class=content><h2 id=爬虫分析步骤>爬虫分析步骤</h2><h4 id=准备工作>准备工作</h4><h4 id=获取数据>获取数据</h4><h4 id=解析内容>解析内容</h4><h4 id=保存数据>保存数据</h4><h3 id=url分析>url分析</h3><p>页面包括250条电影数据，分10页，每页25条。每页的url的不同之处：最后的数值= （页数-1）*25</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#998;font-style:italic># 第一页第一条</span>
+</span></span><span style=display:flex><span>https:<span style=color:#000;font-weight:700>//</span>movie<span style=color:#000;font-weight:700>.</span>douban<span style=color:#000;font-weight:700>.</span>com<span style=color:#000;font-weight:700>/</span>top250<span style=color:#a61717;background-color:#e3d2d2>?</span>start<span style=color:#000;font-weight:700>=</span><span style=color:#099>0</span>
+</span></span></code></pre></td></tr></table></div></div><p>服务器通过headers鉴定客户端信息。</p><h3 id=保存到excel表格中代码如下>保存到excel表格中，代码如下</h3><p>注意：如果<code>ip</code>被限制可以带<code>cookie</code>请求，这样服务器会认为是同一个客户端发出的请求。</p><p>或者使用代理IP来访问。</p><p>代理IP<a href=https://free.kuaidaili.com/free/>网站</a></p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 41
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 42
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 43
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 44
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 45
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 46
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 47
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 48
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 49
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 50
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 51
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 52
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 53
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 54
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 55
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 56
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 57
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 58
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 59
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 60
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 61
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 62
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 63
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 64
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 65
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 66
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 67
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 68
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 69
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 70
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 71
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 72
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 73
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 74
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 75
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 76
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 77
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 78
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 79
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 80
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 81
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 82
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 83
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 84
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 85
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 86
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 87
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 88
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 89
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 90
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 91
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 92
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 93
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 94
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 95
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 96
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 97
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 98
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 99
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">100
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">101
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">102
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">103
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">104
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">105
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">106
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">107
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">108
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">109
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">110
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">111
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">112
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">113
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">114
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">115
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">116
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">117
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">118
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">119
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">120
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">121
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">122
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">123
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">124
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">125
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">126
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">127
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">128
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">129
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">130
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">131
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">132
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">133
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">134
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">135
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">136
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#000;font-weight:700>from</span> <span style=color:#555>bs4</span> <span style=color:#000;font-weight:700>import</span> BeautifulSoup <span style=color:#998;font-style:italic># 网页解析，获取数据</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>import</span> <span style=color:#555>re</span> <span style=color:#998;font-style:italic># 正则表达式，进行文字匹配</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>import</span> <span style=color:#555>urllib.request</span><span style=color:#000;font-weight:700>,</span> <span style=color:#555>urllib.error</span> <span style=color:#998;font-style:italic># 指定url，获取网页数据</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>from</span> <span style=color:#555>urllib.error</span> <span style=color:#000;font-weight:700>import</span> URLError
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>import</span> <span style=color:#555>xlwt</span> <span style=color:#998;font-style:italic># 进行execl操作</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>import</span> <span style=color:#555>sqlite3</span> <span style=color:#998;font-style:italic># 进行sqlite 数据库操作</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>from</span> <span style=color:#555>fake_useragent</span> <span style=color:#000;font-weight:700>import</span> UserAgent <span style=color:#998;font-style:italic># 引入动态随机UserAgent</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>from</span> <span style=color:#555>urllib.request</span> <span style=color:#000;font-weight:700>import</span> build_opener, ProxyHandler <span style=color:#998;font-style:italic># 反反爬，使用代理IP，防止被服务器封掉。</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>def</span> <span style=color:#900;font-weight:700>main</span>():
+</span></span><span style=display:flex><span>    baseurl <span style=color:#000;font-weight:700>=</span> <span style=color:#d14>&#34;https://movie.douban.com/top250?start=&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#998;font-style:italic># 1.爬取网页</span>
+</span></span><span style=display:flex><span>    datalist <span style=color:#000;font-weight:700>=</span> getData(baseurl)
+</span></span><span style=display:flex><span>    savepath <span style=color:#000;font-weight:700>=</span> <span style=color:#d14>&#34;.</span><span style=color:#d14>\\</span><span style=color:#d14>豆瓣电影top250.xls&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#998;font-style:italic># 3.保存数据</span>
+</span></span><span style=display:flex><span>    saveData(datalist,savepath)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#998;font-style:italic># askURL(&#34;https://movie.douban.com/top250?start=0&#34;)</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 影片详情的规则</span>
+</span></span><span style=display:flex><span>findLink <span style=color:#000;font-weight:700>=</span> re<span style=color:#000;font-weight:700>.</span>compile(<span style=color:#d14>r</span><span style=color:#d14>&#39;&lt;a href=&#34;(.*?)&#34;&gt;&#39;</span>)     <span style=color:#998;font-style:italic># 创建正则表达式对象，表示规则（字符串的模式）</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 影片图片</span>
+</span></span><span style=display:flex><span>findImgSrc <span style=color:#000;font-weight:700>=</span> re<span style=color:#000;font-weight:700>.</span>compile(<span style=color:#d14>r</span><span style=color:#d14>&#39;&lt;img.*src=&#34;(.*?)&#34;&#39;</span>,re<span style=color:#000;font-weight:700>.</span>S)  <span style=color:#998;font-style:italic># re.S 让换行符包含在字符中      </span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 影片片名</span>
+</span></span><span style=display:flex><span>findTitle <span style=color:#000;font-weight:700>=</span> re<span style=color:#000;font-weight:700>.</span>compile(<span style=color:#d14>r</span><span style=color:#d14>&#39;&lt;span class=&#34;title&#34;&gt;(.*)&lt;/span&gt;&#39;</span>)
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 影片评分</span>
+</span></span><span style=display:flex><span>findRating <span style=color:#000;font-weight:700>=</span> re<span style=color:#000;font-weight:700>.</span>compile(<span style=color:#d14>r</span><span style=color:#d14>&#39;&lt;span class=&#34;rating_num&#34; property=&#34;v:average&#34;&gt;(.*)&lt;/span&gt;&#39;</span>)
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 找到评价人数</span>
+</span></span><span style=display:flex><span>findJudge <span style=color:#000;font-weight:700>=</span> re<span style=color:#000;font-weight:700>.</span>compile(<span style=color:#d14>r</span><span style=color:#d14>&#39;&lt;span&gt;(\d*)人评价&lt;/span&gt;&#39;</span>)
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 找到概况</span>
+</span></span><span style=display:flex><span>findInq <span style=color:#000;font-weight:700>=</span> re<span style=color:#000;font-weight:700>.</span>compile(<span style=color:#d14>r</span><span style=color:#d14>&#39;&lt;span class=&#34;inq&#34;&gt;(.*)&lt;/span&gt;&#39;</span>)
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 找到影片的相关内容</span>
+</span></span><span style=display:flex><span>findBd <span style=color:#000;font-weight:700>=</span>re<span style=color:#000;font-weight:700>.</span>compile(<span style=color:#d14>r</span><span style=color:#d14>&#39;&lt;p class=&#34;&#34;&gt;(.*?)&lt;/p&gt;&#39;</span>,re<span style=color:#000;font-weight:700>.</span>S)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 爬取网页</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>def</span> <span style=color:#900;font-weight:700>getData</span>(baseurl):
+</span></span><span style=display:flex><span>    datalist <span style=color:#000;font-weight:700>=</span> []
+</span></span><span style=display:flex><span>    <span style=color:#000;font-weight:700>for</span> i <span style=color:#000;font-weight:700>in</span> <span style=color:#0086b3>range</span>(<span style=color:#099>0</span>,<span style=color:#099>10</span>):       <span style=color:#998;font-style:italic># 调用获取页面信息的函数,10次,正好10页内容250条。</span>
+</span></span><span style=display:flex><span>        url <span style=color:#000;font-weight:700>=</span> baseurl <span style=color:#000;font-weight:700>+</span> <span style=color:#0086b3>str</span>(i<span style=color:#000;font-weight:700>*</span><span style=color:#099>25</span>)
+</span></span><span style=display:flex><span>        askURL(url)
+</span></span><span style=display:flex><span>        html <span style=color:#000;font-weight:700>=</span> askURL(url)      <span style=color:#998;font-style:italic># 保存获取到的网页源码</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#998;font-style:italic># 2.逐一解析数据</span>
+</span></span><span style=display:flex><span>        soup <span style=color:#000;font-weight:700>=</span> BeautifulSoup(html,<span style=color:#d14>&#34;html.parser&#34;</span>)
+</span></span><span style=display:flex><span>        <span style=color:#000;font-weight:700>for</span> item <span style=color:#000;font-weight:700>in</span> soup<span style=color:#000;font-weight:700>.</span>find_all(<span style=color:#d14>&#34;div&#34;</span>,class_<span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#34;item&#34;</span>):    <span style=color:#998;font-style:italic>#查找符合要求的字符串形成列表。</span>
+</span></span><span style=display:flex><span>            <span style=color:#998;font-style:italic># print(item) # 测试查看电影item全部信息</span>
+</span></span><span style=display:flex><span>            data <span style=color:#000;font-weight:700>=</span> []   <span style=color:#998;font-style:italic>#保存一部电影的所有信息</span>
+</span></span><span style=display:flex><span>            item <span style=color:#000;font-weight:700>=</span> <span style=color:#0086b3>str</span>(item)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            <span style=color:#998;font-style:italic># 影片详情的链接</span>
+</span></span><span style=display:flex><span>            link <span style=color:#000;font-weight:700>=</span> re<span style=color:#000;font-weight:700>.</span>findall(findLink,item)[<span style=color:#099>0</span>]     <span style=color:#998;font-style:italic>#re库用来通过正则表达式查找指定的字符串</span>
+</span></span><span style=display:flex><span>            <span style=color:#998;font-style:italic># print(link)</span>
+</span></span><span style=display:flex><span>            data<span style=color:#000;font-weight:700>.</span>append(link)                   <span style=color:#998;font-style:italic># 添加链接</span>
+</span></span><span style=display:flex><span>            imgSrc<span style=color:#000;font-weight:700>=</span> re<span style=color:#000;font-weight:700>.</span>findall(findImgSrc,item)[<span style=color:#099>0</span>]  <span style=color:#998;font-style:italic>#添加图片</span>
+</span></span><span style=display:flex><span>            data<span style=color:#000;font-weight:700>.</span>append(imgSrc)
+</span></span><span style=display:flex><span>            titles <span style=color:#000;font-weight:700>=</span> re<span style=color:#000;font-weight:700>.</span>findall(findTitle,item)        <span style=color:#998;font-style:italic># 片名可能只有一个中文名，没有外国名</span>
+</span></span><span style=display:flex><span>            <span style=color:#000;font-weight:700>if</span> (<span style=color:#0086b3>len</span>(titles) <span style=color:#000;font-weight:700>==</span> <span style=color:#099>2</span>):
+</span></span><span style=display:flex><span>                ctitle <span style=color:#000;font-weight:700>=</span> titles[<span style=color:#099>0</span>]          <span style=color:#998;font-style:italic># 添加中文名</span>
+</span></span><span style=display:flex><span>                data<span style=color:#000;font-weight:700>.</span>append(ctitle)
+</span></span><span style=display:flex><span>                otitle <span style=color:#000;font-weight:700>=</span> titles[<span style=color:#099>1</span>]<span style=color:#000;font-weight:700>.</span>replace(<span style=color:#d14>&#34;/&#34;</span>,<span style=color:#d14>&#34;&#34;</span>)      <span style=color:#998;font-style:italic># 去掉无关的符号</span>
+</span></span><span style=display:flex><span>                data<span style=color:#000;font-weight:700>.</span>append(otitle)                 <span style=color:#998;font-style:italic># 添加外国名</span>
+</span></span><span style=display:flex><span>            <span style=color:#000;font-weight:700>else</span>:
+</span></span><span style=display:flex><span>                data<span style=color:#000;font-weight:700>.</span>append(titles[<span style=color:#099>0</span>])
+</span></span><span style=display:flex><span>                data<span style=color:#000;font-weight:700>.</span>append(<span style=color:#d14>&#39; &#39;</span>)        <span style=color:#998;font-style:italic># 外国名字留空</span>
+</span></span><span style=display:flex><span>            
+</span></span><span style=display:flex><span>            rating <span style=color:#000;font-weight:700>=</span> re<span style=color:#000;font-weight:700>.</span>findall(findRating,item)[<span style=color:#099>0</span>]     <span style=color:#998;font-style:italic># 添加评分</span>
+</span></span><span style=display:flex><span>            data<span style=color:#000;font-weight:700>.</span>append(rating)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            judgeNim <span style=color:#000;font-weight:700>=</span> re<span style=color:#000;font-weight:700>.</span>findall(findJudge,item)[<span style=color:#099>0</span>]
+</span></span><span style=display:flex><span>            data<span style=color:#000;font-weight:700>.</span>append(judgeNim)           <span style=color:#998;font-style:italic># 添加评价人数</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            inq <span style=color:#000;font-weight:700>=</span> re<span style=color:#000;font-weight:700>.</span>findall(findInq,item)
+</span></span><span style=display:flex><span>            <span style=color:#000;font-weight:700>if</span> <span style=color:#0086b3>len</span>(inq) <span style=color:#000;font-weight:700>!=</span> <span style=color:#099>0</span>:
+</span></span><span style=display:flex><span>                inq <span style=color:#000;font-weight:700>=</span> inq[<span style=color:#099>0</span>]<span style=color:#000;font-weight:700>.</span>replace(<span style=color:#d14>&#34;。&#34;</span>,<span style=color:#d14>&#34;&#34;</span>)       <span style=color:#998;font-style:italic># 去掉句号</span>
+</span></span><span style=display:flex><span>                data<span style=color:#000;font-weight:700>.</span>append(inq)                <span style=color:#998;font-style:italic># 添加概述</span>
+</span></span><span style=display:flex><span>            <span style=color:#000;font-weight:700>else</span>:
+</span></span><span style=display:flex><span>                data<span style=color:#000;font-weight:700>.</span>append(<span style=color:#d14>&#34; &#34;</span>)        <span style=color:#998;font-style:italic># 留空</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            bd <span style=color:#000;font-weight:700>=</span> re<span style=color:#000;font-weight:700>.</span>findall(findBd,item)[<span style=color:#099>0</span>]
+</span></span><span style=display:flex><span>            bd <span style=color:#000;font-weight:700>=</span> re<span style=color:#000;font-weight:700>.</span>sub(<span style=color:#d14>&#39;&lt;br(\s+)?/&gt;(\s+)?&#39;</span>,<span style=color:#d14>&#34; &#34;</span>,bd)     <span style=color:#998;font-style:italic># 去掉&lt;br/&gt;</span>
+</span></span><span style=display:flex><span>            bd <span style=color:#000;font-weight:700>=</span> re<span style=color:#000;font-weight:700>.</span>sub(<span style=color:#d14>&#39;/&#39;</span>,<span style=color:#d14>&#34; &#34;</span>,bd)     <span style=color:#998;font-style:italic># 替换/</span>
+</span></span><span style=display:flex><span>            data<span style=color:#000;font-weight:700>.</span>append(bd<span style=color:#000;font-weight:700>.</span>strip())     <span style=color:#998;font-style:italic># 去掉前后的空格</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            datalist<span style=color:#000;font-weight:700>.</span>append(data)       <span style=color:#998;font-style:italic># 把处理好的一部分电影信息放入datalist</span>
+</span></span><span style=display:flex><span>    <span style=color:#998;font-style:italic># print(datalist)</span>
+</span></span><span style=display:flex><span>    <span style=color:#000;font-weight:700>return</span> datalist
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 得到一个指定的URL的网页内容</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>def</span> <span style=color:#900;font-weight:700>askURL</span>(url):
+</span></span><span style=display:flex><span>    head <span style=color:#000;font-weight:700>=</span> {        <span style=color:#998;font-style:italic># 模拟浏览器头部信息，向豆瓣服务器发送消息</span>
+</span></span><span style=display:flex><span>        <span style=color:#d14>&#34;User-Agent&#34;</span>: UserAgent()<span style=color:#000;font-weight:700>.</span>random
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    request <span style=color:#000;font-weight:700>=</span> urllib<span style=color:#000;font-weight:700>.</span>request<span style=color:#000;font-weight:700>.</span>Request(url,headers<span style=color:#000;font-weight:700>=</span>head)
+</span></span><span style=display:flex><span>    handler <span style=color:#000;font-weight:700>=</span> ProxyHandler({<span style=color:#d14>&#34;http&#34;</span>:<span style=color:#d14>&#34;58.20.184.187:9091&#34;</span>}) <span style=color:#998;font-style:italic># 使用代理IP请求资源</span>
+</span></span><span style=display:flex><span>    opener <span style=color:#000;font-weight:700>=</span> build_opener(handler)
+</span></span><span style=display:flex><span>    <span style=color:#998;font-style:italic># 用户代理表示告诉豆瓣服务器，我们是什么类型的机器、浏览器(本质上是告诉浏览器，我们可以接收什么水平的文件内容)</span>
+</span></span><span style=display:flex><span>    html <span style=color:#000;font-weight:700>=</span> <span style=color:#d14>&#34;&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#000;font-weight:700>try</span>:
+</span></span><span style=display:flex><span>        resp <span style=color:#000;font-weight:700>=</span> opener<span style=color:#000;font-weight:700>.</span>open(request)
+</span></span><span style=display:flex><span>        html <span style=color:#000;font-weight:700>=</span> resp<span style=color:#000;font-weight:700>.</span>read()<span style=color:#000;font-weight:700>.</span>decode(<span style=color:#d14>&#34;utf-8&#34;</span>)
+</span></span><span style=display:flex><span>        <span style=color:#998;font-style:italic># print(html)</span>
+</span></span><span style=display:flex><span>    <span style=color:#000;font-weight:700>except</span> URLError <span style=color:#000;font-weight:700>as</span> e:
+</span></span><span style=display:flex><span>        <span style=color:#000;font-weight:700>if</span> <span style=color:#0086b3>hasattr</span>(e,<span style=color:#d14>&#34;code&#34;</span>):
+</span></span><span style=display:flex><span>            <span style=color:#0086b3>print</span>(e<span style=color:#000;font-weight:700>.</span>code)
+</span></span><span style=display:flex><span>        <span style=color:#000;font-weight:700>if</span> <span style=color:#0086b3>hasattr</span>(e,<span style=color:#d14>&#34;reason&#34;</span>):
+</span></span><span style=display:flex><span>            <span style=color:#0086b3>print</span>(e<span style=color:#000;font-weight:700>.</span>reason)
+</span></span><span style=display:flex><span>    <span style=color:#000;font-weight:700>return</span> html
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>     
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 3.保存数据</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>def</span> <span style=color:#900;font-weight:700>saveData</span>(datalist,savepath):
+</span></span><span style=display:flex><span>    <span style=color:#0086b3>print</span>(<span style=color:#d14>&#34;save....&#34;</span>)
+</span></span><span style=display:flex><span>    book <span style=color:#000;font-weight:700>=</span> xlwt<span style=color:#000;font-weight:700>.</span>Workbook(encoding<span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#39;utf-8&#39;</span>) <span style=color:#998;font-style:italic># 创建workbook对象</span>
+</span></span><span style=display:flex><span>    sheet <span style=color:#000;font-weight:700>=</span> book<span style=color:#000;font-weight:700>.</span>add_sheet(<span style=color:#d14>&#39;豆瓣电影Top250&#39;</span>,cell_overwrite_ok<span style=color:#000;font-weight:700>=</span><span style=color:#000;font-weight:700>True</span>)    <span style=color:#998;font-style:italic># 创建工作表</span>
+</span></span><span style=display:flex><span>    col <span style=color:#000;font-weight:700>=</span> (<span style=color:#d14>&#34;电影详情链接&#34;</span>,<span style=color:#d14>&#34;图片链接&#34;</span>,<span style=color:#d14>&#34;影片中文名&#34;</span>,<span style=color:#d14>&#34;影片外国名&#34;</span>,<span style=color:#d14>&#34;评分&#34;</span>,<span style=color:#d14>&#34;评价数&#34;</span>,<span style=color:#d14>&#34;概况&#34;</span>,<span style=color:#d14>&#34;相关信息&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#000;font-weight:700>for</span> i <span style=color:#000;font-weight:700>in</span> <span style=color:#0086b3>range</span>(<span style=color:#099>0</span>,<span style=color:#099>8</span>):
+</span></span><span style=display:flex><span>        sheet<span style=color:#000;font-weight:700>.</span>write(<span style=color:#099>0</span>,i,col[i])     <span style=color:#998;font-style:italic># 列名</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#000;font-weight:700>for</span> i <span style=color:#000;font-weight:700>in</span> <span style=color:#0086b3>range</span>(<span style=color:#099>0</span>,<span style=color:#099>250</span>):
+</span></span><span style=display:flex><span>        <span style=color:#0086b3>print</span>(<span style=color:#d14>&#34;第</span><span style=color:#d14>%d</span><span style=color:#d14>条&#34;</span> <span style=color:#000;font-weight:700>%</span>i)
+</span></span><span style=display:flex><span>        data <span style=color:#000;font-weight:700>=</span> datalist[i]
+</span></span><span style=display:flex><span>        <span style=color:#000;font-weight:700>for</span> j <span style=color:#000;font-weight:700>in</span> <span style=color:#0086b3>range</span>(<span style=color:#099>0</span>,<span style=color:#099>8</span>):
+</span></span><span style=display:flex><span>            sheet<span style=color:#000;font-weight:700>.</span>write(i<span style=color:#000;font-weight:700>+</span><span style=color:#099>1</span>,j,data[j])      <span style=color:#998;font-style:italic># 数据</span>
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>    book<span style=color:#000;font-weight:700>.</span>save(savepath)    <span style=color:#998;font-style:italic># 保存数据表</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>if</span> __name__ <span style=color:#000;font-weight:700>==</span> <span style=color:#d14>&#34;__main__&#34;</span>: <span style=color:#998;font-style:italic># 当程序执行时。程序入口，控制函数调用顺序。</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 调用函数</span>
+</span></span><span style=display:flex><span>    main()
+</span></span><span style=display:flex><span>    <span style=color:#0086b3>print</span>(<span style=color:#d14>&#34;爬取完毕！&#34;</span>)
+</span></span></code></pre></td></tr></table></div></div><h3 id=保存到数据库中代码如下>保存到数据库中，代码如下</h3><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 41
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 42
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 43
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 44
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 45
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 46
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 47
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 48
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 49
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 50
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 51
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 52
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 53
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 54
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 55
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 56
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 57
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 58
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 59
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 60
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 61
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 62
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 63
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 64
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 65
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 66
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 67
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 68
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 69
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 70
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 71
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 72
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 73
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 74
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 75
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 76
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 77
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 78
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 79
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 80
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 81
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 82
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 83
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 84
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 85
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 86
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 87
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 88
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 89
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 90
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 91
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 92
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 93
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 94
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 95
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 96
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 97
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 98
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 99
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">100
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">101
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">102
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">103
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">104
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">105
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">106
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">107
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">108
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">109
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">110
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">111
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">112
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">113
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">114
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">115
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">116
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">117
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">118
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">119
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">120
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">121
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">122
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">123
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">124
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">125
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">126
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">127
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">128
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">129
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">130
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">131
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">132
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">133
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">134
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">135
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">136
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">137
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">138
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">139
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">140
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">141
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">142
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">143
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">144
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">145
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">146
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">147
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">148
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">149
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">150
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">151
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">152
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">153
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">154
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">155
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">156
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">157
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">158
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">159
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">160
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">161
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">162
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">163
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">164
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#000;font-weight:700>from</span> <span style=color:#555>bs4</span> <span style=color:#000;font-weight:700>import</span> BeautifulSoup <span style=color:#998;font-style:italic># 网页解析，获取数据</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>import</span> <span style=color:#555>re</span> <span style=color:#998;font-style:italic># 正则表达式，进行文字匹配</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>import</span> <span style=color:#555>urllib.request</span><span style=color:#000;font-weight:700>,</span> <span style=color:#555>urllib.error</span> <span style=color:#998;font-style:italic># 指定url，获取网页数据</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>from</span> <span style=color:#555>urllib.error</span> <span style=color:#000;font-weight:700>import</span> URLError
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>import</span> <span style=color:#555>xlwt</span> <span style=color:#998;font-style:italic># 进行execl操作</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>import</span> <span style=color:#555>sqlite3</span> <span style=color:#998;font-style:italic># 进行sqlite 数据库操作</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>from</span> <span style=color:#555>fake_useragent</span> <span style=color:#000;font-weight:700>import</span> UserAgent <span style=color:#998;font-style:italic># 引入动态随机UserAgent</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>from</span> <span style=color:#555>urllib.request</span> <span style=color:#000;font-weight:700>import</span> build_opener, ProxyHandler <span style=color:#998;font-style:italic># 反反爬，使用代理IP，防止被服务器封掉。</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>def</span> <span style=color:#900;font-weight:700>main</span>():
+</span></span><span style=display:flex><span>    baseurl <span style=color:#000;font-weight:700>=</span> <span style=color:#d14>&#34;https://movie.douban.com/top250?start=&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#998;font-style:italic># 1.爬取网页</span>
+</span></span><span style=display:flex><span>    datalist <span style=color:#000;font-weight:700>=</span> getData(baseurl)
+</span></span><span style=display:flex><span>    dbpath <span style=color:#000;font-weight:700>=</span> <span style=color:#d14>&#34;movie.db&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#998;font-style:italic># 3.保存数据</span>
+</span></span><span style=display:flex><span>    saveData2DB(datalist, dbpath)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#998;font-style:italic># askURL(&#34;https://movie.douban.com/top250?start=0&#34;)</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 影片详情的规则</span>
+</span></span><span style=display:flex><span>findLink <span style=color:#000;font-weight:700>=</span> re<span style=color:#000;font-weight:700>.</span>compile(<span style=color:#d14>r</span><span style=color:#d14>&#39;&lt;a href=&#34;(.*?)&#34;&gt;&#39;</span>)     <span style=color:#998;font-style:italic># 创建正则表达式对象，表示规则（字符串的模式）</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 影片图片</span>
+</span></span><span style=display:flex><span>findImgSrc <span style=color:#000;font-weight:700>=</span> re<span style=color:#000;font-weight:700>.</span>compile(<span style=color:#d14>r</span><span style=color:#d14>&#39;&lt;img.*src=&#34;(.*?)&#34;&#39;</span>,re<span style=color:#000;font-weight:700>.</span>S)  <span style=color:#998;font-style:italic># re.S 让换行符包含在字符中      </span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 影片片名</span>
+</span></span><span style=display:flex><span>findTitle <span style=color:#000;font-weight:700>=</span> re<span style=color:#000;font-weight:700>.</span>compile(<span style=color:#d14>r</span><span style=color:#d14>&#39;&lt;span class=&#34;title&#34;&gt;(.*)&lt;/span&gt;&#39;</span>)
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 影片评分</span>
+</span></span><span style=display:flex><span>findRating <span style=color:#000;font-weight:700>=</span> re<span style=color:#000;font-weight:700>.</span>compile(<span style=color:#d14>r</span><span style=color:#d14>&#39;&lt;span class=&#34;rating_num&#34; property=&#34;v:average&#34;&gt;(.*)&lt;/span&gt;&#39;</span>)
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 找到评价人数</span>
+</span></span><span style=display:flex><span>findJudge <span style=color:#000;font-weight:700>=</span> re<span style=color:#000;font-weight:700>.</span>compile(<span style=color:#d14>r</span><span style=color:#d14>&#39;&lt;span&gt;(\d*)人评价&lt;/span&gt;&#39;</span>)
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 找到概况</span>
+</span></span><span style=display:flex><span>findInq <span style=color:#000;font-weight:700>=</span> re<span style=color:#000;font-weight:700>.</span>compile(<span style=color:#d14>r</span><span style=color:#d14>&#39;&lt;span class=&#34;inq&#34;&gt;(.*)&lt;/span&gt;&#39;</span>)
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 找到影片的相关内容</span>
+</span></span><span style=display:flex><span>findBd <span style=color:#000;font-weight:700>=</span>re<span style=color:#000;font-weight:700>.</span>compile(<span style=color:#d14>r</span><span style=color:#d14>&#39;&lt;p class=&#34;&#34;&gt;(.*?)&lt;/p&gt;&#39;</span>,re<span style=color:#000;font-weight:700>.</span>S)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 爬取网页</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>def</span> <span style=color:#900;font-weight:700>getData</span>(baseurl):
+</span></span><span style=display:flex><span>    datalist <span style=color:#000;font-weight:700>=</span> []
+</span></span><span style=display:flex><span>    <span style=color:#000;font-weight:700>for</span> i <span style=color:#000;font-weight:700>in</span> <span style=color:#0086b3>range</span>(<span style=color:#099>0</span>,<span style=color:#099>10</span>):       <span style=color:#998;font-style:italic># 调用获取页面信息的函数,10次,正好10页内容250条。</span>
+</span></span><span style=display:flex><span>        url <span style=color:#000;font-weight:700>=</span> baseurl <span style=color:#000;font-weight:700>+</span> <span style=color:#0086b3>str</span>(i<span style=color:#000;font-weight:700>*</span><span style=color:#099>25</span>)
+</span></span><span style=display:flex><span>        askURL(url)
+</span></span><span style=display:flex><span>        html <span style=color:#000;font-weight:700>=</span> askURL(url)      <span style=color:#998;font-style:italic># 保存获取到的网页源码</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#998;font-style:italic># 2.逐一解析数据</span>
+</span></span><span style=display:flex><span>        soup <span style=color:#000;font-weight:700>=</span> BeautifulSoup(html,<span style=color:#d14>&#34;html.parser&#34;</span>)
+</span></span><span style=display:flex><span>        <span style=color:#000;font-weight:700>for</span> item <span style=color:#000;font-weight:700>in</span> soup<span style=color:#000;font-weight:700>.</span>find_all(<span style=color:#d14>&#34;div&#34;</span>,class_<span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#34;item&#34;</span>):    <span style=color:#998;font-style:italic>#查找符合要求的字符串形成列表。</span>
+</span></span><span style=display:flex><span>            <span style=color:#998;font-style:italic># print(item) # 测试查看电影item全部信息</span>
+</span></span><span style=display:flex><span>            data <span style=color:#000;font-weight:700>=</span> []   <span style=color:#998;font-style:italic>#保存一部电影的所有信息</span>
+</span></span><span style=display:flex><span>            item <span style=color:#000;font-weight:700>=</span> <span style=color:#0086b3>str</span>(item)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            <span style=color:#998;font-style:italic># 影片详情的链接</span>
+</span></span><span style=display:flex><span>            link <span style=color:#000;font-weight:700>=</span> re<span style=color:#000;font-weight:700>.</span>findall(findLink,item)[<span style=color:#099>0</span>]     <span style=color:#998;font-style:italic>#re库用来通过正则表达式查找指定的字符串</span>
+</span></span><span style=display:flex><span>            <span style=color:#998;font-style:italic># print(link)</span>
+</span></span><span style=display:flex><span>            data<span style=color:#000;font-weight:700>.</span>append(link)                   <span style=color:#998;font-style:italic># 添加链接</span>
+</span></span><span style=display:flex><span>            imgSrc<span style=color:#000;font-weight:700>=</span> re<span style=color:#000;font-weight:700>.</span>findall(findImgSrc,item)[<span style=color:#099>0</span>]  <span style=color:#998;font-style:italic>#添加图片</span>
+</span></span><span style=display:flex><span>            data<span style=color:#000;font-weight:700>.</span>append(imgSrc)
+</span></span><span style=display:flex><span>            titles <span style=color:#000;font-weight:700>=</span> re<span style=color:#000;font-weight:700>.</span>findall(findTitle,item)        <span style=color:#998;font-style:italic># 片名可能只有一个中文名，没有外国名</span>
+</span></span><span style=display:flex><span>            <span style=color:#000;font-weight:700>if</span> (<span style=color:#0086b3>len</span>(titles) <span style=color:#000;font-weight:700>==</span> <span style=color:#099>2</span>):
+</span></span><span style=display:flex><span>                ctitle <span style=color:#000;font-weight:700>=</span> titles[<span style=color:#099>0</span>]          <span style=color:#998;font-style:italic># 添加中文名</span>
+</span></span><span style=display:flex><span>                data<span style=color:#000;font-weight:700>.</span>append(ctitle)
+</span></span><span style=display:flex><span>                otitle <span style=color:#000;font-weight:700>=</span> titles[<span style=color:#099>1</span>]<span style=color:#000;font-weight:700>.</span>replace(<span style=color:#d14>&#34;/&#34;</span>,<span style=color:#d14>&#34;&#34;</span>)      <span style=color:#998;font-style:italic># 去掉无关的符号</span>
+</span></span><span style=display:flex><span>                data<span style=color:#000;font-weight:700>.</span>append(otitle)                 <span style=color:#998;font-style:italic># 添加外国名</span>
+</span></span><span style=display:flex><span>            <span style=color:#000;font-weight:700>else</span>:
+</span></span><span style=display:flex><span>                data<span style=color:#000;font-weight:700>.</span>append(titles[<span style=color:#099>0</span>])
+</span></span><span style=display:flex><span>                data<span style=color:#000;font-weight:700>.</span>append(<span style=color:#d14>&#39; &#39;</span>)        <span style=color:#998;font-style:italic># 外国名字留空</span>
+</span></span><span style=display:flex><span>            
+</span></span><span style=display:flex><span>            rating <span style=color:#000;font-weight:700>=</span> re<span style=color:#000;font-weight:700>.</span>findall(findRating,item)[<span style=color:#099>0</span>]     <span style=color:#998;font-style:italic># 添加评分</span>
+</span></span><span style=display:flex><span>            data<span style=color:#000;font-weight:700>.</span>append(rating)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            judgeNim <span style=color:#000;font-weight:700>=</span> re<span style=color:#000;font-weight:700>.</span>findall(findJudge,item)[<span style=color:#099>0</span>]
+</span></span><span style=display:flex><span>            data<span style=color:#000;font-weight:700>.</span>append(judgeNim)           <span style=color:#998;font-style:italic># 添加评价人数</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            inq <span style=color:#000;font-weight:700>=</span> re<span style=color:#000;font-weight:700>.</span>findall(findInq,item)
+</span></span><span style=display:flex><span>            <span style=color:#000;font-weight:700>if</span> <span style=color:#0086b3>len</span>(inq) <span style=color:#000;font-weight:700>!=</span> <span style=color:#099>0</span>:
+</span></span><span style=display:flex><span>                inq <span style=color:#000;font-weight:700>=</span> inq[<span style=color:#099>0</span>]<span style=color:#000;font-weight:700>.</span>replace(<span style=color:#d14>&#34;。&#34;</span>,<span style=color:#d14>&#34;&#34;</span>)       <span style=color:#998;font-style:italic># 去掉句号</span>
+</span></span><span style=display:flex><span>                data<span style=color:#000;font-weight:700>.</span>append(inq)                <span style=color:#998;font-style:italic># 添加概述</span>
+</span></span><span style=display:flex><span>            <span style=color:#000;font-weight:700>else</span>:
+</span></span><span style=display:flex><span>                data<span style=color:#000;font-weight:700>.</span>append(<span style=color:#d14>&#34; &#34;</span>)        <span style=color:#998;font-style:italic># 留空</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            bd <span style=color:#000;font-weight:700>=</span> re<span style=color:#000;font-weight:700>.</span>findall(findBd,item)[<span style=color:#099>0</span>]
+</span></span><span style=display:flex><span>            bd <span style=color:#000;font-weight:700>=</span> re<span style=color:#000;font-weight:700>.</span>sub(<span style=color:#d14>&#39;&lt;br(\s+)?/&gt;(\s+)?&#39;</span>,<span style=color:#d14>&#34; &#34;</span>,bd)     <span style=color:#998;font-style:italic># 去掉&lt;br/&gt;</span>
+</span></span><span style=display:flex><span>            bd <span style=color:#000;font-weight:700>=</span> re<span style=color:#000;font-weight:700>.</span>sub(<span style=color:#d14>&#39;/&#39;</span>,<span style=color:#d14>&#34; &#34;</span>,bd)     <span style=color:#998;font-style:italic># 替换/</span>
+</span></span><span style=display:flex><span>            data<span style=color:#000;font-weight:700>.</span>append(bd<span style=color:#000;font-weight:700>.</span>strip())     <span style=color:#998;font-style:italic># 去掉前后的空格</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            datalist<span style=color:#000;font-weight:700>.</span>append(data)       <span style=color:#998;font-style:italic># 把处理好的一部分电影信息放入datalist</span>
+</span></span><span style=display:flex><span>    <span style=color:#998;font-style:italic># print(datalist)</span>
+</span></span><span style=display:flex><span>    <span style=color:#000;font-weight:700>return</span> datalist
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 得到一个指定的URL的网页内容</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>def</span> <span style=color:#900;font-weight:700>askURL</span>(url):
+</span></span><span style=display:flex><span>    head <span style=color:#000;font-weight:700>=</span> {        <span style=color:#998;font-style:italic># 模拟浏览器头部信息，向豆瓣服务器发送消息</span>
+</span></span><span style=display:flex><span>        <span style=color:#d14>&#34;User-Agent&#34;</span>: UserAgent()<span style=color:#000;font-weight:700>.</span>random
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    request <span style=color:#000;font-weight:700>=</span> urllib<span style=color:#000;font-weight:700>.</span>request<span style=color:#000;font-weight:700>.</span>Request(url,headers<span style=color:#000;font-weight:700>=</span>head)
+</span></span><span style=display:flex><span>    handler <span style=color:#000;font-weight:700>=</span> ProxyHandler({<span style=color:#d14>&#34;http&#34;</span>:<span style=color:#d14>&#34;58.20.184.187:9091&#34;</span>}) <span style=color:#998;font-style:italic># 使用代理IP请求资源</span>
+</span></span><span style=display:flex><span>    opener <span style=color:#000;font-weight:700>=</span> build_opener(handler)
+</span></span><span style=display:flex><span>    <span style=color:#998;font-style:italic># 用户代理表示告诉豆瓣服务器，我们是什么类型的机器、浏览器(本质上是告诉浏览器，我们可以接收什么水平的文件内容)</span>
+</span></span><span style=display:flex><span>    html <span style=color:#000;font-weight:700>=</span> <span style=color:#d14>&#34;&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#000;font-weight:700>try</span>:
+</span></span><span style=display:flex><span>        resp <span style=color:#000;font-weight:700>=</span> opener<span style=color:#000;font-weight:700>.</span>open(request)
+</span></span><span style=display:flex><span>        html <span style=color:#000;font-weight:700>=</span> resp<span style=color:#000;font-weight:700>.</span>read()<span style=color:#000;font-weight:700>.</span>decode(<span style=color:#d14>&#34;utf-8&#34;</span>)
+</span></span><span style=display:flex><span>        <span style=color:#998;font-style:italic># print(html)</span>
+</span></span><span style=display:flex><span>    <span style=color:#000;font-weight:700>except</span> URLError <span style=color:#000;font-weight:700>as</span> e:
+</span></span><span style=display:flex><span>        <span style=color:#000;font-weight:700>if</span> <span style=color:#0086b3>hasattr</span>(e,<span style=color:#d14>&#34;code&#34;</span>):
+</span></span><span style=display:flex><span>            <span style=color:#0086b3>print</span>(e<span style=color:#000;font-weight:700>.</span>code)
+</span></span><span style=display:flex><span>        <span style=color:#000;font-weight:700>if</span> <span style=color:#0086b3>hasattr</span>(e,<span style=color:#d14>&#34;reason&#34;</span>):
+</span></span><span style=display:flex><span>            <span style=color:#0086b3>print</span>(e<span style=color:#000;font-weight:700>.</span>reason)
+</span></span><span style=display:flex><span>    <span style=color:#000;font-weight:700>return</span> html
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>     
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 3.保存数据</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>def</span> <span style=color:#900;font-weight:700>saveData2DB</span>(datalist,dbpath):
+</span></span><span style=display:flex><span>    init_db(dbpath)
+</span></span><span style=display:flex><span>    conn <span style=color:#000;font-weight:700>=</span> sqlite3<span style=color:#000;font-weight:700>.</span>connect(dbpath)
+</span></span><span style=display:flex><span>    cur <span style=color:#000;font-weight:700>=</span> conn<span style=color:#000;font-weight:700>.</span>cursor()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#000;font-weight:700>for</span> data <span style=color:#000;font-weight:700>in</span> datalist:
+</span></span><span style=display:flex><span>        <span style=color:#000;font-weight:700>for</span> index <span style=color:#000;font-weight:700>in</span> <span style=color:#0086b3>range</span>(<span style=color:#0086b3>len</span>(data)):
+</span></span><span style=display:flex><span>            <span style=color:#000;font-weight:700>if</span> index <span style=color:#000;font-weight:700>==</span> <span style=color:#099>4</span> <span style=color:#000;font-weight:700>or</span> index <span style=color:#000;font-weight:700>==</span> <span style=color:#099>5</span>:
+</span></span><span style=display:flex><span>                <span style=color:#000;font-weight:700>continue</span>
+</span></span><span style=display:flex><span>            data[index] <span style=color:#000;font-weight:700>=</span> <span style=color:#d14>&#39;&#34;&#39;</span><span style=color:#000;font-weight:700>+</span>data[index]<span style=color:#000;font-weight:700>+</span><span style=color:#d14>&#39;&#34;&#39;</span>
+</span></span><span style=display:flex><span>        sql <span style=color:#000;font-weight:700>=</span> <span style=color:#d14>&#39;&#39;&#39;
+</span></span></span><span style=display:flex><span><span style=color:#d14>                insert into movie250(
+</span></span></span><span style=display:flex><span><span style=color:#d14>                info_link,pic_link,cname,ename,score,rated,instroduction,info
+</span></span></span><span style=display:flex><span><span style=color:#d14>                )
+</span></span></span><span style=display:flex><span><span style=color:#d14>                values(</span><span style=color:#d14>%s</span><span style=color:#d14>)&#39;&#39;&#39;</span><span style=color:#000;font-weight:700>%</span><span style=color:#d14>&#34;,&#34;</span><span style=color:#000;font-weight:700>.</span>join(data)
+</span></span><span style=display:flex><span>        <span style=color:#998;font-style:italic># print(sql) # 打印插入语句（测试用）</span>
+</span></span><span style=display:flex><span>        cur<span style=color:#000;font-weight:700>.</span>execute(sql)
+</span></span><span style=display:flex><span>        conn<span style=color:#000;font-weight:700>.</span>commit()
+</span></span><span style=display:flex><span>    cur<span style=color:#000;font-weight:700>.</span>close()
+</span></span><span style=display:flex><span>    conn<span style=color:#000;font-weight:700>.</span>close()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>def</span> <span style=color:#900;font-weight:700>init_db</span>(dbpath):
+</span></span><span style=display:flex><span>    sql <span style=color:#000;font-weight:700>=</span> <span style=color:#d14>&#39;&#39;&#39;
+</span></span></span><span style=display:flex><span><span style=color:#d14>        create table movie250
+</span></span></span><span style=display:flex><span><span style=color:#d14>        (
+</span></span></span><span style=display:flex><span><span style=color:#d14>        id integer primary key autoincrement,
+</span></span></span><span style=display:flex><span><span style=color:#d14>        info_link text,
+</span></span></span><span style=display:flex><span><span style=color:#d14>        pic_link text,
+</span></span></span><span style=display:flex><span><span style=color:#d14>        cname varchar ,
+</span></span></span><span style=display:flex><span><span style=color:#d14>        ename varchar ,
+</span></span></span><span style=display:flex><span><span style=color:#d14>        score numeric ,
+</span></span></span><span style=display:flex><span><span style=color:#d14>        rated numeric ,
+</span></span></span><span style=display:flex><span><span style=color:#d14>        instroduction text ,
+</span></span></span><span style=display:flex><span><span style=color:#d14>        info text
+</span></span></span><span style=display:flex><span><span style=color:#d14>        )
+</span></span></span><span style=display:flex><span><span style=color:#d14>    &#39;&#39;&#39;</span>     <span style=color:#998;font-style:italic># 创建数据表</span>
+</span></span><span style=display:flex><span>    conn <span style=color:#000;font-weight:700>=</span> sqlite3<span style=color:#000;font-weight:700>.</span>connect(dbpath)
+</span></span><span style=display:flex><span>    cursor <span style=color:#000;font-weight:700>=</span> conn<span style=color:#000;font-weight:700>.</span>cursor()
+</span></span><span style=display:flex><span>    cursor<span style=color:#000;font-weight:700>.</span>execute(sql)
+</span></span><span style=display:flex><span>    conn<span style=color:#000;font-weight:700>.</span>commit()
+</span></span><span style=display:flex><span>    conn<span style=color:#000;font-weight:700>.</span>close()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>if</span> __name__ <span style=color:#000;font-weight:700>==</span> <span style=color:#d14>&#34;__main__&#34;</span>:  <span style=color:#998;font-style:italic># 当程序执行时。程序入口，控制函数调用顺序。</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 调用函数</span>
+</span></span><span style=display:flex><span>    main()
+</span></span><span style=display:flex><span>    <span style=color:#998;font-style:italic># init_db(&#34;movietest.db&#34;) # 测试用，生成测试库。</span>
+</span></span><span style=display:flex><span>    <span style=color:#0086b3>print</span>(<span style=color:#d14>&#34;爬取完毕！&#34;</span>)
+</span></span></code></pre></td></tr></table></div></div></div></div></div><div id=footer><div class=container-footer><div class=beian><a target=_blank href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode="></a><a href target=_blank><span class=some>icp...<span></a></div><div class=info><a href=https://github.com/loveminimal/hugo-theme-virgo>🕊️</a> 2021 - <span id=info-date></span></div></div></div><div class=cool-after></div></body></html>

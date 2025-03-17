@@ -1,0 +1,636 @@
+<!doctype html><html lang=zh-CN><head><meta name=viewport content="width=device-width,initial-scale=1"><meta charset=utf-8><meta name=description content="CentOS7常规命令 - https://t.haipengv.com/posts/centos7-%E5%B8%B8%E8%A7%84%E5%91%BD%E4%BB%A4/"><meta name=author content="Smith - https://t.haipengv.com/"><meta name=msvalidate.01 content="B46311949B856F2A7015F366FB3CE878"><title>CentOS7常规命令</title><base target=_blank><link rel=icon type=image/png href=/favicon.ico><link rel=stylesheet href=https://t.haipengv.com/style.min.9a0cea23154ac1941e15c25aa2d31b77285a217d2606ec05b55236428cf1c3e6.css><script>const DARK=!1</script><script type=text/javascript src=/main.js defer></script></head><body class=active-animate><div class=cool-before></div><div id=header><div class=container-header><div class=right><h1 class=title>CentOS7常规命令</h1><div id=toc>📜</div></div></div></div><div id=content><div class="container-main container-page"><div class=rel><div class=curtag-desc><a href=https://t.haipengv.com/tags/linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/><img src=/imgs/icons/tag.svg width=16> 相关文章：Linux基础知识 <sup>38</sup></a></div><div class=curtag-post><div class=curtag-post-item><a href=https://t.haipengv.com/posts/centos7-%E5%8D%87%E7%BA%A7%E5%86%85%E6%A0%B8/>CentOS7 升级内核</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/centos7.9%E5%AE%89%E8%A3%85mysql8.0/>Centos7.9安装Mysql8.0</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/centos7.9%E6%9B%B4%E6%8D%A2%E7%BD%91%E5%8D%A1%E5%90%8D%E7%A7%B0/>Centos7.9更换网卡名称</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/centos7%E4%BD%BF%E7%94%A8systemd%E7%AE%A1%E7%90%86%E7%A8%8B%E5%BA%8F/>Centos7使用systemd管理程序</a></div><div class="curtag-post-item curtag-post-item--active"><a href=https://t.haipengv.com/posts/centos7-%E5%B8%B8%E8%A7%84%E5%91%BD%E4%BB%A4/>CentOS7常规命令</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/centos7%E7%BD%91%E5%8D%A1%E6%94%B9%E5%9B%9Eeth0%E6%98%BE%E7%A4%BA/>Centos7网卡改回eth0显示</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/centos8%E9%85%8D%E7%BD%AEyum%E6%BA%90/>CentOS8配置yum源</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/centos%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8/>Centos搭建内网邮件服务器</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/crontab%E8%B8%A9%E5%9D%91%E8%AE%B0/>Crontab踩坑记</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/git%E5%85%A5%E9%97%A8/>Git入门</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/http%E5%92%8Chttps%E5%90%84%E7%A7%8D%E6%96%B9%E6%B3%95%E6%B5%8B%E8%AF%95/>Http和Https各种方法测试</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/iptables%E5%B8%B8%E7%94%A8%E6%80%BB%E7%BB%93/>Iptables常用总结</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/linux%E4%B8%8B%E6%B7%B7%E6%9D%82%E6%A8%A1%E5%BC%8F%E5%88%A4%E6%96%AD/>Linux下混杂模式判断</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/linux%E4%B8%AD%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/>Linux中环境变量</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/linux%E4%B8%AD%E7%9A%84%E9%9A%94%E7%A6%BB/>Linux中的隔离</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/linux%E4%BF%A1%E6%81%AF%E6%9F%A5%E8%AF%A2%E5%91%BD%E4%BB%A4/>Linux信息查询命令</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/linux%E5%9E%83%E5%9C%BE%E6%A1%B6/>Linux垃圾桶</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/linux%E5%B0%8F%E6%8A%80%E5%B7%A7%E6%B1%87%E6%80%BB/>Linux小技巧汇总</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/linux%E6%97%A5%E5%BF%97%E5%A4%A7%E6%96%87%E4%BB%B6%E5%88%87%E5%89%B2/>Linux日志大文件切割</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/linux%E6%9F%A5%E7%9C%8B%E7%A8%8B%E5%BA%8F%E8%BF%9B%E7%A8%8B%E5%90%AF%E5%8A%A8%E6%97%B6%E9%97%B4/>Linux查看程序进程启动时间</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/linux%E6%A0%B9%E5%88%86%E5%8C%BA%E6%BB%A1%E4%BA%86%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95/>Linux根分区满了处理方法</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/pam%E6%A8%A1%E5%9D%97%E9%99%90%E5%88%B6%E7%99%BB%E5%BD%95/>Pam模块限制登录</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/redhat6.3yum%E6%BA%90%E5%A4%B1%E6%95%88%E8%A7%A3%E5%86%B3/>Redhat6.3yum源失效解决</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/rsyslog%E6%97%A5%E5%BF%97%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/>Rsyslog日志服务器搭建</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/ssh%E7%9B%B8%E5%85%B3%E8%AF%B4%E6%98%8E/>SSH相关说明</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/ubuntu%E4%BD%BF%E7%94%A8%E4%B8%8A%E7%AF%87/>Ubuntu使用上篇</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/ubuntu%E4%BD%BF%E7%94%A8%E4%B8%8B%E7%AF%87/>Ubuntu使用下篇</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/vsftpd%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE/>Vsftpd相关配置</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/vsftp%E4%B8%8D%E5%90%8C%E7%94%A8%E6%88%B7%E6%8B%A5%E6%9C%89%E4%B8%8D%E5%90%8C%E6%9D%83%E9%99%90/>Vsftp不同用户拥有不同权限</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E4%BD%BF%E7%94%A8logrotate%E8%BF%9B%E8%A1%8C%E6%97%A5%E5%BF%97%E5%88%87%E5%89%B2/>使用logrotate进行日志切割</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E4%BD%BF%E7%94%A8sed%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E7%BD%91%E5%9D%80/>使用sed批量修改网址</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E4%BD%BF%E7%94%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E7%99%BB%E5%BD%95linux%E6%9C%8D%E5%8A%A1%E5%99%A8/>使用浏览器登录linux服务器</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E5%8A%9F%E8%83%BD%E5%BC%BA%E5%A4%A7%E7%9A%84%E7%A1%AC%E4%BB%B6%E4%BF%A1%E6%81%AF%E8%8E%B7%E5%8F%96%E5%B7%A5%E5%85%B7-inxi/>功能强大的硬件信息获取工具-Inxi</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E5%8E%8B%E7%BC%A9%E4%B8%8E%E8%A7%A3%E5%8E%8B/>压缩与解压</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E5%A6%82%E4%BD%95%E7%AD%9B%E9%80%89%E6%8C%87%E5%AE%9A%E6%97%B6%E9%97%B4%E6%AE%B5%E5%86%85%E7%9A%84%E6%97%A5%E5%BF%97/>如何筛选指定时间段内的日志</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E6%90%AD%E5%BB%BArss%E8%AE%A2%E9%98%85%E5%99%A8/>搭建rss订阅器</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E6%9F%A5%E7%9C%8B%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E6%97%B6%E9%97%B4/>查看系统安装时间</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E6%A8%A1%E6%8B%9Fssh%E6%89%A7%E8%A1%8C%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4/>模拟ssh执行远程命令</a></div></div></div><div class=desc><span><svg t="1656736000388" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="7409" width="12" height="12"><path d="M524.885333 338.986667l-324.522666 324.48c-17.28 15.274667-27.989333 36.693333-29.696 56.234666v133.76l130.730666.085334c22.784-1.621333 43.989333-12.245333 61.013334-31.701334L685.098667 499.2 524.885333 338.986667zM585.258667 278.656l160.170666 160.213333 102.144-102.144a19.712 19.712.0 000-27.861333l-132.48-132.437333a19.456 19.456.0 00-27.605333.0L585.258667 278.613333zM701.312 85.333333c27.946667.0 54.741333 11.136 74.282667 30.848L907.904 248.490667a105.045333 105.045333.0 010 148.565333L424.874667 879.957333C395.050667 914.304 352.768 935.424 304.426667 938.752H85.333333v-42.666667l.128-179.84c3.626667-44.970667 24.576-86.826667 56.448-114.944l485.12-485.034666a104.789333 104.789333.0 0174.24-30.933334z" p-id="7410" fill="#adb5bd"/></svg>2025-03-16&nbsp;&nbsp;&nbsp;<svg t="1656737270708" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="23838" width="11" height="11"><path d="M824.264 95.36c0-23.859 25.043-44.16 48.902-44.16s49.714 20.301 49.714 44.16v190.08c0 23.859-19.054 52.868-42.913 52.868h-190.08c-23.859.0-46.696-25.96-46.696-49.819s22.55-46.249 46.409-46.249h82.025C702.344 175.534 610.22 155.853 512 155.853c-206.775.0-360.398 149.372-360.398 356.147S305.225 870.23 512 870.23c206.775.0 357.467-151.455 357.467-358.23.0-23.859 23.634-50.706 53.413-50.706 29.78.0 49.92 26.847 49.92 50.706.0 254.493-206.307 460.8-460.8 460.8s-460.8-206.307-460.8-460.8C51.2 257.507 257.507 51.2 512 51.2c122.4.0 226.684 33.296 312.264 117.369.358.351.358-24.052.0-73.209z" p-id="23839" fill="#adb5bd"/></svg>
+2025-03-16&nbsp;&nbsp;&nbsp;</span>
+<span><svg t="1656737548689" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="33866" width="12" height="12"><path d="M832.038608 64.662657H192.030028c-70.774903.0-128.089859 57.325793-128.089859 128.03206v446.793671c0 70.7171050000001 57.314956 128.154884 128.089859 128.154884h133.353183a63.940169 63.940169.0 0155.219742 31.576328l76.099638 129.83828c12.358154 21.093031 33.790754 31.626903 55.216129 31.626903s42.832688-10.544709 55.198067-31.619678l76.222461-129.870792a63.940169 63.940169.0 0155.212517-31.551041h133.54103c70.576219.0 127.732228-57.289669 127.732227-127.800865V192.391272c0-70.536482-57.181295-127.728615-127.786414-127.728615zM895.884854 639.842407A63.85347 63.85347.0 01832.092795 703.703103h-133.54103a127.753903 127.753903.0 00-110.349172 63.09847l-76.222461 129.856342a.274545.274545.0 010-.050574h-.032512s-.021675.061411-.032512.061412l-76.1466-129.85273a127.804477 127.804477.0 00-110.385297-63.11292H192.030028A64.207489 64.207489.0 01127.880338 639.488388V192.694717a64.102729 64.102729.0 0164.14969-64.091891h640.00858a63.799284 63.799284.0 0163.846246 63.788446v447.451135z" fill="#adb5bd" p-id="33867"/><path d="M608.154093 288.092004a31.970084 31.970084.0 00-31.970084 31.970085v160.078006L441.53396 300.861976a31.970084 31.970084.0 00-57.531702 19.200113v255.760676a31.970084 31.970084.0 0063.940169.0V415.863969l134.650048 179.274507a31.970084 31.970084.0 0057.531703-19.200113V320.062089a31.970084 31.970084.0 00-31.970085-31.970085z" fill="#adb5bd" p-id="33868"/></svg>2387 字</span>&nbsp;
+<span><svg t="1656737462334" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="32892" width="12" height="12"><path d="M512 74.666667C270.933333 74.666667 74.666667 270.933333 74.666667 512S270.933333 949.333333 512 949.333333 949.333333 753.066667 949.333333 512 753.066667 74.666667 512 74.666667zm0 810.666666C307.2 885.333333 138.666667 716.8 138.666667 512S307.2 138.666667 512 138.666667 885.333333 307.2 885.333333 512 716.8 885.333333 512 885.333333z" p-id="32893" fill="#adb5bd"/><path d="M695.466667 567.466667 544 497.066667V277.333333c0-17.066667-14.933333-32-32-32s-32 14.933333-32 32v238.933334c0 12.8 6.4 23.466667 19.2 29.866666L669.866667 627.2c4.266667 2.133333 8.533333 2.133333 12.8 2.133333 12.8.0 23.466667-6.4 29.866666-19.2 6.4-14.933333.0-34.133333-17.066666-42.666666z" p-id="32894" fill="#adb5bd"/></svg>5 分钟</span><div class=container-ctgtag><div class=taxonomy><div class=tag><a href=/tags/linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86>Linux基础知识</a></div></div></div></div><div class=toc><div class=container-page-operation><div class=page-operation><div><a href=/><img src=/imgs/icons/home-2.svg alt></a></div><div><a href=/nav><img src=/imgs/icons/iov-navigate-1.svg alt></a></div><div><a href=/wiki><img src=/imgs/icons/wiki.svg alt></a></div><div><a href=/tags><img src=/imgs/icons/treetags.svg alt></a></div><div id=light-dark><a><img src=/imgs/icons/moon2.svg alt></a></div><div><a href=#><img src=/imgs/icons/up2.svg alt></a></div></div></div><nav id=TableOfContents><ul><li><a href=#文件类>文件类</a><ul><li><a href=#常规>常规</a></li><li><a href=#文件下载>文件下载</a></li><li><a href=#文件传输>文件传输</a></li><li><a href=#文件查找>文件查找</a></li></ul></li><li><a href=#运维类>运维类</a><ul><li><a href=#基础配置>基础配置</a></li><li><a href=#常规查询>常规查询</a></li><li><a href=#iptables>iptables</a></li><li><a href=#防火墙>防火墙</a></li></ul></li><li><a href=#系统类>系统类</a><ul><li><a href=#磁盘挂载>磁盘挂载</a></li><li><a href=#nfs>NFS</a></li><li><a href=#smb>SMB</a></li></ul></li></ul></nav></div><div class=content><h1 id=centos-7-常规命令>CentOS 7 常规命令</h1><h2 id=文件类>文件类</h2><h3 id=常规>常规</h3><p>tar 打包解包</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>tar cvf FileName.tar DirName or FileName
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 打包</span>
+</span></span><span style=display:flex><span>tar xvf FileName.tar -C 指定位置目录
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 解包</span>
+</span></span></code></pre></td></tr></table></div></div><p>tar gz 打包压缩</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>tar zcvf FileName.tar.gz DirName or FileName
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 打包并压缩</span>
+</span></span><span style=display:flex><span>tar zxvf FileName.tar.gz -C 指定位置目录
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 解包</span>
+</span></span></code></pre></td></tr></table></div></div><p>zip 压缩解压缩</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>zip FileName.zip FileName
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 压缩文件</span>
+</span></span><span style=display:flex><span>zip -r DirName.zip DirName
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 压缩目录</span>
+</span></span><span style=display:flex><span>unzip xxx.zip
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 解压缩</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=文件下载>文件下载</h3><p>下载覆盖</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>wget https://xxx.com/xxx.zip -O /xxx/xxx.zip
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># -O 重命名并直接覆盖</span>
+</span></span></code></pre></td></tr></table></div></div><p>下载指定路径比对新旧直接覆盖</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>wget -P /xxx/xxx -N https://xxx.com/xxx.zip
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># -P 指定下载路径,如不存在则自动创建.</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># -N 只下载比本地新的文件并覆盖</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=文件传输>文件传输</h3><p>文件下载 - 从远程服务器下载文件到本服务器</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>scp -P <span style=color:#099>22</span> root@8.8.8.8:/root/1.zip /root
+</span></span></code></pre></td></tr></table></div></div><p>文件上传 - 上传本地文件到远程服务器</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>scp -P <span style=color:#099>22</span> /root/st/1.zip root@8.8.8.8:/root
+</span></span></code></pre></td></tr></table></div></div><p>目录下载 - 从远程服务器下载文件夹到本服务器</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>scp -r -P <span style=color:#099>22</span> root@8.8.8.8:/root/xx /root
+</span></span></code></pre></td></tr></table></div></div><p>目录上传 - 上传本地文件夹到远程服务器</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>scp -r -P <span style=color:#099>22</span> /root/xx root@8.8.8.8:/root
+</span></span></code></pre></td></tr></table></div></div><h3 id=文件查找>文件查找</h3><p>查询当前目录下及所有子目录下的某文件,并拷贝到当前文件夹</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>find . -name <span style=color:#d14>&#34;*.txt&#34;</span> | xargs -I<span style=color:#000;font-weight:700>{}</span> cp <span style=color:#000;font-weight:700>{}</span> ./
+</span></span><span style=display:flex><span>find . -name <span style=color:#d14>&#34;*.*&#34;</span> | xargs -I<span style=color:#000;font-weight:700>{}</span> cp <span style=color:#000;font-weight:700>{}</span> ./
+</span></span></code></pre></td></tr></table></div></div><p>查询当前目录下及所有子目录下的某文件,并删除.</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>find . -name <span style=color:#d14>&#34;.DS_Store&#34;</span> | xargs -I<span style=color:#000;font-weight:700>{}</span> rm <span style=color:#000;font-weight:700>{}</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=运维类>运维类</h2><h3 id=基础配置>基础配置</h3><p>允许 root 登陆及修改端口</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">8
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>vi /etc/ssh/sshd_config
+</span></span><span style=display:flex><span>Port <span style=color:#099>22222</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 配置端口</span>
+</span></span><span style=display:flex><span>PermitRootLogin yes
+</span></span><span style=display:flex><span>PasswordAuthentication yes
+</span></span><span style=display:flex><span>ClientAliveInterval <span style=color:#099>30</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 重启 sshd</span>
+</span></span><span style=display:flex><span>systemctl restart sshd
+</span></span></code></pre></td></tr></table></div></div><p>yum 源</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>yum repolist
+</span></span><span style=display:flex><span>yum repolist all
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 查看 yum 源</span>
+</span></span><span style=display:flex><span>yum -y install epel-release
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 如无 epel/x86_64 推荐先安装 epel 源</span>
+</span></span><span style=display:flex><span>yum clean all
+</span></span><span style=display:flex><span>yum makecache
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 清除并重建缓存</span>
+</span></span><span style=display:flex><span>yum update -y
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 更新</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 如需使用 epel 源国内阿里云镜像加速,执行以下命令:</span>
+</span></span><span style=display:flex><span>mv /etc/yum.repos.d/epel.repo /etc/yum.repos.d/epel.repo.backup
+</span></span><span style=display:flex><span>mv /etc/yum.repos.d/epel-testing.repo /etc/yum.repos.d/epel-testing.repo.backup
+</span></span><span style=display:flex><span>wget -O /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo
+</span></span><span style=display:flex><span>yum clean all
+</span></span><span style=display:flex><span>yum makecache
+</span></span></code></pre></td></tr></table></div></div><p>修改网络信息</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span> <span style=color:#0086b3>cd</span>  /etc/sysconfig/network-scripts
+</span></span><span style=display:flex><span> <span style=color:#998;font-style:italic># ls 查看当前网卡信息,可能为 ifcfg-eth0 ifcfg-ens192 等等.</span>
+</span></span><span style=display:flex><span> vi ifcfg-eth0
+</span></span><span style=display:flex><span> <span style=color:#998;font-style:italic># 编辑修改网络信息</span>
+</span></span><span style=display:flex><span> service network restart
+</span></span><span style=display:flex><span> <span style=color:#998;font-style:italic># 重启网络服务</span>
+</span></span></code></pre></td></tr></table></div></div><p>时区及 ntp 时间同步</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>tzselect
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 选择时区</span>
+</span></span><span style=display:flex><span>mv /etc/localtime /etc/localtime.bak
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 备份 localtime</span>
+</span></span><span style=display:flex><span>ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 创建时区软链接,再次 date 检查时区.</span>
+</span></span><span style=display:flex><span>yum -y install ntpdate
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 安装 ntpdate</span>
+</span></span><span style=display:flex><span>ntpdate cn.pool.ntp.org
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 同步时间</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 备选 ntp 服务器</span>
+</span></span><span style=display:flex><span>cn.pool.ntp.org
+</span></span><span style=display:flex><span>ntp.aliyun.com
+</span></span><span style=display:flex><span>ntp1.aliyun.com
+</span></span><span style=display:flex><span>time1.cloud.tencent.com
+</span></span></code></pre></td></tr></table></div></div><p>screen 常用命令</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>yum -y install screen
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 安装 screen</span>
+</span></span><span style=display:flex><span>screen -S xxx
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 新建名为 xxx 的 session</span>
+</span></span><span style=display:flex><span>screen -ls
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 列出当前所有 session</span>
+</span></span><span style=display:flex><span>screen -r xxx
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 恢复到 xxx 这个 session</span>
+</span></span><span style=display:flex><span>screen -d xxx
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 远程分离 xxx 这个 session</span>
+</span></span><span style=display:flex><span>screen -d -r xxx
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 结束当前 session 并恢复到 xxx 这个 session</span>
+</span></span><span style=display:flex><span>screen -S xxx -X quit
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 远程删除 session</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=常规查询>常规查询</h3><p>清除历史登录记录</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#0086b3>echo</span> &gt; /var/log/wtmp
+</span></span></code></pre></td></tr></table></div></div><p>清除历史命令记录</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#0086b3>history</span> -c <span style=color:#000;font-weight:700>&amp;&amp;</span> <span style=color:#0086b3>history</span> -w
+</span></span></code></pre></td></tr></table></div></div><p>一键清除并退出</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#0086b3>echo</span> &gt; /var/log/wtmp <span style=color:#000;font-weight:700>&amp;&amp;</span> <span style=color:#0086b3>history</span> -c <span style=color:#000;font-weight:700>&amp;&amp;</span> <span style=color:#0086b3>history</span> -w <span style=color:#000;font-weight:700>&amp;&amp;</span> <span style=color:#0086b3>exit</span>
+</span></span></code></pre></td></tr></table></div></div><p>查看目录占用空间</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>du -h --max-depth<span style=color:#000;font-weight:700>=</span><span style=color:#099>1</span> /home
+</span></span></code></pre></td></tr></table></div></div><p>端口占用查询</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>netstat -ntlp
+</span></span><span style=display:flex><span>netstat -ntlp | grep <span style=color:#099>80</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 查询80端口占用</span>
+</span></span></code></pre></td></tr></table></div></div><p>CPU内存占用查询</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>ps aux|head -1;ps aux|grep -v PID|sort -rn -k +3|head
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 获取占用CPU资源最多的10个进程</span>
+</span></span><span style=display:flex><span>ps aux|head -1;ps aux|grep -v PID|sort -rn -k +4|head
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 获取占用内存资源最多的10个进程</span>
+</span></span></code></pre></td></tr></table></div></div><p>重新加载systemctl</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>sudo systemctl daemon-reload
+</span></span></code></pre></td></tr></table></div></div><h3 id=iptables>iptables</h3><p>使用 iptables 需禁用默认防火墙 firewalld</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>yum -y install iptables-services
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 安装 iptables iptables-services</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>systemctl stop firewalld
+</span></span><span style=display:flex><span>systemctl disable firewalld
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 禁用 firewall</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>systemctl start iptables
+</span></span><span style=display:flex><span>systemctl status iptables
+</span></span><span style=display:flex><span>systemctl <span style=color:#0086b3>enable</span> iptables
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 启用 iptables</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>iptables -P INPUT ACCEPT
+</span></span><span style=display:flex><span>iptables -P OUTPUT ACCEPT
+</span></span><span style=display:flex><span>iptables -P FORWARD ACCEPT
+</span></span><span style=display:flex><span>iptables -F 
+</span></span><span style=display:flex><span>service iptables save
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 设置默认规则并清空所有规则,保存设置.</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 以下为快速执行</span>
+</span></span><span style=display:flex><span>iptables -P INPUT ACCEPT <span style=color:#000;font-weight:700>&amp;&amp;</span> <span style=color:#d14>\
+</span></span></span><span style=display:flex><span><span style=color:#d14></span>iptables -P OUTPUT ACCEPT <span style=color:#000;font-weight:700>&amp;&amp;</span> <span style=color:#d14>\
+</span></span></span><span style=display:flex><span><span style=color:#d14></span>iptables -P FORWARD ACCEPT <span style=color:#000;font-weight:700>&amp;&amp;</span> <span style=color:#d14>\
+</span></span></span><span style=display:flex><span><span style=color:#d14></span>iptables -F <span style=color:#000;font-weight:700>&amp;&amp;</span> <span style=color:#d14>\
+</span></span></span><span style=display:flex><span><span style=color:#d14></span>service iptables save
+</span></span></code></pre></td></tr></table></div></div><h3 id=防火墙>防火墙</h3><h4 id=常规命令>常规命令</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">8
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>sudo firewall-cmd --add-service<span style=color:#000;font-weight:700>=</span>http --permanent
+</span></span><span style=display:flex><span>sudo firewall-cmd --add-service<span style=color:#000;font-weight:700>=</span>https --permanent
+</span></span><span style=display:flex><span>sudo firewall-cmd --add-port<span style=color:#000;font-weight:700>=</span>80/tcp --permanent
+</span></span><span style=display:flex><span>sudo firewall-cmd --add-port<span style=color:#000;font-weight:700>=</span>443/tcp --permanent
+</span></span><span style=display:flex><span>sudo firewall-cmd --add-port<span style=color:#000;font-weight:700>=</span>4000-5000/tcp --permanent
+</span></span><span style=display:flex><span>sudo firewall-cmd --remove-port<span style=color:#000;font-weight:700>=</span>XXXX/tcp --permanent
+</span></span><span style=display:flex><span>sudo firewall-cmd --reload
+</span></span><span style=display:flex><span>sudo firewall-cmd --list-all
+</span></span></code></pre></td></tr></table></div></div><h4 id=更多命令>更多命令</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">41
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">42
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">43
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">44
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">45
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">46
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">47
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">48
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">49
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">50
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">51
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">52
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">53
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">54
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">55
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">56
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">57
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">58
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">59
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#998;font-style:italic># 查看是否开启</span>
+</span></span><span style=display:flex><span>systemctl status firewalld.service
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 打开防火墙</span>
+</span></span><span style=display:flex><span>systemctl start firewalld.service
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 停用防火墙</span>
+</span></span><span style=display:flex><span>systemctl disable firewalld
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 禁用防火墙</span>
+</span></span><span style=display:flex><span>systemctl stop firewalld.service
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 开机启动</span>
+</span></span><span style=display:flex><span>systemctl <span style=color:#0086b3>enable</span> firewalld
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 取消开机启动</span>
+</span></span><span style=display:flex><span>systemctl disable firewalld
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 查看运行状态</span>
+</span></span><span style=display:flex><span>firewall-cmd --state
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 查看接口信息</span>
+</span></span><span style=display:flex><span>firewall-cmd --list-all
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 更新防火墙规则方法1:无需断开连接，动态更改规则</span>
+</span></span><span style=display:flex><span>firewall-cmd --reload
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 更新防火墙规则方法2:断开连接，以重启的方式更改规则</span>
+</span></span><span style=display:flex><span>firewall-cmd --complete-reload
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 查看帮助</span>
+</span></span><span style=display:flex><span>firewall-cmd --help
+</span></span><span style=display:flex><span>--zone<span style=color:#000;font-weight:700>=</span>NAME <span style=color:#998;font-style:italic># 指定 Zone</span>
+</span></span><span style=display:flex><span>--permanent <span style=color:#998;font-style:italic># 为永久生效</span>
+</span></span><span style=display:flex><span>--timeout<span style=color:#000;font-weight:700>=</span>seconds <span style=color:#998;font-style:italic># 持续一段时间，到期后自动移除，经常用于调试，且不能与 --permanent 同时使用</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 追加一个8181端口，永久有效</span>
+</span></span><span style=display:flex><span>firewall-cmd --add-port<span style=color:#000;font-weight:700>=</span>8181/tcp --permanent
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 追加一段端口范围</span>
+</span></span><span style=display:flex><span>firewall-cmd --add-port<span style=color:#000;font-weight:700>=</span>6000-6600/tcp
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 开放 ftp 服务</span>
+</span></span><span style=display:flex><span>firewall-cmd --add-service<span style=color:#000;font-weight:700>=</span>ftp
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 添加eth0 接口至 public 信任等级，永久有效</span>
+</span></span><span style=display:flex><span>firewall-cmd --zone<span style=color:#000;font-weight:700>=</span>public --add-interface<span style=color:#000;font-weight:700>=</span>eth0 --permanent
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 配置 public zone 的端口转发</span>
+</span></span><span style=display:flex><span>firewall-cmd --zone<span style=color:#000;font-weight:700>=</span>public --add-masquerade
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 然后转发 tcp 22 端口至 9527</span>
+</span></span><span style=display:flex><span>firewall-cmd --zone<span style=color:#000;font-weight:700>=</span>public --add-forward-port<span style=color:#000;font-weight:700>=</span><span style=color:teal>port</span><span style=color:#000;font-weight:700>=</span>22:proto<span style=color:#000;font-weight:700>=</span>tcp:toport<span style=color:#000;font-weight:700>=</span><span style=color:#099>9527</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 转发 22 端口数据至另一个 ip 的相同端口上</span>
+</span></span><span style=display:flex><span>firewall-cmd --zone<span style=color:#000;font-weight:700>=</span>public --add-forward-port<span style=color:#000;font-weight:700>=</span><span style=color:teal>port</span><span style=color:#000;font-weight:700>=</span>22:proto<span style=color:#000;font-weight:700>=</span>tcp:toaddr<span style=color:#000;font-weight:700>=</span>192.168.1.123
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 转发 22 端口数据至另一 ip 的 9527 端口上</span>
+</span></span><span style=display:flex><span>firewall-cmd --zone<span style=color:#000;font-weight:700>=</span>public --add-forward-port<span style=color:#000;font-weight:700>=</span><span style=color:teal>port</span><span style=color:#000;font-weight:700>=</span>22:proto<span style=color:#000;font-weight:700>=</span>tcp:toport<span style=color:#000;font-weight:700>=</span>9527:toaddr<span style=color:#000;font-weight:700>=</span>192.168.1.100
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># IP 封禁</span>
+</span></span><span style=display:flex><span>firewall-cmd --permanent --add-rich-rule<span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#34;rule family=&#39;ipv4&#39; source address=&#39;192.168.1.123&#39; reject&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 通过 ipset 来封禁 ip</span>
+</span></span><span style=display:flex><span>firewall-cmd --permanent --zone<span style=color:#000;font-weight:700>=</span>public --new-ipset<span style=color:#000;font-weight:700>=</span>blacklist --type<span style=color:#000;font-weight:700>=</span>hash:ip
+</span></span><span style=display:flex><span>firewall-cmd --permanent --zone<span style=color:#000;font-weight:700>=</span>public --ipset<span style=color:#000;font-weight:700>=</span>blacklist --add-entry<span style=color:#000;font-weight:700>=</span>192.168.1.123
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 封禁网段</span>
+</span></span><span style=display:flex><span>firewall-cmd --permanent --zone<span style=color:#000;font-weight:700>=</span>public --new-ipset<span style=color:#000;font-weight:700>=</span>blacklist --type<span style=color:#000;font-weight:700>=</span>hash:net
+</span></span><span style=display:flex><span>firewall-cmd --permanent --zone<span style=color:#000;font-weight:700>=</span>public --ipset<span style=color:#000;font-weight:700>=</span>blacklist --add-entry<span style=color:#000;font-weight:700>=</span>192.168.1.0/24
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 倒入 ipset 规则 blacklist，然后封禁 blacklist</span>
+</span></span><span style=display:flex><span>firewall-cmd --permanent --zone<span style=color:#000;font-weight:700>=</span>public --new-ipset-from-file<span style=color:#000;font-weight:700>=</span>/path/blacklist.xml
+</span></span><span style=display:flex><span>firewall-cmd --permanent --zone<span style=color:#000;font-weight:700>=</span>public --add-rich-rule<span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#39;rule source ipset=blacklist drop&#39;</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=系统类>系统类</h2><h3 id=磁盘挂载>磁盘挂载</h3><h4 id=磁盘分区格式化>磁盘分区格式化</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>fdisk -l
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 查看到新硬盘 /dev/sdb</span>
+</span></span><span style=display:flex><span>fdisk /dev/sdb
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 为磁盘分区,选择 n 开始分区,其他直接回车保持默认,结尾 w 保存.</span>
+</span></span><span style=display:flex><span>mkfs.ext4 /dev/sdb1
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 格式化分区</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=磁盘挂载-1>磁盘挂载</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>mkdir /data
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 创建挂载目录</span>
+</span></span><span style=display:flex><span>mount /dev/sdb1 /data
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 挂载至 /data</span>
+</span></span><span style=display:flex><span>vi /etc/fstab
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 配置开机自动挂载</span>
+</span></span><span style=display:flex><span>/dev/sdb1 /data ext4 defaults <span style=color:#099>0</span> <span style=color:#099>0</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 添加启动项后保存</span>
+</span></span><span style=display:flex><span>umount /data
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 取消挂载,同时需再次编辑 /etc/fstab 删除开机自动挂载命令.</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=nfs>NFS</h3><h4 id=服务端>服务端</h4><h5 id=安装>安装</h5><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>yum -y install nfs-utils
+</span></span><span style=display:flex><span>systemctl start rpcbind
+</span></span><span style=display:flex><span>systemctl <span style=color:#0086b3>enable</span> rpcbind
+</span></span><span style=display:flex><span>systemctl start nfs
+</span></span><span style=display:flex><span>systemctl <span style=color:#0086b3>enable</span> nfs
+</span></span></code></pre></td></tr></table></div></div><h5 id=配置>配置</h5><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>vi /etc/exports
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 配置挂载权限</span>
+</span></span><span style=display:flex><span>/share *<span style=color:#000;font-weight:700>(</span>rw,sync,no_root_squash,no_all_squash<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 所有网段</span>
+</span></span><span style=display:flex><span>/share 192.168.1.0/24<span style=color:#000;font-weight:700>(</span>rw,sync,no_root_squash,no_all_squash<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 指定网段</span>
+</span></span><span style=display:flex><span>/share 192.168.1.9<span style=color:#000;font-weight:700>(</span>rw,sync,no_root_squash,no_all_squash<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 指定 IP</span>
+</span></span><span style=display:flex><span>exportfs -r
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 刷新配置</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=客户端挂载>客户端挂载</h4><p>用于挂载局域网内群晖 NFS 共享文件夹,需在群晖 DSM 内开启 NFS 服务,并编辑需挂载的共享文件夹,添加 NFS 权限设置<code>服务器名称或 IP 地址</code>为 <strong><code>\*</code></strong></p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>yum -y install nfs-utils
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 安装 NFS 工具</span>
+</span></span><span style=display:flex><span>mkdir /data
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 创建本地目录</span>
+</span></span><span style=display:flex><span>mount -t nfs 192.168.1.8:/volume1/Downloads /data
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 挂载目录</span>
+</span></span><span style=display:flex><span>vi /etc/fstab
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 设置开机自动挂载</span>
+</span></span><span style=display:flex><span>192.168.1.8:/volume1/Downloads /data nfs defaults <span style=color:#099>0</span> <span style=color:#099>0</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 尾行添加挂载命令</span>
+</span></span><span style=display:flex><span>umount /data
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 取消挂载,同时需再次编辑 /etc/fstab 删除开机自动挂载命令.</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=smb>SMB</h3><h4 id=服务端-1>服务端</h4><h5 id=安装启动>安装启动</h5><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>yum -y install samba
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 安装</span>
+</span></span><span style=display:flex><span>systemctl start smb
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 启动</span>
+</span></span><span style=display:flex><span>systemctl status smb
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 状态</span>
+</span></span><span style=display:flex><span>systemctl <span style=color:#0086b3>enable</span> smb
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 开机自启动</span>
+</span></span><span style=display:flex><span>systemctl restart smb
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 重启</span>
+</span></span></code></pre></td></tr></table></div></div><h5 id=共享文件夹>共享文件夹</h5><p>本文为匿名共享文件夹,无需配置账号密码.</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">8
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>mkdir /data
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 创建共享文件夹</span>
+</span></span><span style=display:flex><span>chown -R nobody:nobody /data
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 赋予文件夹匿名用户权限</span>
+</span></span><span style=display:flex><span>vi /etc/sysconfig/selinux
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># OR</span>
+</span></span><span style=display:flex><span>vi /etc/selinux/config
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 修改 SELINUX=disabled 后重启服务器</span>
+</span></span></code></pre></td></tr></table></div></div><h5 id=配置-smbconf>配置 smb.conf</h5><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>vi /etc/samba/smb.conf
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 参考以下编辑 conf 文件:</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>global<span style=color:#000;font-weight:700>]</span>
+</span></span><span style=display:flex><span>    <span style=color:teal>workgroup</span> <span style=color:#000;font-weight:700>=</span> WORKGROUP
+</span></span><span style=display:flex><span>    <span style=color:teal>security</span> <span style=color:#000;font-weight:700>=</span> user
+</span></span><span style=display:flex><span>    map to <span style=color:teal>guest</span> <span style=color:#000;font-weight:700>=</span> Bad User
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>data<span style=color:#000;font-weight:700>]</span>
+</span></span><span style=display:flex><span>    <span style=color:teal>comment</span> <span style=color:#000;font-weight:700>=</span> date
+</span></span><span style=display:flex><span>    <span style=color:teal>path</span> <span style=color:#000;font-weight:700>=</span> /data
+</span></span><span style=display:flex><span>    <span style=color:teal>public</span> <span style=color:#000;font-weight:700>=</span> yes
+</span></span><span style=display:flex><span>    <span style=color:#0086b3>read</span> <span style=color:teal>only</span> <span style=color:#000;font-weight:700>=</span> No
+</span></span></code></pre></td></tr></table></div></div><h5 id=配置账号密码>配置账号密码</h5><p><a href=https://cloud.tencent.com/developer/article/1691026>参考链接</a></p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>useradd stille
+</span></span><span style=display:flex><span>smbpasswd -a stille
+</span></span><span style=display:flex><span>chown -R nobody:nobody share
+</span></span><span style=display:flex><span>chmod -R <span style=color:#099>777</span> share
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>vi /etc/samba/smb.conf
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>global<span style=color:#000;font-weight:700>]</span>
+</span></span><span style=display:flex><span>    <span style=color:teal>security</span> <span style=color:#000;font-weight:700>=</span> user
+</span></span><span style=display:flex><span>    <span style=color:teal>workgroup</span> <span style=color:#000;font-weight:700>=</span> SAMBA
+</span></span><span style=display:flex><span>    passdb <span style=color:teal>backend</span> <span style=color:#000;font-weight:700>=</span> tdbsam
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>share<span style=color:#000;font-weight:700>]</span>
+</span></span><span style=display:flex><span>    <span style=color:teal>comment</span> <span style=color:#000;font-weight:700>=</span> share
+</span></span><span style=display:flex><span>    <span style=color:teal>path</span> <span style=color:#000;font-weight:700>=</span> /share
+</span></span><span style=display:flex><span>    <span style=color:teal>writable</span> <span style=color:#000;font-weight:700>=</span> no
+</span></span><span style=display:flex><span>    create <span style=color:teal>mask</span> <span style=color:#000;font-weight:700>=</span> <span style=color:#099>0644</span>
+</span></span><span style=display:flex><span>    directory <span style=color:teal>mask</span> <span style=color:#000;font-weight:700>=</span> <span style=color:#099>02755</span>
+</span></span><span style=display:flex><span>    valid <span style=color:teal>users</span> <span style=color:#000;font-weight:700>=</span> stille
+</span></span><span style=display:flex><span>    write <span style=color:teal>list</span> <span style=color:#000;font-weight:700>=</span> stille
+</span></span></code></pre></td></tr></table></div></div><h5 id=检查语法>检查语法</h5><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>testparm
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 检查语法</span>
+</span></span><span style=display:flex><span>systemctl restart smb
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 重启 smb 服务</span>
+</span></span></code></pre></td></tr></table></div></div><h5 id=avahi>avahi</h5><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>yum install avahi-tools
+</span></span><span style=display:flex><span>systemctl start avahi-daemon
+</span></span><span style=display:flex><span>systemctl <span style=color:#0086b3>enable</span> avahi-daemon
+</span></span><span style=display:flex><span>vi /etc/avahi/services/smb.service
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>&lt;service-group&gt;
+</span></span><span style=display:flex><span>&lt;name&gt;CENTOS&lt;/name&gt;
+</span></span><span style=display:flex><span>&lt;service&gt;
+</span></span><span style=display:flex><span>&lt;type&gt;_device-info._tcp&lt;/type&gt;
+</span></span><span style=display:flex><span>&lt;txt-record&gt;model<span style=color:#000;font-weight:700>=</span>Xserve&lt;/txt-record&gt;
+</span></span><span style=display:flex><span>&lt;/service&gt;
+</span></span><span style=display:flex><span>&lt;service&gt;
+</span></span><span style=display:flex><span>&lt;type&gt;_smb._tcp&lt;/type&gt;
+</span></span><span style=display:flex><span>&lt;port&gt;445&lt;/port&gt;
+</span></span><span style=display:flex><span>&lt;/service&gt;
+</span></span><span style=display:flex><span>&lt;/service-group&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>systemctl restart avahi-daemon
+</span></span></code></pre></td></tr></table></div></div><h4 id=客户端>客户端</h4><h5 id=匿名挂载>匿名挂载</h5><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>mount -t cifs -o guest //192.168.1.8/share /share
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 配置开机自动挂载</span>
+</span></span><span style=display:flex><span>vim /etc/fstab
+</span></span><span style=display:flex><span>//192.168.1.8/share  /share          cifs    defaults,guest  <span style=color:#099>0</span> <span style=color:#099>0</span>
+</span></span></code></pre></td></tr></table></div></div><h5 id=用户密码挂载>用户密码挂载</h5><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>mount -t cifs -o <span style=color:teal>username</span><span style=color:#000;font-weight:700>=</span>xxxxx,password<span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#39;xxxxx&#39;</span>,iocharset<span style=color:#000;font-weight:700>=</span>utf-8 //192.168.1.8/share /share
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 配置开机自动挂载</span>
+</span></span><span style=display:flex><span>vim /etc/fstab
+</span></span><span style=display:flex><span>//192.168.1.8/share  /share          cifs    defaults,username<span style=color:#000;font-weight:700>=</span>xxxxx,password<span style=color:#000;font-weight:700>=</span>xxxxx
+</span></span></code></pre></td></tr></table></div></div><h5 id=umount>umount</h5><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>umount /share
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 遇到无法 umount 时</span>
+</span></span><span style=display:flex><span>yum install psmisc
+</span></span><span style=display:flex><span>fuser -mv /share
+</span></span><span style=display:flex><span><span style=color:#0086b3>kill</span> -9 xxxx
+</span></span></code></pre></td></tr></table></div></div></div></div></div><div id=footer><div class=container-footer><div class=beian><a target=_blank href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode="></a><a href target=_blank><span class=some>icp...<span></a></div><div class=info><a href=https://github.com/loveminimal/hugo-theme-virgo>🕊️</a> 2021 - <span id=info-date></span></div></div></div><div class=cool-after></div></body></html>

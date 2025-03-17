@@ -1,0 +1,847 @@
+<!doctype html><html lang=zh-CN><head><meta name=viewport content="width=device-width,initial-scale=1"><meta charset=utf-8><meta name=description content="CEPH搭建 - https://t.haipengv.com/posts/ceph%E6%90%AD%E5%BB%BA/"><meta name=author content="Smith - https://t.haipengv.com/"><meta name=msvalidate.01 content="B46311949B856F2A7015F366FB3CE878"><title>CEPH搭建</title><base target=_blank><link rel=icon type=image/png href=/favicon.ico><link rel=stylesheet href=https://t.haipengv.com/style.min.9a0cea23154ac1941e15c25aa2d31b77285a217d2606ec05b55236428cf1c3e6.css><script>const DARK=!1</script><script type=text/javascript src=/main.js defer></script></head><body class=active-animate><div class=cool-before></div><div id=header><div class=container-header><div class=right><h1 class=title>CEPH搭建</h1><div id=toc>📜</div></div></div></div><div id=content><div class="container-main container-page"><div class=rel><div class=curtag-desc><a href=https://t.haipengv.com/tags/kubernetes/><img src=/imgs/icons/tag.svg width=16> 相关文章：Kubernetes <sup>4</sup></a></div><div class=curtag-post><div class="curtag-post-item curtag-post-item--active"><a href=https://t.haipengv.com/posts/ceph%E6%90%AD%E5%BB%BA/>CEPH搭建</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/cks%E5%88%9D%E5%A7%8B%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/>CKS初始环境搭建</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/k8s%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/>K8s网络通信</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/k8s%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/>K8s集群搭建</a></div></div></div><div class=desc><span><svg t="1656736000388" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="7409" width="12" height="12"><path d="M524.885333 338.986667l-324.522666 324.48c-17.28 15.274667-27.989333 36.693333-29.696 56.234666v133.76l130.730666.085334c22.784-1.621333 43.989333-12.245333 61.013334-31.701334L685.098667 499.2 524.885333 338.986667zM585.258667 278.656l160.170666 160.213333 102.144-102.144a19.712 19.712.0 000-27.861333l-132.48-132.437333a19.456 19.456.0 00-27.605333.0L585.258667 278.613333zM701.312 85.333333c27.946667.0 54.741333 11.136 74.282667 30.848L907.904 248.490667a105.045333 105.045333.0 010 148.565333L424.874667 879.957333C395.050667 914.304 352.768 935.424 304.426667 938.752H85.333333v-42.666667l.128-179.84c3.626667-44.970667 24.576-86.826667 56.448-114.944l485.12-485.034666a104.789333 104.789333.0 0174.24-30.933334z" p-id="7410" fill="#adb5bd"/></svg>2025-03-16&nbsp;&nbsp;&nbsp;<svg t="1656737270708" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="23838" width="11" height="11"><path d="M824.264 95.36c0-23.859 25.043-44.16 48.902-44.16s49.714 20.301 49.714 44.16v190.08c0 23.859-19.054 52.868-42.913 52.868h-190.08c-23.859.0-46.696-25.96-46.696-49.819s22.55-46.249 46.409-46.249h82.025C702.344 175.534 610.22 155.853 512 155.853c-206.775.0-360.398 149.372-360.398 356.147S305.225 870.23 512 870.23c206.775.0 357.467-151.455 357.467-358.23.0-23.859 23.634-50.706 53.413-50.706 29.78.0 49.92 26.847 49.92 50.706.0 254.493-206.307 460.8-460.8 460.8s-460.8-206.307-460.8-460.8C51.2 257.507 257.507 51.2 512 51.2c122.4.0 226.684 33.296 312.264 117.369.358.351.358-24.052.0-73.209z" p-id="23839" fill="#adb5bd"/></svg>
+2025-03-16&nbsp;&nbsp;&nbsp;</span>
+<span><svg t="1656737548689" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="33866" width="12" height="12"><path d="M832.038608 64.662657H192.030028c-70.774903.0-128.089859 57.325793-128.089859 128.03206v446.793671c0 70.7171050000001 57.314956 128.154884 128.089859 128.154884h133.353183a63.940169 63.940169.0 0155.219742 31.576328l76.099638 129.83828c12.358154 21.093031 33.790754 31.626903 55.216129 31.626903s42.832688-10.544709 55.198067-31.619678l76.222461-129.870792a63.940169 63.940169.0 0155.212517-31.551041h133.54103c70.576219.0 127.732228-57.289669 127.732227-127.800865V192.391272c0-70.536482-57.181295-127.728615-127.786414-127.728615zM895.884854 639.842407A63.85347 63.85347.0 01832.092795 703.703103h-133.54103a127.753903 127.753903.0 00-110.349172 63.09847l-76.222461 129.856342a.274545.274545.0 010-.050574h-.032512s-.021675.061411-.032512.061412l-76.1466-129.85273a127.804477 127.804477.0 00-110.385297-63.11292H192.030028A64.207489 64.207489.0 01127.880338 639.488388V192.694717a64.102729 64.102729.0 0164.14969-64.091891h640.00858a63.799284 63.799284.0 0163.846246 63.788446v447.451135z" fill="#adb5bd" p-id="33867"/><path d="M608.154093 288.092004a31.970084 31.970084.0 00-31.970084 31.970085v160.078006L441.53396 300.861976a31.970084 31.970084.0 00-57.531702 19.200113v255.760676a31.970084 31.970084.0 0063.940169.0V415.863969l134.650048 179.274507a31.970084 31.970084.0 0057.531703-19.200113V320.062089a31.970084 31.970084.0 00-31.970085-31.970085z" fill="#adb5bd" p-id="33868"/></svg>4789 字</span>&nbsp;
+<span><svg t="1656737462334" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="32892" width="12" height="12"><path d="M512 74.666667C270.933333 74.666667 74.666667 270.933333 74.666667 512S270.933333 949.333333 512 949.333333 949.333333 753.066667 949.333333 512 753.066667 74.666667 512 74.666667zm0 810.666666C307.2 885.333333 138.666667 716.8 138.666667 512S307.2 138.666667 512 138.666667 885.333333 307.2 885.333333 512 716.8 885.333333 512 885.333333z" p-id="32893" fill="#adb5bd"/><path d="M695.466667 567.466667 544 497.066667V277.333333c0-17.066667-14.933333-32-32-32s-32 14.933333-32 32v238.933334c0 12.8 6.4 23.466667 19.2 29.866666L669.866667 627.2c4.266667 2.133333 8.533333 2.133333 12.8 2.133333 12.8.0 23.466667-6.4 29.866666-19.2 6.4-14.933333.0-34.133333-17.066666-42.666666z" p-id="32894" fill="#adb5bd"/></svg>10 分钟</span><div class=container-ctgtag><div class=taxonomy><div class=tag><a href=/tags/kubernetes>Kubernetes</a></div></div></div></div><div class=toc><div class=container-page-operation><div class=page-operation><div><a href=/><img src=/imgs/icons/home-2.svg alt></a></div><div><a href=/nav><img src=/imgs/icons/iov-navigate-1.svg alt></a></div><div><a href=/wiki><img src=/imgs/icons/wiki.svg alt></a></div><div><a href=/tags><img src=/imgs/icons/treetags.svg alt></a></div><div id=light-dark><a><img src=/imgs/icons/moon2.svg alt></a></div><div><a href=#><img src=/imgs/icons/up2.svg alt></a></div></div></div><nav id=TableOfContents><ul><li><ul><li><a href=#基于k8s的ceph集群搭建>基于k8s的ceph集群搭建</a></li><li><a href=#环境>环境</a></li></ul></li><li><a href=#系统配置>系统配置</a><ul><li></li><li><a href=#免密码ssh登陆>免密码SSH登陆</a></li></ul></li><li><a href=#集群搭建配置><strong>集群搭建配置</strong></a><ul><li></li><li><a href=#安装osd对象存储设备>安装OSD(对象存储设备)</a></li></ul></li><li><a href=#安装管理后台可选><strong>安装管理后台</strong>（可选）</a><ul><li></li></ul></li><li><a href=#创建cephfs>创建Cephfs</a><ul><li></li><li><a href=#采用fuse挂载>采用fuse挂载</a></li></ul></li><li><a href=#ceph常用命令>ceph常用命令</a><ul><li></li></ul></li><li><a href=#日志文件汇总>日志文件汇总</a><ul><li><a href=#参考文档>参考文档</a></li></ul></li></ul></nav></div><div class=content><h3 id=基于k8s的ceph集群搭建>基于k8s的ceph集群搭建</h3><h3 id=环境>环境</h3><ul><li>master-139 mon,osd 既做管理节点又做子节点</li><li>node1-140 mon,osd 做子节点</li><li>node2-141 mon,osd 做子节点</li><li>ceph 版本 13.2.10 mimic (stable)</li></ul><h2 id=系统配置>系统配置</h2><p>系统配置工作， 三台节点依次执行</p><h4 id=1修改主机名称>1、修改主机名称</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@master-139 ~<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># vi /etc/hostname</span>
+</span></span><span style=display:flex><span>master-139
+</span></span></code></pre></td></tr></table></div></div><h4 id=2编辑hosts文件>2、编辑hosts文件</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>10.4.7.139   master-139
+</span></span><span style=display:flex><span>10.4.7.140   node1-140
+</span></span><span style=display:flex><span>10.4.7.141	 node2-141
+</span></span></code></pre></td></tr></table></div></div><p>注意， 这里面的主机名称要和节点名称保持一致， 否则安装的时候会出现问题</p><h4 id=3修改yum源>3.修改yum源</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>cat <span style=color:#d14>&lt;&lt; EOF &gt; /etc/yum.repos.d/ceph.repo 
+</span></span></span><span style=display:flex><span><span style=color:#d14>[ceph] 
+</span></span></span><span style=display:flex><span><span style=color:#d14>name=Ceph packages for $basearch
+</span></span></span><span style=display:flex><span><span style=color:#d14>baseurl=https://mirrors.tuna.tsinghua.edu.cn/ceph/rpm-mimic/el7/x86_64/ 
+</span></span></span><span style=display:flex><span><span style=color:#d14>enabled=1 
+</span></span></span><span style=display:flex><span><span style=color:#d14>gpgcheck=1 
+</span></span></span><span style=display:flex><span><span style=color:#d14>type=rpm-md 
+</span></span></span><span style=display:flex><span><span style=color:#d14>gpgkey=https://download.ceph.com/keys/release.asc
+</span></span></span><span style=display:flex><span><span style=color:#d14> 
+</span></span></span><span style=display:flex><span><span style=color:#d14>[ceph-noarch] 
+</span></span></span><span style=display:flex><span><span style=color:#d14>name=Ceph noarch packages 
+</span></span></span><span style=display:flex><span><span style=color:#d14># 官方源 
+</span></span></span><span style=display:flex><span><span style=color:#d14>#baseurl=http://download.ceph.com/rpm-mimic/el7/noarch 
+</span></span></span><span style=display:flex><span><span style=color:#d14># 清华源 
+</span></span></span><span style=display:flex><span><span style=color:#d14>baseurl=https://mirrors.tuna.tsinghua.edu.cn/ceph/rpm-mimic/el7/noarch/ 
+</span></span></span><span style=display:flex><span><span style=color:#d14>enabled=1 
+</span></span></span><span style=display:flex><span><span style=color:#d14>gpgcheck=1 
+</span></span></span><span style=display:flex><span><span style=color:#d14>type=rpm-md 
+</span></span></span><span style=display:flex><span><span style=color:#d14>gpgkey=https://download.ceph.com/keys/release.asc
+</span></span></span><span style=display:flex><span><span style=color:#d14> 
+</span></span></span><span style=display:flex><span><span style=color:#d14>[ceph-source] 
+</span></span></span><span style=display:flex><span><span style=color:#d14>name=Ceph source packages
+</span></span></span><span style=display:flex><span><span style=color:#d14>baseurl=https://mirrors.tuna.tsinghua.edu.cn/ceph/rpm-mimic/el7/SRPMS/ 
+</span></span></span><span style=display:flex><span><span style=color:#d14>enabled=1 
+</span></span></span><span style=display:flex><span><span style=color:#d14>gpgcheck=1 
+</span></span></span><span style=display:flex><span><span style=color:#d14>type=rpm-md 
+</span></span></span><span style=display:flex><span><span style=color:#d14>gpgkey=https://download.ceph.com/keys/release.asc
+</span></span></span><span style=display:flex><span><span style=color:#d14>EOF</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=4安装ceph与ceph-deploy组件>4、安装ceph与ceph-deploy组件</h4><pre tabindex=0><code>yum clean all &amp;&amp; yum makecache 
+yum -y install python-setuptools epel-release
+yum -y install python2-pip ceph-deploy ceph
+</code></pre><h4 id=5安装ntp时间同步工具>5.安装NTP时间同步工具</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>yum install ntp ntpdate ntp-doc -y
+</span></span></code></pre></td></tr></table></div></div><p>确保时区是正确， 设置开机启动：</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>systemctl <span style=color:#0086b3>enable</span> ntpd
+</span></span></code></pre></td></tr></table></div></div><p>并将时间每隔1小时自动校准同步。编辑 vi /etc/rc.d/rc.local 追加：</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>/usr/sbin/ntpdate ntp1.aliyun.com &gt; /dev/null 2&gt;&amp;1; /sbin/hwclock -w
+</span></span></code></pre></td></tr></table></div></div><p>配置定时任务, 执行crontab -e 加入：</p><h3 id=免密码ssh登陆>免密码SSH登陆</h3><h4 id=6开放端口-非生产环境-可以直接禁用防火墙>6.开放端口， 非生产环境， 可以直接禁用防火墙：</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>systemctl stop firewalld.service 
+</span></span><span style=display:flex><span>systemctl disable firewalld.service
+</span></span></code></pre></td></tr></table></div></div><h4 id=7selinux设置>7.SELINUX设置</h4><p>SELinux 设为禁用：</p><p>永久生效：
+编辑 vi /etc/selinux/config 修改：</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:teal>SELINUX</span><span style=color:#000;font-weight:700>=</span>disabled
+</span></span></code></pre></td></tr></table></div></div><h4 id=8生成密钥>8.生成密钥</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>执行 ssh-keygen ，一直按默认提示点击生成 RSA 密钥信息。
+</span></span></code></pre></td></tr></table></div></div><h4 id=9分发密钥至各机器节点>9.分发密钥至各机器节点</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>ssh-copy-id root@master-139
+</span></span><span style=display:flex><span>ssh-copy-id root@node1-140
+</span></span><span style=display:flex><span>ssh-copy-id root@node2-141
+</span></span></code></pre></td></tr></table></div></div><p><strong>注意：以上1-9步骤在所有节点上执行！！</strong></p><h2 id=集群搭建配置><strong>集群搭建配置</strong></h2><h4 id=1采用root身份进行安装在管理节点创建集群配置目录>1.采用root身份进行安装，在管理节点创建集群配置目录</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#0086b3>cd</span> /usr/local/
+</span></span><span style=display:flex><span>mkdir ceph-cluster 
+</span></span><span style=display:flex><span><span style=color:#0086b3>cd</span> ceph-cluster
+</span></span></code></pre></td></tr></table></div></div><p>注意： 此目录作为 ceph 操作命令的基准目录， 会存储处理配置信息。</p><h4 id=2创建集群-包含三台机器节点>2.创建集群， 包含三台机器节点：</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>ceph-deploy new master-139 node1-140 node2-141
+</span></span></code></pre></td></tr></table></div></div><p>创建成功后， 会生一个配置文件。</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@master-139 ceph-cluster<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># ll</span>
+</span></span><span style=display:flex><span>total <span style=color:#099>16</span>
+</span></span><span style=display:flex><span>-rw-r--r-- <span style=color:#099>1</span> root root  <span style=color:#099>242</span> May <span style=color:#099>15</span> 03:15 ceph.conf
+</span></span><span style=display:flex><span>-rw-r--r-- <span style=color:#099>1</span> root root <span style=color:#099>5559</span> May <span style=color:#099>15</span> 03:15 ceph-deploy-ceph.log
+</span></span><span style=display:flex><span>-rw------- <span style=color:#099>1</span> root root   <span style=color:#099>73</span> May <span style=color:#099>15</span> 03:15 ceph.mon.keyring
+</span></span></code></pre></td></tr></table></div></div><h4 id=3如果接下来集群的安装配置出现问题-可以执行以下命令清除-再重新安装可选>3.如果接下来集群的安装配置出现问题， 可以执行以下命令清除， 再重新安装(可选)</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>ceph-deploy purge master-139 node1-140 node2-141
+</span></span><span style=display:flex><span>ceph-deploy purgedata master-139 node1-140 node2-141
+</span></span><span style=display:flex><span>ceph-deploy forgetkeys
+</span></span></code></pre></td></tr></table></div></div><h4 id=4将三台节点的mon信息也删除可选>4.将三台节点的mon信息也删除（可选）</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>rm -rf /var/run/ceph/
+</span></span></code></pre></td></tr></table></div></div><h4 id=5修改配置文件-有些配置后面需用到>5.修改配置文件， 有些配置后面需用到</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>vi /usr/local/ceph-cluster/ceph.conf
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>global<span style=color:#000;font-weight:700>]</span> 
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 设置pool池默认分配数量 默认副本数为3 </span>
+</span></span><span style=display:flex><span>osd pool default <span style=color:teal>size</span> <span style=color:#000;font-weight:700>=</span> <span style=color:#099>3</span> 
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 容忍更多的时钟误差 </span>
+</span></span><span style=display:flex><span>mon clock drift <span style=color:teal>allowed</span> <span style=color:#000;font-weight:700>=</span> <span style=color:#099>2</span> 
+</span></span><span style=display:flex><span>mon clock drift warn <span style=color:teal>backoff</span> <span style=color:#000;font-weight:700>=</span> <span style=color:#099>30</span> 
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 允许删除pool </span>
+</span></span><span style=display:flex><span><span style=color:teal>mon_allow_pool_delete</span> <span style=color:#000;font-weight:700>=</span> <span style=color:#0086b3>true</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>mgr<span style=color:#000;font-weight:700>]</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 开启WEB仪表盘 </span>
+</span></span><span style=display:flex><span>mgr <span style=color:teal>modules</span> <span style=color:#000;font-weight:700>=</span> dashboard
+</span></span></code></pre></td></tr></table></div></div><p>第一项为副本数， 设为 3 份。
+第二、三项为允许一定时间的漂移误差。</p><p><strong>设置完成后的配置如下</strong></p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>global<span style=color:#000;font-weight:700>]</span>
+</span></span><span style=display:flex><span><span style=color:teal>fsid</span> <span style=color:#000;font-weight:700>=</span> 67dcaf50-275b-442f-b69d-677fd8afcc94
+</span></span><span style=display:flex><span><span style=color:teal>mon_initial_members</span> <span style=color:#000;font-weight:700>=</span> master-139, node1-140, node2-141
+</span></span><span style=display:flex><span><span style=color:teal>mon_host</span> <span style=color:#000;font-weight:700>=</span> 10.4.7.139,10.4.7.140,10.4.7.141
+</span></span><span style=display:flex><span><span style=color:teal>auth_cluster_required</span> <span style=color:#000;font-weight:700>=</span> cephx
+</span></span><span style=display:flex><span><span style=color:teal>auth_service_required</span> <span style=color:#000;font-weight:700>=</span> cephx
+</span></span><span style=display:flex><span><span style=color:teal>auth_client_required</span> <span style=color:#000;font-weight:700>=</span> cephx
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 设置pool池默认分配数量 默认副本数为3</span>
+</span></span><span style=display:flex><span>osd pool default <span style=color:teal>size</span> <span style=color:#000;font-weight:700>=</span> <span style=color:#099>3</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 容忍更多的时钟误差</span>
+</span></span><span style=display:flex><span>mon clock drift <span style=color:teal>allowed</span> <span style=color:#000;font-weight:700>=</span> <span style=color:#099>2</span>
+</span></span><span style=display:flex><span>mon clock drift warn <span style=color:teal>backoff</span> <span style=color:#000;font-weight:700>=</span> <span style=color:#099>30</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 允许删除pool</span>
+</span></span><span style=display:flex><span><span style=color:teal>mon_allow_pool_delete</span> <span style=color:#000;font-weight:700>=</span> <span style=color:#0086b3>true</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>mgr<span style=color:#000;font-weight:700>]</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 开启WEB仪表盘</span>
+</span></span><span style=display:flex><span>mgr <span style=color:teal>modules</span> <span style=color:#000;font-weight:700>=</span> dashboard
+</span></span></code></pre></td></tr></table></div></div><h4 id=6执行安装>6.执行安装</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>ceph-deploy install master-139 node1-140 node2-141
+</span></span></code></pre></td></tr></table></div></div><p>如果出现错误：</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>ceph_deploy<span style=color:#000;font-weight:700>][</span>ERROR <span style=color:#000;font-weight:700>]</span> RuntimeError: Failed to execute command: ceph --version
+</span></span></code></pre></td></tr></table></div></div><p>可以在各节点上单独进行安装：</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>yum -y install ceph 
+</span></span></code></pre></td></tr></table></div></div><p>如果没有仓库文件 ceph.repo ， 按上面的步骤手工创建。</p><h4 id=7初始monitor信息>7.初始monitor信息</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>ceph-deploy mon create-initial <span style=color:#998;font-style:italic>## ceph-deploy --overwrite-conf mon create-initial</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>初始化后生成以下信息</strong></p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>ceph_deploy.gatherkeys<span style=color:#000;font-weight:700>][</span>INFO  <span style=color:#000;font-weight:700>]</span> Storing ceph.client.admin.keyring
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>ceph_deploy.gatherkeys<span style=color:#000;font-weight:700>][</span>INFO  <span style=color:#000;font-weight:700>]</span> Storing ceph.bootstrap-mds.keyring
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>ceph_deploy.gatherkeys<span style=color:#000;font-weight:700>][</span>INFO  <span style=color:#000;font-weight:700>]</span> Storing ceph.bootstrap-mgr.keyring
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>ceph_deploy.gatherkeys<span style=color:#000;font-weight:700>][</span>INFO  <span style=color:#000;font-weight:700>]</span> keyring <span style=color:#d14>&#39;ceph.mon.keyring&#39;</span> already exists
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>ceph_deploy.gatherkeys<span style=color:#000;font-weight:700>][</span>INFO  <span style=color:#000;font-weight:700>]</span> Storing ceph.bootstrap-osd.keyring
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>ceph_deploy.gatherkeys<span style=color:#000;font-weight:700>][</span>INFO  <span style=color:#000;font-weight:700>]</span> Storing ceph.bootstrap-rgw.keyring
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>ceph_deploy.gatherkeys<span style=color:#000;font-weight:700>][</span>INFO  <span style=color:#000;font-weight:700>]</span> Destroy temp directory /tmp/tmpuBxetx
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@master-139 ceph-cluster<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># ll</span>
+</span></span><span style=display:flex><span>total <span style=color:#099>220</span>
+</span></span><span style=display:flex><span>-rw------- <span style=color:#099>1</span> root root    <span style=color:#099>113</span> May <span style=color:#099>15</span> 03:29 ceph.bootstrap-mds.keyring
+</span></span><span style=display:flex><span>-rw------- <span style=color:#099>1</span> root root    <span style=color:#099>113</span> May <span style=color:#099>15</span> 03:29 ceph.bootstrap-mgr.keyring
+</span></span><span style=display:flex><span>-rw------- <span style=color:#099>1</span> root root    <span style=color:#099>113</span> May <span style=color:#099>15</span> 03:29 ceph.bootstrap-osd.keyring
+</span></span><span style=display:flex><span>-rw------- <span style=color:#099>1</span> root root    <span style=color:#099>113</span> May <span style=color:#099>15</span> 03:29 ceph.bootstrap-rgw.keyring
+</span></span><span style=display:flex><span>-rw------- <span style=color:#099>1</span> root root    <span style=color:#099>151</span> May <span style=color:#099>15</span> 03:29 ceph.client.admin.keyring
+</span></span><span style=display:flex><span>-rw-r--r-- <span style=color:#099>1</span> root root    <span style=color:#099>529</span> May <span style=color:#099>15</span> 03:22 ceph.conf
+</span></span><span style=display:flex><span>-rw-r--r-- <span style=color:#099>1</span> root root <span style=color:#099>167370</span> May <span style=color:#099>15</span> 03:29 ceph-deploy-ceph.log
+</span></span><span style=display:flex><span>-rw------- <span style=color:#099>1</span> root root     <span style=color:#099>73</span> May <span style=color:#099>15</span> 03:22 ceph.mon.keyring
+</span></span></code></pre></td></tr></table></div></div><h4 id=8同步管理信息>8.同步管理信息</h4><p>下发配置文件和管理信息至各节点：</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>ceph-deploy admin master-139 node1-140 node2-141
+</span></span></code></pre></td></tr></table></div></div><h4 id=9安装mgr管理守护进程-大于12x版本需安装-我们装的是最新版需执行>9.安装mgr(管理守护进程)， 大于12.x版本需安装， 我们装的是最新版，需执行：</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>ceph-deploy mgr create master-139 node1-140 node2-141
+</span></span></code></pre></td></tr></table></div></div><h4 id=10查看当前ceph版本>10.查看当前ceph版本</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#998;font-style:italic># ceph -v</span>
+</span></span><span style=display:flex><span>ceph version 13.2.10 <span style=color:#000;font-weight:700>(</span>564bdc4ae87418a232fc901524470e1a0f76d641<span style=color:#000;font-weight:700>)</span> mimic <span style=color:#000;font-weight:700>(</span>stable<span style=color:#000;font-weight:700>)</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>以上操作都在管理节点master-139上执行！！</strong></p><h3 id=安装osd对象存储设备>安装OSD(对象存储设备)</h3><p>注意： 新版本的 OSD 没有 prepare 与 activate 命令。
+这里需要新的硬盘作为 OSD 存储设备， 关闭虚拟机， 增加一块硬盘， 不用格式化。</p><p>各节点都添加100G硬盘。</p><p>重启， fdisk -l 查看新磁盘名称：</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>Disk /dev/sdb: 107.4 GB, <span style=color:#099>107374182400</span> bytes, <span style=color:#099>209715200</span> sectors
+</span></span><span style=display:flex><span><span style=color:teal>Units</span> <span style=color:#000;font-weight:700>=</span> sectors of <span style=color:#099>1</span> * <span style=color:teal>512</span> <span style=color:#000;font-weight:700>=</span> <span style=color:#099>512</span> bytes
+</span></span><span style=display:flex><span>Sector size <span style=color:#000;font-weight:700>(</span>logical/physical<span style=color:#000;font-weight:700>)</span>: <span style=color:#099>512</span> bytes / <span style=color:#099>512</span> bytes
+</span></span><span style=display:flex><span>I/O size <span style=color:#000;font-weight:700>(</span>minimum/optimal<span style=color:#000;font-weight:700>)</span>: <span style=color:#099>512</span> bytes / <span style=color:#099>512</span> bytes
+</span></span></code></pre></td></tr></table></div></div><h4 id=1执行创建osd命令>1.执行创建OSD命令</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>ceph-deploy osd create --data /dev/sdb master-139 
+</span></span><span style=display:flex><span>ceph-deploy osd create --data /dev/sdb node1-140 
+</span></span><span style=display:flex><span>ceph-deploy osd create --data /dev/sdb node2-141
+</span></span></code></pre></td></tr></table></div></div><p>三台节点都需分别依次执行。</p><p>都切换到/usr/local/ceph-cluster下执行</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>ceph-deploy gatherkeys master-139
+</span></span></code></pre></td></tr></table></div></div><h4 id=2验证节点>2.验证节点：</h4><p>输入 ceph health 或 ceph -s 查看， 出现 HEALTH_OK 代表正常。</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@master-139 ceph-cluster<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># ceph -s </span>
+</span></span><span style=display:flex><span>  cluster:
+</span></span><span style=display:flex><span>    id:     4f74ac9a-b5f5-4bf5-9107-15ab8ea41f76
+</span></span><span style=display:flex><span>    health: HEALTH_OK
+</span></span><span style=display:flex><span> 
+</span></span><span style=display:flex><span>  services:
+</span></span><span style=display:flex><span>    mon: <span style=color:#099>3</span> daemons, quorum master-139,node1-140,node2-141
+</span></span><span style=display:flex><span>    mgr: master-139<span style=color:#000;font-weight:700>(</span>active<span style=color:#000;font-weight:700>)</span>, standbys: node1-140, node2-141
+</span></span><span style=display:flex><span>    osd: <span style=color:#099>3</span> osds: <span style=color:#099>3</span> up, <span style=color:#099>3</span> in
+</span></span><span style=display:flex><span> 
+</span></span><span style=display:flex><span>  data:
+</span></span><span style=display:flex><span>    pools:   <span style=color:#099>0</span> pools, <span style=color:#099>0</span> pgs
+</span></span><span style=display:flex><span>    objects: <span style=color:#099>0</span>  objects, <span style=color:#099>0</span> B
+</span></span><span style=display:flex><span>    usage:   3.0 GiB used, <span style=color:#099>297</span> GiB / <span style=color:#099>300</span> GiB avail
+</span></span><span style=display:flex><span>    pgs:     
+</span></span></code></pre></td></tr></table></div></div><h4 id=3如果出现错误各节点上执行确保时间一致>3.如果出现错误，各节点上执行,确保时间一致。</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span> ntpdate ntp1.aliyun.com
+</span></span></code></pre></td></tr></table></div></div><h2 id=安装管理后台可选><strong>安装管理后台</strong>（可选）</h2><h4 id=1开启dashboard模块>1.开启dashboard模块</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>ceph mgr module <span style=color:#0086b3>enable</span> dashboard
+</span></span></code></pre></td></tr></table></div></div><h4 id=2生成签名>2.生成签名</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>ceph dashboard create-self-signed-cert
+</span></span></code></pre></td></tr></table></div></div><h4 id=3创建目录>3.创建目录</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>mkdir mgr-dashboard
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@master-139 mgr-dashboard<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># pwd </span>
+</span></span><span style=display:flex><span>/usr/local/ceph-cluster/mgr-dashboard
+</span></span></code></pre></td></tr></table></div></div><h4 id=4生成密钥对>4.生成密钥对</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#0086b3>cd</span> /usr/local/ceph-cluster/mgr-dashboard
+</span></span><span style=display:flex><span>openssl req -new -nodes -x509 -subj <span style=color:#d14>&#34;/O=IT/CN=ceph-mgr-dashboard&#34;</span> -days <span style=color:#099>3650</span> -keyout dashboard.key -out dashboard.crt -extensions v3_ca
+</span></span></code></pre></td></tr></table></div></div><h4 id=5启动dashboard>5.启动dashboard</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>ceph mgr module disable dashboard 
+</span></span><span style=display:flex><span>ceph mgr module <span style=color:#0086b3>enable</span> dashboard
+</span></span></code></pre></td></tr></table></div></div><h4 id=6设置ip与port>6.设置IP与PORT</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>ceph config <span style=color:#0086b3>set</span> mgr mgr/dashboard/server_addr 10.4.7.139
+</span></span><span style=display:flex><span>ceph config <span style=color:#0086b3>set</span> mgr mgr/dashboard/server_port <span style=color:#099>18843</span>
+</span></span></code></pre></td></tr></table></div></div><p>注意：ip为管理节点的主IP</p><h4 id=7关闭https>7.关闭HTTPS</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>ceph config <span style=color:#0086b3>set</span> mgr mgr/dashboard/ssl <span style=color:#0086b3>false</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=8查看服务信息>8.查看服务信息</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@master-139 mgr-dashboard<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># ceph mgr services</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>{</span>
+</span></span><span style=display:flex><span>    <span style=color:#d14>&#34;dashboard&#34;</span>: <span style=color:#d14>&#34;https://master-139:8443/&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>}</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=9设置管理用户与密码>9.设置管理用户与密码</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>ceph dashboard set-login-credentials admin admin
+</span></span></code></pre></td></tr></table></div></div><h4 id=10访问>10.访问</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>http://10.4.7.139:18843
+</span></span></code></pre></td></tr></table></div></div><h2 id=创建cephfs>创建Cephfs</h2><p>集群创建完后， 默认没有文件系统， 我们创建一个 Cephfs 可以支持对外访问的文件系统。</p><h4 id=1创建两个存储池-执行两条命令>1.创建两个存储池, 执行两条命令</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>ceph osd pool create cephfs_data <span style=color:#099>128</span> 
+</span></span><span style=display:flex><span>ceph osd pool create cephfs_metadata <span style=color:#099>64</span>
+</span></span></code></pre></td></tr></table></div></div><p>少于 5 个 OSD 可把 pg_num 设置为 128
+OSD 数量在 5 到 10 ，可以设置 pg_num 为 512
+OSD 数量在 10 到 50 ，可以设置 pg_num 为 4096
+OSD 数量大于 50 ，需要计算 pg_num 的值</p><p>通过下面命令可以列出当前创建的存储池：</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@master-139 ceph-cluster<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># ceph osd lspools</span>
+</span></span><span style=display:flex><span><span style=color:#099>1</span> cephfs_data
+</span></span><span style=display:flex><span><span style=color:#099>2</span> cephfs_metadata
+</span></span></code></pre></td></tr></table></div></div><h4 id=2创建fs-名称为cephfs>2.创建fs, 名称为cephfs</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>ceph fs new cephfs cephfs_metadata cephfs_data
+</span></span></code></pre></td></tr></table></div></div><h4 id=3状态查看-以下信息代表正常>3.状态查看， 以下信息代表正常</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@master-139 ceph-cluster<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># ceph fs ls </span>
+</span></span><span style=display:flex><span>name: cephfs, metadata pool: cephfs_metadata, data pools: <span style=color:#000;font-weight:700>[</span>cephfs_data <span style=color:#000;font-weight:700>]</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@haproxy ceph-cluster<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># ceph mds stat</span>
+</span></span><span style=display:flex><span>cephfs-1/1/1 up  <span style=color:#000;font-weight:700>{</span><span style=color:teal>0</span><span style=color:#000;font-weight:700>=</span><span style=color:teal>haproxy</span><span style=color:#000;font-weight:700>=</span>up:active<span style=color:#000;font-weight:700>}</span>, <span style=color:#099>1</span> up:standby
+</span></span></code></pre></td></tr></table></div></div><p>这里mds如果只显示cephfs-1/1/1 up 后面没内容说明mds没创建需要手动创建。如果不创建后面ceph挂载会报错。提示mds不存在。</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">8
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@master-139 ceph-cluster<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># ceph mds stat </span>
+</span></span><span style=display:flex><span>cephfs-0/0/1 up
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#挂载时报错信息</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@node1-140 ceph-cluster<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># ceph-fuse -k /etc/ceph/ceph.client.admin.keyring -m 10.4.7.139:6789 /usr/local/cephfs_directory </span>
+</span></span><span style=display:flex><span>ceph-fuse<span style=color:#000;font-weight:700>[</span>42676<span style=color:#000;font-weight:700>]</span>: starting ceph client
+</span></span><span style=display:flex><span>2022-05-15 03:43:48.136 7f84eb7cac00 -1 init, <span style=color:teal>newargv</span> <span style=color:#000;font-weight:700>=</span> 0x561dca3c0240 <span style=color:teal>newargc</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>7</span>
+</span></span><span style=display:flex><span>ceph-fuse<span style=color:#000;font-weight:700>[</span>42676<span style=color:#000;font-weight:700>]</span>: probably no MDS server is up?
+</span></span><span style=display:flex><span>ceph-fuse<span style=color:#000;font-weight:700>[</span>42676<span style=color:#000;font-weight:700>]</span>: ceph mount failed with <span style=color:#000;font-weight:700>(</span>65536<span style=color:#000;font-weight:700>)</span> Unknown error <span style=color:#099>65536</span>
+</span></span></code></pre></td></tr></table></div></div><p>手动创建mds</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>ceph-deploy mds create master-139 node1-140 node2-141
+</span></span></code></pre></td></tr></table></div></div><p>附： 如果创建错误， 需要删除， 执行：</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>ceph fs rm cephfs --yes-i-really-mean-it 
+</span></span><span style=display:flex><span>ceph osd pool delete cephfs_data cephfs_data --yes-i-really-really-mean-it
+</span></span></code></pre></td></tr></table></div></div><p>确保在ceph.conf中开启以下配置：</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>mon<span style=color:#000;font-weight:700>]</span> mon allow pool <span style=color:teal>delete</span> <span style=color:#000;font-weight:700>=</span> <span style=color:#0086b3>true</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=采用fuse挂载>采用fuse挂载</h3><p>先确定 ceph-fuse 命令能执行， 如果没有， 则安装：</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>yum -y install ceph-fuse
+</span></span></code></pre></td></tr></table></div></div><h4 id=1创建挂载目录>1.创建挂载目录</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>mkdir -p /usr/local/cephfs_directory
+</span></span></code></pre></td></tr></table></div></div><h4 id=2挂载cephfs>2.挂载cephfs</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>ceph-fuse -k /etc/ceph/ceph.client.admin.keyring -m 10.4.7.139:6789 /usr/local/cephfs_directory
+</span></span></code></pre></td></tr></table></div></div><h4 id=3查看磁盘挂载信息>3.查看磁盘挂载信息</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#998;font-style:italic>#df -hT</span>
+</span></span></code></pre></td></tr></table></div></div><p>/usr/local/cephfs_directory 目录已成功挂载。</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@node1-140 ceph-cluster<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># df -hT | grep cephfs </span>
+</span></span><span style=display:flex><span>ceph-fuse                  fuse.ceph-fuse   94G     <span style=color:#099>0</span>   94G   0% /usr/local/cephfs_directory
+</span></span></code></pre></td></tr></table></div></div><p>注意查看当前ceph 的主节点是谁。三台机器中如果有一台突然宕机，然后又恢复了。此时出问题的那台将成为主节点。</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@node1-140 ceph-cluster<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># ceph -s </span>
+</span></span><span style=display:flex><span>  cluster:
+</span></span><span style=display:flex><span>    id:     4f74ac9a-b5f5-4bf5-9107-15ab8ea41f76
+</span></span><span style=display:flex><span>    health: HEALTH_OK
+</span></span><span style=display:flex><span> 
+</span></span><span style=display:flex><span>  services:
+</span></span><span style=display:flex><span>    mon: <span style=color:#099>3</span> daemons, quorum master-139,node1-140,node2-141
+</span></span><span style=display:flex><span>    mgr: master-139<span style=color:#000;font-weight:700>(</span>active<span style=color:#000;font-weight:700>)</span>, standbys: node1-140, node2-141
+</span></span><span style=display:flex><span>    mds: cephfs-1/1/1 up  <span style=color:#000;font-weight:700>{</span><span style=color:teal>0</span><span style=color:#000;font-weight:700>=</span>master-139<span style=color:#000;font-weight:700>=</span>up:active<span style=color:#000;font-weight:700>}</span>, <span style=color:#099>2</span> up:standby
+</span></span><span style=display:flex><span>    osd: <span style=color:#099>3</span> osds: <span style=color:#099>3</span> up, <span style=color:#099>3</span> in
+</span></span><span style=display:flex><span> 
+</span></span><span style=display:flex><span>  data:
+</span></span><span style=display:flex><span>    pools:   <span style=color:#099>2</span> pools, <span style=color:#099>192</span> pgs
+</span></span><span style=display:flex><span>    objects: <span style=color:#099>21</span>  objects, 2.2 KiB
+</span></span><span style=display:flex><span>    usage:   3.0 GiB used, <span style=color:#099>297</span> GiB / <span style=color:#099>300</span> GiB avail
+</span></span><span style=display:flex><span>    pgs:     <span style=color:#099>192</span> active+clean
+</span></span><span style=display:flex><span> 
+</span></span><span style=display:flex><span>  io:
+</span></span><span style=display:flex><span>    client:   5.0 KiB/s wr, <span style=color:#099>0</span> op/s rd, <span style=color:#099>9</span> op/s wr
+</span></span></code></pre></td></tr></table></div></div><p>active的是主节点， standbys是备用节点。</p><h2 id=ceph常用命令>ceph常用命令</h2><h4 id=ceph>ceph</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">8
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#998;font-style:italic># 查看机器的监控状态</span>
+</span></span><span style=display:flex><span>ceph health
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 查看ceph的实时运行状态</span>
+</span></span><span style=display:flex><span>ceph -w
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 检查信息状态信息</span>
+</span></span><span style=display:flex><span>ceph -s
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 查看ceph存储空间</span>
+</span></span><span style=display:flex><span>ceph df
+</span></span></code></pre></td></tr></table></div></div><h4 id=ceph认证>ceph认证</h4><h4 id=创建管理用户>创建管理用户</h4><p>为ceph创建一个admin用户并为admin用户创建一个密钥，把密钥保存到/etc/ceph目录下：</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>ceph auth get-or-create client.admin mds <span style=color:#d14>&#39;allow&#39;</span> osd <span style=color:#d14>&#39;allow *&#39;</span> mon <span style=color:#d14>&#39;allow *&#39;</span> &gt; /etc/ceph/ceph.client.admin.keyring
+</span></span><span style=display:flex><span>或
+</span></span><span style=display:flex><span>ceph auth get-or-create client.admin mds <span style=color:#d14>&#39;allow&#39;</span> osd <span style=color:#d14>&#39;allow *&#39;</span> mon <span style=color:#d14>&#39;allow *&#39;</span> -o /etc/ceph/ceph.client.admin.keyring
+</span></span></code></pre></td></tr></table></div></div><p>为osd.0创建一个用户并创建一个key</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>ceph auth get-or-create osd.0 mon <span style=color:#d14>&#39;allow rwx&#39;</span> osd <span style=color:#d14>&#39;allow *&#39;</span> -o /var/lib/ceph/osd/ceph-0/keyring
+</span></span></code></pre></td></tr></table></div></div><p>为mds.node1创建一个用户并创建一个key</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>ceph auth get-or-create mds.node1 mon <span style=color:#d14>&#39;allow rwx&#39;</span> osd <span style=color:#d14>&#39;allow *&#39;</span> mds <span style=color:#d14>&#39;allow *&#39;</span> -o /var/lib/ceph/mds/ceph-node1/keyring
+</span></span></code></pre></td></tr></table></div></div><p>查看ceph集群中的认证用户及相关的key</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>ceph auth list
+</span></span></code></pre></td></tr></table></div></div><p>删除集群中的一个认证用户</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>ceph auth del osd.0
+</span></span></code></pre></td></tr></table></div></div><h4 id=集群相关>集群相关</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#998;font-style:italic># 查看集群的详细配置</span>
+</span></span><span style=display:flex><span>ceph daemon mon.node1 config show | more
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 查看集群健康状态细节</span>
+</span></span><span style=display:flex><span>ceph health detail
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 查看ceph log日志所在的目录</span>
+</span></span><span style=display:flex><span>ceph-conf --name mon.node1 --show-config-value log_file
+</span></span></code></pre></td></tr></table></div></div><h4 id=mon命令>mon命令</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>ceph mon stat#查看mon的状态信息
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>ceph mon dump#查看你ceph映射信息
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>ceph mon remove node1 <span style=color:#998;font-style:italic>#删除一个mon节点  ceph-deploy mon destroy {host-name [host-name]...}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>ceph mon add node1 node1_ip <span style=color:#998;font-style:italic>#添加一个mon节点  ceph-deploy mon create {host-name [host-name]...} </span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>mon节点的/var/lib/ceph/mon/ceph-node2/store.db文件内容一致，添加mon注意先改配置目录配置文件，再推送到所有节点
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>ceph-deploy --overwrite-conf config push  node1 node2 node3
+</span></span></code></pre></td></tr></table></div></div><h4 id=mds命令>mds命令</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">7
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>ceph mds stat <span style=color:#998;font-style:italic>#查看msd状态</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>ceph mds dump <span style=color:#998;font-style:italic>#msd的映射信息</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>ceph mds rm <span style=color:#099>0</span> mds.node1#删除一个mds节点
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>ceph-deploy mds create <span style=color:#000;font-weight:700>{</span>host-name<span style=color:#000;font-weight:700>}[</span>:<span style=color:#000;font-weight:700>{</span>daemon-name<span style=color:#000;font-weight:700>}]</span> <span style=color:#000;font-weight:700>[{</span>host-name<span style=color:#000;font-weight:700>}[</span>:<span style=color:#000;font-weight:700>{</span>daemon-name<span style=color:#000;font-weight:700>}]</span> ...<span style=color:#000;font-weight:700>]</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=osd命令>osd命令</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">41
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">42
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">43
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>ceph osd stat <span style=color:#998;font-style:italic>#查看osd状态</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>ceph osd dump <span style=color:#998;font-style:italic>#osd的映射信息</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>ceph osd tree#查看osd目录树
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>ceph osd down <span style=color:#099>0</span>   <span style=color:#998;font-style:italic>#down掉osd.0节点</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>ceph osd rm 0#集群删除一个osd硬盘
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>ceph osd crush remove osd.4#删除标记
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>ceph osd getmaxosd#查看最大osd个数
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>ceph osd setmaxosd 10#设置osd的个数
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>ceph osd out osd.3#把一个osd节点逐出集群
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>ceph osd in osd.3#把逐出的osd加入集群
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>ceph osd pause#暂停osd （暂停后整个集群不再接收数据）
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>ceph osd unpause#再次开启osd （开启后再次接收数据）
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>ceph osd lspools#查看ceph集群中的pool数量
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>ceph osd pool create jiayuan 100#创建一个pool  这里的100指的是PG组
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>ceph osd pool delete jiayuan  jiayuan  --yes-i-really-really-mean-it  <span style=color:#998;font-style:italic>#集群名字需要重复两次</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>rados df#显示集群中pool的详细信息
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>ceph osd pool get data pg_num  <span style=color:#998;font-style:italic>#查看data池的pg数量</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>ceph osd pool <span style=color:#0086b3>set</span> data target_max_bytes 100000000000000#设置data池的最大存储空间为100T（默认是1T<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>ceph osd pool <span style=color:#0086b3>set</span> data size <span style=color:#099>3</span>  <span style=color:#998;font-style:italic>#设置data池的副本数是3</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>ceph osd pool <span style=color:#0086b3>set</span> data min_size <span style=color:#099>2</span> <span style=color:#998;font-style:italic>#设置data池能接受写操作的最小副本为2</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>ceph osd pool <span style=color:#0086b3>set</span> data pg_num 100#设置一个pool的pg数量
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>ceph osd pool <span style=color:#0086b3>set</span> data pgp_num 100#设置一个pool的pgp数量
+</span></span></code></pre></td></tr></table></div></div><h4 id=pg命令>pg命令</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">9
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>ceph pg stat#查看pg状态
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>ceph pg dump#查看pg组的映射信息
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>ceph pg map 0.3f#查看一个pg的map
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>ceph pg  0.26 query#查看pg详细信息
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>ceph pg dump --format plain#显示一个集群中的所有的pg统计
+</span></span></code></pre></td></tr></table></div></div><h4 id=rados和rbd命令>rados和rbd命令</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>rados lspools#查看ceph集群中有多少个pool （只是查看pool<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>rados df <span style=color:#998;font-style:italic>#查看ceph集群中有多少个pool,并且每个pool容量及利用情况</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>rados mkpool test#创建一个pool
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>rados create test-object -p test#创建一个对象object 
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>rados rm test-object-1 -p test#删除一个对象object 
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>rados -p <span style=color:#0086b3>test</span> ls
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>rbd ls pool_name#查看ceph中一个pool里的所有镜像
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>rbd info -p pool_name --image 74cb427c-cee9-47d0-b467-af217a67e60a <span style=color:#998;font-style:italic>#查看ceph pool中一个镜像的信息</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>rbd create -p <span style=color:#0086b3>test</span> --size <span style=color:#099>10000</span> zhanguo#在test池中创建一个命名为zhanguo的10000M的镜像
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>rbd rm  -p <span style=color:#0086b3>test</span>  lizhanguo <span style=color:#998;font-style:italic>#删除一个镜像</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>rbd resize -p <span style=color:#0086b3>test</span> --size <span style=color:#099>20000</span> zhanguo  <span style=color:#998;font-style:italic>#调整一个镜像的尺寸</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=crush映射>CRUSH映射</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">7
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>ceph osd getcrushmap -o MAP   <span style=color:#998;font-style:italic>#获取一个CRUSH映射</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>crushtool -d MAP -o MAP.TXT   <span style=color:#998;font-style:italic>#反编译一个CRUSH映射</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>crushtool -c MAP.TXT -o MAP   <span style=color:#998;font-style:italic>#编译一个CRUSH映射</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>ceph osd setcrushmap -i MAP    <span style=color:#998;font-style:italic>#设置一个CRUSH映射</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=块设备的一些命令>块设备的一些命令</h4><p>单位为M，默认在rbd pool中</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>创建块设备：rbd create <span style=color:#000;font-weight:700>{</span>image-name<span style=color:#000;font-weight:700>}</span>  --size <span style=color:#000;font-weight:700>{</span>megabytes<span style=color:#000;font-weight:700>}</span>  --pool <span style=color:#000;font-weight:700>{</span>pool-name<span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>列出块设备：rbd ls <span style=color:#000;font-weight:700>{</span>poolname<span style=color:#000;font-weight:700>}</span> -l
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>检索块信息：rbd --image <span style=color:#000;font-weight:700>{</span>image-name<span style=color:#000;font-weight:700>}</span> info
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>更改块大小：rbd resize --image <span style=color:#000;font-weight:700>{</span>image-name<span style=color:#000;font-weight:700>}</span> --size <span style=color:#000;font-weight:700>{</span>megabytes<span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>删除块设备：rbd rm <span style=color:#000;font-weight:700>{</span>image-name<span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>映射块设备：rbd map <span style=color:#000;font-weight:700>{</span>image-name<span style=color:#000;font-weight:700>}</span> --pool <span style=color:#000;font-weight:700>{</span>pool-name<span style=color:#000;font-weight:700>}</span> --id <span style=color:#000;font-weight:700>{</span>user-name<span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>查看已映射块设备：rbd showmapped
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>取消映射：rbd unmap /dev/rbd/<span style=color:#000;font-weight:700>{</span>poolname<span style=color:#000;font-weight:700>}</span>/<span style=color:#000;font-weight:700>{</span>imagename<span style=color:#000;font-weight:700>}</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=快照和克隆相关命令>快照和克隆相关命令</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">41
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">42
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">43
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">44
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">45
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">46
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">47
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">48
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">49
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">50
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">51
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">52
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">53
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>创建快照：
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>rbd --pool <span style=color:#000;font-weight:700>{</span>pool-name<span style=color:#000;font-weight:700>}</span> snap create --snap <span style=color:#000;font-weight:700>{</span>snap-name<span style=color:#000;font-weight:700>}</span> <span style=color:#000;font-weight:700>{</span>image-name<span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>rbd snap create <span style=color:#000;font-weight:700>{</span>pool-name<span style=color:#000;font-weight:700>}</span>/<span style=color:#000;font-weight:700>{</span>image-name<span style=color:#000;font-weight:700>}</span>@<span style=color:#000;font-weight:700>{</span>snap-name<span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>快照回滚：
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>rbd --pool <span style=color:#000;font-weight:700>{</span>pool-name<span style=color:#000;font-weight:700>}</span> snap rollback --snap <span style=color:#000;font-weight:700>{</span>snap-name<span style=color:#000;font-weight:700>}</span> <span style=color:#000;font-weight:700>{</span>image-name<span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>rbd snap rollback <span style=color:#000;font-weight:700>{</span>pool-name<span style=color:#000;font-weight:700>}</span>/<span style=color:#000;font-weight:700>{</span>image-name<span style=color:#000;font-weight:700>}</span>@<span style=color:#000;font-weight:700>{</span>snap-name<span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>清除快照：
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>rbd --pool <span style=color:#000;font-weight:700>{</span>pool-name<span style=color:#000;font-weight:700>}</span> snap purge <span style=color:#000;font-weight:700>{</span>image-name<span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>rbd snap purge <span style=color:#000;font-weight:700>{</span>pool-name<span style=color:#000;font-weight:700>}</span>/<span style=color:#000;font-weight:700>{</span>image-name<span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>删除快照：
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>rbd --pool <span style=color:#000;font-weight:700>{</span>pool-name<span style=color:#000;font-weight:700>}</span> snap rm --snap <span style=color:#000;font-weight:700>{</span>snap-name<span style=color:#000;font-weight:700>}</span> <span style=color:#000;font-weight:700>{</span>image-name<span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>rbd snap rm <span style=color:#000;font-weight:700>{</span>pool-name<span style=color:#000;font-weight:700>}</span>/<span style=color:#000;font-weight:700>{</span>image-name<span style=color:#000;font-weight:700>}</span>@<span style=color:#000;font-weight:700>{</span>snap-name<span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>列出快照：
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>rbd --pool <span style=color:#000;font-weight:700>{</span>pool-name<span style=color:#000;font-weight:700>}</span> snap ls <span style=color:#000;font-weight:700>{</span>image-name<span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>rbd snap ls <span style=color:#000;font-weight:700>{</span>pool-name<span style=color:#000;font-weight:700>}</span>/<span style=color:#000;font-weight:700>{</span>image-name<span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>保护快照：
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>rbd --pool <span style=color:#000;font-weight:700>{</span>pool-name<span style=color:#000;font-weight:700>}</span> snap protect --image <span style=color:#000;font-weight:700>{</span>image-name<span style=color:#000;font-weight:700>}</span> --snap <span style=color:#000;font-weight:700>{</span>snapshot-name<span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>rbd snap protect <span style=color:#000;font-weight:700>{</span>pool-name<span style=color:#000;font-weight:700>}</span>/<span style=color:#000;font-weight:700>{</span>image-name<span style=color:#000;font-weight:700>}</span>@<span style=color:#000;font-weight:700>{</span>snapshot-name<span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>取消保护快照：
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>rbd --pool <span style=color:#000;font-weight:700>{</span>pool-name<span style=color:#000;font-weight:700>}</span> snap unprotect --image <span style=color:#000;font-weight:700>{</span>image-name<span style=color:#000;font-weight:700>}</span> --snap <span style=color:#000;font-weight:700>{</span>snapshot-name<span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>rbd snap unprotect <span style=color:#000;font-weight:700>{</span>pool-name<span style=color:#000;font-weight:700>}</span>/<span style=color:#000;font-weight:700>{</span>image-name<span style=color:#000;font-weight:700>}</span>@<span style=color:#000;font-weight:700>{</span>snapshot-name<span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>快照克隆
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>rbd clone <span style=color:#000;font-weight:700>{</span>pool-name<span style=color:#000;font-weight:700>}</span>/<span style=color:#000;font-weight:700>{</span>parent-image<span style=color:#000;font-weight:700>}</span>@<span style=color:#000;font-weight:700>{</span>snap-name<span style=color:#000;font-weight:700>}</span> <span style=color:#000;font-weight:700>{</span>pool-name<span style=color:#000;font-weight:700>}</span>/<span style=color:#000;font-weight:700>{</span>child-image-name<span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>查看快照的克隆
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>rbd --pool <span style=color:#000;font-weight:700>{</span>pool-name<span style=color:#000;font-weight:700>}</span> children --image <span style=color:#000;font-weight:700>{</span>image-name<span style=color:#000;font-weight:700>}</span> --snap <span style=color:#000;font-weight:700>{</span>snap-name<span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>rbd children <span style=color:#000;font-weight:700>{</span>pool-name<span style=color:#000;font-weight:700>}</span>/<span style=color:#000;font-weight:700>{</span>image-name<span style=color:#000;font-weight:700>}</span>@<span style=color:#000;font-weight:700>{</span>snapshot-name<span style=color:#000;font-weight:700>}</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=快照克隆相关例子>快照克隆相关例子</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>创建快照：rbd  snap create vms/yjk01@yjk01_s1
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>列出快照：rbd snap list  --pool vms yjk01
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>快照回滚：rbd snap rollback vms/yjk01@yjk01_s1<span style=color:#000;font-weight:700>(</span>先卸载已挂载目录<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>删除快照：rbd snap rm vms/yjk01@yjk01_s2<span style=color:#000;font-weight:700>(</span>单个<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>清除快照：rbd snap purge vms/yjk01<span style=color:#000;font-weight:700>(</span>所有<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>保护快照：rbd snap protect vms/yjk01@yjk01_s1
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>取消保护：rbd snap unprotect vms/yjk01@yjk01_s1
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>快照克隆：rbd clone vms/yjk01@yjk01_s3 vms/yjk01_s3_clone1
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>查看克隆：rbd children vms/yjk01@yjk01_s3
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>克隆只能基于快照，并且只能快照处于保护状态，而且ceph仅支持克隆format 2映像。
+</span></span></code></pre></td></tr></table></div></div><h2 id=日志文件汇总>日志文件汇总</h2><p>mon ,mgr , osd 等安装报错信息均在对应日志文件中。</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>/usr/local/ceph-cluster/ceph-deploy-ceph.log
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># tree /var/log/ceph/</span>
+</span></span><span style=display:flex><span>/var/log/ceph/
+</span></span><span style=display:flex><span>├── ceph.audit.log
+</span></span><span style=display:flex><span>├── ceph-client.admin.log
+</span></span><span style=display:flex><span>├── ceph.log
+</span></span><span style=display:flex><span>├── ceph-mds.haproxy.log
+</span></span><span style=display:flex><span>├── ceph-mgr.haproxy.log
+</span></span><span style=display:flex><span>├── ceph-mon.haproxy.log
+</span></span><span style=display:flex><span>├── ceph-osd.0.log
+</span></span><span style=display:flex><span>└── ceph-volume.log
+</span></span></code></pre></td></tr></table></div></div><h3 id=参考文档>参考文档</h3><p><a href=https://blog.csdn.net/fake_hydra/article/details/109235907>1</a></p><p><a href=https://mp.weixin.qq.com/s/nWZWhnaudueuJwmp-Ktuxw>2</a></p><p><a href=https://blog.csdn.net/xiaoweite1/article/details/124059228>3</a></p></div></div></div><div id=footer><div class=container-footer><div class=beian><a target=_blank href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode="></a><a href target=_blank><span class=some>icp...<span></a></div><div class=info><a href=https://github.com/loveminimal/hugo-theme-virgo>🕊️</a> 2021 - <span id=info-date></span></div></div></div><div class=cool-after></div></body></html>

@@ -1,0 +1,720 @@
+<!doctype html><html lang=zh-CN><head><meta name=viewport content="width=device-width,initial-scale=1"><meta charset=utf-8><meta name=description content="功能强大的硬件信息获取工具-Inxi - https://t.haipengv.com/posts/%E5%8A%9F%E8%83%BD%E5%BC%BA%E5%A4%A7%E7%9A%84%E7%A1%AC%E4%BB%B6%E4%BF%A1%E6%81%AF%E8%8E%B7%E5%8F%96%E5%B7%A5%E5%85%B7-inxi/"><meta name=author content="Smith - https://t.haipengv.com/"><meta name=msvalidate.01 content="B46311949B856F2A7015F366FB3CE878"><title>功能强大的硬件信息获取工具-Inxi</title><base target=_blank><link rel=icon type=image/png href=/favicon.ico><link rel=stylesheet href=https://t.haipengv.com/style.min.9a0cea23154ac1941e15c25aa2d31b77285a217d2606ec05b55236428cf1c3e6.css><script>const DARK=!1</script><script type=text/javascript src=/main.js defer></script></head><body class=active-animate><div class=cool-before></div><div id=header><div class=container-header><div class=right><h1 class=title>功能强大的硬件信息获取工具-Inxi</h1><div id=toc>📜</div></div></div></div><div id=content><div class="container-main container-page"><div class=rel><div class=curtag-desc><a href=https://t.haipengv.com/tags/linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/><img src=/imgs/icons/tag.svg width=16> 相关文章：Linux基础知识 <sup>38</sup></a></div><div class=curtag-post><div class=curtag-post-item><a href=https://t.haipengv.com/posts/centos7-%E5%8D%87%E7%BA%A7%E5%86%85%E6%A0%B8/>CentOS7 升级内核</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/centos7.9%E5%AE%89%E8%A3%85mysql8.0/>Centos7.9安装Mysql8.0</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/centos7.9%E6%9B%B4%E6%8D%A2%E7%BD%91%E5%8D%A1%E5%90%8D%E7%A7%B0/>Centos7.9更换网卡名称</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/centos7%E4%BD%BF%E7%94%A8systemd%E7%AE%A1%E7%90%86%E7%A8%8B%E5%BA%8F/>Centos7使用systemd管理程序</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/centos7-%E5%B8%B8%E8%A7%84%E5%91%BD%E4%BB%A4/>CentOS7常规命令</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/centos7%E7%BD%91%E5%8D%A1%E6%94%B9%E5%9B%9Eeth0%E6%98%BE%E7%A4%BA/>Centos7网卡改回eth0显示</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/centos8%E9%85%8D%E7%BD%AEyum%E6%BA%90/>CentOS8配置yum源</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/centos%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8/>Centos搭建内网邮件服务器</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/crontab%E8%B8%A9%E5%9D%91%E8%AE%B0/>Crontab踩坑记</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/git%E5%85%A5%E9%97%A8/>Git入门</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/http%E5%92%8Chttps%E5%90%84%E7%A7%8D%E6%96%B9%E6%B3%95%E6%B5%8B%E8%AF%95/>Http和Https各种方法测试</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/iptables%E5%B8%B8%E7%94%A8%E6%80%BB%E7%BB%93/>Iptables常用总结</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/linux%E4%B8%8B%E6%B7%B7%E6%9D%82%E6%A8%A1%E5%BC%8F%E5%88%A4%E6%96%AD/>Linux下混杂模式判断</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/linux%E4%B8%AD%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/>Linux中环境变量</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/linux%E4%B8%AD%E7%9A%84%E9%9A%94%E7%A6%BB/>Linux中的隔离</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/linux%E4%BF%A1%E6%81%AF%E6%9F%A5%E8%AF%A2%E5%91%BD%E4%BB%A4/>Linux信息查询命令</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/linux%E5%9E%83%E5%9C%BE%E6%A1%B6/>Linux垃圾桶</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/linux%E5%B0%8F%E6%8A%80%E5%B7%A7%E6%B1%87%E6%80%BB/>Linux小技巧汇总</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/linux%E6%97%A5%E5%BF%97%E5%A4%A7%E6%96%87%E4%BB%B6%E5%88%87%E5%89%B2/>Linux日志大文件切割</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/linux%E6%9F%A5%E7%9C%8B%E7%A8%8B%E5%BA%8F%E8%BF%9B%E7%A8%8B%E5%90%AF%E5%8A%A8%E6%97%B6%E9%97%B4/>Linux查看程序进程启动时间</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/linux%E6%A0%B9%E5%88%86%E5%8C%BA%E6%BB%A1%E4%BA%86%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95/>Linux根分区满了处理方法</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/pam%E6%A8%A1%E5%9D%97%E9%99%90%E5%88%B6%E7%99%BB%E5%BD%95/>Pam模块限制登录</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/redhat6.3yum%E6%BA%90%E5%A4%B1%E6%95%88%E8%A7%A3%E5%86%B3/>Redhat6.3yum源失效解决</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/rsyslog%E6%97%A5%E5%BF%97%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/>Rsyslog日志服务器搭建</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/ssh%E7%9B%B8%E5%85%B3%E8%AF%B4%E6%98%8E/>SSH相关说明</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/ubuntu%E4%BD%BF%E7%94%A8%E4%B8%8A%E7%AF%87/>Ubuntu使用上篇</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/ubuntu%E4%BD%BF%E7%94%A8%E4%B8%8B%E7%AF%87/>Ubuntu使用下篇</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/vsftpd%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE/>Vsftpd相关配置</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/vsftp%E4%B8%8D%E5%90%8C%E7%94%A8%E6%88%B7%E6%8B%A5%E6%9C%89%E4%B8%8D%E5%90%8C%E6%9D%83%E9%99%90/>Vsftp不同用户拥有不同权限</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E4%BD%BF%E7%94%A8logrotate%E8%BF%9B%E8%A1%8C%E6%97%A5%E5%BF%97%E5%88%87%E5%89%B2/>使用logrotate进行日志切割</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E4%BD%BF%E7%94%A8sed%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E7%BD%91%E5%9D%80/>使用sed批量修改网址</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E4%BD%BF%E7%94%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E7%99%BB%E5%BD%95linux%E6%9C%8D%E5%8A%A1%E5%99%A8/>使用浏览器登录linux服务器</a></div><div class="curtag-post-item curtag-post-item--active"><a href=https://t.haipengv.com/posts/%E5%8A%9F%E8%83%BD%E5%BC%BA%E5%A4%A7%E7%9A%84%E7%A1%AC%E4%BB%B6%E4%BF%A1%E6%81%AF%E8%8E%B7%E5%8F%96%E5%B7%A5%E5%85%B7-inxi/>功能强大的硬件信息获取工具-Inxi</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E5%8E%8B%E7%BC%A9%E4%B8%8E%E8%A7%A3%E5%8E%8B/>压缩与解压</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E5%A6%82%E4%BD%95%E7%AD%9B%E9%80%89%E6%8C%87%E5%AE%9A%E6%97%B6%E9%97%B4%E6%AE%B5%E5%86%85%E7%9A%84%E6%97%A5%E5%BF%97/>如何筛选指定时间段内的日志</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E6%90%AD%E5%BB%BArss%E8%AE%A2%E9%98%85%E5%99%A8/>搭建rss订阅器</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E6%9F%A5%E7%9C%8B%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E6%97%B6%E9%97%B4/>查看系统安装时间</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E6%A8%A1%E6%8B%9Fssh%E6%89%A7%E8%A1%8C%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4/>模拟ssh执行远程命令</a></div></div></div><div class=desc><span><svg t="1656736000388" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="7409" width="12" height="12"><path d="M524.885333 338.986667l-324.522666 324.48c-17.28 15.274667-27.989333 36.693333-29.696 56.234666v133.76l130.730666.085334c22.784-1.621333 43.989333-12.245333 61.013334-31.701334L685.098667 499.2 524.885333 338.986667zM585.258667 278.656l160.170666 160.213333 102.144-102.144a19.712 19.712.0 000-27.861333l-132.48-132.437333a19.456 19.456.0 00-27.605333.0L585.258667 278.613333zM701.312 85.333333c27.946667.0 54.741333 11.136 74.282667 30.848L907.904 248.490667a105.045333 105.045333.0 010 148.565333L424.874667 879.957333C395.050667 914.304 352.768 935.424 304.426667 938.752H85.333333v-42.666667l.128-179.84c3.626667-44.970667 24.576-86.826667 56.448-114.944l485.12-485.034666a104.789333 104.789333.0 0174.24-30.933334z" p-id="7410" fill="#adb5bd"/></svg>2025-03-16&nbsp;&nbsp;&nbsp;<svg t="1656737270708" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="23838" width="11" height="11"><path d="M824.264 95.36c0-23.859 25.043-44.16 48.902-44.16s49.714 20.301 49.714 44.16v190.08c0 23.859-19.054 52.868-42.913 52.868h-190.08c-23.859.0-46.696-25.96-46.696-49.819s22.55-46.249 46.409-46.249h82.025C702.344 175.534 610.22 155.853 512 155.853c-206.775.0-360.398 149.372-360.398 356.147S305.225 870.23 512 870.23c206.775.0 357.467-151.455 357.467-358.23.0-23.859 23.634-50.706 53.413-50.706 29.78.0 49.92 26.847 49.92 50.706.0 254.493-206.307 460.8-460.8 460.8s-460.8-206.307-460.8-460.8C51.2 257.507 257.507 51.2 512 51.2c122.4.0 226.684 33.296 312.264 117.369.358.351.358-24.052.0-73.209z" p-id="23839" fill="#adb5bd"/></svg>
+2025-03-16&nbsp;&nbsp;&nbsp;</span>
+<span><svg t="1656737548689" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="33866" width="12" height="12"><path d="M832.038608 64.662657H192.030028c-70.774903.0-128.089859 57.325793-128.089859 128.03206v446.793671c0 70.7171050000001 57.314956 128.154884 128.089859 128.154884h133.353183a63.940169 63.940169.0 0155.219742 31.576328l76.099638 129.83828c12.358154 21.093031 33.790754 31.626903 55.216129 31.626903s42.832688-10.544709 55.198067-31.619678l76.222461-129.870792a63.940169 63.940169.0 0155.212517-31.551041h133.54103c70.576219.0 127.732228-57.289669 127.732227-127.800865V192.391272c0-70.536482-57.181295-127.728615-127.786414-127.728615zM895.884854 639.842407A63.85347 63.85347.0 01832.092795 703.703103h-133.54103a127.753903 127.753903.0 00-110.349172 63.09847l-76.222461 129.856342a.274545.274545.0 010-.050574h-.032512s-.021675.061411-.032512.061412l-76.1466-129.85273a127.804477 127.804477.0 00-110.385297-63.11292H192.030028A64.207489 64.207489.0 01127.880338 639.488388V192.694717a64.102729 64.102729.0 0164.14969-64.091891h640.00858a63.799284 63.799284.0 0163.846246 63.788446v447.451135z" fill="#adb5bd" p-id="33867"/><path d="M608.154093 288.092004a31.970084 31.970084.0 00-31.970084 31.970085v160.078006L441.53396 300.861976a31.970084 31.970084.0 00-57.531702 19.200113v255.760676a31.970084 31.970084.0 0063.940169.0V415.863969l134.650048 179.274507a31.970084 31.970084.0 0057.531703-19.200113V320.062089a31.970084 31.970084.0 00-31.970085-31.970085z" fill="#adb5bd" p-id="33868"/></svg>2819 字</span>&nbsp;
+<span><svg t="1656737462334" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="32892" width="12" height="12"><path d="M512 74.666667C270.933333 74.666667 74.666667 270.933333 74.666667 512S270.933333 949.333333 512 949.333333 949.333333 753.066667 949.333333 512 753.066667 74.666667 512 74.666667zm0 810.666666C307.2 885.333333 138.666667 716.8 138.666667 512S307.2 138.666667 512 138.666667 885.333333 307.2 885.333333 512 716.8 885.333333 512 885.333333z" p-id="32893" fill="#adb5bd"/><path d="M695.466667 567.466667 544 497.066667V277.333333c0-17.066667-14.933333-32-32-32s-32 14.933333-32 32v238.933334c0 12.8 6.4 23.466667 19.2 29.866666L669.866667 627.2c4.266667 2.133333 8.533333 2.133333 12.8 2.133333 12.8.0 23.466667-6.4 29.866666-19.2 6.4-14.933333.0-34.133333-17.066666-42.666666z" p-id="32894" fill="#adb5bd"/></svg>6 分钟</span><div class=container-ctgtag><div class=taxonomy><div class=tag><a href=/tags/linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86>Linux基础知识</a></div></div></div></div><div class=toc><div class=container-page-operation><div class=page-operation><div><a href=/><img src=/imgs/icons/home-2.svg alt></a></div><div><a href=/nav><img src=/imgs/icons/iov-navigate-1.svg alt></a></div><div><a href=/wiki><img src=/imgs/icons/wiki.svg alt></a></div><div><a href=/tags><img src=/imgs/icons/treetags.svg alt></a></div><div id=light-dark><a><img src=/imgs/icons/moon2.svg alt></a></div><div><a href=#><img src=/imgs/icons/up2.svg alt></a></div></div></div><nav id=TableOfContents><ul><li><a href=#安装inxi>安装inxi</a></li></ul></nav></div><div class=content><h2 id=安装inxi>安装inxi</h2><pre tabindex=0><code>$ sudo apt-get install inxi   [On Debian/Ubuntu/Linux Mint] 
+$ sudo yum install inxi       [On CentOs/RHEL/Fedora] 
+$ sudo dnf install inxi       [On Fedora 22+] 
+</code></pre><p><strong>查看 Inxi 所有依赖和推荐的应用，以及各种目录，并显示需要安装哪些包来支持给定的功能。</strong></p><pre tabindex=0><code>$ inxi --recommends 
+</code></pre><p>输出如下</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 41
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 42
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 43
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 44
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 45
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 46
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 47
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 48
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 49
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 50
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 51
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 52
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 53
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 54
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 55
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 56
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 57
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 58
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 59
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 60
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 61
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 62
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 63
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 64
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 65
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 66
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 67
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 68
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 69
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 70
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 71
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 72
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 73
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 74
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 75
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 76
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 77
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 78
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 79
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 80
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 81
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 82
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 83
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 84
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 85
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 86
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 87
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 88
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 89
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 90
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 91
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 92
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 93
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 94
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 95
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 96
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 97
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 98
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 99
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">100
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">101
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">102
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">103
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">104
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">105
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">106
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">107
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">108
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">109
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">110
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">111
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">112
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">113
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">114
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">115
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">116
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">117
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">118
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">119
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">120
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">121
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">122
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">123
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">124
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">125
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">126
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">127
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">128
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">129
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">130
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">131
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">132
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">133
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">134
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">135
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">136
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">137
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">138
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">139
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">140
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">141
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">142
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">143
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">144
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">145
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">146
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">147
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">148
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">149
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">150
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">151
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">152
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">153
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">154
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">155
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">156
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">157
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">158
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">159
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">160
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">161
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">162
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">163
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">164
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">165
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">166
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">167
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">168
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">169
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">170
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">171
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>inxi will now begin checking <span style=color:#000;font-weight:700>for</span> the programs it needs to operate.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Check inxi --help or the man page <span style=color:#000;font-weight:700>(</span>man inxi<span style=color:#000;font-weight:700>)</span> to see what options are 
+</span></span><span style=display:flex><span>available. 
+</span></span><span style=display:flex><span>------------------------------------------------------------------------------
+</span></span><span style=display:flex><span>Test: core tools:
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Perl version:  5.016003
+</span></span><span style=display:flex><span>Current shell: 
+</span></span><span style=display:flex><span>Default shell: bash
+</span></span><span style=display:flex><span>sh links to: /usr/bin/bash
+</span></span><span style=display:flex><span>Package manager: rpm
+</span></span><span style=display:flex><span>------------------------------------------------------------------------------
+</span></span><span style=display:flex><span>Test: required system directories:
+</span></span><span style=display:flex><span> 
+</span></span><span style=display:flex><span>/proc: ........................................................... Present
+</span></span><span style=display:flex><span>/sys: ............................................................ Present
+</span></span><span style=display:flex><span> 
+</span></span><span style=display:flex><span>All required system directories are present
+</span></span><span style=display:flex><span>------------------------------------------------------------------------------
+</span></span><span style=display:flex><span>Test: recommended system programs:
+</span></span><span style=display:flex><span> 
+</span></span><span style=display:flex><span>Note: IPMI sensors are generally only found on servers. To access that data, 
+</span></span><span style=display:flex><span>you only need one of the ipmi items. 
+</span></span><span style=display:flex><span> 
+</span></span><span style=display:flex><span>blockdev: --admin -p/-P <span style=color:#000;font-weight:700>(</span>filesystem blocksize<span style=color:#000;font-weight:700>)</span>.................... Present
+</span></span><span style=display:flex><span>bt-adapter: -E bluetooth data <span style=color:#000;font-weight:700>(</span><span style=color:#000;font-weight:700>if</span> no hciconfig<span style=color:#000;font-weight:700>)</span>................... Missing
+</span></span><span style=display:flex><span>dig: -i wlan IP................................................... Present
+</span></span><span style=display:flex><span>dmidecode: -M <span style=color:#000;font-weight:700>if</span> no sys machine data; -m.......................... Present
+</span></span><span style=display:flex><span>doas: -Dx hddtemp-user; -o file-user <span style=color:#000;font-weight:700>(</span>alt <span style=color:#000;font-weight:700>for</span> sudo<span style=color:#000;font-weight:700>)</span>............... Missing
+</span></span><span style=display:flex><span>fdisk: -D partition scheme <span style=color:#000;font-weight:700>(</span>fallback<span style=color:#000;font-weight:700>)</span>............................. Present
+</span></span><span style=display:flex><span>file: -o unmounted file system <span style=color:#000;font-weight:700>(</span><span style=color:#000;font-weight:700>if</span> no lsblk<span style=color:#000;font-weight:700>)</span>...................... Present
+</span></span><span style=display:flex><span>fruid_print: -M machine data, Elbrus only......................... Missing
+</span></span><span style=display:flex><span>hciconfig: -E bluetooth data <span style=color:#000;font-weight:700>(</span>deprecated, good report<span style=color:#000;font-weight:700>)</span>............ Present
+</span></span><span style=display:flex><span>hddtemp: -Dx show hdd temp, <span style=color:#000;font-weight:700>if</span> no drivetemp module................ Present
+</span></span><span style=display:flex><span>ifconfig: -i ip LAN <span style=color:#000;font-weight:700>(</span>deprecated<span style=color:#000;font-weight:700>)</span>.................................. Present
+</span></span><span style=display:flex><span>ip: -i ip LAN..................................................... Present
+</span></span><span style=display:flex><span>ipmitool: -s IPMI sensors <span style=color:#000;font-weight:700>(</span>servers<span style=color:#000;font-weight:700>)</span>............................... Present
+</span></span><span style=display:flex><span>ipmi-sensors: -s IPMI sensors <span style=color:#000;font-weight:700>(</span>servers<span style=color:#000;font-weight:700>)</span>........................... Present
+</span></span><span style=display:flex><span>lsblk: -L LUKS/bcache; -o unmounted file system <span style=color:#000;font-weight:700>(</span>best option<span style=color:#000;font-weight:700>)</span>..... Present
+</span></span><span style=display:flex><span>lsusb: -A usb audio; -J <span style=color:#000;font-weight:700>(</span>optional<span style=color:#000;font-weight:700>)</span>; -N usb networking............. Present
+</span></span><span style=display:flex><span>lvs: -L LVM data.................................................. Missing
+</span></span><span style=display:flex><span>mdadm: -Ra advanced mdraid data................................... Missing
+</span></span><span style=display:flex><span>modinfo: Ax; -Nx module version................................... Present
+</span></span><span style=display:flex><span>runlevel: -I fallback to Perl..................................... Present
+</span></span><span style=display:flex><span>sensors: -s sensors output........................................ Present
+</span></span><span style=display:flex><span>smartctl: -Da advanced data....................................... Missing
+</span></span><span style=display:flex><span>strings: -I sysvinit version...................................... Present
+</span></span><span style=display:flex><span>sudo: -Dx hddtemp-user; -o file-user <span style=color:#000;font-weight:700>(</span>try doas!<span style=color:#000;font-weight:700>)</span>.................. Present
+</span></span><span style=display:flex><span>tree: --debugger 20,21 /sys tree.................................. Missing
+</span></span><span style=display:flex><span>upower: -sx attached device battery info.......................... Present
+</span></span><span style=display:flex><span>uptime: -I uptime................................................. Present
+</span></span><span style=display:flex><span> 
+</span></span><span style=display:flex><span>The following recommended system programs are missing:
+</span></span><span style=display:flex><span>Program: bt-adapter ~ Install package: bluez-tools
+</span></span><span style=display:flex><span>Program: doas ~ Install package: doas
+</span></span><span style=display:flex><span>Program: fruid_print ~ Install package: N/A
+</span></span><span style=display:flex><span>Program: lvs ~ Install package: lvm2
+</span></span><span style=display:flex><span>Program: mdadm ~ Install package: mdadm
+</span></span><span style=display:flex><span>Program: smartctl ~ Install package: smartmontools
+</span></span><span style=display:flex><span>Program: tree ~ Install package: tree
+</span></span><span style=display:flex><span>------------------------------------------------------------------------------
+</span></span><span style=display:flex><span>Test: recommended display information programs:
+</span></span><span style=display:flex><span> 
+</span></span><span style=display:flex><span>glxinfo: -G <span style=color:#000;font-weight:700>(</span>X<span style=color:#000;font-weight:700>)</span> glx info.......................................... Present
+</span></span><span style=display:flex><span>wmctrl: -S active window manager <span style=color:#000;font-weight:700>(</span>fallback<span style=color:#000;font-weight:700>)</span>....................... Present
+</span></span><span style=display:flex><span>xdpyinfo: -G <span style=color:#000;font-weight:700>(</span>X<span style=color:#000;font-weight:700>)</span> Screen resolution, dpi; -Ga Screen size.......... Present
+</span></span><span style=display:flex><span>xprop: -S <span style=color:#000;font-weight:700>(</span>X<span style=color:#000;font-weight:700>)</span> desktop data........................................ Present
+</span></span><span style=display:flex><span>xrandr: -G <span style=color:#000;font-weight:700>(</span>X<span style=color:#000;font-weight:700>)</span> monitors<span style=color:#000;font-weight:700>(</span>s<span style=color:#000;font-weight:700>)</span> resolution; -Ga monitor data........... Present
+</span></span><span style=display:flex><span> 
+</span></span><span style=display:flex><span>All recommended display information programs are present
+</span></span><span style=display:flex><span>------------------------------------------------------------------------------
+</span></span><span style=display:flex><span>Test: recommended downloader programs <span style=color:#000;font-weight:700>(</span>You only need one of these<span style=color:#000;font-weight:700>)</span>:
+</span></span><span style=display:flex><span> 
+</span></span><span style=display:flex><span>Perl HTTP::Tiny is the default downloader tool <span style=color:#000;font-weight:700>if</span> IO::Socket::SSL is present. 
+</span></span><span style=display:flex><span>See --help --alt 40-44 options <span style=color:#000;font-weight:700>for</span> how to override default downloader<span style=color:#000;font-weight:700>(</span>s<span style=color:#000;font-weight:700>)</span> in 
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>case</span> of issues. 
+</span></span><span style=display:flex><span> 
+</span></span><span style=display:flex><span>If dig is installed, it is the default <span style=color:#000;font-weight:700>for</span> WAN IP data. Strongly recommended. 
+</span></span><span style=display:flex><span>Dig is fast and accurate. 
+</span></span><span style=display:flex><span> 
+</span></span><span style=display:flex><span>curl: -i <span style=color:#000;font-weight:700>(</span><span style=color:#000;font-weight:700>if</span> no dig<span style=color:#000;font-weight:700>)</span>; -w,-W; -U................................... Present
+</span></span><span style=display:flex><span>dig: -i wlan IP................................................... Present
+</span></span><span style=display:flex><span>wget: -i <span style=color:#000;font-weight:700>(</span><span style=color:#000;font-weight:700>if</span> no dig<span style=color:#000;font-weight:700>)</span>; -w,-W; -U................................... Missing
+</span></span><span style=display:flex><span> 
+</span></span><span style=display:flex><span>The following recommended downloader programs are missing. However, you really 
+</span></span><span style=display:flex><span>only need dig in most cases. All systems should have at least one of the 
+</span></span><span style=display:flex><span>downloader options present.: 
+</span></span><span style=display:flex><span>Program: wget ~ Install package: wget
+</span></span><span style=display:flex><span>------------------------------------------------------------------------------
+</span></span><span style=display:flex><span>Test: recommended kernel modules:
+</span></span><span style=display:flex><span> 
+</span></span><span style=display:flex><span>GPU modules are only needed <span style=color:#000;font-weight:700>if</span> applicable. NVMe drives <span style=color:#000;font-weight:700>do</span> not need drivetemp 
+</span></span><span style=display:flex><span>but other types <span style=color:#000;font-weight:700>do</span>. 
+</span></span><span style=display:flex><span> 
+</span></span><span style=display:flex><span>To load a module: modprobe &lt;module-name&gt; - To permanently load add to 
+</span></span><span style=display:flex><span>/etc/modules or /etc/modules-load.d/modules.conf <span style=color:#000;font-weight:700>(</span>check your system paths <span style=color:#000;font-weight:700>for</span> 
+</span></span><span style=display:flex><span>exact file/directory names<span style=color:#000;font-weight:700>)</span>. 
+</span></span><span style=display:flex><span> 
+</span></span><span style=display:flex><span>amdgpu: -s AMD GPU sensor data <span style=color:#000;font-weight:700>(</span>newer AMD GPUs<span style=color:#000;font-weight:700>)</span>................... Missing
+</span></span><span style=display:flex><span>drivetemp: -Dx drive temperature <span style=color:#000;font-weight:700>(</span>kernel &gt;<span style=color:#000;font-weight:700>=</span> 5.6<span style=color:#000;font-weight:700>)</span>.................. Missing
+</span></span><span style=display:flex><span>nouveau: -s Nvidia GPU sensor data <span style=color:#000;font-weight:700>(</span><span style=color:#000;font-weight:700>if</span> using free driver<span style=color:#000;font-weight:700>)</span>......... Missing
+</span></span><span style=display:flex><span> 
+</span></span><span style=display:flex><span>The following recommended kernel modules are missing:
+</span></span><span style=display:flex><span>Kernel Module: amdgpu
+</span></span><span style=display:flex><span>Kernel Module: drivetemp
+</span></span><span style=display:flex><span>Kernel Module: nouveau
+</span></span><span style=display:flex><span>------------------------------------------------------------------------------
+</span></span><span style=display:flex><span>Test: recommended Perl modules <span style=color:#000;font-weight:700>(</span>Optional<span style=color:#000;font-weight:700>)</span>:
+</span></span><span style=display:flex><span> 
+</span></span><span style=display:flex><span>None of these are strictly required, but <span style=color:#000;font-weight:700>if</span> you have them all, you can 
+</span></span><span style=display:flex><span>eliminate some recommended non Perl programs from the install. 
+</span></span><span style=display:flex><span> 
+</span></span><span style=display:flex><span>HTTP::Tiny and IO::Socket::SSL must both be present to use as a downloader 
+</span></span><span style=display:flex><span>option. For json <span style=color:#0086b3>export</span> Cpanel::JSON::XS is preferred over JSON::XS, but 
+</span></span><span style=display:flex><span>JSON::PP is in core modules. To run --debug 20-22 File::Copy, File::Find, and 
+</span></span><span style=display:flex><span>File::Spec::Functions must be present <span style=color:#000;font-weight:700>(</span>most distros have these in Core 
+</span></span><span style=display:flex><span>Modules<span style=color:#000;font-weight:700>)</span>. 
+</span></span><span style=display:flex><span> 
+</span></span><span style=display:flex><span>File::Copy: --debug 20-22 - required to run debugger.............. Present
+</span></span><span style=display:flex><span>File::Find: --debug 20-22 - required to run debugger.............. Present
+</span></span><span style=display:flex><span>File::Spec::Functions: --debug 20-22 - required to run debugger... Present
+</span></span><span style=display:flex><span>HTTP::Tiny: -U; -w,-W; -i <span style=color:#000;font-weight:700>(</span><span style=color:#000;font-weight:700>if</span> dig not installed<span style=color:#000;font-weight:700>)</span>.................. Present
+</span></span><span style=display:flex><span>IO::Socket::SSL: -U; -w,-W; -i <span style=color:#000;font-weight:700>(</span><span style=color:#000;font-weight:700>if</span> dig not installed<span style=color:#000;font-weight:700>)</span>............. Missing
+</span></span><span style=display:flex><span>Time::HiRes: -C cpu sleep <span style=color:#000;font-weight:700>(</span>not required<span style=color:#000;font-weight:700>)</span>; --debug timers.......... Present
+</span></span><span style=display:flex><span>JSON::PP: --output json <span style=color:#000;font-weight:700>(</span>in CoreModules, but slower<span style=color:#000;font-weight:700>)</span>.............. Missing
+</span></span><span style=display:flex><span>Cpanel::JSON::XS: --output json <span style=color:#000;font-weight:700>(</span>faster than JSON::PP<span style=color:#000;font-weight:700>)</span>............ Present
+</span></span><span style=display:flex><span>JSON::XS: --output json <span style=color:#000;font-weight:700>(</span>legacy<span style=color:#000;font-weight:700>)</span>.................................. Present
+</span></span><span style=display:flex><span>XML::Dumper: --output xml - Crude and raw......................... Present
+</span></span><span style=display:flex><span>Net::FTP: --debug 21,22........................................... Present
+</span></span><span style=display:flex><span> 
+</span></span><span style=display:flex><span>The following recommended Perl modules are missing:
+</span></span><span style=display:flex><span>Perl Module: IO::Socket::SSL ~ Install package: perl-IO-Socket-SSL
+</span></span><span style=display:flex><span>Perl Module: JSON::PP ~ Install package: perl-JSON-PP
+</span></span><span style=display:flex><span>------------------------------------------------------------------------------
+</span></span><span style=display:flex><span>Test: recommended directories:
+</span></span><span style=display:flex><span> 
+</span></span><span style=display:flex><span>/dev: -l,-u,-o,-p,-P,-D disk partition data....................... Present
+</span></span><span style=display:flex><span>/dev/disk/by-id: -D serial numbers................................ Present
+</span></span><span style=display:flex><span>/dev/disk/by-label: -l,-o,-p,-P partition labels.................. Missing
+</span></span><span style=display:flex><span>/dev/disk/by-path: -D extra data.................................. Present
+</span></span><span style=display:flex><span>/dev/disk/by-uuid: -u,-o,-p,-P partition uuid..................... Present
+</span></span><span style=display:flex><span>/sys/class/dmi/id: -M system, motherboard, bios................... Present
+</span></span><span style=display:flex><span> 
+</span></span><span style=display:flex><span>The following recommended directories are missing:
+</span></span><span style=display:flex><span>Directory: /dev/disk/by-label
+</span></span><span style=display:flex><span>------------------------------------------------------------------------------
+</span></span><span style=display:flex><span>Test: recommended files:
+</span></span><span style=display:flex><span> 
+</span></span><span style=display:flex><span>Note that not all of these are used by every system, so <span style=color:#000;font-weight:700>if</span> one is missing it<span style=color:#a61717;background-color:#e3d2d2>&#39;</span>s 
+</span></span><span style=display:flex><span>usually not a big deal. 
+</span></span><span style=display:flex><span> 
+</span></span><span style=display:flex><span>/etc/lsb-release: -S distro version data <span style=color:#000;font-weight:700>(</span>older version<span style=color:#000;font-weight:700>)</span>.......... Missing
+</span></span><span style=display:flex><span>/etc/os-release: -S distro version data <span style=color:#000;font-weight:700>(</span>newer version<span style=color:#000;font-weight:700>)</span>........... Present
+</span></span><span style=display:flex><span>/proc/asound/cards: -A sound card data............................ Missing
+</span></span><span style=display:flex><span>/proc/asound/version: -A ALSA data................................ Missing
+</span></span><span style=display:flex><span>/proc/cpuinfo: -C cpu data........................................ Present
+</span></span><span style=display:flex><span>/proc/mdstat: -R mdraid data <span style=color:#000;font-weight:700>(</span><span style=color:#000;font-weight:700>if</span> you use dm-raid<span style=color:#000;font-weight:700>)</span>................. Present
+</span></span><span style=display:flex><span>/proc/meminfo: -I,-tm, -m memory data............................. Present
+</span></span><span style=display:flex><span>/proc/modules: -G module data <span style=color:#000;font-weight:700>(</span>sometimes<span style=color:#000;font-weight:700>)</span>......................... Present
+</span></span><span style=display:flex><span>/proc/mounts: -P,-p partition advanced data....................... Present
+</span></span><span style=display:flex><span>/proc/scsi/scsi: -D Advanced hard disk data <span style=color:#000;font-weight:700>(</span>used rarely<span style=color:#000;font-weight:700>)</span>......... Present
+</span></span><span style=display:flex><span>/var/log/Xorg.0.log: -G graphics driver load status............... Missing
+</span></span><span style=display:flex><span> 
+</span></span><span style=display:flex><span>The following recommended files are missing:
+</span></span><span style=display:flex><span>File: /etc/lsb-release
+</span></span><span style=display:flex><span>File: /proc/asound/cards
+</span></span><span style=display:flex><span>File: /proc/asound/version
+</span></span><span style=display:flex><span>File: /var/log/Xorg.0.log
+</span></span><span style=display:flex><span>------------------------------------------------------------------------------
+</span></span><span style=display:flex><span>Ok, all <span style=color:#000;font-weight:700>done</span> with the checks. Have a nice day.
+</span></span></code></pre></td></tr></table></div></div><p><strong>获取 Linux 系统信息</strong></p><pre tabindex=0><code>[root@QZ ~]# inxi 
+CPU: 8-core Intel Xeon E5-2609 v4 (-MCP-) speed/min/max: 1220/1200/1700 MHz
+Kernel: 3.10.0-1160.el7.x86_64 x86_64 Up: 13d 4h 6m Mem: 2730.4/15774.7 MiB
+(17.3%) Storage: 1.13 TiB (1.1% used) Procs: 169 Shell: Bash inxi: 3.3.21
+</code></pre><p><strong>获取内核和发行版本信息</strong></p><pre tabindex=0><code>[root@QZ ~]# inxi -S 
+System:
+  Host: QZ Kernel: 3.10.0-1160.el7.x86_64 arch: x86_64 bits: 64
+    Console: pty pts/0 Distro: CentOS Linux release 7.9.2009 (Core)
+</code></pre><p><strong>获取电脑机型</strong></p><pre tabindex=0><code>[root@QZ ~]# inxi -M
+Machine:
+  Type: Server Mobo: N/A model: SC612DI-8F v: 1.01 serial: ZM194S005553
+    UEFI: American Megatrends v: 3.1 date: 06/07/2018
+</code></pre><p><strong>获取 CPU 及主频信息</strong></p><pre tabindex=0><code>[root@QZ ~]# inxi -C
+CPU:
+  Info: 8-core model: Intel Xeon E5-2609 v4 bits: 64 type: MCP cache:
+    L2: 2 MiB
+  Speed (MHz): avg: 1204 min/max: 1200/1700 cores: 1: 1236 2: 1200 3: 1200
+    4: 1200 5: 1200 6: 1200 7: 1200 8: 1200
+</code></pre><p><strong>获取显卡信息</strong></p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@QZ ~<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># inxi -G</span>
+</span></span><span style=display:flex><span>Graphics:
+</span></span><span style=display:flex><span>  Device-1: ASPEED Graphics Family driver: ast v: kernel
+</span></span><span style=display:flex><span>  Display: server: No display server data found. Headless machine?
+</span></span><span style=display:flex><span>  Message: GL data unavailable <span style=color:#000;font-weight:700>for</span> root.
+</span></span></code></pre></td></tr></table></div></div><p><strong>获取声卡信息</strong></p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@QZ ~<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># inxi -A</span>
+</span></span><span style=display:flex><span>Audio:
+</span></span><span style=display:flex><span>  Message: No device data found.
+</span></span></code></pre></td></tr></table></div></div><p><strong>获取网卡信息</strong></p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">8
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@QZ ~<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># inxi -N</span>
+</span></span><span style=display:flex><span>Network:
+</span></span><span style=display:flex><span>  Device-1: Intel 82599ES 10-Gigabit SFI/SFP+ Network driver: ixgbe
+</span></span><span style=display:flex><span>  Device-2: Intel 82599ES 10-Gigabit SFI/SFP+ Network driver: ixgbe
+</span></span><span style=display:flex><span>  Device-3: Intel I350 Gigabit Network driver: igb
+</span></span><span style=display:flex><span>  Device-4: Intel I350 Gigabit Network driver: igb
+</span></span><span style=display:flex><span>  Device-5: Intel I210 Gigabit Network driver: igb
+</span></span><span style=display:flex><span>  Device-6: Intel I210 Gigabit Network driver: igb
+</span></span></code></pre></td></tr></table></div></div><p><strong>获取硬盘信息</strong></p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@QZ ~<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># inxi -D</span>
+</span></span><span style=display:flex><span>Drives:
+</span></span><span style=display:flex><span>  Local Storage: total: 1.13 TiB used: 12.9 GiB <span style=color:#000;font-weight:700>(</span>1.1%<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>  ID-1: /dev/sda vendor: Samsung model: MZ7LH240HAHQ-00005 size: 223.57 GiB
+</span></span><span style=display:flex><span>  ID-2: /dev/sdb vendor: Seagate model: ST1000NM0055-1V410C
+</span></span><span style=display:flex><span>    size: 931.51 GiB
+</span></span></code></pre></td></tr></table></div></div><p><strong>获取简要的系统信息</strong></p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@QZ ~<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># inxi -b</span>
+</span></span><span style=display:flex><span>System:
+</span></span><span style=display:flex><span>  Host: QZ Kernel: 3.10.0-1160.el7.x86_64 arch: x86_64 bits: <span style=color:#099>64</span>
+</span></span><span style=display:flex><span>    Console: pty pts/0 Distro: CentOS Linux release 7.9.2009 <span style=color:#000;font-weight:700>(</span>Core<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>Machine:
+</span></span><span style=display:flex><span>  Type: Server Mobo: N/A model: SC612DI-8F v: 1.01 serial: ZM194S005553
+</span></span><span style=display:flex><span>    UEFI: American Megatrends v: 3.1 date: 06/07/2018
+</span></span><span style=display:flex><span>CPU:
+</span></span><span style=display:flex><span>  Info: 8-core Intel Xeon E5-2609 v4 <span style=color:#000;font-weight:700>[</span>MCP<span style=color:#000;font-weight:700>]</span> speed <span style=color:#000;font-weight:700>(</span>MHz<span style=color:#000;font-weight:700>)</span>: avg: <span style=color:#099>1207</span>
+</span></span><span style=display:flex><span>    min/max: 1200/1700
+</span></span><span style=display:flex><span>Graphics:
+</span></span><span style=display:flex><span>  Device-1: ASPEED Graphics Family driver: ast v: kernel
+</span></span><span style=display:flex><span>  Display: server: No display server data found. Headless machine?
+</span></span><span style=display:flex><span>  Message: GL data unavailable <span style=color:#000;font-weight:700>for</span> root.
+</span></span><span style=display:flex><span>Network:
+</span></span><span style=display:flex><span>  Device-1: Intel 82599ES 10-Gigabit SFI/SFP+ Network driver: ixgbe
+</span></span><span style=display:flex><span>  Device-2: Intel 82599ES 10-Gigabit SFI/SFP+ Network driver: ixgbe
+</span></span><span style=display:flex><span>  Device-3: Intel I350 Gigabit Network driver: igb
+</span></span><span style=display:flex><span>  Device-4: Intel I350 Gigabit Network driver: igb
+</span></span><span style=display:flex><span>  Device-5: Intel I210 Gigabit Network driver: igb
+</span></span><span style=display:flex><span>  Device-6: Intel I210 Gigabit Network driver: igb
+</span></span><span style=display:flex><span>Drives:
+</span></span><span style=display:flex><span>  Local Storage: total: 1.13 TiB used: 12.89 GiB <span style=color:#000;font-weight:700>(</span>1.1%<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>Info:
+</span></span><span style=display:flex><span>  Processes: <span style=color:#099>169</span> Uptime: 13d 4h 12m Memory: 15.41 GiB used: 2.56 GiB <span style=color:#000;font-weight:700>(</span>16.6%<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>  Shell: Bash inxi: 3.3.21
+</span></span></code></pre></td></tr></table></div></div><p><strong>获取硬盘分区信息</strong></p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@QZ ~<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># inxi -p</span>
+</span></span><span style=display:flex><span>Partition:
+</span></span><span style=display:flex><span>  ID-1: / size: 49.09 GiB used: 6.32 GiB <span style=color:#000;font-weight:700>(</span>12.9%<span style=color:#000;font-weight:700>)</span> fs: ext4 dev: /dev/sda3
+</span></span><span style=display:flex><span>  ID-2: /boot size: 487.9 MiB used: 101.6 MiB <span style=color:#000;font-weight:700>(</span>20.8%<span style=color:#000;font-weight:700>)</span> fs: ext4
+</span></span><span style=display:flex><span>    dev: /dev/sda2
+</span></span><span style=display:flex><span>  ID-3: /boot/efi size: 511.7 MiB used: 11.2 MiB <span style=color:#000;font-weight:700>(</span>2.2%<span style=color:#000;font-weight:700>)</span> fs: vfat
+</span></span><span style=display:flex><span>    dev: /dev/sda1
+</span></span><span style=display:flex><span>  ID-4: /home size: 49.09 GiB used: <span style=color:#099>52</span> MiB <span style=color:#000;font-weight:700>(</span>0.1%<span style=color:#000;font-weight:700>)</span> fs: ext4 dev: /dev/sda4
+</span></span><span style=display:flex><span>  ID-5: /tmpdisk size: 424.61 GiB used: <span style=color:#099>72</span> MiB <span style=color:#000;font-weight:700>(</span>0.0%<span style=color:#000;font-weight:700>)</span> fs: ext4
+</span></span><span style=display:flex><span>    dev: /dev/sdb2
+</span></span><span style=display:flex><span>  ID-6: /var size: 492.03 GiB used: 6.33 GiB <span style=color:#000;font-weight:700>(</span>1.3%<span style=color:#000;font-weight:700>)</span> fs: ext4 dev: /dev/sdb1
+</span></span><span style=display:flex><span>  ID-7: swap-1 size: <span style=color:#099>16</span> GiB used: <span style=color:#099>0</span> KiB <span style=color:#000;font-weight:700>(</span>0.0%<span style=color:#000;font-weight:700>)</span> fs: swap dev: /dev/sda5
+</span></span></code></pre></td></tr></table></div></div><p><strong>获取完整的 Linux 系统信息</strong></p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@QZ ~<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># inxi -F</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>监控 Linux 进程的内存使用</strong></p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@QZ ~<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># inxi  -I</span>
+</span></span><span style=display:flex><span>Info:
+</span></span><span style=display:flex><span>  Processes: <span style=color:#099>169</span> Uptime: 13d 4h 16m Memory: 15.41 GiB used: 2.81 GiB <span style=color:#000;font-weight:700>(</span>18.3%<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>  Shell: Bash inxi: 3.3.21
+</span></span></code></pre></td></tr></table></div></div><p><strong>监控进程占用的 CPU 和内存资源</strong></p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">32
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@QZ ~<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># inxi  -tc </span>
+</span></span><span style=display:flex><span>Processes:
+</span></span><span style=display:flex><span>  CPU top: <span style=color:#099>5</span> of <span style=color:#099>168</span>
+</span></span><span style=display:flex><span>  1: cpu: 3.4% command: clickhouse-server pid: <span style=color:#099>1481</span>
+</span></span><span style=display:flex><span>  2: cpu: 1.5% command: etcd pid: <span style=color:#099>972</span>
+</span></span><span style=display:flex><span>  3: cpu: 0.7% command: node_exporter pid: <span style=color:#099>971</span>
+</span></span><span style=display:flex><span>  4: cpu: 0.2% command: prometheus pid: <span style=color:#099>973</span>
+</span></span><span style=display:flex><span>  5: cpu: 0.2% command: mysqld pid: <span style=color:#099>1562</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@QZ ~<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># inxi  -tm</span>
+</span></span><span style=display:flex><span>Processes:
+</span></span><span style=display:flex><span>  System RAM: total: 15.41 GiB used: 2.67 GiB <span style=color:#000;font-weight:700>(</span>17.3%<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>  Memory top: <span style=color:#099>5</span> <span style=color:#000;font-weight:700>(</span> <span style=color:#099>1</span> processes<span style=color:#000;font-weight:700>)</span> of <span style=color:#099>168</span>
+</span></span><span style=display:flex><span>  1: mem: 917.8 MiB <span style=color:#000;font-weight:700>(</span>5.8%<span style=color:#000;font-weight:700>)</span> command: clickhouse-server pid: <span style=color:#099>1481</span>
+</span></span><span style=display:flex><span>  2: mem: 424.1 MiB <span style=color:#000;font-weight:700>(</span>2.6%<span style=color:#000;font-weight:700>)</span> command: mysqld pid: <span style=color:#099>1562</span>
+</span></span><span style=display:flex><span>  3: mem: 94.4 MiB <span style=color:#000;font-weight:700>(</span>0.5%<span style=color:#000;font-weight:700>)</span> command: etcd pid: <span style=color:#099>972</span>
+</span></span><span style=display:flex><span>  4: mem: 74.3 MiB <span style=color:#000;font-weight:700>(</span>0.4%<span style=color:#000;font-weight:700>)</span> command: prometheus pid: <span style=color:#099>973</span>
+</span></span><span style=display:flex><span>  5: mem: 70.1 MiB <span style=color:#000;font-weight:700>(</span>0.4%<span style=color:#000;font-weight:700>)</span> command: ysyapi-dashboard pid: <span style=color:#099>3058</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@QZ ~<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># inxi  -tcm</span>
+</span></span><span style=display:flex><span>Processes:
+</span></span><span style=display:flex><span>  CPU top: <span style=color:#099>5</span> of <span style=color:#099>168</span>
+</span></span><span style=display:flex><span>  1: cpu: 3.4% command: clickhouse-server pid: <span style=color:#099>1481</span>
+</span></span><span style=display:flex><span>  2: cpu: 1.5% command: etcd pid: <span style=color:#099>972</span>
+</span></span><span style=display:flex><span>  3: cpu: 0.7% command: node_exporter pid: <span style=color:#099>971</span>
+</span></span><span style=display:flex><span>  4: cpu: 0.2% command: prometheus pid: <span style=color:#099>973</span>
+</span></span><span style=display:flex><span>  5: cpu: 0.2% command: mysqld pid: <span style=color:#099>1562</span>
+</span></span><span style=display:flex><span>  System RAM: total: 15.41 GiB used: 2.69 GiB <span style=color:#000;font-weight:700>(</span>17.4%<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>  Memory top: <span style=color:#099>5</span> of <span style=color:#099>168</span>
+</span></span><span style=display:flex><span>  1: mem: 932.9 MiB <span style=color:#000;font-weight:700>(</span>5.9%<span style=color:#000;font-weight:700>)</span> command: clickhouse-server pid: <span style=color:#099>1481</span>
+</span></span><span style=display:flex><span>  2: mem: 424.1 MiB <span style=color:#000;font-weight:700>(</span>2.6%<span style=color:#000;font-weight:700>)</span> command: mysqld pid: <span style=color:#099>1562</span>
+</span></span><span style=display:flex><span>  3: mem: 94.4 MiB <span style=color:#000;font-weight:700>(</span>0.5%<span style=color:#000;font-weight:700>)</span> command: etcd pid: <span style=color:#099>972</span>
+</span></span><span style=display:flex><span>  4: mem: 74.3 MiB <span style=color:#000;font-weight:700>(</span>0.4%<span style=color:#000;font-weight:700>)</span> command: prometheus pid: <span style=color:#099>973</span>
+</span></span><span style=display:flex><span>  5: mem: 70.1 MiB <span style=color:#000;font-weight:700>(</span>0.4%<span style=color:#000;font-weight:700>)</span> command: ysyapi-dashboard pid: <span style=color:#099>3058</span>
+</span></span></code></pre></td></tr></table></div></div><p>可以在选项 cm 后跟一个整数(在 1-20 之间)设置显示多少个进程，下面的命令显示了前 10 个最消耗 CPU 和内存的进程：</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@QZ ~<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># inxi  -tcm10 </span>
+</span></span><span style=display:flex><span>Processes:
+</span></span><span style=display:flex><span>  CPU top: <span style=color:#099>10</span> of <span style=color:#099>168</span>
+</span></span><span style=display:flex><span>  1: cpu: 3.4% command: clickhouse-server pid: <span style=color:#099>1481</span>
+</span></span><span style=display:flex><span>  2: cpu: 1.5% command: etcd pid: <span style=color:#099>972</span>
+</span></span><span style=display:flex><span>  3: cpu: 0.7% command: node_exporter pid: <span style=color:#099>971</span>
+</span></span><span style=display:flex><span>  4: cpu: 0.2% command: prometheus pid: <span style=color:#099>973</span>
+</span></span><span style=display:flex><span>  5: cpu: 0.2% command: mysqld pid: <span style=color:#099>1562</span>
+</span></span><span style=display:flex><span>  6: cpu: 0.1% command: networkmanager pid: <span style=color:#099>711</span>
+</span></span><span style=display:flex><span>  7: cpu: 0.1% command: ysyapi-dashboard pid: <span style=color:#099>3058</span>
+</span></span><span style=display:flex><span>  8: cpu: 0.0% command: systemd pid: <span style=color:#099>1</span>
+</span></span><span style=display:flex><span>  9: cpu: 0.0% command: <span style=color:#000;font-weight:700>[</span>kthreadd<span style=color:#000;font-weight:700>]</span> pid: <span style=color:#099>2</span>
+</span></span><span style=display:flex><span>  10: cpu: 0.0% command: <span style=color:#000;font-weight:700>[</span>kworker/0:0h<span style=color:#000;font-weight:700>]</span> pid: <span style=color:#099>4</span>
+</span></span><span style=display:flex><span>  System RAM: total: 15.41 GiB used: 2.53 GiB <span style=color:#000;font-weight:700>(</span>16.4%<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>  Memory top: <span style=color:#099>10</span> of <span style=color:#099>168</span>
+</span></span><span style=display:flex><span>  1: mem: 774.8 MiB <span style=color:#000;font-weight:700>(</span>4.9%<span style=color:#000;font-weight:700>)</span> command: clickhouse-server pid: <span style=color:#099>1481</span>
+</span></span><span style=display:flex><span>  2: mem: 424.1 MiB <span style=color:#000;font-weight:700>(</span>2.6%<span style=color:#000;font-weight:700>)</span> command: mysqld pid: <span style=color:#099>1562</span>
+</span></span><span style=display:flex><span>  3: mem: 94.4 MiB <span style=color:#000;font-weight:700>(</span>0.5%<span style=color:#000;font-weight:700>)</span> command: etcd pid: <span style=color:#099>972</span>
+</span></span><span style=display:flex><span>  4: mem: 75.1 MiB <span style=color:#000;font-weight:700>(</span>0.4%<span style=color:#000;font-weight:700>)</span> command: prometheus pid: <span style=color:#099>973</span>
+</span></span><span style=display:flex><span>  5: mem: 70.1 MiB <span style=color:#000;font-weight:700>(</span>0.4%<span style=color:#000;font-weight:700>)</span> command: ysyapi-dashboard pid: <span style=color:#099>3058</span>
+</span></span><span style=display:flex><span>  6: mem: 64.1 MiB <span style=color:#000;font-weight:700>(</span>0.4%<span style=color:#000;font-weight:700>)</span> command: systemd-journald pid: <span style=color:#099>449</span>
+</span></span><span style=display:flex><span>  7: mem: 39.2 MiB <span style=color:#000;font-weight:700>(</span>0.2%<span style=color:#000;font-weight:700>)</span> command: rsyslogd pid: <span style=color:#099>978</span>
+</span></span><span style=display:flex><span>  8: mem: 38.6 MiB <span style=color:#000;font-weight:700>(</span>0.2%<span style=color:#000;font-weight:700>)</span> command: nginx: pid: <span style=color:#099>9622</span>
+</span></span><span style=display:flex><span>  9: mem: 38.6 MiB <span style=color:#000;font-weight:700>(</span>0.2%<span style=color:#000;font-weight:700>)</span> command: nginx: pid: <span style=color:#099>9625</span>
+</span></span><span style=display:flex><span>  10: mem: 38.3 MiB <span style=color:#000;font-weight:700>(</span>0.2%<span style=color:#000;font-weight:700>)</span> command: nginx: pid: <span style=color:#099>9621</span>
+</span></span></code></pre></td></tr></table></div></div><p>下面的命令会列出网卡信息，包括接口信息、网络频率、mac 地址、网卡状态和网络 IP 等信息。</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@QZ ~<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># inxi  -Nni </span>
+</span></span><span style=display:flex><span>Network:
+</span></span><span style=display:flex><span>  Device-1: Intel 82599ES 10-Gigabit SFI/SFP+ Network driver: ixgbe
+</span></span><span style=display:flex><span>  IF: enp2s0f0 state: down mac: 68:91:d0:6a:74:6a
+</span></span><span style=display:flex><span>  Device-2: Intel 82599ES 10-Gigabit SFI/SFP+ Network driver: ixgbe
+</span></span><span style=display:flex><span>  IF: enp2s0f1 state: down mac: 68:91:d0:6a:74:6b
+</span></span><span style=display:flex><span>  Device-3: Intel I350 Gigabit Network driver: igb
+</span></span><span style=display:flex><span>  IF: ens1f0 state: down mac: 58:53:c0:44:0a:70
+</span></span><span style=display:flex><span>  Device-4: Intel I350 Gigabit Network driver: igb
+</span></span><span style=display:flex><span>  IF: ens1f1 state: down mac: 58:53:c0:44:0a:71
+</span></span><span style=display:flex><span>  Device-5: Intel I210 Gigabit Network driver: igb
+</span></span><span style=display:flex><span>  IF: eth0 state: up speed: <span style=color:#099>100</span> Mbps duplex: full mac: ac:1f:6b:d2:3f:30
+</span></span><span style=display:flex><span>  Message: Output throttled. IPs: 1; Limit: 10; Override: --limit <span style=color:#000;font-weight:700>[</span>1-x;-1
+</span></span><span style=display:flex><span>    all<span style=color:#000;font-weight:700>]</span>
+</span></span><span style=display:flex><span>  Device-6: Intel I210 Gigabit Network driver: igb
+</span></span><span style=display:flex><span>  IF: eth1 state: up speed: <span style=color:#099>1000</span> Mbps duplex: full mac: ac:1f:6b:d2:3f:31
+</span></span><span style=display:flex><span>  Message: Output throttled. IPs: 1; Limit: 10; Override: --limit <span style=color:#000;font-weight:700>[</span>1-x;-1
+</span></span><span style=display:flex><span>    all<span style=color:#000;font-weight:700>]</span>
+</span></span><span style=display:flex><span>  WAN IP: 111.207.167.18
+</span></span></code></pre></td></tr></table></div></div><p><strong>监控 CPU 温度和电脑风扇转速</strong></p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@QZ ~<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># inxi -s </span>
+</span></span><span style=display:flex><span>Sensors:
+</span></span><span style=display:flex><span>  System Temperatures: ipmi cpu: <span style=color:#099>32</span> C mobo: <span style=color:#099>28</span> C
+</span></span><span style=display:flex><span>  Fan Speeds <span style=color:#000;font-weight:700>(</span>RPM<span style=color:#000;font-weight:700>)</span>: ipmi fan-1: <span style=color:#099>1200</span> fan-3: <span style=color:#099>1200</span> fan-10: <span style=color:#099>1100</span>
+</span></span><span style=display:flex><span>  System Temperatures: lm-sensors cpu: 24.0 C mobo: N/A
+</span></span><span style=display:flex><span>  Fan Speeds <span style=color:#000;font-weight:700>(</span>RPM<span style=color:#000;font-weight:700>)</span>: lm-sensors N/A
+</span></span></code></pre></td></tr></table></div></div><p><strong>用 Linux 查看天气预报</strong></p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@QZ ~<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># inxi -w</span>
+</span></span><span style=display:flex><span>Weather:
+</span></span><span style=display:flex><span>  Report: temperature: <span style=color:#099>20</span> C <span style=color:#000;font-weight:700>(</span><span style=color:#099>68</span> F<span style=color:#000;font-weight:700>)</span> conditions: Clear sky
+</span></span><span style=display:flex><span>  Locale: Beijing, 22, CHN current time: Fri <span style=color:#099>21</span> Oct <span style=color:#099>2022</span> 01:37:06 PM CST
+</span></span><span style=display:flex><span>    <span style=color:#000;font-weight:700>(</span>Asia/Harbin<span style=color:#000;font-weight:700>)</span> Source: WeatherBit.io
+</span></span></code></pre></td></tr></table></div></div><p><strong>查看所有的 Linux 仓库信息</strong></p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@QZ ~<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># inxi -r </span>
+</span></span><span style=display:flex><span>Repos:
+</span></span><span style=display:flex><span>  No active yum repos in: /etc/yum.conf
+</span></span><span style=display:flex><span>  No active yum repos in: /etc/yum.repos.d/CentOS-Base.repo
+</span></span><span style=display:flex><span>  No active yum repos in: /etc/yum.repos.d/CentOS-CR.repo
+</span></span><span style=display:flex><span>  No active yum repos in: /etc/yum.repos.d/CentOS-Debuginfo.repo
+</span></span><span style=display:flex><span>  No active yum repos in: /etc/yum.repos.d/CentOS-Media.repo
+</span></span><span style=display:flex><span>  Active yum repos in: /etc/yum.repos.d/CentOS-SCLo-scl-rh.repo
+</span></span><span style=display:flex><span>    1: centos-sclo-rh ~ http://mirrorlist.centos.org?arch<span style=color:#000;font-weight:700>=</span><span style=color:teal>$basearch</span>&amp;<span style=color:teal>release</span><span style=color:#000;font-weight:700>=</span>7&amp;<span style=color:teal>repo</span><span style=color:#000;font-weight:700>=</span>sclo-rh
+</span></span><span style=display:flex><span>  Active yum repos in: /etc/yum.repos.d/CentOS-SCLo-scl.repo
+</span></span><span style=display:flex><span>    1: centos-sclo-sclo ~ http://mirrorlist.centos.org?arch<span style=color:#000;font-weight:700>=</span><span style=color:teal>$basearch</span>&amp;<span style=color:teal>release</span><span style=color:#000;font-weight:700>=</span>7&amp;<span style=color:teal>repo</span><span style=color:#000;font-weight:700>=</span>sclo-sclo
+</span></span><span style=display:flex><span>  No active yum repos in: /etc/yum.repos.d/CentOS-Sources.repo
+</span></span><span style=display:flex><span>  No active yum repos in: /etc/yum.repos.d/CentOS-Vault.repo
+</span></span><span style=display:flex><span>  No active yum repos in: /etc/yum.repos.d/CentOS-fasttrack.repo
+</span></span><span style=display:flex><span>  No active yum repos in: /etc/yum.repos.d/CentOS-x86_64-kernel.repo
+</span></span><span style=display:flex><span>  No active yum repos in: /etc/yum.repos.d/epel-testing.repo
+</span></span><span style=display:flex><span>  Active yum repos in: /etc/yum.repos.d/epel.repo
+</span></span><span style=display:flex><span>    1: epel ~ https://mirrors.fedoraproject.org/metalink?repo<span style=color:#000;font-weight:700>=</span>epel-7&amp;<span style=color:teal>arch</span><span style=color:#000;font-weight:700>=</span><span style=color:teal>$basearch</span>&amp;<span style=color:teal>infra</span><span style=color:#000;font-weight:700>=</span><span style=color:teal>$infra</span>&amp;<span style=color:teal>content</span><span style=color:#000;font-weight:700>=</span><span style=color:teal>$contentdir</span>
+</span></span><span style=display:flex><span>  No active yum repos in: /etc/yum.repos.d/mysql-community-source.repo
+</span></span><span style=display:flex><span>  Active yum repos in: /etc/yum.repos.d/mysql-community.repo
+</span></span><span style=display:flex><span>    1: mysql-connectors-community ~ http://repo.mysql.com/yum/mysql-connectors-community/el/7/<span style=color:teal>$basearch</span>/
+</span></span><span style=display:flex><span>    2: mysql-tools-community ~ http://repo.mysql.com/yum/mysql-tools-community/el/7/<span style=color:teal>$basearch</span>/
+</span></span><span style=display:flex><span>    3: mysql-tools-preview ~ http://repo.mysql.com/yum/mysql-tools-preview/el/7/<span style=color:teal>$basearch</span>/
+</span></span></code></pre></td></tr></table></div></div><p><strong>显示基础信息</strong> <code>-v</code>后数字1-8 简要信息到完整信息。</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>inxi -v <span style=color:#099>4</span> 
+</span></span></code></pre></td></tr></table></div></div></div></div></div><div id=footer><div class=container-footer><div class=beian><a target=_blank href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode="></a><a href target=_blank><span class=some>icp...<span></a></div><div class=info><a href=https://github.com/loveminimal/hugo-theme-virgo>🕊️</a> 2021 - <span id=info-date></span></div></div></div><div class=cool-after></div></body></html>

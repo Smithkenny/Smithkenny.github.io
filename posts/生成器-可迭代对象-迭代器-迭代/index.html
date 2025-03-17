@@ -1,0 +1,432 @@
+<!doctype html><html lang=zh-CN><head><meta name=viewport content="width=device-width,initial-scale=1"><meta charset=utf-8><meta name=description content="生成器 可迭代对象 迭代器 迭代 - https://t.haipengv.com/posts/%E7%94%9F%E6%88%90%E5%99%A8-%E5%8F%AF%E8%BF%AD%E4%BB%A3%E5%AF%B9%E8%B1%A1-%E8%BF%AD%E4%BB%A3%E5%99%A8-%E8%BF%AD%E4%BB%A3/"><meta name=author content="Smith - https://t.haipengv.com/"><meta name=msvalidate.01 content="B46311949B856F2A7015F366FB3CE878"><title>生成器 可迭代对象 迭代器 迭代</title><base target=_blank><link rel=icon type=image/png href=/favicon.ico><link rel=stylesheet href=https://t.haipengv.com/style.min.9a0cea23154ac1941e15c25aa2d31b77285a217d2606ec05b55236428cf1c3e6.css><script>const DARK=!1</script><script type=text/javascript src=/main.js defer></script></head><body class=active-animate><div class=cool-before></div><div id=header><div class=container-header><div class=right><h1 class=title>生成器 可迭代对象 迭代器 迭代</h1><div id=toc>📜</div></div></div></div><div id=content><div class="container-main container-page"><div class=rel><div class=curtag-desc><a href=https://t.haipengv.com/tags/python/><img src=/imgs/icons/tag.svg width=16> 相关文章：Python <sup>31</sup></a></div><div class=curtag-post><div class=curtag-post-item><a href=https://t.haipengv.com/posts/jupyter%E6%9B%B4%E6%94%B9%E7%99%BB%E5%BD%95%E5%AF%86%E7%A0%81/>Jupyter更改登录密码</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E5%9B%9E%E7%82%89%E9%87%8D%E9%80%A0-%E5%87%BD%E6%95%B0/>Python回炉重造 函数</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E5%9B%9E%E7%82%89%E9%87%8D%E9%80%A0-%E5%85%83%E7%BB%84/>Python回炉重造-元组</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E5%9B%9E%E7%82%89%E9%87%8D%E9%80%A0-%E5%88%97%E8%A1%A8/>Python回炉重造-列表</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E5%9B%9E%E7%82%89%E9%87%8D%E9%80%A0-%E5%AD%97%E5%85%B8/>Python回炉重造-字典</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E5%9B%9E%E7%82%89%E9%87%8D%E9%80%A0-%E5%AD%97%E7%AC%A6%E4%B8%B2/>Python回炉重造-字符串</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E5%9B%9E%E7%82%89%E9%87%8D%E9%80%A0-%E9%9B%86%E5%90%88/>Python回炉重造-集合</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E5%9B%9E%E7%82%89%E9%87%8D%E9%80%A0-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B%E5%85%A5%E9%97%A8/>Python回炉重造-面向对象编程入门</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E5%A4%9A%E7%BA%BF%E7%A8%8B/>Python多线程</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E5%AF%B9%E8%B1%A1%E5%92%8C%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/>Python对象和数据结构基础</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E5%B0%81%E8%A3%85/>Python封装</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97/>Python常用模块</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E6%80%BB%E7%BB%93/>Python数据结构总结</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/>Python文件处理</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E6%96%B9%E6%B3%95%E5%92%8C%E5%87%BD%E6%95%B0/>Python方法和函数</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E8%87%AA%E5%8A%A8%E5%8C%96%E5%8A%9E%E5%85%AC/>Python自动化办公</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E8%87%AA%E5%8A%A8%E5%8C%96%E5%8A%9E%E5%85%AC%E4%B9%8Bexcel/>Python自动化办公之excel</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E8%AF%AD%E6%B3%95/>Python语法</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/sqlite3%E4%BD%BF%E7%94%A8/>Sqlite3使用</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/urllib%E5%BA%93%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/>Urllib库的基本使用</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E4%BD%BF%E7%94%A8python%E5%AE%9E%E7%8E%B0unix%E6%97%B6%E9%97%B4%E6%88%B3%E8%BD%AC%E6%8D%A2/>使用python实现unix时间戳转换</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E5%9F%BA%E4%BA%8Etcp%E7%9A%84%E7%AE%80%E5%8D%95%E5%A5%97%E6%8E%A5%E5%AD%97%E9%80%9A%E4%BF%A1/>基于TCP的简单套接字通信</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E5%AE%89%E8%A3%85%E4%BB%BB%E6%84%8F%E7%89%88%E6%9C%ACpython/>安装任意版本Python</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/>序列化与反序列化</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E5%BC%82%E5%B8%B8/>异常</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E6%A8%A1%E5%9D%97%E4%B8%8E%E5%8C%85/>模块与包</a></div><div class="curtag-post-item curtag-post-item--active"><a href=https://t.haipengv.com/posts/%E7%94%9F%E6%88%90%E5%99%A8-%E5%8F%AF%E8%BF%AD%E4%BB%A3%E5%AF%B9%E8%B1%A1-%E8%BF%AD%E4%BB%A3%E5%99%A8-%E8%BF%AD%E4%BB%A3/>生成器 可迭代对象 迭代器 迭代</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1/>类和对象</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E8%B1%86%E7%93%A3%E5%B1%95%E7%A4%BA%E9%A1%B5/>豆瓣展示页</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E8%B1%86%E7%93%A3%E7%94%B5%E5%BD%B1%E7%88%AC%E8%99%AB/>豆瓣电影爬虫</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E9%9B%86%E5%90%88%E7%9A%84%E7%9B%B8%E5%85%B3%E7%89%B9%E6%80%A7/>集合的相关特性</a></div></div></div><div class=desc><span><svg t="1656736000388" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="7409" width="12" height="12"><path d="M524.885333 338.986667l-324.522666 324.48c-17.28 15.274667-27.989333 36.693333-29.696 56.234666v133.76l130.730666.085334c22.784-1.621333 43.989333-12.245333 61.013334-31.701334L685.098667 499.2 524.885333 338.986667zM585.258667 278.656l160.170666 160.213333 102.144-102.144a19.712 19.712.0 000-27.861333l-132.48-132.437333a19.456 19.456.0 00-27.605333.0L585.258667 278.613333zM701.312 85.333333c27.946667.0 54.741333 11.136 74.282667 30.848L907.904 248.490667a105.045333 105.045333.0 010 148.565333L424.874667 879.957333C395.050667 914.304 352.768 935.424 304.426667 938.752H85.333333v-42.666667l.128-179.84c3.626667-44.970667 24.576-86.826667 56.448-114.944l485.12-485.034666a104.789333 104.789333.0 0174.24-30.933334z" p-id="7410" fill="#adb5bd"/></svg>2025-03-16&nbsp;&nbsp;&nbsp;<svg t="1656737270708" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="23838" width="11" height="11"><path d="M824.264 95.36c0-23.859 25.043-44.16 48.902-44.16s49.714 20.301 49.714 44.16v190.08c0 23.859-19.054 52.868-42.913 52.868h-190.08c-23.859.0-46.696-25.96-46.696-49.819s22.55-46.249 46.409-46.249h82.025C702.344 175.534 610.22 155.853 512 155.853c-206.775.0-360.398 149.372-360.398 356.147S305.225 870.23 512 870.23c206.775.0 357.467-151.455 357.467-358.23.0-23.859 23.634-50.706 53.413-50.706 29.78.0 49.92 26.847 49.92 50.706.0 254.493-206.307 460.8-460.8 460.8s-460.8-206.307-460.8-460.8C51.2 257.507 257.507 51.2 512 51.2c122.4.0 226.684 33.296 312.264 117.369.358.351.358-24.052.0-73.209z" p-id="23839" fill="#adb5bd"/></svg>
+2025-03-16&nbsp;&nbsp;&nbsp;</span>
+<span><svg t="1656737548689" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="33866" width="12" height="12"><path d="M832.038608 64.662657H192.030028c-70.774903.0-128.089859 57.325793-128.089859 128.03206v446.793671c0 70.7171050000001 57.314956 128.154884 128.089859 128.154884h133.353183a63.940169 63.940169.0 0155.219742 31.576328l76.099638 129.83828c12.358154 21.093031 33.790754 31.626903 55.216129 31.626903s42.832688-10.544709 55.198067-31.619678l76.222461-129.870792a63.940169 63.940169.0 0155.212517-31.551041h133.54103c70.576219.0 127.732228-57.289669 127.732227-127.800865V192.391272c0-70.536482-57.181295-127.728615-127.786414-127.728615zM895.884854 639.842407A63.85347 63.85347.0 01832.092795 703.703103h-133.54103a127.753903 127.753903.0 00-110.349172 63.09847l-76.222461 129.856342a.274545.274545.0 010-.050574h-.032512s-.021675.061411-.032512.061412l-76.1466-129.85273a127.804477 127.804477.0 00-110.385297-63.11292H192.030028A64.207489 64.207489.0 01127.880338 639.488388V192.694717a64.102729 64.102729.0 0164.14969-64.091891h640.00858a63.799284 63.799284.0 0163.846246 63.788446v447.451135z" fill="#adb5bd" p-id="33867"/><path d="M608.154093 288.092004a31.970084 31.970084.0 00-31.970084 31.970085v160.078006L441.53396 300.861976a31.970084 31.970084.0 00-57.531702 19.200113v255.760676a31.970084 31.970084.0 0063.940169.0V415.863969l134.650048 179.274507a31.970084 31.970084.0 0057.531703-19.200113V320.062089a31.970084 31.970084.0 00-31.970085-31.970085z" fill="#adb5bd" p-id="33868"/></svg>2642 字</span>&nbsp;
+<span><svg t="1656737462334" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="32892" width="12" height="12"><path d="M512 74.666667C270.933333 74.666667 74.666667 270.933333 74.666667 512S270.933333 949.333333 512 949.333333 949.333333 753.066667 949.333333 512 753.066667 74.666667 512 74.666667zm0 810.666666C307.2 885.333333 138.666667 716.8 138.666667 512S307.2 138.666667 512 138.666667 885.333333 307.2 885.333333 512 716.8 885.333333 512 885.333333z" p-id="32893" fill="#adb5bd"/><path d="M695.466667 567.466667 544 497.066667V277.333333c0-17.066667-14.933333-32-32-32s-32 14.933333-32 32v238.933334c0 12.8 6.4 23.466667 19.2 29.866666L669.866667 627.2c4.266667 2.133333 8.533333 2.133333 12.8 2.133333 12.8.0 23.466667-6.4 29.866666-19.2 6.4-14.933333.0-34.133333-17.066666-42.666666z" p-id="32894" fill="#adb5bd"/></svg>6 分钟</span><div class=container-ctgtag><div class=taxonomy><div class=tag><a href=/tags/python>Python</a></div></div></div></div><div class=toc><div class=container-page-operation><div class=page-operation><div><a href=/><img src=/imgs/icons/home-2.svg alt></a></div><div><a href=/nav><img src=/imgs/icons/iov-navigate-1.svg alt></a></div><div><a href=/wiki><img src=/imgs/icons/wiki.svg alt></a></div><div><a href=/tags><img src=/imgs/icons/treetags.svg alt></a></div><div id=light-dark><a><img src=/imgs/icons/moon2.svg alt></a></div><div><a href=#><img src=/imgs/icons/up2.svg alt></a></div></div></div><nav id=TableOfContents><ul><li><a href=#可迭代对象iterable>可迭代对象（Iterable）</a></li><li><a href=#迭代器iterator>迭代器(Iterator)</a></li><li><a href=#迭代iteration>迭代(Iteration)</a></li><li><a href=#生成器generators>生成器(Generators)</a></li><li><a href=#装饰器>装饰器</a></li><li><a href=#嵌套函数解析>嵌套函数解析</a><ul><li><a href=#从函数中返回函数>从函数中返回函数</a></li><li><a href=#将函数作为参数传递给另一个参数>将函数作为参数传递给另一个参数</a></li><li><a href=#文件格式判断>文件格式判断</a></li></ul></li><li><a href=#socket-模块>socket 模块</a><ul><li><a href=#udp套接字>udp套接字</a></li><li><a href=#tcp编程流程>TCP编程流程</a></li><li><a href=#文件传输>文件传输</a></li><li><a href=#文件传输客户端>文件传输客户端</a></li></ul></li></ul></nav></div><div class=content><h2 id=可迭代对象iterable>可迭代对象（Iterable）</h2><p>python中任意对象，只要它定义了可以返回一个迭代器的<code>__iter__</code>方法，或者定义了可以支持下标索引的<code>__getitem__</code>方法，那么他就是一个可迭代对象。可迭代对象就是能够提供迭代器的任意对象。</p><pre tabindex=0><code>str1 = &#34;hello&#34;
+print(str1.__iter__()) # &lt;str_iterator object at 0x0000022BDAF5A040&gt;
+</code></pre><h2 id=迭代器iterator>迭代器(Iterator)</h2><p>任意对象，只要定义了<code>next</code>（python2）或者<code>__next__</code>方法他就是一个迭代器。</p><h2 id=迭代iteration>迭代(Iteration)</h2><p>从某个地方（比如一个列表）取出一个元素的过程。当我们使用一个循环来遍历某个东西时，这个过程本身叫迭代。</p><h2 id=生成器generators>生成器(Generators)</h2><p><strong>生成器也是一种迭代器，但是你只能对其迭代一次</strong>。这是因为他们并没有把所有的值都存在内存中，而是在运行时生成值。大多数时候生成器是以函数是实现的。然而，它们并不返回一个值，而是<code>yield</code>(暂且译作“生出”)一个值。</p><p>Python内置函数：<code>next()</code>。它允许我们获取一个序列的下一个元素。</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#000;font-weight:700>def</span> <span style=color:#900;font-weight:700>generator_function</span>():
+</span></span><span style=display:flex><span>    <span style=color:#000;font-weight:700>for</span> i <span style=color:#000;font-weight:700>in</span> <span style=color:#0086b3>range</span>(<span style=color:#099>3</span>):
+</span></span><span style=display:flex><span>        <span style=color:#000;font-weight:700>yield</span> i
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>gen <span style=color:#000;font-weight:700>=</span> generator_function()
+</span></span><span style=display:flex><span><span style=color:#0086b3>print</span>(<span style=color:#0086b3>next</span>(gen))
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># Output: 0</span>
+</span></span><span style=display:flex><span><span style=color:#0086b3>print</span>(<span style=color:#0086b3>next</span>(gen))
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># Output: 1</span>
+</span></span><span style=display:flex><span><span style=color:#0086b3>print</span>(<span style=color:#0086b3>next</span>(gen))
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># Output: 2</span>
+</span></span><span style=display:flex><span><span style=color:#0086b3>print</span>(<span style=color:#0086b3>next</span>(gen))
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># Output: Traceback (most recent call last):</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#            File &#34;&lt;stdin&gt;&#34;, line 1, in &lt;module&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#         StopIteration</span>
+</span></span></code></pre></td></tr></table></div></div><p>在<code>yield</code>掉所有的值后，<code>next()</code>触发了一个<code>StopIteration</code>的异常。基本上这个异常告诉我们，所有的值都已经被<code>yield</code>完了。</p><p>为什么我们在使用<code>for</code>循环时没有这个异常呢?<code>for</code>循环会自动捕捉到这个异常并停止调用<code>next()</code>。</p><p>Python中一些内置数据类型也支持迭代。</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>my_string <span style=color:#000;font-weight:700>=</span> <span style=color:#d14>&#34;Yasoob&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#0086b3>next</span>(my_string)
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># Output: Traceback (most recent call last):</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#      File &#34;&lt;stdin&gt;&#34;, line 1, in &lt;module&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#    TypeError: str object is not an iterator</span>
+</span></span></code></pre></td></tr></table></div></div><p>这个异常说那个<code>str</code>对象不是一个迭代器。它是一个可迭代对象，而不是一个迭代器。这意味着它支持迭代，但我们不能直接对其进行迭代操作。怎样才能对它实施迭代呢？</p><p>内置函数，<code>iter</code>。它将根据一个可迭代对象返回一个迭代器对象。</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>my_string <span style=color:#000;font-weight:700>=</span> <span style=color:#d14>&#34;Yasoob&#34;</span>
+</span></span><span style=display:flex><span>my_iter <span style=color:#000;font-weight:700>=</span> <span style=color:#0086b3>iter</span>(my_string)
+</span></span><span style=display:flex><span><span style=color:#0086b3>print</span>(<span style=color:#0086b3>next</span>(my_iter))
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># Output: &#39;Y&#39;</span>
+</span></span><span style=display:flex><span><span style=color:#0086b3>print</span>(<span style=color:#0086b3>type</span>(my_iter)) <span style=color:#998;font-style:italic># &lt;class &#39;str_iterator&#39;&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=装饰器>装饰器</h2><p>装饰器(Decorators)是Python的一个重要部分。简单地说：他们是修改其他函数的功能的函数。</p><h2 id=嵌套函数解析>嵌套函数解析</h2><h3 id=从函数中返回函数>从函数中返回函数</h3><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#000;font-weight:700>def</span> <span style=color:#900;font-weight:700>hi</span>(name<span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#34;yasoob&#34;</span>):
+</span></span><span style=display:flex><span>    <span style=color:#000;font-weight:700>def</span> <span style=color:#900;font-weight:700>greet</span>():
+</span></span><span style=display:flex><span>        <span style=color:#000;font-weight:700>return</span> <span style=color:#d14>&#34;now you are in the greet() function&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#000;font-weight:700>def</span> <span style=color:#900;font-weight:700>welcome</span>():
+</span></span><span style=display:flex><span>        <span style=color:#000;font-weight:700>return</span> <span style=color:#d14>&#34;now you are in the welcome() function&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#000;font-weight:700>if</span> name <span style=color:#000;font-weight:700>==</span> <span style=color:#d14>&#34;yasoob&#34;</span>:
+</span></span><span style=display:flex><span>        <span style=color:#000;font-weight:700>return</span> greet
+</span></span><span style=display:flex><span>    <span style=color:#000;font-weight:700>else</span>:
+</span></span><span style=display:flex><span>        <span style=color:#000;font-weight:700>return</span> welcome
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>a <span style=color:#000;font-weight:700>=</span> hi()
+</span></span><span style=display:flex><span><span style=color:#0086b3>print</span>(a)
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#outputs: &lt;function greet at 0x7f2143c01500&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#上面清晰地展示了`a`现在指向到hi()函数中的greet()函数</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#现在试试这个</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#0086b3>print</span>(a())
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#outputs: now you are in the greet() function</span>
+</span></span></code></pre></td></tr></table></div></div><p>解析：</p><p>调用<code>hi</code>函数中创建的<code>greet</code>函数和<code>welcome</code>函数，作为结果输出出来。</p><p>问题：</p><p>在<code>if/else</code>语句中我们返回<code>greet</code>和<code>welcome</code>，而不是<code>greet()</code>和<code>welcome()</code>。为什么那样？这是因为当你把一对小括号放在后面，这个函数就会执行；然而如果你不放括号在它后面，那它可以被到处传递，并且可以赋值给别的变量而不去执行它。</p><p>当我们写下<code>a = hi()</code>，<code>hi()</code>会被执行，而由于<code>name</code>参数默认是<em>yasoob</em>，所以函数<code>greet</code>被返回了。如果我们把语句改为<code>a = hi(name = "ali")</code>，那么<code>welcome</code>函数将被返回。我们还可以打印出<code>hi()()</code>，这会输出<em>now you are in the greet() function</em>。</p><h3 id=将函数作为参数传递给另一个参数>将函数作为参数传递给另一个参数</h3><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#000;font-weight:700>def</span> <span style=color:#900;font-weight:700>hi</span>():
+</span></span><span style=display:flex><span>    <span style=color:#000;font-weight:700>return</span> <span style=color:#d14>&#34;come from hi()&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>def</span> <span style=color:#900;font-weight:700>hello</span>(func):
+</span></span><span style=display:flex><span>    <span style=color:#0086b3>print</span>(<span style=color:#d14>&#34;I am doing some boring work before executing hi()&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#0086b3>print</span>(func())
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>hello(hi)
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span><span style=color:#d14>&#34;&#34;&#34;
+</span></span></span><span style=display:flex><span><span style=color:#d14>I am doing some boring work before executing hi()
+</span></span></span><span style=display:flex><span><span style=color:#d14>come from hi()
+</span></span></span><span style=display:flex><span><span style=color:#d14>&#34;&#34;&#34;</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=文件格式判断>文件格式判断</h3><p>常见的文件头字节码信息</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>http:<span style=color:#000;font-weight:700>//</span>doc<span style=color:#000;font-weight:700>.</span>chacuo<span style=color:#000;font-weight:700>.</span>net<span style=color:#000;font-weight:700>/</span>filehead
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#000;font-weight:700>import</span> <span style=color:#555>io</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>with</span> <span style=color:#0086b3>open</span>(<span style=color:#d14>&#39;blue.jpg&#39;</span>, <span style=color:#d14>&#39;rb&#39;</span>) <span style=color:#000;font-weight:700>as</span> f:
+</span></span><span style=display:flex><span>    jpgdata <span style=color:#000;font-weight:700>=</span> f<span style=color:#000;font-weight:700>.</span>read()
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>if</span> jpgdata<span style=color:#000;font-weight:700>.</span>startswith(<span style=color:#d14>b</span><span style=color:#d14>&#39;</span><span style=color:#d14>\xff\xd8</span><span style=color:#d14>&#39;</span>):
+</span></span><span style=display:flex><span>    text <span style=color:#000;font-weight:700>=</span> <span style=color:#d14>u</span><span style=color:#d14>&#39;This is a jpg file(</span><span style=color:#d14>%d</span><span style=color:#d14> bytes long)</span><span style=color:#d14>\n</span><span style=color:#d14>&#39;</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>else</span>:
+</span></span><span style=display:flex><span>    text <span style=color:#000;font-weight:700>=</span> <span style=color:#d14>u</span><span style=color:#d14>&#39;This is not a jpg file(</span><span style=color:#d14>%d</span><span style=color:#d14> bytes long)</span><span style=color:#d14>\n</span><span style=color:#d14>&#39;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>with</span> io<span style=color:#000;font-weight:700>.</span>open(<span style=color:#d14>&#39;summary.txt&#39;</span>,<span style=color:#d14>&#39;w&#39;</span>,encoding<span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#39;utf-8&#39;</span>) <span style=color:#000;font-weight:700>as</span> outf:
+</span></span><span style=display:flex><span>    outf<span style=color:#000;font-weight:700>.</span>write(text <span style=color:#000;font-weight:700>%</span> <span style=color:#0086b3>len</span>(jpgdata))
+</span></span></code></pre></td></tr></table></div></div><p>判断<code>blue.jpg</code>文件是不是<code>jpg</code>格式的文件。将判断结果保存到<code>summary.txt</code>.</p><p>提示：<code>.jpg</code>格式的文件头字节码为<code>ff d8</code>，注意读取<code>blue.jpg</code>文件时，要以字节方式读取。</p><p><code>u</code>以<code>unicode</code>形式存储字符串。</p><h2 id=socket-模块>socket 模块</h2><h3 id=udp套接字>udp套接字</h3><p>应用层的一种编程方法</p><p>创建套接字：<code>socket()</code></p><p>绑定IP端口: <code>bind()</code></p><p>发送消息： <code>sendto()</code></p><p>接受消息： <code>recvfrom()</code></p><p>关闭套接字： <code>close()</code></p><h4 id=udp-服务端代码>udp 服务端代码：</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#998;font-style:italic># 模块导入</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>from</span> <span style=color:#555>socket</span> <span style=color:#000;font-weight:700>import</span> <span style=color:#000;font-weight:700>*</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 声明服务器IP, 端口</span>
+</span></span><span style=display:flex><span>ADDR <span style=color:#000;font-weight:700>=</span> (<span style=color:#d14>&#39;0.0.0.0&#39;</span>,<span style=color:#099>8888</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 创建udp套接字 SOCK_DGRAM 表示选择的时UDP套接字</span>
+</span></span><span style=display:flex><span>udp_socket <span style=color:#000;font-weight:700>=</span> socket(AF_INET, SOCK_DGRAM)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 调用bind 绑定地址端口</span>
+</span></span><span style=display:flex><span>udp_socket<span style=color:#000;font-weight:700>.</span>bind(ADDR)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 循环接受消息</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>while</span> <span style=color:#000;font-weight:700>True</span>:
+</span></span><span style=display:flex><span>    <span style=color:#998;font-style:italic># 接收消息 1024 一次能接收的最大字节数</span>
+</span></span><span style=display:flex><span>    msg, addr <span style=color:#000;font-weight:700>=</span> udp_socket<span style=color:#000;font-weight:700>.</span>recvfrom(<span style=color:#099>1024</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#998;font-style:italic># 打印消息跟地址 decode() 解码</span>
+</span></span><span style=display:flex><span>    <span style=color:#0086b3>print</span>(<span style=color:#d14>&#39;Recv:&#39;</span>, addr,msg<span style=color:#000;font-weight:700>.</span>decode())
+</span></span><span style=display:flex><span>    <span style=color:#998;font-style:italic># 回应消息</span>
+</span></span><span style=display:flex><span>    udp_socket<span style=color:#000;font-weight:700>.</span>sendto(<span style=color:#d14>&#39;收到！&#39;</span><span style=color:#000;font-weight:700>.</span>encode(),addr)
+</span></span><span style=display:flex><span>    <span style=color:#998;font-style:italic># 约定断开通信的</span>
+</span></span><span style=display:flex><span>    <span style=color:#000;font-weight:700>if</span> msg <span style=color:#000;font-weight:700>==</span> <span style=color:#d14>b</span><span style=color:#d14>&#39;bye&#39;</span>:
+</span></span><span style=display:flex><span>        <span style=color:#000;font-weight:700>break</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 关闭套接字</span>
+</span></span><span style=display:flex><span>udp_socket<span style=color:#000;font-weight:700>.</span>close()
+</span></span></code></pre></td></tr></table></div></div><h4 id=udp客户端代码>udp客户端代码：</h4><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#998;font-style:italic># 模块导入</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>from</span> <span style=color:#555>socket</span> <span style=color:#000;font-weight:700>import</span> <span style=color:#000;font-weight:700>*</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 确定服务器的地址 127.0.0.1 跟localhost 默认时本机IP</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>ADDR <span style=color:#000;font-weight:700>=</span> (<span style=color:#d14>&#39;127.0.0.1&#39;</span>,<span style=color:#099>8888</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 创建套接字</span>
+</span></span><span style=display:flex><span>udp_socket <span style=color:#000;font-weight:700>=</span> socket(AF_INET, SOCK_DGRAM)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 接受消息</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>while</span> <span style=color:#000;font-weight:700>True</span>:
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    msg <span style=color:#000;font-weight:700>=</span> <span style=color:#0086b3>input</span>(<span style=color:#d14>&#39;&gt;&gt;:&#39;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#998;font-style:italic># 发送给服务器</span>
+</span></span><span style=display:flex><span>    udp_socket<span style=color:#000;font-weight:700>.</span>sendto(msg<span style=color:#000;font-weight:700>.</span>encode(),ADDR)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#998;font-style:italic># 接受服务器消息</span>
+</span></span><span style=display:flex><span>    data, addr <span style=color:#000;font-weight:700>=</span> udp_socket<span style=color:#000;font-weight:700>.</span>recvfrom(<span style=color:#099>1024</span>)
+</span></span><span style=display:flex><span>    <span style=color:#0086b3>print</span>(<span style=color:#d14>&#39;来自服务器的消息:&#39;</span>,data<span style=color:#000;font-weight:700>.</span>decode())
+</span></span><span style=display:flex><span>    <span style=color:#998;font-style:italic># 终止客户端循环</span>
+</span></span><span style=display:flex><span>    <span style=color:#000;font-weight:700>if</span> msg <span style=color:#000;font-weight:700>==</span> <span style=color:#d14>b</span><span style=color:#d14>&#39;bye&#39;</span>:
+</span></span><span style=display:flex><span>        <span style=color:#000;font-weight:700>break</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>udp_socket<span style=color:#000;font-weight:700>.</span>close()
+</span></span></code></pre></td></tr></table></div></div><h3 id=tcp编程流程>TCP编程流程</h3><p>创建套接字：<code>socket</code></p><p>绑定地址：<code>bind</code></p><p>设置监听：<code>listen</code></p><p>等待处理连接：<code>accept</code></p><p>发送/接收消息：<code>send/recv</code></p><p>关闭连接：<code>close</code></p><p><strong>粘包问题</strong></p><p><strong>产生原因</strong></p><p>为了解决数据传输中的速率不协调问题，操作系统设置了缓冲区</p><p>实际网路工作过程比较复杂，导致消息收发不一致</p><p>tcp以字节流方式进行数据传输，在接收的时候不区分消息边界</p><p><strong>带来问题</strong></p><p>如果发送的消息每次都是独立的，需要接收端去独立解析消息时回带来消息误解问题</p><p><strong>解决方式</strong></p><p>人工设置消息边界</p><p>减缓消息发送速度</p><p><strong>tcp服务端代码</strong></p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#000;font-weight:700>import</span> <span style=color:#555>socket</span>
+</span></span><span style=display:flex><span>phone <span style=color:#000;font-weight:700>=</span> socket<span style=color:#000;font-weight:700>.</span>socket(socket<span style=color:#000;font-weight:700>.</span>AF_INET, socket<span style=color:#000;font-weight:700>.</span>SOCK_STREAM) <span style=color:#998;font-style:italic>#tcp协议</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># phone.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)</span>
+</span></span><span style=display:flex><span>phone<span style=color:#000;font-weight:700>.</span>bind((<span style=color:#d14>&#39;127.0.0.1&#39;</span>, <span style=color:#099>9000</span>)) <span style=color:#998;font-style:italic>#0-65535</span>
+</span></span><span style=display:flex><span>phone<span style=color:#000;font-weight:700>.</span>listen(<span style=color:#099>5</span>)
+</span></span><span style=display:flex><span><span style=color:#0086b3>print</span>(<span style=color:#d14>&#39;staring....&#39;</span>)
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>while</span> <span style=color:#000;font-weight:700>True</span>: <span style=color:#998;font-style:italic>#链接循环</span>
+</span></span><span style=display:flex><span>    conn, client_addr<span style=color:#000;font-weight:700>=</span>phone<span style=color:#000;font-weight:700>.</span>accept() <span style=color:#998;font-style:italic>#(conn,client_addr)</span>
+</span></span><span style=display:flex><span>    <span style=color:#0086b3>print</span>(client_addr)
+</span></span><span style=display:flex><span>    <span style=color:#000;font-weight:700>while</span> <span style=color:#000;font-weight:700>True</span>: <span style=color:#998;font-style:italic>#通信循环</span>
+</span></span><span style=display:flex><span>        <span style=color:#000;font-weight:700>try</span>:
+</span></span><span style=display:flex><span>            data <span style=color:#000;font-weight:700>=</span> conn<span style=color:#000;font-weight:700>.</span>recv(<span style=color:#099>1024</span>) <span style=color:#998;font-style:italic>#1024bytes?</span>
+</span></span><span style=display:flex><span>            <span style=color:#000;font-weight:700>if</span> <span style=color:#000;font-weight:700>not</span> data:<span style=color:#000;font-weight:700>break</span> <span style=color:#998;font-style:italic>#针对的是Linux系统，因为linux不会抛异常。windows会抛异常。</span>
+</span></span><span style=display:flex><span>            <span style=color:#0086b3>print</span>(<span style=color:#d14>&#39;客户端信息&#39;</span>, data)
+</span></span><span style=display:flex><span>            conn<span style=color:#000;font-weight:700>.</span>send(data<span style=color:#000;font-weight:700>.</span>upper())
+</span></span><span style=display:flex><span>        <span style=color:#000;font-weight:700>except</span> <span style=color:#900;font-weight:700>ConnectionResetError</span>:
+</span></span><span style=display:flex><span>            <span style=color:#000;font-weight:700>break</span>
+</span></span><span style=display:flex><span>    conn<span style=color:#000;font-weight:700>.</span>close()
+</span></span><span style=display:flex><span>phone<span style=color:#000;font-weight:700>.</span>close()
+</span></span></code></pre></td></tr></table></div></div><p><strong>tcp客户端代码</strong></p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#000;font-weight:700>import</span> <span style=color:#555>socket</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>phone<span style=color:#000;font-weight:700>=</span>socket<span style=color:#000;font-weight:700>.</span>socket(socket<span style=color:#000;font-weight:700>.</span>AF_INET, socket<span style=color:#000;font-weight:700>.</span>SOCK_STREAM)
+</span></span><span style=display:flex><span>phone<span style=color:#000;font-weight:700>.</span>connect((<span style=color:#d14>&#39;127.0.0.1&#39;</span>, <span style=color:#099>9000</span>))
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>while</span> <span style=color:#000;font-weight:700>True</span>: <span style=color:#998;font-style:italic>#通信循环</span>
+</span></span><span style=display:flex><span>    msg<span style=color:#000;font-weight:700>=</span><span style=color:#0086b3>input</span>(<span style=color:#d14>&#39;&gt;&gt;: &#39;</span>)<span style=color:#000;font-weight:700>.</span>strip()
+</span></span><span style=display:flex><span>    <span style=color:#000;font-weight:700>if</span> <span style=color:#000;font-weight:700>not</span> msg: <span style=color:#000;font-weight:700>continue</span>  <span style=color:#998;font-style:italic>#防止发送空信息</span>
+</span></span><span style=display:flex><span>    phone<span style=color:#000;font-weight:700>.</span>send(msg<span style=color:#000;font-weight:700>.</span>encode(<span style=color:#d14>&#39;utf-8&#39;</span>))
+</span></span><span style=display:flex><span>    data <span style=color:#000;font-weight:700>=</span> phone<span style=color:#000;font-weight:700>.</span>recv(<span style=color:#099>1024</span>)
+</span></span><span style=display:flex><span>    <span style=color:#0086b3>print</span>(data)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>phone<span style=color:#000;font-weight:700>.</span>close()
+</span></span></code></pre></td></tr></table></div></div><p><strong>vscode 先运行服务端，再运行客户端。服务端和客户端分两个目录，这样可以同时运行。</strong></p><h3 id=文件传输>文件传输</h3><h4 id=文件传输服务端>文件传输服务端</h4><p>1.建立TCP套接字</p><p>2.等待客户端内的连接</p><p>3.接收图片内容</p><p>4.保存图片</p><p>5.终止连接</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#998;font-style:italic># 导入模块</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>from</span> <span style=color:#555>socket</span> <span style=color:#000;font-weight:700>import</span> <span style=color:#000;font-weight:700>*</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>import</span> <span style=color:#555>time</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 创建套接字</span>
+</span></span><span style=display:flex><span>socket <span style=color:#000;font-weight:700>=</span> socket()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 绑定IP</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>socket<span style=color:#000;font-weight:700>.</span>bind((<span style=color:#d14>&#39;0.0.0.0&#39;</span>,<span style=color:#099>8888</span>))
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 设置监听</span>
+</span></span><span style=display:flex><span>socket<span style=color:#000;font-weight:700>.</span>listen(<span style=color:#099>5</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 创建connfd</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>connfd, addr <span style=color:#000;font-weight:700>=</span> socket<span style=color:#000;font-weight:700>.</span>accept()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 接收客户端数据</span>
+</span></span><span style=display:flex><span>data <span style=color:#000;font-weight:700>=</span> connfd<span style=color:#000;font-weight:700>.</span>recv(<span style=color:#099>1024</span><span style=color:#000;font-weight:700>*</span><span style=color:#099>1024</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>file_name <span style=color:#000;font-weight:700>=</span> <span style=color:#d14>&#39;</span><span style=color:#d14>%d</span><span style=color:#d14>-</span><span style=color:#d14>%d</span><span style=color:#d14>-</span><span style=color:#d14>%d</span><span style=color:#d14>.jpg&#39;</span><span style=color:#000;font-weight:700>%</span>time<span style=color:#000;font-weight:700>.</span>localtime()[:<span style=color:#099>3</span>]
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>f <span style=color:#000;font-weight:700>=</span> <span style=color:#0086b3>open</span>(file_name, <span style=color:#d14>&#39;wb&#39;</span>)
+</span></span><span style=display:flex><span>f<span style=color:#000;font-weight:700>.</span>write(data)
+</span></span><span style=display:flex><span>f<span style=color:#000;font-weight:700>.</span>close()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 关闭连接</span>
+</span></span><span style=display:flex><span>connfd<span style=color:#000;font-weight:700>.</span>close()
+</span></span><span style=display:flex><span>socket<span style=color:#000;font-weight:700>.</span>close()
+</span></span></code></pre></td></tr></table></div></div><h3 id=文件传输客户端>文件传输客户端</h3><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#d14>&#34;&#34;&#34;
+</span></span></span><span style=display:flex><span><span style=color:#d14>1.创建套接字
+</span></span></span><span style=display:flex><span><span style=color:#d14>2.连接服务端
+</span></span></span><span style=display:flex><span><span style=color:#d14>3.读取文件内容
+</span></span></span><span style=display:flex><span><span style=color:#d14>4.发送文件内容
+</span></span></span><span style=display:flex><span><span style=color:#d14>5.关闭连接
+</span></span></span><span style=display:flex><span><span style=color:#d14>&#34;&#34;&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 导入模块</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>from</span> <span style=color:#555>socket</span> <span style=color:#000;font-weight:700>import</span> <span style=color:#000;font-weight:700>*</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 创建套接字</span>
+</span></span><span style=display:flex><span>socket <span style=color:#000;font-weight:700>=</span> socket()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 连接服务端</span>
+</span></span><span style=display:flex><span>socket<span style=color:#000;font-weight:700>.</span>connect((<span style=color:#d14>&#39;127.0.0.1&#39;</span>,<span style=color:#099>8888</span>))
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 读入文件内容</span>
+</span></span><span style=display:flex><span>f <span style=color:#000;font-weight:700>=</span> <span style=color:#0086b3>open</span>(<span style=color:#d14>&#39;2.jpg&#39;</span>, <span style=color:#d14>&#39;rb&#39;</span>)
+</span></span><span style=display:flex><span>data <span style=color:#000;font-weight:700>=</span> f<span style=color:#000;font-weight:700>.</span>read()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 发送内容</span>
+</span></span><span style=display:flex><span>socket<span style=color:#000;font-weight:700>.</span>send(data)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>f<span style=color:#000;font-weight:700>.</span>close()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>socket<span style=color:#000;font-weight:700>.</span>close()
+</span></span></code></pre></td></tr></table></div></div></div></div></div><div id=footer><div class=container-footer><div class=beian><a target=_blank href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode="></a><a href target=_blank><span class=some>icp...<span></a></div><div class=info><a href=https://github.com/loveminimal/hugo-theme-virgo>🕊️</a> 2021 - <span id=info-date></span></div></div></div><div class=cool-after></div></body></html>

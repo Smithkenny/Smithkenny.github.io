@@ -1,0 +1,364 @@
+<!doctype html><html lang=zh-CN><head><meta name=viewport content="width=device-width,initial-scale=1"><meta charset=utf-8><meta name=description content="Python语法 - https://t.haipengv.com/posts/python%E8%AF%AD%E6%B3%95/"><meta name=author content="Smith - https://t.haipengv.com/"><meta name=msvalidate.01 content="B46311949B856F2A7015F366FB3CE878"><title>Python语法</title><base target=_blank><link rel=icon type=image/png href=/favicon.ico><link rel=stylesheet href=https://t.haipengv.com/style.min.9a0cea23154ac1941e15c25aa2d31b77285a217d2606ec05b55236428cf1c3e6.css><script>const DARK=!1</script><script type=text/javascript src=/main.js defer></script></head><body class=active-animate><div class=cool-before></div><div id=header><div class=container-header><div class=right><h1 class=title>Python语法</h1><div id=toc>📜</div></div></div></div><div id=content><div class="container-main container-page"><div class=rel><div class=curtag-desc><a href=https://t.haipengv.com/tags/python/><img src=/imgs/icons/tag.svg width=16> 相关文章：Python <sup>31</sup></a></div><div class=curtag-post><div class=curtag-post-item><a href=https://t.haipengv.com/posts/jupyter%E6%9B%B4%E6%94%B9%E7%99%BB%E5%BD%95%E5%AF%86%E7%A0%81/>Jupyter更改登录密码</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E5%9B%9E%E7%82%89%E9%87%8D%E9%80%A0-%E5%87%BD%E6%95%B0/>Python回炉重造 函数</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E5%9B%9E%E7%82%89%E9%87%8D%E9%80%A0-%E5%85%83%E7%BB%84/>Python回炉重造-元组</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E5%9B%9E%E7%82%89%E9%87%8D%E9%80%A0-%E5%88%97%E8%A1%A8/>Python回炉重造-列表</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E5%9B%9E%E7%82%89%E9%87%8D%E9%80%A0-%E5%AD%97%E5%85%B8/>Python回炉重造-字典</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E5%9B%9E%E7%82%89%E9%87%8D%E9%80%A0-%E5%AD%97%E7%AC%A6%E4%B8%B2/>Python回炉重造-字符串</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E5%9B%9E%E7%82%89%E9%87%8D%E9%80%A0-%E9%9B%86%E5%90%88/>Python回炉重造-集合</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E5%9B%9E%E7%82%89%E9%87%8D%E9%80%A0-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B%E5%85%A5%E9%97%A8/>Python回炉重造-面向对象编程入门</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E5%A4%9A%E7%BA%BF%E7%A8%8B/>Python多线程</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E5%AF%B9%E8%B1%A1%E5%92%8C%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/>Python对象和数据结构基础</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E5%B0%81%E8%A3%85/>Python封装</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97/>Python常用模块</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E6%80%BB%E7%BB%93/>Python数据结构总结</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/>Python文件处理</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E6%96%B9%E6%B3%95%E5%92%8C%E5%87%BD%E6%95%B0/>Python方法和函数</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E8%87%AA%E5%8A%A8%E5%8C%96%E5%8A%9E%E5%85%AC/>Python自动化办公</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/python%E8%87%AA%E5%8A%A8%E5%8C%96%E5%8A%9E%E5%85%AC%E4%B9%8Bexcel/>Python自动化办公之excel</a></div><div class="curtag-post-item curtag-post-item--active"><a href=https://t.haipengv.com/posts/python%E8%AF%AD%E6%B3%95/>Python语法</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/sqlite3%E4%BD%BF%E7%94%A8/>Sqlite3使用</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/urllib%E5%BA%93%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/>Urllib库的基本使用</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E4%BD%BF%E7%94%A8python%E5%AE%9E%E7%8E%B0unix%E6%97%B6%E9%97%B4%E6%88%B3%E8%BD%AC%E6%8D%A2/>使用python实现unix时间戳转换</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E5%9F%BA%E4%BA%8Etcp%E7%9A%84%E7%AE%80%E5%8D%95%E5%A5%97%E6%8E%A5%E5%AD%97%E9%80%9A%E4%BF%A1/>基于TCP的简单套接字通信</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E5%AE%89%E8%A3%85%E4%BB%BB%E6%84%8F%E7%89%88%E6%9C%ACpython/>安装任意版本Python</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/>序列化与反序列化</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E5%BC%82%E5%B8%B8/>异常</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E6%A8%A1%E5%9D%97%E4%B8%8E%E5%8C%85/>模块与包</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E7%94%9F%E6%88%90%E5%99%A8-%E5%8F%AF%E8%BF%AD%E4%BB%A3%E5%AF%B9%E8%B1%A1-%E8%BF%AD%E4%BB%A3%E5%99%A8-%E8%BF%AD%E4%BB%A3/>生成器 可迭代对象 迭代器 迭代</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1/>类和对象</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E8%B1%86%E7%93%A3%E5%B1%95%E7%A4%BA%E9%A1%B5/>豆瓣展示页</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E8%B1%86%E7%93%A3%E7%94%B5%E5%BD%B1%E7%88%AC%E8%99%AB/>豆瓣电影爬虫</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E9%9B%86%E5%90%88%E7%9A%84%E7%9B%B8%E5%85%B3%E7%89%B9%E6%80%A7/>集合的相关特性</a></div></div></div><div class=desc><span><svg t="1656736000388" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="7409" width="12" height="12"><path d="M524.885333 338.986667l-324.522666 324.48c-17.28 15.274667-27.989333 36.693333-29.696 56.234666v133.76l130.730666.085334c22.784-1.621333 43.989333-12.245333 61.013334-31.701334L685.098667 499.2 524.885333 338.986667zM585.258667 278.656l160.170666 160.213333 102.144-102.144a19.712 19.712.0 000-27.861333l-132.48-132.437333a19.456 19.456.0 00-27.605333.0L585.258667 278.613333zM701.312 85.333333c27.946667.0 54.741333 11.136 74.282667 30.848L907.904 248.490667a105.045333 105.045333.0 010 148.565333L424.874667 879.957333C395.050667 914.304 352.768 935.424 304.426667 938.752H85.333333v-42.666667l.128-179.84c3.626667-44.970667 24.576-86.826667 56.448-114.944l485.12-485.034666a104.789333 104.789333.0 0174.24-30.933334z" p-id="7410" fill="#adb5bd"/></svg>2025-03-16&nbsp;&nbsp;&nbsp;<svg t="1656737270708" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="23838" width="11" height="11"><path d="M824.264 95.36c0-23.859 25.043-44.16 48.902-44.16s49.714 20.301 49.714 44.16v190.08c0 23.859-19.054 52.868-42.913 52.868h-190.08c-23.859.0-46.696-25.96-46.696-49.819s22.55-46.249 46.409-46.249h82.025C702.344 175.534 610.22 155.853 512 155.853c-206.775.0-360.398 149.372-360.398 356.147S305.225 870.23 512 870.23c206.775.0 357.467-151.455 357.467-358.23.0-23.859 23.634-50.706 53.413-50.706 29.78.0 49.92 26.847 49.92 50.706.0 254.493-206.307 460.8-460.8 460.8s-460.8-206.307-460.8-460.8C51.2 257.507 257.507 51.2 512 51.2c122.4.0 226.684 33.296 312.264 117.369.358.351.358-24.052.0-73.209z" p-id="23839" fill="#adb5bd"/></svg>
+2025-03-16&nbsp;&nbsp;&nbsp;</span>
+<span><svg t="1656737548689" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="33866" width="12" height="12"><path d="M832.038608 64.662657H192.030028c-70.774903.0-128.089859 57.325793-128.089859 128.03206v446.793671c0 70.7171050000001 57.314956 128.154884 128.089859 128.154884h133.353183a63.940169 63.940169.0 0155.219742 31.576328l76.099638 129.83828c12.358154 21.093031 33.790754 31.626903 55.216129 31.626903s42.832688-10.544709 55.198067-31.619678l76.222461-129.870792a63.940169 63.940169.0 0155.212517-31.551041h133.54103c70.576219.0 127.732228-57.289669 127.732227-127.800865V192.391272c0-70.536482-57.181295-127.728615-127.786414-127.728615zM895.884854 639.842407A63.85347 63.85347.0 01832.092795 703.703103h-133.54103a127.753903 127.753903.0 00-110.349172 63.09847l-76.222461 129.856342a.274545.274545.0 010-.050574h-.032512s-.021675.061411-.032512.061412l-76.1466-129.85273a127.804477 127.804477.0 00-110.385297-63.11292H192.030028A64.207489 64.207489.0 01127.880338 639.488388V192.694717a64.102729 64.102729.0 0164.14969-64.091891h640.00858a63.799284 63.799284.0 0163.846246 63.788446v447.451135z" fill="#adb5bd" p-id="33867"/><path d="M608.154093 288.092004a31.970084 31.970084.0 00-31.970084 31.970085v160.078006L441.53396 300.861976a31.970084 31.970084.0 00-57.531702 19.200113v255.760676a31.970084 31.970084.0 0063.940169.0V415.863969l134.650048 179.274507a31.970084 31.970084.0 0057.531703-19.200113V320.062089a31.970084 31.970084.0 00-31.970085-31.970085z" fill="#adb5bd" p-id="33868"/></svg>3286 字</span>&nbsp;
+<span><svg t="1656737462334" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="32892" width="12" height="12"><path d="M512 74.666667C270.933333 74.666667 74.666667 270.933333 74.666667 512S270.933333 949.333333 512 949.333333 949.333333 753.066667 949.333333 512 753.066667 74.666667 512 74.666667zm0 810.666666C307.2 885.333333 138.666667 716.8 138.666667 512S307.2 138.666667 512 138.666667 885.333333 307.2 885.333333 512 716.8 885.333333 512 885.333333z" p-id="32893" fill="#adb5bd"/><path d="M695.466667 567.466667 544 497.066667V277.333333c0-17.066667-14.933333-32-32-32s-32 14.933333-32 32v238.933334c0 12.8 6.4 23.466667 19.2 29.866666L669.866667 627.2c4.266667 2.133333 8.533333 2.133333 12.8 2.133333 12.8.0 23.466667-6.4 29.866666-19.2 6.4-14.933333.0-34.133333-17.066666-42.666666z" p-id="32894" fill="#adb5bd"/></svg>7 分钟</span><div class=container-ctgtag><div class=taxonomy><div class=tag><a href=/tags/python>Python</a></div></div></div></div><div class=toc><div class=container-page-operation><div class=page-operation><div><a href=/><img src=/imgs/icons/home-2.svg alt></a></div><div><a href=/nav><img src=/imgs/icons/iov-navigate-1.svg alt></a></div><div><a href=/wiki><img src=/imgs/icons/wiki.svg alt></a></div><div><a href=/tags><img src=/imgs/icons/treetags.svg alt></a></div><div id=light-dark><a><img src=/imgs/icons/moon2.svg alt></a></div><div><a href=#><img src=/imgs/icons/up2.svg alt></a></div></div></div><nav id=TableOfContents><ul><li><ul><li><a href=#python-语法>python 语法</a></li></ul></li></ul></nav></div><div class=content><h3 id=python-语法>python 语法</h3><h4 id=ifelifelse-语句>if、elif、else 语句</h4><p>嘿，如果发生这种情况，请执行一些操作。否则，如果发生其他情况，请执行其他操作。否则，如果上述情况均未发生，请执行此操作。</p><pre tabindex=0><code>if case1:
+    perform action1
+elif case2:
+    perform action2
+else: 
+    perform action3
+</code></pre><p>例如</p><pre tabindex=0><code>x = False
+
+if x:
+    print(&#39;x was True!&#39;)
+else:
+    print(&#39;I will be printed in any case where x is not true&#39;)
+#I will be printed in any case where x is not true
+</code></pre><h4 id=多分支结构>多分支结构</h4><pre tabindex=0><code>loc = &#39;Bank&#39;
+
+if loc == &#39;Auto Shop&#39;:
+    print(&#39;Welcome to the Auto Shop!&#39;)
+elif loc == &#39;Bank&#39;:
+    print(&#39;Welcome to the bank!&#39;)
+else:
+    print(&#39;Where are you?&#39;)
+
+#Welcome to the bank!
+</code></pre><h4 id=for-循环>for 循环</h4><p>for 循环在 Python 中充当迭代器；它遍历序列中的项目或任何其他可迭代项目。我们了解的可以迭代的对象包括字符串、列表、元组，甚至是字典的内置可迭代对象，例如键或值。</p><p>这是 Python 中 for 循环的一般格式：</p><pre tabindex=0><code>for item in object:
+    statements to do stuff
+</code></pre><h5 id=遍历列表>遍历列表</h5><pre tabindex=0><code>list1 = [1,2,3,4,5,6,7,8,9,10]
+for num in list1:
+    print(num)
+</code></pre><p>结果：</p><pre tabindex=0><code>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</code></pre><p>取余</p><p>用 % 来获取余数</p><pre tabindex=0><code># 3 Remainder 1
+10 % 3
+# 1
+# 2 Remainder 4
+18 % 7
+#4
+# 2 no remainder
+4 % 2
+#0
+</code></pre><p>请注意，如果一个数可以完全整除且没有余数，则模调用的结果为 0。我们可以使用它来测试偶数，因为如果一个数模 2 等于 0，则意味着它是偶数！</p><h5 id=打印出list1中所有的偶数>打印出list1中所有的偶数</h5><pre tabindex=0><code>for num in list1:
+    if num % 2 == 0:
+        print(num)
+</code></pre><p>结果：</p><pre tabindex=0><code>2
+4
+6
+8
+10
+</code></pre><p>也可以加上else语句</p><pre tabindex=0><code>for num in list1:
+    if num % 2 == 0:
+        print(num)
+    else:
+        print(&#39;Odd number&#39;)
+</code></pre><p>结果：</p><pre tabindex=0><code>Odd number
+2
+Odd number
+4
+Odd number
+6
+Odd number
+8
+Odd number
+10
+</code></pre><p>例如</p><pre tabindex=0><code># Start sum at zero
+list_sum = 0 
+
+for num in list1:
+    list_sum = list_sum + num
+
+print(list_sum)
+</code></pre><p>结果：</p><pre tabindex=0><code>55
+</code></pre><p>另一种写法</p><pre tabindex=0><code># Start sum at zero
+list_sum = 0 
+
+for num in list1:
+    list_sum += num
+
+print(list_sum)
+</code></pre><p>结果：</p><pre tabindex=0><code>55
+</code></pre><p>我们已经在列表中使用了 for 循环，那么使用字符串呢？请记住字符串是一个序列，因此当我们遍历它们时，我们将访问该字符串中的每个项目。</p><pre tabindex=0><code>for letter in &#39;This is a string.&#39;:
+    print(letter)
+</code></pre><p>结果：</p><pre tabindex=0><code>T
+h
+i
+s
+ 
+i
+s
+ 
+a
+ 
+s
+t
+r
+i
+n
+g
+.
+</code></pre><h5 id=现在让我们看看如何将-for-循环与元组一起使用>现在让我们看看如何将 for 循环与元组一起使用.</h5><pre tabindex=0><code>tup = (1,2,3,4,5)
+
+for t in tup:
+    print(t)
+</code></pre><p>结果：</p><pre tabindex=0><code>1
+2
+3
+4
+5
+</code></pre><p>当涉及到 for 循环时，元组具有特殊的品质。如果您正在遍历包含元组的序列，则该项目实际上可以是元组本身，这是元组解包的示例。在 for 循环中，我们将解压缩序列中的元组，我们可以访问该元组中的各个项目！</p><pre tabindex=0><code>list2 = [(2,4),(6,8),(10,12)]
+for tup in list2:
+    print(tup)
+</code></pre><p>结果：</p><pre tabindex=0><code>(2, 4)
+(6, 8)
+(10, 12)
+</code></pre><p>拆包</p><pre tabindex=0><code>for (t1,t2) in list2:
+    print(t1)
+</code></pre><p>结果</p><pre tabindex=0><code>2
+6
+10
+</code></pre><p>使用序列中的元组，我们可以通过解包访问其中的项目！这是因为许多对象将通过元组传递它们的迭代。</p><h5 id=在字典中使用for循环>在字典中使用for循环</h5><pre tabindex=0><code>d = {&#39;k1&#39;:1,&#39;k2&#39;:2,&#39;k3&#39;:3}
+for item in d:
+    print(item)
+</code></pre><p>结果</p><pre tabindex=0><code>k1
+k2
+k3
+</code></pre><h5 id=关于字典的新方法-keys-values-and-items-的使用>关于字典的新方法 <strong>.keys()</strong>, <strong>.values()</strong> and <strong>.items()</strong> 的使用</h5><pre tabindex=0><code># Create a dictionary view object
+d.items()
+dict_items([(&#39;k1&#39;, 1), (&#39;k2&#39;, 2), (&#39;k3&#39;, 3)])	
+</code></pre><p>由于 .items() 方法支持迭代，我们可以执行字典解包以分离键和值。</p><pre tabindex=0><code># 字典拆包
+for k,v in d.items():
+    print(k)
+    print(v) 
+</code></pre><p>结果：</p><pre tabindex=0><code>k1
+1
+k2
+2
+k3
+3
+</code></pre><p>如果你想获得一个真正的键、值或键/值元组的列表，你可以将视图转换为一个列表。</p><pre tabindex=0><code>list(d.keys())
+</code></pre><p>结果</p><pre tabindex=0><code>[&#39;k1&#39;, &#39;k2&#39;, &#39;k3&#39;]
+</code></pre><p>请记住，字典是无序的，键和值以任意顺序返回。您可以使用 sorted() 获取排序列表。</p><pre tabindex=0><code>sorted(d.values())
+</code></pre><p>结果</p><pre tabindex=0><code>[1, 2, 3]
+</code></pre><p>更多内容<a href=https://www.tutorialspoint.com/python/python_for_loop.htm>参考</a></p><h4 id=while-循环>while 循环</h4><p>Python 中的 while 语句是执行迭代的最常用方法之一。只要条件为真，while 语句就会重复执行单个语句或一组语句。之所以称为“循环”，是因为代码语句一遍又一遍地循环，直到不再满足条件。</p><h5 id=常用格式>常用格式</h5><pre tabindex=0><code>while test:
+    code statements
+else:
+    final code statements
+</code></pre><p>例如</p><pre tabindex=0><code>x = 0
+
+while x &lt; 10:
+    print(&#39;x is currently: &#39;,x)
+    print(&#39; x is still less than 10, adding 1 to x&#39;)
+    x+=1
+    
+else:
+    print(&#39;All Done!&#39;)
+</code></pre><p>结果</p><pre tabindex=0><code>x is currently:  0
+ x is still less than 10, adding 1 to x
+x is currently:  1
+ x is still less than 10, adding 1 to x
+x is currently:  2
+ x is still less than 10, adding 1 to x
+x is currently:  3
+ x is still less than 10, adding 1 to x
+x is currently:  4
+ x is still less than 10, adding 1 to x
+x is currently:  5
+ x is still less than 10, adding 1 to x
+x is currently:  6
+ x is still less than 10, adding 1 to x
+x is currently:  7
+ x is still less than 10, adding 1 to x
+x is currently:  8
+ x is still less than 10, adding 1 to x
+x is currently:  9
+ x is still less than 10, adding 1 to x
+All Done!
+</code></pre><p>注意一共执行10次循环，当x=10时，while后条件为假，跳出循环，执行else语句。</p><h5 id=关键字break-continuepass>关键字break, continue,pass</h5><p>我们可以在循环中使用 break、continue 和 pass 语句来为各种情况添加额外的功能。这三个语句定义为</p><p>break：跳出当前最近的封闭循环。
+continue：转到最近的封闭循环的顶部。
+pass：什么都不做。</p><p>考虑 break 和 continue 语句，while 循环的一般格式如下所示</p><pre tabindex=0><code>while test: 
+    code statement
+    if test: 
+        break
+    if test: 
+        continue 
+else:
+</code></pre><h5 id=break-和-continue-语句可以出现在循环体内的任何位置但我们通常会将它们与-if-语句一起进一步嵌套以根据某些条件执行操作>break 和 continue 语句可以出现在循环体内的任何位置，但我们通常会将它们与 if 语句一起进一步嵌套，以根据某些条件执行操作。</h5><pre tabindex=0><code>x = 0
+
+while x &lt; 10:
+    print(&#39;x is currently: &#39;,x)
+    print(&#39; x is still less than 10, adding 1 to x&#39;)
+    x+=1
+    if x==3:
+        print(&#39;x==3&#39;)
+    else:
+        print(&#39;continuing...&#39;)
+        continue
+</code></pre><p>结果</p><pre tabindex=0><code>x is currently:  0
+ x is still less than 10, adding 1 to x
+continuing...
+x is currently:  1
+ x is still less than 10, adding 1 to x
+continuing...
+x is currently:  2
+ x is still less than 10, adding 1 to x
+x==3
+x is currently:  3
+ x is still less than 10, adding 1 to x
+continuing...
+x is currently:  4
+ x is still less than 10, adding 1 to x
+continuing...
+x is currently:  5
+ x is still less than 10, adding 1 to x
+continuing...
+x is currently:  6
+ x is still less than 10, adding 1 to x
+continuing...
+x is currently:  7
+ x is still less than 10, adding 1 to x
+continuing...
+x is currently:  8
+ x is still less than 10, adding 1 to x
+continuing...
+x is currently:  9
+ x is still less than 10, adding 1 to x
+continuing...
+</code></pre><p>请注意当 x==3 时我们如何打印语句，并且当我们继续通过外部 while 循环时打印出 continue。让我们在 x ==3 时暂停一下。</p><pre tabindex=0><code>x = 0
+
+while x &lt; 10:
+    print(&#39;x is currently: &#39;,x)
+    print(&#39; x is still less than 10, adding 1 to x&#39;)
+    x+=1
+    if x==3:
+        print(&#39;Breaking because x==3&#39;)
+        break
+    else:
+        print(&#39;continuing...&#39;)
+        continue
+</code></pre><p>结果</p><pre tabindex=0><code>x is currently:  0
+ x is still less than 10, adding 1 to x
+continuing...
+x is currently:  1
+ x is still less than 10, adding 1 to x
+continuing...
+x is currently:  2
+ x is still less than 10, adding 1 to x
+Breaking because x==3
+</code></pre><p>请注意，当条件成立时，遇到break后会立刻跳出当前循环，即使后面有任何语句也不会执行。</p><h5 id=不过要注意一点可以使用-while-语句创建一个无限运行的循环例如>不过要注意一点！可以使用 while 语句创建一个无限运行的循环。例如</h5><pre tabindex=0><code># DO NOT RUN THIS CODE!!!! 
+while True:
+    print(&#34;I&#39;m stuck in an infinite loop!&#34;)
+</code></pre><p>不要执行这个语句，不然只能重启机器。</p><h4 id=一些有用的操作>一些有用的操作</h4><h5 id=range>range</h5><p>range 函数可以让你快速生成一个整数列表，这个很方便，所以要注意如何使用它！您可以传递 3 个参数：开始、停止和步长。</p><pre tabindex=0><code>range(0,11)
+</code></pre><p>结果</p><pre tabindex=0><code>range(0, 11)
+</code></pre><p>请注意，这是一个生成器函数，因此要实际从中获取列表，我们需要将其转换为具有list（）的列表。什么是生成器？它是一种特殊类型的函数，可以生成信息，而无需将其保存到内存中。</p><pre tabindex=0><code># 从0到11 但不包含11，和切片一样。
+list(range(0,11))
+</code></pre><p>结果</p><pre tabindex=0><code>[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+</code></pre><pre tabindex=0><code># 第三个参数是步长，它表示从开始的数字到下一个数字有多长。
+list(range(0,11,2))
+</code></pre><p>结果</p><pre tabindex=0><code>[0, 2, 4, 6, 8, 10]
+</code></pre><pre tabindex=0><code>list(range(0,101,10))
+</code></pre><p>结果</p><pre tabindex=0><code>[0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+</code></pre><h5 id=枚举函数>枚举函数</h5><p>枚举函数是一个与循环一起使用的非常有用的函数</p><pre tabindex=0><code>index_count = 0
+
+for letter in &#39;abcde&#39;:
+    print(&#34;At index {} the letter is {}&#34;.format(index_count,letter))
+    index_count += 1
+</code></pre><p>结果</p><pre tabindex=0><code>At index 0 the letter is a
+At index 1 the letter is b
+At index 2 the letter is c
+At index 3 the letter is d
+At index 4 the letter is e
+</code></pre><p>用枚举函数来追踪有多少循环是很常见的，这样就不用担心创建和更新index_count或letter变量了。</p><pre tabindex=0><code># Notice the tuple unpacking!
+
+for i,letter in enumerate(&#39;abcde&#39;):
+    print(&#34;At index {} the letter is {}&#34;.format(i,letter))
+</code></pre><p>结果</p><pre tabindex=0><code>At index 0 the letter is a
+At index 1 the letter is b
+At index 2 the letter is c
+At index 3 the letter is d
+At index 4 the letter is e
+</code></pre><h5 id=zip函数>zip函数</h5><p>注意enumerate实际返回的格式，让我们通过将其转换为list()来看一下。</p><pre tabindex=0><code>list(enumerate(&#39;abcde&#39;))
+</code></pre><p>结果</p><pre tabindex=0><code>[(0, &#39;a&#39;), (1, &#39;b&#39;), (2, &#39;c&#39;), (3, &#39;d&#39;), (4, &#39;e&#39;)]
+</code></pre><p>它是一个元组的列表，意味着我们可以在for循环中使用元组解包。这种数据结构实际上在 Python 中非常常见，特别是在与外部库一起工作时。你可以使用 zip() 函数，通过将两个列表 &ldquo;压缩 &ldquo;起来，快速创建一个元组列表。</p><pre tabindex=0><code>mylist1 = [1,2,3,4,5]
+mylist2 = [&#39;a&#39;,&#39;b&#39;,&#39;c&#39;,&#39;d&#39;,&#39;e&#39;]
+</code></pre><pre tabindex=0><code># 这个也是一个生成器! 我们稍后将对此进行解释，但现在让我们把它转化为一个列表。
+zip(mylist1,mylist2)
+</code></pre><p>结果</p><pre tabindex=0><code>&lt;zip at 0x1d205086f08&gt;
+</code></pre><pre tabindex=0><code>list(zip(mylist1,mylist2))
+</code></pre><p>结果</p><pre tabindex=0><code>[(1, &#39;a&#39;), (2, &#39;b&#39;), (3, &#39;c&#39;), (4, &#39;d&#39;), (5, &#39;e&#39;)]
+</code></pre><p>为了使用生成器，我们可以只使用一个for循环。</p><pre tabindex=0><code>for item1, item2 in zip(mylist1,mylist2):
+    print(&#39;For this tuple, first item was {} and second item was {}&#39;.format(item1,item2))
+</code></pre><p>结果</p><pre tabindex=0><code>For this tuple, first item was 1 and second item was a
+For this tuple, first item was 2 and second item was b
+For this tuple, first item was 3 and second item was c
+For this tuple, first item was 4 and second item was d
+For this tuple, first item was 5 and second item was e
+</code></pre><h5 id=in-操作符>in 操作符</h5><p>我们已经在for循环中看到了in关键字，但我们也可以用它来快速检查一个对象是否在一个列表中。</p><pre tabindex=0><code>&#39;x&#39; in [&#39;x&#39;,&#39;y&#39;,&#39;z&#39;]
+</code></pre><p>结果</p><pre tabindex=0><code>True
+</code></pre><pre tabindex=0><code>&#39;x&#39; in [1,2,3]
+</code></pre><p>结果</p><pre tabindex=0><code>False
+</code></pre><h5 id=not-in>not in</h5><p>我们可以将 in 与 not 运算符结合使用，以检查列表中是否不存在某个对象或变量。</p><pre tabindex=0><code>&#39;x&#39; not in [&#39;x&#39;,&#39;y&#39;,&#39;z&#39;]
+</code></pre><p>结果</p><pre tabindex=0><code>False
+</code></pre><pre tabindex=0><code>&#39;x&#39; not in [1,2,3]
+</code></pre><p>结果</p><pre tabindex=0><code>True
+</code></pre><h5 id=min-和-max>min 和 max</h5><p>用这些函数快速检查一个列表的最小值或最大值。</p><pre tabindex=0><code>mylist = [10,20,30,40,100]
+min(mylist)
+</code></pre><p>结果</p><pre tabindex=0><code>10
+</code></pre><pre tabindex=0><code>max(mylist)
+# 100
+</code></pre><h5 id=random>random</h5><p>Python有一个内置的随机库。这个随机库中包括很多函数，所以我们现在只向你展示两个有用的函数。</p><pre tabindex=0><code>from random import shuffle
+</code></pre><pre tabindex=0><code># 随机打乱顺序
+shuffle(mylist)
+mylist
+</code></pre><p>结果</p><pre tabindex=0><code>[40, 10, 100, 30, 20]
+</code></pre><pre tabindex=0><code>from random import randint
+randint(0,100)
+</code></pre><p>返回 [a, b] 范围内的随机整数，包括两个端点。</p><p>结果</p><pre tabindex=0><code>25
+</code></pre><h5 id=input>input</h5><p>交互</p><pre tabindex=0><code>input(&#39;Enter Something into this box: &#39;)
+</code></pre><p>结果</p><pre tabindex=0><code>Enter Something into this box: great job!
+&#39;great job!&#39;
+</code></pre><h4 id=列表推导>列表推导</h4><p>列表推导允许我们使用不同的符号构建列表。您可以将其本质上视为在括号内构建的单行 for 循环。举个简单的例子：</p><pre tabindex=0><code># 抓取字符串中每一个字母
+list = [x for x in &#39;word&#39;]
+list
+</code></pre><p>结果</p><pre tabindex=0><code>[&#39;w&#39;, &#39;o&#39;, &#39;r&#39;, &#39;d&#39;]
+</code></pre><h5 id=for-前面可以是表达式>for 前面可以是表达式</h5><pre tabindex=0><code># 在范围内的平方数并变成列表
+lst = [x**2 for x in range(0,11)]
+lst
+</code></pre><p>结果</p><pre tabindex=0><code>[0, 1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+</code></pre><h5 id=另一种写法如下>另一种写法如下</h5><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span><span style=color:teal>list</span> <span style=color:#000;font-weight:700>=</span> <span style=color:#000;font-weight:700>[]</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>for</span> x in range<span style=color:#000;font-weight:700>(</span>0,11<span style=color:#000;font-weight:700>)</span>:
+</span></span><span style=display:flex><span>	list.append<span style=color:#000;font-weight:700>(</span>x**2<span style=color:#000;font-weight:700>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre tabindex=0><code>list
+</code></pre><p>结果</p><pre tabindex=0><code>[0, 1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+</code></pre><h5 id=在if-语句中使用>在if 语句中使用</h5><pre tabindex=0><code># 检查范围内的偶数
+lst = [x for x in range(11) if x % 2 == 0]
+lst
+</code></pre><p>结果</p><pre tabindex=0><code>[0, 2, 4, 6, 8, 10]
+</code></pre><p>摄氏度和华氏度转换</p><pre tabindex=0><code># 摄氏度转华氏度
+celsius = [0,10,20.1,34.5]
+
+fahrenheit = [((9/5)*temp + 32) for temp in celsius ]
+
+fahrenheit
+</code></pre><p>结果</p><pre tabindex=0><code>[32.0, 50.0, 68.18, 94.1]
+</code></pre><h5 id=在嵌套中用列表推导>在嵌套中用列表推导</h5><pre tabindex=0><code>lst = [ x**2 for x in [x**2 for x in range(11)]]
+lst
+</code></pre><p>结果</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>0, 1, 16, 81, 256, 625, 1296, 2401, 4096, 6561, 10000<span style=color:#000;font-weight:700>]</span>
+</span></span></code></pre></td></tr></table></div></div><p>使用列表推导创建语句可读性不是很好，可以使用另一种写法</p><pre tabindex=0><code>list1 = []
+for x in range(11):
+    list1.append((x**2)**2)
+list1
+</code></pre><h5 id=总结>总结</h5><p>for 前面可以是表达式，后面是要遍历的对象。in后面跟要遍历的语句。</p></div></div></div><div id=footer><div class=container-footer><div class=beian><a target=_blank href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode="></a><a href target=_blank><span class=some>icp...<span></a></div><div class=info><a href=https://github.com/loveminimal/hugo-theme-virgo>🕊️</a> 2021 - <span id=info-date></span></div></div></div><div class=cool-after></div></body></html>

@@ -1,0 +1,426 @@
+<!doctype html><html lang=zh-CN><head><meta name=viewport content="width=device-width,initial-scale=1"><meta charset=utf-8><meta name=description content="Greenplum Db7容器方式安装 - https://t.haipengv.com/posts/greenplum-db7%E5%AE%B9%E5%99%A8%E6%96%B9%E5%BC%8F%E5%AE%89%E8%A3%85/"><meta name=author content="Smith - https://t.haipengv.com/"><meta name=msvalidate.01 content="B46311949B856F2A7015F366FB3CE878"><title>Greenplum Db7容器方式安装</title><base target=_blank><link rel=icon type=image/png href=/favicon.ico><link rel=stylesheet href=https://t.haipengv.com/style.min.9a0cea23154ac1941e15c25aa2d31b77285a217d2606ec05b55236428cf1c3e6.css><script>const DARK=!1</script><script type=text/javascript src=/main.js defer></script></head><body class=active-animate><div class=cool-before></div><div id=header><div class=container-header><div class=right><h1 class=title>Greenplum Db7容器方式安装</h1><div id=toc>📜</div></div></div></div><div id=content><div class="container-main container-page"><div class=rel><div class=curtag-desc><a href=https://t.haipengv.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/><img src=/imgs/icons/tag.svg width=16> 相关文章：数据库 <sup>9</sup></a></div><div class=curtag-post><div class=curtag-post-item><a href=https://t.haipengv.com/posts/clickhouse%E6%90%AD%E5%BB%BA%E5%8F%8A%E4%BD%BF%E7%94%A8/>Clickhouse搭建及使用</a></div><div class="curtag-post-item curtag-post-item--active"><a href=https://t.haipengv.com/posts/greenplum-db7%E5%AE%B9%E5%99%A8%E6%96%B9%E5%BC%8F%E5%AE%89%E8%A3%85/>Greenplum Db7容器方式安装</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/greenplum-db7%E5%8D%95%E8%8A%82%E7%82%B9%E5%AE%89%E8%A3%85%E8%AF%B4%E6%98%8E/>GreenplumDb7单节点安装说明</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/greenplumdb7%E6%95%B0%E6%8D%AE%E5%85%A5%E5%BA%93%E9%80%9F%E5%BA%A6%E4%BC%98%E5%8C%96/>Greenplumdb7数据入库速度优化</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/mysql%E4%B8%BB%E4%BB%8E%E6%9E%B6%E6%9E%84/>Mysql主从架构</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/mysql%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93/>Mysql常用命令总结</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/mysql%E7%9A%84user%E8%A1%A8%E8%AF%A6%E8%A7%A3/>Mysql的user表详解</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/oracle%E7%89%88%E6%9C%AC%E5%8F%B7%E6%9F%A5%E7%9C%8B/>Oracle版本号查看</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/windows%E5%B9%B3%E5%8F%B0%E5%AE%89%E8%A3%85oracle/>Windows平台安装oracle</a></div></div></div><div class=desc><span><svg t="1656736000388" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="7409" width="12" height="12"><path d="M524.885333 338.986667l-324.522666 324.48c-17.28 15.274667-27.989333 36.693333-29.696 56.234666v133.76l130.730666.085334c22.784-1.621333 43.989333-12.245333 61.013334-31.701334L685.098667 499.2 524.885333 338.986667zM585.258667 278.656l160.170666 160.213333 102.144-102.144a19.712 19.712.0 000-27.861333l-132.48-132.437333a19.456 19.456.0 00-27.605333.0L585.258667 278.613333zM701.312 85.333333c27.946667.0 54.741333 11.136 74.282667 30.848L907.904 248.490667a105.045333 105.045333.0 010 148.565333L424.874667 879.957333C395.050667 914.304 352.768 935.424 304.426667 938.752H85.333333v-42.666667l.128-179.84c3.626667-44.970667 24.576-86.826667 56.448-114.944l485.12-485.034666a104.789333 104.789333.0 0174.24-30.933334z" p-id="7410" fill="#adb5bd"/></svg>2025-03-16&nbsp;&nbsp;&nbsp;<svg t="1656737270708" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="23838" width="11" height="11"><path d="M824.264 95.36c0-23.859 25.043-44.16 48.902-44.16s49.714 20.301 49.714 44.16v190.08c0 23.859-19.054 52.868-42.913 52.868h-190.08c-23.859.0-46.696-25.96-46.696-49.819s22.55-46.249 46.409-46.249h82.025C702.344 175.534 610.22 155.853 512 155.853c-206.775.0-360.398 149.372-360.398 356.147S305.225 870.23 512 870.23c206.775.0 357.467-151.455 357.467-358.23.0-23.859 23.634-50.706 53.413-50.706 29.78.0 49.92 26.847 49.92 50.706.0 254.493-206.307 460.8-460.8 460.8s-460.8-206.307-460.8-460.8C51.2 257.507 257.507 51.2 512 51.2c122.4.0 226.684 33.296 312.264 117.369.358.351.358-24.052.0-73.209z" p-id="23839" fill="#adb5bd"/></svg>
+2025-03-16&nbsp;&nbsp;&nbsp;</span>
+<span><svg t="1656737548689" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="33866" width="12" height="12"><path d="M832.038608 64.662657H192.030028c-70.774903.0-128.089859 57.325793-128.089859 128.03206v446.793671c0 70.7171050000001 57.314956 128.154884 128.089859 128.154884h133.353183a63.940169 63.940169.0 0155.219742 31.576328l76.099638 129.83828c12.358154 21.093031 33.790754 31.626903 55.216129 31.626903s42.832688-10.544709 55.198067-31.619678l76.222461-129.870792a63.940169 63.940169.0 0155.212517-31.551041h133.54103c70.576219.0 127.732228-57.289669 127.732227-127.800865V192.391272c0-70.536482-57.181295-127.728615-127.786414-127.728615zM895.884854 639.842407A63.85347 63.85347.0 01832.092795 703.703103h-133.54103a127.753903 127.753903.0 00-110.349172 63.09847l-76.222461 129.856342a.274545.274545.0 010-.050574h-.032512s-.021675.061411-.032512.061412l-76.1466-129.85273a127.804477 127.804477.0 00-110.385297-63.11292H192.030028A64.207489 64.207489.0 01127.880338 639.488388V192.694717a64.102729 64.102729.0 0164.14969-64.091891h640.00858a63.799284 63.799284.0 0163.846246 63.788446v447.451135z" fill="#adb5bd" p-id="33867"/><path d="M608.154093 288.092004a31.970084 31.970084.0 00-31.970084 31.970085v160.078006L441.53396 300.861976a31.970084 31.970084.0 00-57.531702 19.200113v255.760676a31.970084 31.970084.0 0063.940169.0V415.863969l134.650048 179.274507a31.970084 31.970084.0 0057.531703-19.200113V320.062089a31.970084 31.970084.0 00-31.970085-31.970085z" fill="#adb5bd" p-id="33868"/></svg>1644 字</span>&nbsp;
+<span><svg t="1656737462334" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="32892" width="12" height="12"><path d="M512 74.666667C270.933333 74.666667 74.666667 270.933333 74.666667 512S270.933333 949.333333 512 949.333333 949.333333 753.066667 949.333333 512 753.066667 74.666667 512 74.666667zm0 810.666666C307.2 885.333333 138.666667 716.8 138.666667 512S307.2 138.666667 512 138.666667 885.333333 307.2 885.333333 512 716.8 885.333333 512 885.333333z" p-id="32893" fill="#adb5bd"/><path d="M695.466667 567.466667 544 497.066667V277.333333c0-17.066667-14.933333-32-32-32s-32 14.933333-32 32v238.933334c0 12.8 6.4 23.466667 19.2 29.866666L669.866667 627.2c4.266667 2.133333 8.533333 2.133333 12.8 2.133333 12.8.0 23.466667-6.4 29.866666-19.2 6.4-14.933333.0-34.133333-17.066666-42.666666z" p-id="32894" fill="#adb5bd"/></svg>4 分钟</span><div class=container-ctgtag><div class=taxonomy><div class=tag><a href=/tags/%E6%95%B0%E6%8D%AE%E5%BA%93>数据库</a></div></div></div></div><div class=toc><div class=container-page-operation><div class=page-operation><div><a href=/><img src=/imgs/icons/home-2.svg alt></a></div><div><a href=/nav><img src=/imgs/icons/iov-navigate-1.svg alt></a></div><div><a href=/wiki><img src=/imgs/icons/wiki.svg alt></a></div><div><a href=/tags><img src=/imgs/icons/treetags.svg alt></a></div><div id=light-dark><a><img src=/imgs/icons/moon2.svg alt></a></div><div><a href=#><img src=/imgs/icons/up2.svg alt></a></div></div></div><nav id=TableOfContents><ul><li><a href=#一安装环境>一、安装环境</a></li><li><a href=#二docker安装>二、docker安装</a></li><li><a href=#三安装脚本>三、安装脚本</a></li><li><a href=#四部署过程>四、部署过程</a><ul><li><a href=#1镜像制作>1.镜像制作</a></li><li><a href=#2镜像测试>2.镜像测试</a></li><li><a href=#3使用>3.使用</a></li><li><a href=#4参数解释>4.参数解释</a></li></ul></li></ul></nav></div><div class=content><h2 id=一安装环境>一、安装环境</h2><ul><li>提前安装任意版本docker</li><li>宿主机系统环境：centos7.7</li></ul><h2 id=二docker安装>二、docker安装</h2><p><a href=https://blog.csdn.net/BThinker/article/details/123358697>安装过程</a></p><h2 id=三安装脚本>三、安装脚本</h2><ul><li>build.sh</li><li>Dockerfile</li><li>entrypoint.sh</li><li>install.sh</li><li>test.sh</li></ul><p><code>build.sh</code>脚本内容：</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span><span style=color:#999;font-weight:700;font-style:italic>#!/bin/bash
+</span></span></span><span style=display:flex><span><span style=color:#999;font-weight:700;font-style:italic></span><span style=color:#998;font-style:italic>############################################</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># Function :  Docker镜像制作脚本</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># Author : tang</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># Date : 2021-07-04</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># Usage: sh build.sh</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>############################################</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>docker build -t inrgihc/greenplum:7.0.0 .
+</span></span></code></pre></td></tr></table></div></div><p><code>Dockerfile</code>脚本内容：</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>FROM rockylinux:9.2
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># Greenplum的数据存放目录</span>
+</span></span><span style=display:flex><span>ENV <span style=color:teal>DATADIR</span><span style=color:#000;font-weight:700>=</span>/data
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 文件准备</span>
+</span></span><span style=display:flex><span>COPY install.sh /tmp/install.sh
+</span></span><span style=display:flex><span>COPY entrypoint.sh /entrypoint.sh
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 配置Aliyun的仓库(以安装libcgroup)</span>
+</span></span><span style=display:flex><span>RUN yum install -y wget <span style=color:#000;font-weight:700>&amp;&amp;</span> wget -O /etc/yum.repos.d/Aliyun-Base.repo https://mirrors.aliyun.com/repo/Centos-vault-8.5.2111.repo
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 执行安装</span>
+</span></span><span style=display:flex><span>RUN yum -y install passwd openssl openssh-server  openssh-clients <span style=color:#000;font-weight:700>&amp;&amp;</span><span style=color:#d14>\
+</span></span></span><span style=display:flex><span><span style=color:#d14></span>    mkdir  /var/run/sshd/ <span style=color:#000;font-weight:700>&amp;&amp;</span> sed -i <span style=color:#d14>&#39;s?#HostKey?HostKey?&#39;</span> /etc/ssh/sshd_config <span style=color:#000;font-weight:700>&amp;&amp;</span> <span style=color:#d14>\
+</span></span></span><span style=display:flex><span><span style=color:#d14></span>    ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -N <span style=color:#d14>&#39;&#39;</span> <span style=color:#000;font-weight:700>&amp;&amp;</span> <span style=color:#d14>\
+</span></span></span><span style=display:flex><span><span style=color:#d14></span>    <span style=color:#0086b3>echo</span> -e <span style=color:#d14>&#39;#!/bin/bash\n/usr/sbin/sshd -D &amp;&#39;</span> &gt; /var/run/sshd/sshd_start.sh <span style=color:#000;font-weight:700>&amp;&amp;</span> <span style=color:#d14>\
+</span></span></span><span style=display:flex><span><span style=color:#d14></span>    chmod u+x /var/run/sshd/sshd_start.sh
+</span></span><span style=display:flex><span>RUN /var/run/sshd/sshd_start.sh <span style=color:#000;font-weight:700>&amp;&amp;</span> <span style=color:#d14>\
+</span></span></span><span style=display:flex><span><span style=color:#d14></span>    sleep 10s <span style=color:#000;font-weight:700>&amp;&amp;</span> <span style=color:#0086b3>cd</span> /tmp <span style=color:#000;font-weight:700>&amp;&amp;</span> sh /tmp/install.sh <span style=color:#000;font-weight:700>&amp;&amp;</span> <span style=color:#d14>\
+</span></span></span><span style=display:flex><span><span style=color:#d14></span>    rm -rf /tmp/install.sh <span style=color:#000;font-weight:700>&amp;&amp;</span> rm -rf /tmp/files
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 暴露端口</span>
+</span></span><span style=display:flex><span>EXPOSE <span style=color:#099>5432</span> <span style=color:#099>22</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>USER  root
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>CMD  <span style=color:#000;font-weight:700>[</span> <span style=color:#d14>&#34;sh&#34;</span> , <span style=color:#d14>&#34;/entrypoint.sh&#34;</span><span style=color:#000;font-weight:700>]</span>
+</span></span></code></pre></td></tr></table></div></div><p><code>entrypoint.sh</code> 脚本内容：</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">39
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span><span style=color:#999;font-weight:700;font-style:italic>#!/bin/bash
+</span></span></span><span style=display:flex><span><span style=color:#999;font-weight:700;font-style:italic></span><span style=color:#998;font-style:italic>############################################</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># Function :  EntryPoint入口</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># Author : tang</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># Date : 2020-12-09</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># Usage: sh entrypoint.sh</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>############################################</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 启动ssh服务</span>
+</span></span><span style=display:flex><span>/var/run/sshd/sshd_start.sh <span style=color:#000;font-weight:700>&amp;&amp;</span> sleep 5s
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 设置gpadmin账号的环境变量</span>
+</span></span><span style=display:flex><span>su - gpadmin -l -c <span style=color:#d14>&#34;echo -e &#39;source /usr/local/greenplum-db/greenplum_path.sh&#39; &gt;&gt; ~/.bashrc&#34;</span>
+</span></span><span style=display:flex><span>su - gpadmin -l -c <span style=color:#d14>&#34;echo -e &#39;export COORDINATOR_DATA_DIRECTORY=</span><span style=color:teal>$DATADIR</span><span style=color:#d14>/coordinator/gpseg-1/&#39; &gt;&gt; ~/.bashrc&#34;</span>
+</span></span><span style=display:flex><span>su - gpadmin -l -c <span style=color:#d14>&#34;echo -e &#39;export PGPORT=5432&#39; &gt;&gt; ~/.bashrc&#34;</span>
+</span></span><span style=display:flex><span>su - gpadmin -l -c <span style=color:#d14>&#34;echo -e &#39;export PGUSER=gpadmin&#39; &gt;&gt; ~/.bashrc&#34;</span>
+</span></span><span style=display:flex><span>su - gpadmin -l -c <span style=color:#d14>&#34;echo -e &#39;export PGDATABASE=postgres&#39; &gt;&gt; ~/.bashrc&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>if</span> <span style=color:#000;font-weight:700>[</span> <span style=color:#d14>&#34;`ls -A </span><span style=color:teal>$DATADIR</span><span style=color:#d14>`&#34;</span> <span style=color:#000;font-weight:700>=</span> <span style=color:#d14>&#34;&#34;</span> <span style=color:#000;font-weight:700>]</span>; <span style=color:#000;font-weight:700>then</span>
+</span></span><span style=display:flex><span>    <span style=color:#998;font-style:italic># 创建数据库存放目录</span>
+</span></span><span style=display:flex><span>    mkdir -p <span style=color:teal>$DATADIR</span>/coordinator
+</span></span><span style=display:flex><span>    mkdir -p <span style=color:teal>$DATADIR</span>/primary
+</span></span><span style=display:flex><span>    chown -R gpadmin:gpadmin <span style=color:teal>$DATADIR</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#998;font-style:italic># 启动数据库集群</span>
+</span></span><span style=display:flex><span>    su - gpadmin -l -c <span style=color:#d14>&#34;source ~/.bashrc;gpinitsystem -a -D -c /home/gpadmin/gpinitsystem_config_singlenode -h /home/gpadmin/gp_hosts_list&#34;</span>
+</span></span><span style=display:flex><span>    sleep 10s
+</span></span><span style=display:flex><span>    <span style=color:teal>RET</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>`</span>netstat -tuln | grep <span style=color:#099>5432</span> | wc -l<span style=color:#d14>`</span>
+</span></span><span style=display:flex><span>    <span style=color:#0086b3>echo</span> <span style=color:#d14>&#34;!!!!!!Check server start:</span><span style=color:teal>$RET</span><span style=color:#d14>&#34;</span>    
+</span></span><span style=display:flex><span>    su - gpadmin -l -c <span style=color:#d14>&#34;source ~/.bashrc;psql -d postgres -U gpadmin -f /home/gpadmin/initdb_gpdb.sql&#34;</span>
+</span></span><span style=display:flex><span>    su - gpadmin -l -c <span style=color:#d14>&#34;source ~/.bashrc;gpconfig -c log_statement -v none&#34;</span>
+</span></span><span style=display:flex><span>    su - gpadmin -l -c <span style=color:#d14>&#34;source ~/.bashrc;gpconfig -c gp_enable_global_deadlock_detector -v on&#34;</span>
+</span></span><span style=display:flex><span>    su - gpadmin -l -c <span style=color:#d14>&#34;echo \&#34;host  all  all  0.0.0.0/0  password\&#34; &gt;&gt; </span><span style=color:teal>$DATADIR</span><span style=color:#d14>/coordinator/gpseg-1/pg_hba.conf&#34;</span>
+</span></span><span style=display:flex><span>    su - gpadmin -l -c <span style=color:#d14>&#34;source ~/.bashrc &amp;&amp; sleep 5s &amp;&amp; gpstop -u &amp;&amp; tail -f gpAdminLogs/*.log&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>else</span>
+</span></span><span style=display:flex><span>    su - gpadmin -l -c <span style=color:#d14>&#34;source ~/.bashrc &amp;&amp; gpstart -a &amp;&amp; tail -f gpAdminLogs/*.log&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>fi</span>
+</span></span></code></pre></td></tr></table></div></div><p><code>install.sh</code>脚本内容：</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 41
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 42
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 43
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 44
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 45
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 46
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 47
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 48
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 49
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 50
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 51
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 52
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 53
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 54
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 55
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 56
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 57
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 58
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 59
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 60
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 61
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 62
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 63
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 64
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 65
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 66
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 67
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 68
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 69
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 70
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 71
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 72
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 73
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 74
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 75
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 76
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 77
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 78
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 79
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 80
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 81
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 82
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 83
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 84
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 85
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 86
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 87
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 88
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 89
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 90
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 91
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 92
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 93
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 94
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 95
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 96
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 97
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 98
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 99
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">100
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">101
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">102
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">103
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">104
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">105
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">106
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">107
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">108
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">109
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">110
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">111
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">112
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">113
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">114
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">115
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">116
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">117
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">118
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">119
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">120
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">121
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">122
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span><span style=color:#999;font-weight:700;font-style:italic>#!/bin/bash
+</span></span></span><span style=display:flex><span><span style=color:#999;font-weight:700;font-style:italic></span><span style=color:#998;font-style:italic>############################################</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># Function :  Greenplum单机一键安装脚本</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># Author : tang</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># Date : 2020-12-09</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># Usage: sh install.sh</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>############################################</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># GPDB的RPM包版本</span>
+</span></span><span style=display:flex><span><span style=color:teal>GPDBVER</span><span style=color:#000;font-weight:700>=</span>7.0.0
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 账号密码</span>
+</span></span><span style=display:flex><span><span style=color:teal>PASSWORD</span><span style=color:#000;font-weight:700>=</span>greenplum
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 日志等级</span>
+</span></span><span style=display:flex><span><span style=color:teal>ERROR_MSG</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#34;[ERROR] &#34;</span>
+</span></span><span style=display:flex><span><span style=color:teal>INFO_MSG</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#34;[INFO] &#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 日志函数</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>function</span> log<span style=color:#000;font-weight:700>()</span> <span style=color:#000;font-weight:700>{</span>
+</span></span><span style=display:flex><span>    <span style=color:teal>TIME</span><span style=color:#000;font-weight:700>=</span><span style=color:#000;font-weight:700>$(</span>date +<span style=color:#d14>&#34;%Y-%m-%d %H:%M:%S&#34;</span><span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>    <span style=color:#0086b3>echo</span> <span style=color:#d14>&#34;</span><span style=color:teal>$TIME</span><span style=color:#d14> </span><span style=color:teal>$1</span><span style=color:#d14>&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 利用yum安装依赖包函数</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>function</span> package_install<span style=color:#000;font-weight:700>()</span> <span style=color:#000;font-weight:700>{</span>
+</span></span><span style=display:flex><span>  log <span style=color:#d14>&#34;</span><span style=color:teal>$INFO_MSG</span><span style=color:#d14> check command package : [ </span><span style=color:teal>$1</span><span style=color:#d14> ]&#34;</span>
+</span></span><span style=display:flex><span>  <span style=color:#000;font-weight:700>if</span> ! rpm -qa | grep -q <span style=color:#d14>&#34;^</span><span style=color:teal>$1</span><span style=color:#d14>&#34;</span>; <span style=color:#000;font-weight:700>then</span>
+</span></span><span style=display:flex><span>    yum install -y <span style=color:teal>$1</span>
+</span></span><span style=display:flex><span>    package_check_ok
+</span></span><span style=display:flex><span>  <span style=color:#000;font-weight:700>else</span>
+</span></span><span style=display:flex><span>    log <span style=color:#d14>&#34;</span><span style=color:teal>$INFO_MSG</span><span style=color:#d14> command [ </span><span style=color:teal>$1</span><span style=color:#d14> ] already installed.&#34;</span>
+</span></span><span style=display:flex><span>  <span style=color:#000;font-weight:700>fi</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 检查命令是否执行成功</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>function</span> package_check_ok<span style=color:#000;font-weight:700>()</span> <span style=color:#000;font-weight:700>{</span>
+</span></span><span style=display:flex><span>  <span style=color:teal>ret</span><span style=color:#000;font-weight:700>=</span><span style=color:teal>$?</span>
+</span></span><span style=display:flex><span>  <span style=color:#000;font-weight:700>if</span> <span style=color:#000;font-weight:700>[</span> <span style=color:teal>$ret</span> !<span style=color:#000;font-weight:700>=</span> <span style=color:#099>0</span> <span style=color:#000;font-weight:700>]</span>; <span style=color:#000;font-weight:700>then</span>
+</span></span><span style=display:flex><span>    log <span style=color:#d14>&#34;</span><span style=color:teal>$ERROR_MSG</span><span style=color:#d14> Install failed, error code is </span><span style=color:teal>$ret</span><span style=color:#d14>, Check the error log.&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#0086b3>exit</span> <span style=color:#099>1</span>
+</span></span><span style=display:flex><span>  <span style=color:#000;font-weight:700>fi</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>function</span> gpdb_install<span style=color:#000;font-weight:700>(){</span>
+</span></span><span style=display:flex><span>    log <span style=color:#d14>&#34;</span><span style=color:teal>$INFO_MSG</span><span style=color:#d14> Start to install greenplum for single node.&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#998;font-style:italic># 安装依赖包</span>
+</span></span><span style=display:flex><span>    <span style=color:teal>package</span><span style=color:#000;font-weight:700>=(</span>wget iputils net-tools<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>    <span style=color:#000;font-weight:700>for</span> p in <span style=color:#d14>${</span><span style=color:teal>package</span>[@]<span style=color:#d14>}</span>; <span style=color:#000;font-weight:700>do</span>
+</span></span><span style=display:flex><span>        package_install <span style=color:teal>$p</span>
+</span></span><span style=display:flex><span>    <span style=color:#000;font-weight:700>done</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#998;font-style:italic># 安装readline(pgsql依赖)</span>
+</span></span><span style=display:flex><span>    yum install -y readline-devel
+</span></span><span style=display:flex><span>    ln -s /usr/lib64/libreadline.so.8.1 /lib64/libreadline.so.7
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#998;font-style:italic># 配置ping命令执行权限</span>
+</span></span><span style=display:flex><span>    chmod u+s /bin/ping
+</span></span><span style=display:flex><span> 
+</span></span><span style=display:flex><span>    <span style=color:#998;font-style:italic># 创建用户与用户组</span>
+</span></span><span style=display:flex><span>    /usr/sbin/groupadd gpadmin
+</span></span><span style=display:flex><span>    /usr/sbin/useradd gpadmin -g gpadmin
+</span></span><span style=display:flex><span>    usermod -G gpadmin gpadmin
+</span></span><span style=display:flex><span>    <span style=color:#0086b3>echo</span> <span style=color:#d14>&#34;</span><span style=color:#d14>${</span><span style=color:teal>PASSWORD</span><span style=color:#d14>}</span><span style=color:#d14>&#34;</span> | passwd --stdin gpadmin
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#998;font-style:italic># ssh配置</span>
+</span></span><span style=display:flex><span>    sed -i <span style=color:#d14>&#39;s/#PermitRootLogin prohibit-password/PermitRootLogin yes/&#39;</span> /etc/ssh/sshd_config
+</span></span><span style=display:flex><span>    sed -i -r <span style=color:#d14>&#39;s/^.*StrictHostKeyChecking\s+\w+/StrictHostKeyChecking no/&#39;</span> /etc/ssh/ssh_config
+</span></span><span style=display:flex><span>    sed <span style=color:#d14>&#39;s@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g&#39;</span> -i /etc/pam.d/sshd
+</span></span><span style=display:flex><span>    systemctl restart sshd
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#998;font-style:italic># gpadmin账号的免密配置</span>
+</span></span><span style=display:flex><span>    su gpadmin -l -c <span style=color:#d14>&#34;ssh-keygen -t rsa -f ~/.ssh/id_rsa -q -P \&#34;\&#34;&#34;</span>
+</span></span><span style=display:flex><span>    su gpadmin -l -c <span style=color:#d14>&#34;cat ~/.ssh/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys&#34;</span>
+</span></span><span style=display:flex><span>    su gpadmin -l -c <span style=color:#d14>&#34;chmod 600 ~/.ssh/authorized_keys&#34;</span> <span style=color:#000;font-weight:700>&amp;&amp;</span> <span style=color:#d14>\
+</span></span></span><span style=display:flex><span><span style=color:#d14></span>    su gpadmin -l -c <span style=color:#d14>&#34;ssh-keyscan -H localhost 2&gt;/dev/null | grep rsa | awk &#39;{print \&#34;localhost \&#34; \$2 \&#34; \&#34; \$3 }&#39; &gt;&gt; ~/.ssh/known_hosts&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#998;font-style:italic># 下载并安装greenplum的RPM包</span>
+</span></span><span style=display:flex><span>    wget --no-check-certificate <span style=color:#d14>&#34;https://ghproxy.com/https://github.com/greenplum-db/gpdb/releases/download/</span><span style=color:teal>$GPDBVER</span><span style=color:#d14>/open-source-greenplum-db-</span><span style=color:teal>$GPDBVER</span><span style=color:#d14>-el8-x86_64.rpm&#34;</span> -P <span style=color:#d14>&#34;/tmp/&#34;</span>
+</span></span><span style=display:flex><span>    yum install -y <span style=color:#d14>&#34;/tmp/open-source-greenplum-db-</span><span style=color:teal>$GPDBVER</span><span style=color:#d14>-el8-x86_64.rpm&#34;</span>
+</span></span><span style=display:flex><span>    rm -rf <span style=color:#d14>&#34;/tmp/open-source-greenplum-db-</span><span style=color:teal>$GPDBVER</span><span style=color:#d14>-el8-x86_64.rpm&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#998;font-style:italic># 安装openssl(postgres依赖openssl-1.1.1版本)</span>
+</span></span><span style=display:flex><span>    wget --no-check-certificate https://www.openssl.org/source/old/1.1.1/openssl-1.1.1.tar.gz -P <span style=color:#d14>&#34;/tmp/&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#0086b3>cd</span> /tmp <span style=color:#000;font-weight:700>&amp;&amp;</span> tar -zxvf openssl-1.1.1.tar.gz <span style=color:#000;font-weight:700>&amp;&amp;</span> <span style=color:#0086b3>cd</span> openssl-1.1.1 <span style=color:#000;font-weight:700>&amp;&amp;</span> ./config --prefix<span style=color:#000;font-weight:700>=</span>/usr/local/openssl <span style=color:#000;font-weight:700>&amp;&amp;</span> ./config -t 
+</span></span><span style=display:flex><span>    make <span style=color:#000;font-weight:700>&amp;&amp;</span> make install
+</span></span><span style=display:flex><span>    rm -f openssl-1.1.1.tar.gz <span style=color:#000;font-weight:700>&amp;&amp;</span> rm -rf openssl-1.1.1
+</span></span><span style=display:flex><span>    ln -s /usr/local/openssl/lib/libssl.so.1.1 /lib64/libssl.so.1.1
+</span></span><span style=display:flex><span>    ln -s /usr/local/openssl/lib/libcrypto.so.1.1 /lib64/libcrypto.so.1.1
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#998;font-style:italic># 初始化集群并修改配置</span>
+</span></span><span style=display:flex><span>    rm -f /home/gpadmin/gpinitsystem_config_singlenode
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    cat &gt; /home/gpadmin/gpinitsystem_config_singlenode <span style=color:#d14>&lt;&lt; EOF
+</span></span></span><span style=display:flex><span><span style=color:#d14>ARRAY_NAME=&#34;Greenplum Data Platform&#34;
+</span></span></span><span style=display:flex><span><span style=color:#d14>SEG_PREFIX=gpseg
+</span></span></span><span style=display:flex><span><span style=color:#d14>PORT_BASE=6000
+</span></span></span><span style=display:flex><span><span style=color:#d14>declare -a DATA_DIRECTORY=($DATADIR/primary $DATADIR/primary)
+</span></span></span><span style=display:flex><span><span style=color:#d14>COORDINATOR_HOSTNAME=localhost
+</span></span></span><span style=display:flex><span><span style=color:#d14>COORDINATOR_DIRECTORY=$DATADIR/coordinator
+</span></span></span><span style=display:flex><span><span style=color:#d14>COORDINATOR_PORT=5432
+</span></span></span><span style=display:flex><span><span style=color:#d14>TRUSTED_SHELL=ssh
+</span></span></span><span style=display:flex><span><span style=color:#d14>CHECK_POINT_SEGMENTS=8
+</span></span></span><span style=display:flex><span><span style=color:#d14>ENCODING=UNICODE
+</span></span></span><span style=display:flex><span><span style=color:#d14>EOF</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    cat &gt; /home/gpadmin/gp_hosts_list <span style=color:#d14>&lt;&lt; EOF
+</span></span></span><span style=display:flex><span><span style=color:#d14>localhost
+</span></span></span><span style=display:flex><span><span style=color:#d14>EOF</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    cat &gt; /home/gpadmin/initdb_gpdb.sql <span style=color:#d14>&lt;&lt; EOF
+</span></span></span><span style=display:flex><span><span style=color:#d14>ALTER ROLE &#34;gpadmin&#34; WITH PASSWORD &#39;$PASSWORD&#39;;
+</span></span></span><span style=display:flex><span><span style=color:#d14>EOF</span>
+</span></span><span style=display:flex><span>    chown -R gpadmin:gpadmin /home/gpadmin
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    log <span style=color:#d14>&#34;</span><span style=color:teal>$INFO_MSG</span><span style=color:#d14> Install single node Greenplum cluster success!&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 安装操作</span>
+</span></span><span style=display:flex><span>gpdb_install
+</span></span></code></pre></td></tr></table></div></div><p><code>test.sh</code>脚本内容：</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span><span style=color:#999;font-weight:700;font-style:italic>#!/bin/bash
+</span></span></span><span style=display:flex><span><span style=color:#999;font-weight:700;font-style:italic></span>
+</span></span><span style=display:flex><span>rm -rf ./data <span style=color:#000;font-weight:700>&amp;&amp;</span> mkdir data
+</span></span><span style=display:flex><span>docker run -d --name greenplum -p 5432:5432 -v <span style=color:#d14>&#34;</span><span style=color:teal>$PWD</span><span style=color:#d14>&#34;</span>/data:/data  inrgihc/greenplum:7.0.0
+</span></span></code></pre></td></tr></table></div></div><h2 id=四部署过程>四、部署过程</h2><h3 id=1镜像制作>1.镜像制作</h3><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>mkdir -p /tmpdisk/greendb7
+</span></span><span style=display:flex><span><span style=color:#0086b3>cd</span> /tmpdisk/greendb7
+</span></span><span style=display:flex><span>sh build.sh
+</span></span></code></pre></td></tr></table></div></div><h3 id=2镜像测试>2.镜像测试</h3><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span><span style=color:#0086b3>cd</span> /tmpdisk/greendb7
+</span></span><span style=display:flex><span>sh test.sh
+</span></span></code></pre></td></tr></table></div></div><h3 id=3使用>3.使用</h3><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>mkdir /tmpdisk/greendb7-data/gpdb
+</span></span><span style=display:flex><span>docker run -d --name greenplum -p 15432:5432 -v /tmpdisk/greendb7-data/gpdb:/data  inrgihc/greenplum:7.0.0
+</span></span></code></pre></td></tr></table></div></div><h3 id=4参数解释>4.参数解释</h3><p>说明：首次启动镜像时会初始化集群，需要耐心等待10~60秒左右，然后方可用客户端连接数据库。</p><table><thead><tr><th>参数名称</th><th>取值</th><th>备注说明</th></tr></thead><tbody><tr><td>软件安装路径</td><td>/usr/local/greenplum-db</td><td>greenplum程序软件安装所在目录，目前无法定制配置</td></tr><tr><td>数据所在路径</td><td>/data</td><td>greenplum数据库数据安装所在目录, 该参数可在打包时定制配置</td></tr><tr><td>Greenplum超管账号</td><td>gpadmin</td><td>登录Greenplum数据库的超级管理员账号为gpadmin</td></tr><tr><td>Greenplum超管密码</td><td>greenplum</td><td>登录Greenplum数据库的超级管理员gpadmin的密码</td></tr><tr><td>数据库连接端口</td><td>5432</td><td>greenplum数据库master的连接端口号</td></tr></tbody></table><p>参考：<a href=https://gitee.com/inrgihc/greenplum_docker>链接</a></p></div></div></div><div id=footer><div class=container-footer><div class=beian><a target=_blank href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode="></a><a href target=_blank><span class=some>icp...<span></a></div><div class=info><a href=https://github.com/loveminimal/hugo-theme-virgo>🕊️</a> 2021 - <span id=info-date></span></div></div></div><div class=cool-after></div></body></html>

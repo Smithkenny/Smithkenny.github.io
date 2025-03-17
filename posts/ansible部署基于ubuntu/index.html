@@ -1,0 +1,1062 @@
+<!doctype html><html lang=zh-CN><head><meta name=viewport content="width=device-width,initial-scale=1"><meta charset=utf-8><meta name=description content="Ansible部署（基于ubuntu） - https://t.haipengv.com/posts/ansible%E9%83%A8%E7%BD%B2%E5%9F%BA%E4%BA%8Eubuntu/"><meta name=author content="Smith - https://t.haipengv.com/"><meta name=msvalidate.01 content="B46311949B856F2A7015F366FB3CE878"><title>Ansible部署（基于ubuntu）</title><base target=_blank><link rel=icon type=image/png href=/favicon.ico><link rel=stylesheet href=https://t.haipengv.com/style.min.9a0cea23154ac1941e15c25aa2d31b77285a217d2606ec05b55236428cf1c3e6.css><script>const DARK=!1</script><script type=text/javascript src=/main.js defer></script></head><body class=active-animate><div class=cool-before></div><div id=header><div class=container-header><div class=right><h1 class=title>Ansible部署（基于ubuntu）</h1><div id=toc>📜</div></div></div></div><div id=content><div class="container-main container-page"><div class=rel><div class=curtag-desc><a href=https://t.haipengv.com/tags/ansible/><img src=/imgs/icons/tag.svg width=16> 相关文章：Ansible <sup>3</sup></a></div><div class=curtag-post><div class=curtag-post-item><a href=https://t.haipengv.com/posts/ansible%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/>Ansible基础教程</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/ansible%E7%9B%B8%E5%85%B3%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99/>Ansible相关参考资料</a></div><div class="curtag-post-item curtag-post-item--active"><a href=https://t.haipengv.com/posts/ansible%E9%83%A8%E7%BD%B2%E5%9F%BA%E4%BA%8Eubuntu/>Ansible部署（基于ubuntu）</a></div></div></div><div class=desc><span><svg t="1656736000388" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="7409" width="12" height="12"><path d="M524.885333 338.986667l-324.522666 324.48c-17.28 15.274667-27.989333 36.693333-29.696 56.234666v133.76l130.730666.085334c22.784-1.621333 43.989333-12.245333 61.013334-31.701334L685.098667 499.2 524.885333 338.986667zM585.258667 278.656l160.170666 160.213333 102.144-102.144a19.712 19.712.0 000-27.861333l-132.48-132.437333a19.456 19.456.0 00-27.605333.0L585.258667 278.613333zM701.312 85.333333c27.946667.0 54.741333 11.136 74.282667 30.848L907.904 248.490667a105.045333 105.045333.0 010 148.565333L424.874667 879.957333C395.050667 914.304 352.768 935.424 304.426667 938.752H85.333333v-42.666667l.128-179.84c3.626667-44.970667 24.576-86.826667 56.448-114.944l485.12-485.034666a104.789333 104.789333.0 0174.24-30.933334z" p-id="7410" fill="#adb5bd"/></svg>2025-03-15&nbsp;&nbsp;&nbsp;<svg t="1656737270708" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="23838" width="11" height="11"><path d="M824.264 95.36c0-23.859 25.043-44.16 48.902-44.16s49.714 20.301 49.714 44.16v190.08c0 23.859-19.054 52.868-42.913 52.868h-190.08c-23.859.0-46.696-25.96-46.696-49.819s22.55-46.249 46.409-46.249h82.025C702.344 175.534 610.22 155.853 512 155.853c-206.775.0-360.398 149.372-360.398 356.147S305.225 870.23 512 870.23c206.775.0 357.467-151.455 357.467-358.23.0-23.859 23.634-50.706 53.413-50.706 29.78.0 49.92 26.847 49.92 50.706.0 254.493-206.307 460.8-460.8 460.8s-460.8-206.307-460.8-460.8C51.2 257.507 257.507 51.2 512 51.2c122.4.0 226.684 33.296 312.264 117.369.358.351.358-24.052.0-73.209z" p-id="23839" fill="#adb5bd"/></svg>
+2025-03-15&nbsp;&nbsp;&nbsp;</span>
+<span><svg t="1656737548689" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="33866" width="12" height="12"><path d="M832.038608 64.662657H192.030028c-70.774903.0-128.089859 57.325793-128.089859 128.03206v446.793671c0 70.7171050000001 57.314956 128.154884 128.089859 128.154884h133.353183a63.940169 63.940169.0 0155.219742 31.576328l76.099638 129.83828c12.358154 21.093031 33.790754 31.626903 55.216129 31.626903s42.832688-10.544709 55.198067-31.619678l76.222461-129.870792a63.940169 63.940169.0 0155.212517-31.551041h133.54103c70.576219.0 127.732228-57.289669 127.732227-127.800865V192.391272c0-70.536482-57.181295-127.728615-127.786414-127.728615zM895.884854 639.842407A63.85347 63.85347.0 01832.092795 703.703103h-133.54103a127.753903 127.753903.0 00-110.349172 63.09847l-76.222461 129.856342a.274545.274545.0 010-.050574h-.032512s-.021675.061411-.032512.061412l-76.1466-129.85273a127.804477 127.804477.0 00-110.385297-63.11292H192.030028A64.207489 64.207489.0 01127.880338 639.488388V192.694717a64.102729 64.102729.0 0164.14969-64.091891h640.00858a63.799284 63.799284.0 0163.846246 63.788446v447.451135z" fill="#adb5bd" p-id="33867"/><path d="M608.154093 288.092004a31.970084 31.970084.0 00-31.970084 31.970085v160.078006L441.53396 300.861976a31.970084 31.970084.0 00-57.531702 19.200113v255.760676a31.970084 31.970084.0 0063.940169.0V415.863969l134.650048 179.274507a31.970084 31.970084.0 0057.531703-19.200113V320.062089a31.970084 31.970084.0 00-31.970085-31.970085z" fill="#adb5bd" p-id="33868"/></svg>4991 字</span>&nbsp;
+<span><svg t="1656737462334" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="32892" width="12" height="12"><path d="M512 74.666667C270.933333 74.666667 74.666667 270.933333 74.666667 512S270.933333 949.333333 512 949.333333 949.333333 753.066667 949.333333 512 753.066667 74.666667 512 74.666667zm0 810.666666C307.2 885.333333 138.666667 716.8 138.666667 512S307.2 138.666667 512 138.666667 885.333333 307.2 885.333333 512 716.8 885.333333 512 885.333333z" p-id="32893" fill="#adb5bd"/><path d="M695.466667 567.466667 544 497.066667V277.333333c0-17.066667-14.933333-32-32-32s-32 14.933333-32 32v238.933334c0 12.8 6.4 23.466667 19.2 29.866666L669.866667 627.2c4.266667 2.133333 8.533333 2.133333 12.8 2.133333 12.8.0 23.466667-6.4 29.866666-19.2 6.4-14.933333.0-34.133333-17.066666-42.666666z" p-id="32894" fill="#adb5bd"/></svg>10 分钟</span><div class=container-ctgtag><div class=taxonomy><div class=tag><a href=/tags/ansible>Ansible</a></div></div></div></div><div class=toc><div class=container-page-operation><div class=page-operation><div><a href=/><img src=/imgs/icons/home-2.svg alt></a></div><div><a href=/nav><img src=/imgs/icons/iov-navigate-1.svg alt></a></div><div><a href=/wiki><img src=/imgs/icons/wiki.svg alt></a></div><div><a href=/tags><img src=/imgs/icons/treetags.svg alt></a></div><div id=light-dark><a><img src=/imgs/icons/moon2.svg alt></a></div><div><a href=#><img src=/imgs/icons/up2.svg alt></a></div></div></div><nav id=TableOfContents><ul><li><a href=#一ansible-是如何运作的>一、Ansible 是如何运作的？</a></li><li><a href=#二如何安装ansible>二、如何安装Ansible?</a></li><li><a href=#三主控端安装ansiable>三、主控端安装Ansiable</a></li><li><a href=#四定义主机清单>四、定义主机清单</a></li></ul></nav></div><div class=content><p><img src=imgs/9c12cc9db3111f020a1d36572fabf9cf3306c80b1f6229b81ff14c6b60fcce3c.png alt="picture 0"></p><h2 id=一ansible-是如何运作的>一、Ansible 是如何运作的？</h2><p>一台机器充当主控端（Control Machine），其他机器充当被控节点（node Machine）。</p><h2 id=二如何安装ansible>二、如何安装Ansible?</h2><p>一般我们在主控节点安装Ansiable即可。被管理节点（Ansible 管理的机器）不需要安装 Ansible，但需要 Python 来运行 Ansible 生成的 Python 代码。
+主控节点及被控节点系统环境：ubuntu22.04 (预装Python 3.10.12)</p><p>ansible-core与python版本对照表：
+<a href=https://docs.ansible.org.cn/ansible/latest/reference_appendices/release_and_maintenance.html#ansible-core-support-matrix>https://docs.ansible.org.cn/ansible/latest/reference_appendices/release_and_maintenance.html#ansible-core-support-matrix</a></p><p>本次试验版本：Ansible 2.17.9、所有节点提前安装Python 3.10.12（编译安装见Python）</p><h2 id=三主控端安装ansiable>三、主控端安装Ansiable</h2><p>主控端使用ubuntu22.04 jammy 版本</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:teal>UBUNTU_CODENAME</span><span style=color:#000;font-weight:700>=</span>jammy
+</span></span><span style=display:flex><span>wget -O- <span style=color:#d14>&#34;https://keyserver.ubuntu.com/pks/lookup?fingerprint=on&amp;op=get&amp;search=0x6125E2A8C77F2818FB7BD15B93C4A3FD7BB9C367&#34;</span> | sudo gpg --dearmour -o /usr/share/keyrings/ansible-archive-keyring.gpg
+</span></span><span style=display:flex><span><span style=color:#0086b3>echo</span> <span style=color:#d14>&#34;deb [signed-by=/usr/share/keyrings/ansible-archive-keyring.gpg] https://launchpad.proxy.ustclug.org/ansible/ansible/ubuntu </span><span style=color:teal>$UBUNTU_CODENAME</span><span style=color:#d14> main&#34;</span> | sudo tee /etc/apt/sources.list.d/ansible.list
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>sudo apt update <span style=color:#000;font-weight:700>&amp;&amp;</span> sudo apt install ansible
+</span></span></code></pre></td></tr></table></div></div><h2 id=四定义主机清单>四、定义主机清单</h2><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">41
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">42
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">43
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">44
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">45
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">46
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">47
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">48
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">49
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">50
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">51
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">52
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">53
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">54
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">55
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#998;font-style:italic># ssh-key(可选，免密码)	</span>
+</span></span><span style=display:flex><span>	ssh-keygen
+</span></span><span style=display:flex><span>	ssh-copy-id	IP地址	<span style=color:#998;font-style:italic># 推送公钥</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 我们现在ansible控制机上主机名解析 </span>
+</span></span><span style=display:flex><span>tail /etc/hosts 
+</span></span><span style=display:flex><span>127.0.0.1 localhost localhost.localdomain localhost4 localhost4.localdomain4 
+</span></span><span style=display:flex><span>::1 localhost localhost.localdomain localhost6 localhost6.localdomain6 
+</span></span><span style=display:flex><span>192.168.200.5 master
+</span></span><span style=display:flex><span>192.168.200.2 node1
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>vim  /etc/ansible/hosts  
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>webserver<span style=color:#000;font-weight:700>]</span>			<span style=color:#998;font-style:italic># 增加主机组</span>
+</span></span><span style=display:flex><span>node1
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 因为考虑到安全问题，会有主机秘钥的检查，但如果在内网非常信任的服务器就没必要了. </span>
+</span></span><span style=display:flex><span>sed -i <span style=color:#d14>&#39;s/# *StrictHostKeyChecking *ask/StrictHostKeyChecking no/g&#39;</span> /etc/ssh/ssh_config
+</span></span><span style=display:flex><span>去掉<span style=color:#000;font-weight:700>(</span>yes/no<span style=color:#000;font-weight:700>)</span>的询问
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># systemctl restart sshd</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@master ~<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># ansible webserver -m ping  -o	# 并不是真的ping,只是检查客户端的22号端口是否在提供工作. </span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># -o 简介输出 </span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># -k 输入密码</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># -m 指定模块</span>
+</span></span><span style=display:flex><span>SSH password: 
+</span></span><span style=display:flex><span>node1 | <span style=color:teal>SUCCESS</span> <span style=color:#000;font-weight:700>=</span>&gt; <span style=color:#000;font-weight:700>{</span><span style=color:#d14>&#34;ansible_facts&#34;</span>: <span style=color:#000;font-weight:700>{</span><span style=color:#d14>&#34;discovered_interpreter_python&#34;</span>: <span style=color:#d14>&#34;/usr/bin/python3.10&#34;</span><span style=color:#000;font-weight:700>}</span>,<span style=color:#d14>&#34;changed&#34;</span>: false,<span style=color:#d14>&#34;ping&#34;</span>: <span style=color:#d14>&#34;pong&#34;</span>,<span style=color:#d14>&#34;warnings&#34;</span>: <span style=color:#000;font-weight:700>[</span><span style=color:#d14>&#34;Platform linux on host node1 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.17/reference_appendices/interpreter_discovery.html for more information.&#34;</span><span style=color:#000;font-weight:700>]}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 增加用户名 密码</span>
+</span></span><span style=display:flex><span>vim /etc/ansible/hosts
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>webserver<span style=color:#000;font-weight:700>]</span>
+</span></span><span style=display:flex><span>node1  <span style=color:teal>ansible_ssh_user</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#39;root&#39;</span> <span style=color:teal>ansible_ssh_pass</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#39;flying&#39;</span> <span style=color:#998;font-style:italic># 此处可以加上ansible本机，也可以不加</span>
+</span></span><span style=display:flex><span>master <span style=color:teal>ansible_ssh_user</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#39;root&#39;</span> <span style=color:teal>ansible_ssh_pass</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#39;flying&#39;</span>
+</span></span><span style=display:flex><span>node2  <span style=color:teal>ansible_user</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#39;root&#39;</span> <span style=color:teal>ansible_ssh_pass</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#39;flying&#39;</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 此处如果有node3,node4可以这样写</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># node[2:5] ansible_ssh_user=&#39;root&#39; ansible_ssh_pass=&#39;flying&#39;</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 如果默认端口sshd端口不一样需要修改，需要指定端口</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># node2 ansible_ssh_user=&#39;root&#39; ansible_ssh_pass=&#39;flying&#39; ansible_ssh_port=&#39;2222&#39;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>root@master:~# ansible webserver -m ping  -o
+</span></span><span style=display:flex><span>node1 | <span style=color:teal>SUCCESS</span> <span style=color:#000;font-weight:700>=</span>&gt; <span style=color:#000;font-weight:700>{</span><span style=color:#d14>&#34;ansible_facts&#34;</span>: <span style=color:#000;font-weight:700>{</span><span style=color:#d14>&#34;discovered_interpreter_python&#34;</span>: <span style=color:#d14>&#34;/usr/bin/python3.10&#34;</span><span style=color:#000;font-weight:700>}</span>,<span style=color:#d14>&#34;changed&#34;</span>: false,<span style=color:#d14>&#34;ping&#34;</span>: <span style=color:#d14>&#34;pong&#34;</span>,<span style=color:#d14>&#34;warnings&#34;</span>: <span style=color:#000;font-weight:700>[</span><span style=color:#d14>&#34;Platform linux on host node1 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.17/reference_appendices/interpreter_discovery.html for more information.&#34;</span><span style=color:#000;font-weight:700>]}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 免密成功</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 自定义主机列表</span>
+</span></span><span style=display:flex><span>vim /opt/hosts
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>webserver<span style=color:#000;font-weight:700>]</span>
+</span></span><span style=display:flex><span>node1
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>webserver:vars<span style=color:#000;font-weight:700>]</span>
+</span></span><span style=display:flex><span><span style=color:teal>ansible_ssh_user</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#39;root&#39;</span>
+</span></span><span style=display:flex><span><span style=color:teal>ansible_ssh_pass</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#39;flying&#39;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@node1 ~<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># ansible -i /opt/hostlist webserver -m ping -o</span>
+</span></span><span style=display:flex><span>node2 | <span style=color:teal>SUCCESS</span> <span style=color:#000;font-weight:700>=</span>&gt; <span style=color:#000;font-weight:700>{</span><span style=color:#d14>&#34;ansible_facts&#34;</span>: <span style=color:#000;font-weight:700>{</span><span style=color:#d14>&#34;discovered_interpreter_python&#34;</span>: <span style=color:#d14>&#34;/usr/bin/python&#34;</span><span style=color:#000;font-weight:700>}</span>, <span style=color:#d14>&#34;changed&#34;</span>: false, <span style=color:#d14>&#34;ping&#34;</span>: <span style=color:#d14>&#34;pong&#34;</span><span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>master | <span style=color:teal>SUCCESS</span> <span style=color:#000;font-weight:700>=</span>&gt; <span style=color:#000;font-weight:700>{</span><span style=color:#d14>&#34;ansible_facts&#34;</span>: <span style=color:#000;font-weight:700>{</span><span style=color:#d14>&#34;discovered_interpreter_python&#34;</span>: <span style=color:#d14>&#34;/usr/bin/python&#34;</span><span style=color:#000;font-weight:700>}</span>, <span style=color:#d14>&#34;changed&#34;</span>: false, <span style=color:#d14>&#34;ping&#34;</span>: <span style=color:#d14>&#34;pong&#34;</span><span style=color:#000;font-weight:700>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>Ansible模块（Ad-Hoc）</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>ad hoc 临时的点对点模式，在ansible中只需要快速执行一条简单的命令，不需要保存起来，对于负载的命令则为playbook剧本，剧本就是ad hoc 的集合。
+</span></span></code></pre></td></tr></table></div></div><p>Shell模块</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#998;font-style:italic># shell模块</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 执行远程命令 </span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 获取主机名</span>
+</span></span><span style=display:flex><span>root@master:~# ansible webserver -m shell -a <span style=color:#d14>&#39;hostname&#39;</span> -o -f <span style=color:#099>3</span>
+</span></span><span style=display:flex><span>node1 | CHANGED | <span style=color:teal>rc</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>0</span> | <span style=color:#000;font-weight:700>(</span>stdout<span style=color:#000;font-weight:700>)</span> node1
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># -f  指定线程数，默认为5</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 查询系统负载</span>
+</span></span><span style=display:flex><span>root@master:~# ansible webserver -m shell -a <span style=color:#d14>&#34;uptime&#34;</span> -o
+</span></span><span style=display:flex><span>node1 | CHANGED | <span style=color:teal>rc</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>0</span> | <span style=color:#000;font-weight:700>(</span>stdout<span style=color:#000;font-weight:700>)</span>  15:22:21 up <span style=color:#099>29</span> min,  <span style=color:#099>2</span> users,  load average: 0.05, 0.01, 0.00
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># -a  单条指令</span>
+</span></span><span style=display:flex><span>root@master:~# ansible webserver -m shell -a <span style=color:#d14>&#39;date&#39;</span> -o
+</span></span><span style=display:flex><span>node1 | CHANGED | <span style=color:teal>rc</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>0</span> | <span style=color:#000;font-weight:700>(</span>stdout<span style=color:#000;font-weight:700>)</span> 2025年 03月 13日 星期四 15:22:41 CST
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>root@master:~# ansible-doc -l
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># A10、华为、docker、EC2、aws等等广大厂商设备都可以使用ansible配置</span>
+</span></span></code></pre></td></tr></table></div></div><p>Yum模块（centos7中有，ubuntu中用apt模块。）</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#998;font-style:italic># yum模块 </span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># ansible-doc yum </span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@node1 ~<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># ansible webserver -m yum -a &#39;name=httpd state=latest&#39; </span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@node1 ~<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># ansible webserver -m shell -a &#39;yum -y install httpd&#39; </span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@node1 ~<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># ansible webserver -m yum -a &#39;name=git state=latest&#39; 软件包管理 </span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@node1 ~<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># ansible webserver -m yum -a &#39;name=&#39;*&#39; state=latest&#39;</span>
+</span></span></code></pre></td></tr></table></div></div><p>Apt 模块</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#998;font-style:italic># apt模块 </span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># ansible-doc apt</span>
+</span></span><span style=display:flex><span>root@master:~# ansible all -m apt -a <span style=color:#d14>&#39;name=apache2 state=latest&#39;</span> 
+</span></span></code></pre></td></tr></table></div></div><p>Copy 模块</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#998;font-style:italic># copy模块</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 帮助  ansible-doc copy</span>
+</span></span><span style=display:flex><span>root@master:~# ansible all -m copy -a <span style=color:#d14>&#39;src=/root/index.html dest=/tmp/index.html owner=root group=bin mode=777&#39;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>root@master:~# ansible all -m copy -a <span style=color:#d14>&#39;src=/root/index.html dest=/tmp/index.html owner=root group=bin mode=777 backup=yes&#39;</span>
+</span></span></code></pre></td></tr></table></div></div><p>用户模块</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#998;font-style:italic># 用户模块</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 帮助  ansible-doc user</span>
+</span></span><span style=display:flex><span>root@master:~# ansible webserver -m user -a <span style=color:#d14>&#39;name=you-men state=present&#39;</span>		<span style=color:#998;font-style:italic># 创建用户</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>root@master:~# ansible all -m shell -a <span style=color:#d14>&#39;id you-men&#39;</span> -o
+</span></span><span style=display:flex><span>node1 | CHANGED | <span style=color:teal>rc</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>0</span> | <span style=color:#000;font-weight:700>(</span>stdout<span style=color:#000;font-weight:700>)</span> <span style=color:teal>uid</span><span style=color:#000;font-weight:700>=</span>1001<span style=color:#000;font-weight:700>(</span>you-men<span style=color:#000;font-weight:700>)</span> <span style=color:teal>gid</span><span style=color:#000;font-weight:700>=</span>1001<span style=color:#000;font-weight:700>(</span>you-men<span style=color:#000;font-weight:700>)</span> <span style=color:teal>groups</span><span style=color:#000;font-weight:700>=</span>1001<span style=color:#000;font-weight:700>(</span>you-men<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>root@master:~#  ansible webserver -m user -a <span style=color:#d14>&#39;name=you-men state=absent&#39;</span>		<span style=color:#998;font-style:italic># 删除用户</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>root@master:~# <span style=color:#0086b3>echo</span> <span style=color:#d14>&#39;flying&#39;</span> |openssl passwd -1 -stdin
+</span></span><span style=display:flex><span><span style=color:teal>$1$qMNVI9Ce$wrrPlN3Zge1riXZxX4d9x1</span>
+</span></span><span style=display:flex><span>root@master:~# ansible webserver -m user -a <span style=color:#d14>&#39;name=you-men password=&#34;$1$qMNVI9Ce$wrrPlN3Zge1riXZxX4d9x1&#34;&#39;</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 修改密码</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>root@master:~# ssh you-men@192.168.200.6
+</span></span><span style=display:flex><span>Warning: Permanently added <span style=color:#d14>&#39;192.168.200.6&#39;</span> <span style=color:#000;font-weight:700>(</span>ED25519<span style=color:#000;font-weight:700>)</span> to the list of known hosts.
+</span></span><span style=display:flex><span>you-men@192.168.200.6<span style=color:#d14>&#39;s password: 
+</span></span></span><span style=display:flex><span><span style=color:#d14>[you-men@master ~]$ 
+</span></span></span><span style=display:flex><span><span style=color:#d14>-----------------------------------------------------------
+</span></span></span><span style=display:flex><span><span style=color:#d14>
+</span></span></span><span style=display:flex><span><span style=color:#d14>root@master:~# ansible webserver -m user -a &#39;</span><span style=color:teal>name</span><span style=color:#000;font-weight:700>=</span>you-men <span style=color:teal>shell</span><span style=color:#000;font-weight:700>=</span>/sbin/nologin <span style=color:teal>append</span><span style=color:#000;font-weight:700>=</span>yes<span style=color:#d14>&#39;	# 修改shell
+</span></span></span><span style=display:flex><span><span style=color:#d14>root@master:~# ssh you-men@192.168.200.6
+</span></span></span><span style=display:flex><span><span style=color:#d14>you-men@192.168.200.6&#39;</span>s password: 
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>This account is currently not available.
+</span></span><span style=display:flex><span>Connection to 192.168.200.6 closed.
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 只需要将shell修改为/bin/bash即可恢复正常用户</span>
+</span></span></code></pre></td></tr></table></div></div><p>服务模块</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">9
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#998;font-style:italic># 帮助  ansible-doc service</span>
+</span></span><span style=display:flex><span>root@master:~# ansible webserver -m service -a <span style=color:#d14>&#39;name=nginx state=started enabled=yes&#39;</span>		<span style=color:#998;font-style:italic># 启动服务并设置开机自启动</span>
+</span></span><span style=display:flex><span>root@master:~# ansible webserver -m shell -a <span style=color:#d14>&#39;curl -I http://localhost:80&#39;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>root@master:~# ansible webserver -m service -a <span style=color:#d14>&#39;name=nginx state=stopped&#39;</span>		<span style=color:#998;font-style:italic># 停止服务</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>root@master:~# ansible webserver -m service -a <span style=color:#d14>&#39;name=nginx state=restarted&#39;</span> 	<span style=color:#998;font-style:italic># 重启服务</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>root@master:~# ansible webserver -m service -a <span style=color:#d14>&#39;name=nginx state=started enabled=no&#39;</span>	<span style=color:#998;font-style:italic># 开机不启动</span>
+</span></span></code></pre></td></tr></table></div></div><p>文件模块</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#998;font-style:italic># 帮助 ansible-doc file </span>
+</span></span><span style=display:flex><span>root@master:~# ansible webserver -m file -a <span style=color:#d14>&#39;path=/tmp/88.txt mode=777 state=touch&#39;</span> <span style=color:#998;font-style:italic># 创建文件 </span>
+</span></span><span style=display:flex><span>root@master:~# ansible webserver -m file -a <span style=color:#d14>&#39;path=/tmp/99.txt mode=777 state=directory&#39;</span> <span style=color:#998;font-style:italic># 创建目录 </span>
+</span></span><span style=display:flex><span>root@master:~# ansible webserver -m shell -a <span style=color:#d14>&#39;ls -l /tmp/88.txt&#39;</span> -o
+</span></span><span style=display:flex><span>node1 | CHANGED | <span style=color:teal>rc</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>0</span> | <span style=color:#000;font-weight:700>(</span>stdout<span style=color:#000;font-weight:700>)</span> -rwxrwxrwx <span style=color:#099>1</span> root root <span style=color:#099>0</span>  3月 <span style=color:#099>13</span> 16:19 /tmp/88.txt
+</span></span></code></pre></td></tr></table></div></div><p>解压模块</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">8
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>root@master:~# ansible all -m get_url -a <span style=color:#d14>&#34;url=http://nginx.org/download/nginx-1.17.4.tar.gz dest=/root mode=0440 force=yes&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 下载文件到指定目录</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>root@master:~# ansible all -m unarchive -a <span style=color:#d14>&#34;src=/root/nginx-1.17.4.tar.gz dest=/tmp mode=0755 copy=yes&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 解压ansible管理机上的压缩文件到远程主机</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>root@master:~# ansible all -m unarchive -a <span style=color:#d14>&#34;src=/root/nginx-1.17.4.tar.gz dest=/root mode=0755 copy=no&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 解压远程主机上的文件到目录</span>
+</span></span></code></pre></td></tr></table></div></div><p>收集模块</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#998;font-style:italic># 帮助  ansible-doc setup</span>
+</span></span><span style=display:flex><span>root@master:~# ansible webserver -m setup 	<span style=color:#998;font-style:italic># 查询所有信息</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>root@master:~# ansible webserver -m setup -a <span style=color:#d14>&#39;filter=ansible_all_ipv4_addresses&#39;</span> -o 
+</span></span><span style=display:flex><span>node1 | <span style=color:teal>SUCCESS</span> <span style=color:#000;font-weight:700>=</span>&gt; <span style=color:#000;font-weight:700>{</span><span style=color:#d14>&#34;ansible_facts&#34;</span>: <span style=color:#000;font-weight:700>{</span><span style=color:#d14>&#34;ansible_all_ipv4_addresses&#34;</span>: <span style=color:#000;font-weight:700>[</span><span style=color:#d14>&#34;10.0.2.15&#34;</span>,<span style=color:#d14>&#34;192.168.200.6&#34;</span><span style=color:#000;font-weight:700>]</span>,<span style=color:#d14>&#34;discovered_interpreter_python&#34;</span>: <span style=color:#d14>&#34;/usr/bin/python3.10&#34;</span><span style=color:#000;font-weight:700>}</span>,<span style=color:#d14>&#34;changed&#34;</span>: false,<span style=color:#d14>&#34;warnings&#34;</span>: <span style=color:#000;font-weight:700>[</span><span style=color:#d14>&#34;Platform linux on host node1 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.17/reference_appendices/interpreter_discovery.html for more information.&#34;</span><span style=color:#000;font-weight:700>]}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>root@master:~# ansible webserver -m setup -a <span style=color:#d14>&#39;filter=ansible_processor_cores&#39;</span> -o		<span style=color:#998;font-style:italic># 收集cpu数量，可以设置nginx启动的线程数</span>
+</span></span><span style=display:flex><span>node1 | <span style=color:teal>SUCCESS</span> <span style=color:#000;font-weight:700>=</span>&gt; <span style=color:#000;font-weight:700>{</span><span style=color:#d14>&#34;ansible_facts&#34;</span>: <span style=color:#000;font-weight:700>{</span><span style=color:#d14>&#34;ansible_processor_cores&#34;</span>: 2,<span style=color:#d14>&#34;discovered_interpreter_python&#34;</span>: <span style=color:#d14>&#34;/usr/bin/python3.10&#34;</span><span style=color:#000;font-weight:700>}</span>,<span style=color:#d14>&#34;changed&#34;</span>: false,<span style=color:#d14>&#34;warnings&#34;</span>: <span style=color:#000;font-weight:700>[</span><span style=color:#d14>&#34;Platform linux on host node1 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.17/reference_appendices/interpreter_discovery.html for more information.&#34;</span><span style=color:#000;font-weight:700>]}</span>
+</span></span></code></pre></td></tr></table></div></div><p>Playbook</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#998;font-style:italic># 语法的注意事项</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># yaml语言使用空格进行分割，不可以使用tab键，否则会报错</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#　yaml语言通常是---开始的，也可以不写</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># playbook是由一个或多个&#39;play&#39;组成的列表，play的主要功能在于将事先归并于一组的主机装扮成事先通过ansible中的task定义好的角色，从根本上来讲，所谓task无非是调用ansible的一个module，将多个play组织在一个playbook中，即可以让他们联合起来按实现编排的机制完成某一个任务.</span>
+</span></span></code></pre></td></tr></table></div></div><p>apache Demo(centos7)</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">41
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">42
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">43
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">44
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">45
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">46
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">47
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">48
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">49
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">50
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">51
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">52
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">53
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">54
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">55
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">56
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">57
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">58
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">59
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">60
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">61
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">62
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">63
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">64
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">65
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">66
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">67
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">68
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">69
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">70
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">71
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">72
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">73
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">74
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">75
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">76
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">77
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">78
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">79
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">80
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">81
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">82
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">83
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">84
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">85
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">86
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">87
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">88
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">89
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">90
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">91
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">92
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">93
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#998;font-style:italic># 清除环境</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@node1 ~<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># ansible all -m yum -a &#39;name=httpd state=absent&#39;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 编写apache安装启动修改配置文件全套动作的剧本</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@node1 ~<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># mkdir /apache</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@node1 ~<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># cd /apache</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@node1 apache<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># cp /etc/httpd/conf/httpd.conf .</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@node1 apache<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># grep &#39;^Listen&#39; httpd.conf</span>
+</span></span><span style=display:flex><span>Listen <span style=color:#099>8080</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@node1 apache<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># cat apache.yaml 　　＃　名字自定义</span>
+</span></span><span style=display:flex><span>---
+</span></span><span style=display:flex><span>- hosts: webserver
+</span></span><span style=display:flex><span>  tasks:								 <span style=color:#998;font-style:italic>#  这个任务是主机，不能加-,是隶属关系</span>
+</span></span><span style=display:flex><span>  - name: Install Apache Package		 <span style=color:#998;font-style:italic>#  自定义task下面一个任务的名字</span>
+</span></span><span style=display:flex><span>    yum: <span style=color:teal>name</span><span style=color:#000;font-weight:700>=</span>httpd <span style=color:teal>state</span><span style=color:#000;font-weight:700>=</span>present
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  - name: Copy Apache Conf
+</span></span><span style=display:flex><span>    copy: <span style=color:teal>src</span><span style=color:#000;font-weight:700>=</span>/apache/httpd.conf  <span style=color:teal>dest</span><span style=color:#000;font-weight:700>=</span>/etc/httpd/conf/conf/httpd.conf
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  - name: ensure apache is running
+</span></span><span style=display:flex><span>    service: <span style=color:teal>name</span><span style=color:#000;font-weight:700>=</span>httpd <span style=color:teal>state</span><span style=color:#000;font-weight:700>=</span>started <span style=color:teal>enabled</span><span style=color:#000;font-weight:700>=</span>yes
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@node1 apache<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># ansible-playbook apache.yaml --syntax-check</span>
+</span></span><span style=display:flex><span>										  <span style=color:#998;font-style:italic># 检查是否有语法错误</span>
+</span></span><span style=display:flex><span>playbook: apache.yaml
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@node1 apache<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># echo $?</span>
+</span></span><span style=display:flex><span><span style=color:#099>0</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 列出任务列表</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@node1 apache<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># ansible-playbook apache.yaml --list-task</span>
+</span></span><span style=display:flex><span>playbook: apache.yaml
+</span></span><span style=display:flex><span>  play <span style=color:#998;font-style:italic>#1 (webserver): webserver	TAGS: []</span>
+</span></span><span style=display:flex><span>    tasks:
+</span></span><span style=display:flex><span>      Install Apache Package	TAGS: <span style=color:#000;font-weight:700>[]</span>
+</span></span><span style=display:flex><span>      Copy Apache Conf	TAGS: <span style=color:#000;font-weight:700>[]</span>
+</span></span><span style=display:flex><span>      ensure apache is running	TAGS: <span style=color:#000;font-weight:700>[]</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@node1 apache<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># ansible-playbook apache.yaml --list-hosts</span>
+</span></span><span style=display:flex><span>playbook: apache.yaml		<span style=color:#998;font-style:italic>#  列出执行任务的主机列表</span>
+</span></span><span style=display:flex><span>  play <span style=color:#998;font-style:italic>#1 (webserver): webserver	TAGS: []</span>
+</span></span><span style=display:flex><span>    pattern: <span style=color:#000;font-weight:700>[</span>u<span style=color:#d14>&#39;webserver&#39;</span><span style=color:#000;font-weight:700>]</span>
+</span></span><span style=display:flex><span>    hosts <span style=color:#000;font-weight:700>(</span>3<span style=color:#000;font-weight:700>)</span>:
+</span></span><span style=display:flex><span>      node1
+</span></span><span style=display:flex><span>      node2
+</span></span><span style=display:flex><span>      master
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@node1 apache<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># cat apache.yaml </span>
+</span></span><span style=display:flex><span>---
+</span></span><span style=display:flex><span>- hosts: webserver
+</span></span><span style=display:flex><span>  tasks:
+</span></span><span style=display:flex><span>  - name: Install Apache Package
+</span></span><span style=display:flex><span>    yum: <span style=color:teal>name</span><span style=color:#000;font-weight:700>=</span>httpd <span style=color:teal>state</span><span style=color:#000;font-weight:700>=</span>present
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  - name: Copy Apache Conf
+</span></span><span style=display:flex><span>    copy: <span style=color:teal>src</span><span style=color:#000;font-weight:700>=</span>/apache/httpd.conf  <span style=color:teal>dest</span><span style=color:#000;font-weight:700>=</span>/etc/httpd/conf/httpd.conf
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  - name: ensure apache is running
+</span></span><span style=display:flex><span>    service: <span style=color:teal>name</span><span style=color:#000;font-weight:700>=</span>httpd <span style=color:teal>state</span><span style=color:#000;font-weight:700>=</span>started <span style=color:teal>enabled</span><span style=color:#000;font-weight:700>=</span>yes
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  handlers:	<span style=color:#998;font-style:italic># 当配置文件发生更改之后，处理器需要被触发从而产生一个事件，重新加载进程，handlers和tasks是并列关系.</span>
+</span></span><span style=display:flex><span>  - name: Restart Apache Service
+</span></span><span style=display:flex><span>    service: <span style=color:teal>name</span><span style=color:#000;font-weight:700>=</span>httpd <span style=color:teal>state</span><span style=color:#000;font-weight:700>=</span>restarted
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 如果服务原来就是启动的，那个修改配置文件之后的再次启动是不生效的，所以需要有一个触发器，一旦修改了配置文件，那个就触发重启服务的操作:</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@node1 apache<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># ansible-playbook apache.yaml </span>
+</span></span><span style=display:flex><span>		<span style=color:#998;font-style:italic>#  执行时会先搜集任务信息</span>
+</span></span><span style=display:flex><span>PLAY <span style=color:#000;font-weight:700>[</span>webserver<span style=color:#000;font-weight:700>]</span> ***************************************************************************
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>TASK <span style=color:#000;font-weight:700>[</span>Gathering Facts<span style=color:#000;font-weight:700>]</span> *********************************************************************
+</span></span><span style=display:flex><span>ok: <span style=color:#000;font-weight:700>[</span>node1<span style=color:#000;font-weight:700>]</span>
+</span></span><span style=display:flex><span>ok: <span style=color:#000;font-weight:700>[</span>node2<span style=color:#000;font-weight:700>]</span>
+</span></span><span style=display:flex><span>ok: <span style=color:#000;font-weight:700>[</span>master<span style=color:#000;font-weight:700>]</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>TASK <span style=color:#000;font-weight:700>[</span>Install Apache Package<span style=color:#000;font-weight:700>]</span> **************************************************************
+</span></span><span style=display:flex><span>ok: <span style=color:#000;font-weight:700>[</span>node1<span style=color:#000;font-weight:700>]</span>
+</span></span><span style=display:flex><span>changed: <span style=color:#000;font-weight:700>[</span>node2<span style=color:#000;font-weight:700>]</span>
+</span></span><span style=display:flex><span>changed: <span style=color:#000;font-weight:700>[</span>master<span style=color:#000;font-weight:700>]</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>TASK <span style=color:#000;font-weight:700>[</span>Copy Apache Conf<span style=color:#000;font-weight:700>]</span> ********************************************************************
+</span></span><span style=display:flex><span>fatal: <span style=color:#000;font-weight:700>[</span>node1<span style=color:#000;font-weight:700>]</span>: FAILED! <span style=color:#000;font-weight:700>=</span>&gt; <span style=color:#000;font-weight:700>{</span><span style=color:#d14>&#34;changed&#34;</span>: false, <span style=color:#d14>&#34;checksum&#34;</span>: <span style=color:#d14>&#34;1fb15fc07df5cace0db41401584e59bcb72ecc04&#34;</span>, <span style=color:#d14>&#34;msg&#34;</span>: <span style=color:#d14>&#34;Destination directory /etc/httpd/conf/conf does not exist&#34;</span><span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>fatal: <span style=color:#000;font-weight:700>[</span>node2<span style=color:#000;font-weight:700>]</span>: FAILED! <span style=color:#000;font-weight:700>=</span>&gt; <span style=color:#000;font-weight:700>{</span><span style=color:#d14>&#34;changed&#34;</span>: false, <span style=color:#d14>&#34;checksum&#34;</span>: <span style=color:#d14>&#34;1fb15fc07df5cace0db41401584e59bcb72ecc04&#34;</span>, <span style=color:#d14>&#34;msg&#34;</span>: <span style=color:#d14>&#34;Destination directory /etc/httpd/conf/conf does not exist&#34;</span><span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>fatal: <span style=color:#000;font-weight:700>[</span>master<span style=color:#000;font-weight:700>]</span>: FAILED! <span style=color:#000;font-weight:700>=</span>&gt; <span style=color:#000;font-weight:700>{</span><span style=color:#d14>&#34;changed&#34;</span>: false, <span style=color:#d14>&#34;checksum&#34;</span>: <span style=color:#d14>&#34;1fb15fc07df5cace0db41401584e59bcb72ecc04&#34;</span>, <span style=color:#d14>&#34;msg&#34;</span>: <span style=color:#d14>&#34;Destination directory /etc/httpd/conf/conf does not exist&#34;</span><span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>PLAY RECAP *********************************************************************************
+</span></span><span style=display:flex><span>master                     : <span style=color:teal>ok</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>2</span>    <span style=color:teal>changed</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>1</span>    <span style=color:teal>unreachable</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>0</span>    <span style=color:teal>failed</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>1</span>    <span style=color:teal>skipped</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>0</span>    <span style=color:teal>rescued</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>0</span>    <span style=color:teal>ignored</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>0</span>   
+</span></span><span style=display:flex><span>node1                      : <span style=color:teal>ok</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>2</span>    <span style=color:teal>changed</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>0</span>    <span style=color:teal>unreachable</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>0</span>    <span style=color:teal>failed</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>1</span>    <span style=color:teal>skipped</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>0</span>    <span style=color:teal>rescued</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>0</span>    <span style=color:teal>ignored</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>0</span>   
+</span></span><span style=display:flex><span>node2                      : <span style=color:teal>ok</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>2</span>    <span style=color:teal>changed</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>1</span>    <span style=color:teal>unreachable</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>0</span>    <span style=color:teal>failed</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>1</span>    <span style=color:teal>skipped</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>0</span>    <span style=color:teal>rescued</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>0</span>    <span style=color:teal>ignored</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>0</span>   
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@node1 apache<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># ansible webserver -m shell -a &#39;ss -antp |grep :8080&#39;</span>
+</span></span></code></pre></td></tr></table></div></div><p>Apache2 Demo（ubuntu22.04）</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">41
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">42
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">43
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">44
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">45
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">46
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">47
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">48
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">49
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">50
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">51
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">52
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">53
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">54
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">55
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">56
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">57
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">58
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">59
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">60
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">61
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">62
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">63
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">64
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">65
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">66
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">67
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>root@master:/tmp/apache# <span style=color:#0086b3>pwd</span> 
+</span></span><span style=display:flex><span>/tmp/apache
+</span></span><span style=display:flex><span>root@master:/tmp/apache# tree .
+</span></span><span style=display:flex><span>.
+</span></span><span style=display:flex><span>├── apache2.yaml
+</span></span><span style=display:flex><span>├── index.html
+</span></span><span style=display:flex><span>└── vhost.tpl
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#099>0</span> directories, <span style=color:#099>3</span> files
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># index.html 自定义主页，vhost.tpl 自定义模板。</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># apache2.yaml 定义剧本。</span>
+</span></span><span style=display:flex><span>root@master:/tmp/apache# cat apache2.yaml 
+</span></span><span style=display:flex><span>---
+</span></span><span style=display:flex><span>- hosts: webserver
+</span></span><span style=display:flex><span>  become: <span style=color:#0086b3>true</span>
+</span></span><span style=display:flex><span>  vars:
+</span></span><span style=display:flex><span>    doc_root: /var/www/example
+</span></span><span style=display:flex><span>  tasks:
+</span></span><span style=display:flex><span>    - name: Update apt
+</span></span><span style=display:flex><span>      apt:
+</span></span><span style=display:flex><span>        update_cache: yes
+</span></span><span style=display:flex><span>    - name: Install Apache Package
+</span></span><span style=display:flex><span>      apt:
+</span></span><span style=display:flex><span>        name: apache2
+</span></span><span style=display:flex><span>        state: present
+</span></span><span style=display:flex><span>    - name: Create custom document root
+</span></span><span style=display:flex><span>      file:
+</span></span><span style=display:flex><span>        path: <span style=color:#d14>&#34;{{ doc_root }}&#34;</span>
+</span></span><span style=display:flex><span>        state: directory
+</span></span><span style=display:flex><span>        owner: www-data
+</span></span><span style=display:flex><span>        group: www-data
+</span></span><span style=display:flex><span>    - name: Set up HTML file
+</span></span><span style=display:flex><span>      copy:
+</span></span><span style=display:flex><span>        src: index.html
+</span></span><span style=display:flex><span>        dest: <span style=color:#d14>&#34;{{ doc_root }}/index.html&#34;</span>
+</span></span><span style=display:flex><span>        owner: www-data
+</span></span><span style=display:flex><span>        group: www-data
+</span></span><span style=display:flex><span>        mode: <span style=color:#099>0644</span>
+</span></span><span style=display:flex><span>    - name: Set up Apache virtual host file
+</span></span><span style=display:flex><span>      template:
+</span></span><span style=display:flex><span>        src: vhost.tpl
+</span></span><span style=display:flex><span>        dest: /etc/apache2/sites-available/000-default.conf
+</span></span><span style=display:flex><span>      notify: restart apache   <span style=color:#998;font-style:italic># 通过notify触发</span>
+</span></span><span style=display:flex><span>    - name: Ensure apache is running
+</span></span><span style=display:flex><span>      service:
+</span></span><span style=display:flex><span>        name: apache2
+</span></span><span style=display:flex><span>        state: started
+</span></span><span style=display:flex><span>        enabled: yes
+</span></span><span style=display:flex><span>  handlers:
+</span></span><span style=display:flex><span>    - name: restart apache
+</span></span><span style=display:flex><span>      service: 
+</span></span><span style=display:flex><span>        name: apache2
+</span></span><span style=display:flex><span>        state: restarted   
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#hosts: all</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#Playbook 开始时指定应该应用于清单中的所有主机（hosts: all）。也可以将 Playbook 的执行限制为特定主机或主机组。这个选项可以在执行时被覆盖。</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#become: true</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#become: true 部分告诉 Ansible 在执行此 Playbook 中的所有任务时使用特权升级（sudo）。这个选项可以在任务级别上被覆盖。</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#vars</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#定义一个变量 doc_root，稍后在任务中使用。这个部分可以包含多个变量。</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#tasks</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#定义实际任务的部分。第一个任务更新 apt 缓存，第二个任务安装 apache2 软件包。</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#第三个任务使用内置模块 file 创建一个目录作为我们的文档根目录。这个模块可以用来管理文件和目录。</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#第四个任务使用模块 copy 将本地文件复制到远程服务器。我们正在复制一个简单的 HTML 文件，作为由 Apache 托管的网站。</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#handlers</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#最后，我们有 handlers 部分，声明了服务。我们定义了 restart apache 处理程序，它在第四个任务中被通知，那里应用了 Apache 模板。</span>
+</span></span></code></pre></td></tr></table></div></div><p>Role角色扮演</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#998;font-style:italic># roles实在ansible中，playbooks的目录组织结构。</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 将代码或文件进行模块化，成为roles的文件目录组织结构，易读，代码可重用，层次清晰.</span>
+</span></span></code></pre></td></tr></table></div></div><p>通过role远程部署Nginx</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 41
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 42
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 43
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 44
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 45
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 46
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 47
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 48
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 49
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 50
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 51
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 52
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 53
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 54
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 55
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 56
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 57
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 58
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 59
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 60
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 61
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 62
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 63
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 64
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 65
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 66
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 67
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 68
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 69
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 70
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 71
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 72
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 73
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 74
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 75
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 76
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 77
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 78
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 79
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 80
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 81
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 82
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 83
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 84
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 85
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 86
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 87
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 88
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 89
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 90
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 91
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 92
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 93
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 94
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 95
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 96
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 97
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 98
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 99
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">100
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">101
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">102
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">103
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">104
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">105
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">106
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">107
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">108
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">109
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">110
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">111
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">112
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">113
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">114
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">115
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">116
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">117
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">118
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">119
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">120
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">121
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">122
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">123
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">124
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">125
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>root@master:~# mkdir /role
+</span></span><span style=display:flex><span>root@master:~# <span style=color:#0086b3>cd</span> /role
+</span></span><span style=display:flex><span>root@master:/tmp/role# mkdir nginx/<span style=color:#000;font-weight:700>{</span>files,handlers,vars,tasks,templates<span style=color:#000;font-weight:700>}</span> -p
+</span></span><span style=display:flex><span>root@master:/tmp/role# touch nginx/<span style=color:#000;font-weight:700>{</span>tasks,handlers,vars<span style=color:#000;font-weight:700>}</span>/main.yaml
+</span></span><span style=display:flex><span>root@master:/tmp/role# touch /tmp/role/site.yaml
+</span></span><span style=display:flex><span>root@master:/tmp/role# <span style=color:#0086b3>echo</span> welcome to nginx &gt; /tmp/role/nginx/index.html
+</span></span><span style=display:flex><span>root@master:/tmp/role# tree .
+</span></span><span style=display:flex><span>.
+</span></span><span style=display:flex><span>├── nginx
+</span></span><span style=display:flex><span>│   ├── files
+</span></span><span style=display:flex><span>│   │   └── nginx.repo
+</span></span><span style=display:flex><span>│   ├── handlers
+</span></span><span style=display:flex><span>│   │   └── main.yaml
+</span></span><span style=display:flex><span>│   ├── index.html
+</span></span><span style=display:flex><span>│   ├── tasks
+</span></span><span style=display:flex><span>│   │   └── main.yaml
+</span></span><span style=display:flex><span>│   ├── templates
+</span></span><span style=display:flex><span>│   │   └── nginx.conf.j2
+</span></span><span style=display:flex><span>│   └── vars
+</span></span><span style=display:flex><span>│       └── main.yaml
+</span></span><span style=display:flex><span>└── site.yaml
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#099>6</span> directories, <span style=color:#099>7</span> files
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 将每一个功能分离出来定义成角色更有条理性</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># site.yaml: 是一个习惯性的命名方式，存放在那个主机用那个角色</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># vars:	用于存放变量，这个变量是用在整个角色中的，如果没有变量，此目录不需要创建.</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># templates: ansible的jinja2模板就是template模板，该模板和copy模板作用基本一样，都是把某个文件复制到远端主机上，但是区别在于template模板可以获取变量的值，而copy则是原封不动的把文件内容复制过去.</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># files: 存放一些配置文件，源，包，不需要传参的文件</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># handlers:　运行任务后的触发动作</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># tasks: 运行任务列表</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># ansible机器准备nginx源(ubuntu 系统不需要！！！)</span>
+</span></span><span style=display:flex><span>cat /etc/yum.repos.d/nginx.repo 
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>nginx-stable<span style=color:#000;font-weight:700>]</span>
+</span></span><span style=display:flex><span><span style=color:teal>name</span><span style=color:#000;font-weight:700>=</span>nginx stable repo
+</span></span><span style=display:flex><span><span style=color:teal>baseurl</span><span style=color:#000;font-weight:700>=</span>http://nginx.org/packages/centos/<span style=color:teal>$releasever</span>/<span style=color:teal>$basearch</span>/
+</span></span><span style=display:flex><span><span style=color:teal>gpgcheck</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>1</span>
+</span></span><span style=display:flex><span><span style=color:teal>enabled</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>1</span>
+</span></span><span style=display:flex><span><span style=color:teal>gpgkey</span><span style=color:#000;font-weight:700>=</span>https://nginx.org/keys/nginx_signing.key
+</span></span><span style=display:flex><span><span style=color:teal>module_hotfixes</span><span style=color:#000;font-weight:700>=</span><span style=color:#0086b3>true</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>root@master:/tmp/role# cp /etc/yum.repos.d/nginx.repo  /role/nginx/files/
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>root@master:/tmp/role# yum -y install nginx
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>root@master:/tmp/role# cp /etc/nginx/nginx.conf /role/nginx/templates/nginx.conf.j2		<span style=color:#998;font-style:italic># j2是一个Jinja模板文件</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>root@master:/tmp/role# ls
+</span></span><span style=display:flex><span>nginx  site.yaml
+</span></span><span style=display:flex><span>root@master:/tmp/role# cat site.yaml 
+</span></span><span style=display:flex><span>---
+</span></span><span style=display:flex><span>- hosts: webserver
+</span></span><span style=display:flex><span>  roles:
+</span></span><span style=display:flex><span>  - nginx		<span style=color:#998;font-style:italic># 此处的nginx对应/tmp/role/nginx，相当于一个角色，可以再来php,mysql,这样就条理很清晰</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 写tasks角色中的yaml文件</span>
+</span></span><span style=display:flex><span>root@master:/tmp/role# cat nginx/tasks/main.yaml 
+</span></span><span style=display:flex><span>---
+</span></span><span style=display:flex><span>- name: Install Nginx
+</span></span><span style=display:flex><span>  apt:
+</span></span><span style=display:flex><span>    name: nginx
+</span></span><span style=display:flex><span>    state: present
+</span></span><span style=display:flex><span>    update_cache: yes
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>- name: Copy Nginx configuration
+</span></span><span style=display:flex><span>  template:
+</span></span><span style=display:flex><span>    src: nginx.conf.j2
+</span></span><span style=display:flex><span>    dest: /etc/nginx/nginx.conf
+</span></span><span style=display:flex><span>  notify:
+</span></span><span style=display:flex><span>    - Restart Nginx
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>- name: Copy Nginx configuration
+</span></span><span style=display:flex><span>  template:
+</span></span><span style=display:flex><span>    src: default.conf.j2
+</span></span><span style=display:flex><span>    dest: /etc/nginx/conf.d/default.conf
+</span></span><span style=display:flex><span>  notify:
+</span></span><span style=display:flex><span>    - Restart Nginx
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>- name: Copy index.html
+</span></span><span style=display:flex><span>  copy:
+</span></span><span style=display:flex><span>    src: index.html
+</span></span><span style=display:flex><span>    dest: /var/www/html/index.html
+</span></span><span style=display:flex><span>- name: ensure nginx running
+</span></span><span style=display:flex><span>  service:
+</span></span><span style=display:flex><span>    name: nginx
+</span></span><span style=display:flex><span>    state: started
+</span></span><span style=display:flex><span>    enabled: yes
+</span></span><span style=display:flex><span>- debug:
+</span></span><span style=display:flex><span>    msg: <span style=color:#d14>&#34;Nginx configuration updated and handler notified.&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 写handlers角色中的yaml文件</span>
+</span></span><span style=display:flex><span>root@master:/tmp/role# cat nginx/handlers/main.yaml 
+</span></span><span style=display:flex><span>---
+</span></span><span style=display:flex><span>- name: Restart Nginx
+</span></span><span style=display:flex><span>  service: 
+</span></span><span style=display:flex><span>    name: nginx 
+</span></span><span style=display:flex><span>    state: restarted
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 写vars角色中定义变量</span>
+</span></span><span style=display:flex><span>root@master:/tmp/role# cat nginx/vars/main.yaml 
+</span></span><span style=display:flex><span>worker_connections: <span style=color:#099>10240</span>
+</span></span><span style=display:flex><span>ports: <span style=color:#099>80</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 演ansible的剧本</span>
+</span></span><span style=display:flex><span>root@master:/tmp/role#  ansible-playbook site.yaml	<span style=color:#998;font-style:italic># 注意路径</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 检测剧本是否成功</span>
+</span></span><span style=display:flex><span>root@master:/tmp/role# ansible webserver -m shell -a <span style=color:#d14>&#39;ss -antp |grep nginx&#39;</span> -o
+</span></span><span style=display:flex><span>node1 | CHANGED | <span style=color:teal>rc</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>0</span> | <span style=color:#000;font-weight:700>(</span>stdout<span style=color:#000;font-weight:700>)</span> LISTEN <span style=color:#099>0</span>      <span style=color:#099>511</span>          0.0.0.0:80         0.0.0.0:*     users:<span style=color:#000;font-weight:700>((</span><span style=color:#d14>&#34;nginx&#34;</span>,pid<span style=color:#000;font-weight:700>=</span>14054,fd<span style=color:#000;font-weight:700>=</span>6<span style=color:#000;font-weight:700>)</span>,<span style=color:#000;font-weight:700>(</span><span style=color:#d14>&#34;nginx&#34;</span>,pid<span style=color:#000;font-weight:700>=</span>14053,fd<span style=color:#000;font-weight:700>=</span>6<span style=color:#000;font-weight:700>))</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>root@master:/tmp/role# ansible webserver -m shell -a <span style=color:#d14>&#39;cat /usr/share/nginx/html/index.html&#39;</span> -o
+</span></span><span style=display:flex><span>node1 | CHANGED | <span style=color:teal>rc</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>0</span> | <span style=color:#000;font-weight:700>(</span>stdout<span style=color:#000;font-weight:700>)</span> &lt;!DOCTYPE html&gt;<span style=color:#d14>\n</span>&lt;html&gt;<span style=color:#d14>\n</span>&lt;head&gt;<span style=color:#d14>\n</span>&lt;title&gt;Welcome to nginx!&lt;/title&gt;<span style=color:#d14>\n</span>&lt;style&gt;<span style=color:#d14>\n</span>    body <span style=color:#000;font-weight:700>{</span><span style=color:#d14>\n</span>        width: 35em;<span style=color:#d14>\n</span>        margin: <span style=color:#099>0</span> auto;<span style=color:#d14>\n</span>        font-family: Tahoma, Verdana, Arial, sans-serif;<span style=color:#d14>\n</span>    <span style=color:#000;font-weight:700>}</span><span style=color:#d14>\n</span>&lt;/style&gt;<span style=color:#d14>\n</span>&lt;/head&gt;<span style=color:#d14>\n</span>&lt;body&gt;<span style=color:#d14>\n</span>&lt;h1&gt;Welcome to nginx!&lt;/h1&gt;<span style=color:#d14>\n</span>&lt;p&gt;If you see this page, the nginx web server is successfully installed and<span style=color:#d14>\n</span>working. Further configuration is required.&lt;/p&gt;<span style=color:#d14>\n\n</span>&lt;p&gt;For online documentation and support please refer to<span style=color:#d14>\n</span>&lt;a <span style=color:teal>href</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#34;http://nginx.org/&#34;</span>&gt;nginx.org&lt;/a&gt;.&lt;br/&gt;<span style=color:#d14>\n</span>Commercial support is available at<span style=color:#d14>\n</span>&lt;a <span style=color:teal>href</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#34;http://nginx.com/&#34;</span>&gt;nginx.com&lt;/a&gt;.&lt;/p&gt;<span style=color:#d14>\n\n</span>&lt;p&gt;&lt;em&gt;Thank you <span style=color:#000;font-weight:700>for</span> using nginx.&lt;/em&gt;&lt;/p&gt;<span style=color:#d14>\n</span>&lt;/body&gt;<span style=color:#d14>\n</span>&lt;/html&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 修改nginx的端口，检查handlers重启nginx的效果.需要重新下发指令。</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@node1 role<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># cat nginx/vars/main.yaml </span>
+</span></span><span style=display:flex><span>worker_connections: <span style=color:#099>10240</span>
+</span></span><span style=display:flex><span>ports: <span style=color:#099>80</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>root@master:/tmp/role# ansible webserver -m shell -a <span style=color:#d14>&#39;ss -antp |grep nginx&#39;</span> -o 
+</span></span><span style=display:flex><span>node1 | CHANGED | <span style=color:teal>rc</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>0</span> | <span style=color:#000;font-weight:700>(</span>stdout<span style=color:#000;font-weight:700>)</span> LISTEN    <span style=color:#099>0</span>      <span style=color:#099>511</span>          0.0.0.0:80          0.0.0.0:*     users:<span style=color:#000;font-weight:700>((</span><span style=color:#d14>&#34;nginx&#34;</span>,pid<span style=color:#000;font-weight:700>=</span>17025,fd<span style=color:#000;font-weight:700>=</span>6<span style=color:#000;font-weight:700>)</span>,<span style=color:#000;font-weight:700>(</span><span style=color:#d14>&#34;nginx&#34;</span>,pid<span style=color:#000;font-weight:700>=</span>17024,fd<span style=color:#000;font-weight:700>=</span>6<span style=color:#000;font-weight:700>)</span>,<span style=color:#000;font-weight:700>(</span><span style=color:#d14>&#34;nginx&#34;</span>,pid<span style=color:#000;font-weight:700>=</span>17023,fd<span style=color:#000;font-weight:700>=</span>6<span style=color:#000;font-weight:700>))</span>
+</span></span></code></pre></td></tr></table></div></div><p>Valut管理敏感资料</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">41
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">42
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">43
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">44
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">45
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">46
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">47
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">48
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">49
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">50
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">51
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">52
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">53
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">54
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">55
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">56
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">57
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">58
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">59
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">60
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">61
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">62
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">63
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">64
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">65
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">66
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#998;font-style:italic># Vault:</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 加密已存在host明文主机清单档案</span>
+</span></span><span style=display:flex><span>root@master:~# ansible-vault encrypt /etc/ansible/hosts 
+</span></span><span style=display:flex><span>New Vault password: 
+</span></span><span style=display:flex><span>Confirm New Vault password: 
+</span></span><span style=display:flex><span>Encryption successful
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 建立加密档案</span>
+</span></span><span style=display:flex><span>root@master:~# ansible-vault create foo.yml
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 编辑加密档案</span>
+</span></span><span style=display:flex><span>root@master:~# ansible-vault edit foo.yml 
+</span></span><span style=display:flex><span>Vault password: 
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>root@master:~# ansible-vault rekey foo.yml 
+</span></span><span style=display:flex><span>Vault password: 
+</span></span><span style=display:flex><span>New Vault password: 
+</span></span><span style=display:flex><span>Confirm New Vault password: 
+</span></span><span style=display:flex><span>Rekey successful		<span style=color:#998;font-style:italic># 更换加密金匙</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>root@master:~# ansible-vault decrypt /etc/ansible/hosts ＃ 解密
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 检视已加密的档案内容</span>
+</span></span><span style=display:flex><span>root@master:~# ansible-vault view foo.yml 
+</span></span><span style=display:flex><span>Vault password: 
+</span></span><span style=display:flex><span>you-men
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 此时哪怕使用root用户访问也是乱码</span>
+</span></span><span style=display:flex><span>root@master:~# cat /etc/ansible/hosts |head -5
+</span></span><span style=display:flex><span><span style=color:teal>$ANSIBLE_VAULT</span>;1.1;AES256
+</span></span><span style=display:flex><span><span style=color:#099>34346531613430326665616466346366636138633038333765633731366531306539386331363261</span>
+</span></span><span style=display:flex><span>3834613435373234663136323239626438663738313234340a336365666536396565306133373337
+</span></span><span style=display:flex><span><span style=color:#099>37633430393966636665306434316235383138326134393336373966646266316139316363376436</span>
+</span></span><span style=display:flex><span>6364323261303464620a346434343630333263303935343134306232386636383938363232656163
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 编辑加密后的主机清单文件</span>
+</span></span><span style=display:flex><span>root@master:~# ansible-vault edit /etc/ansible/hosts --ask-vault-pass
+</span></span><span style=display:flex><span>Vault password: 
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 使用加密文件运行任务</span>
+</span></span><span style=display:flex><span>root@master:~# ansible webserver -i /etc/ansible/hosts -m ping	
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 如果不输入加密密码是无法运行的</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 只有指定密码</span>
+</span></span><span style=display:flex><span>root@master:~# ansible -i /etc/ansible/hosts webserver -m ping --ask-vault-pass -o
+</span></span><span style=display:flex><span>Vault password: 
+</span></span><span style=display:flex><span>node1 | <span style=color:teal>SUCCESS</span> <span style=color:#000;font-weight:700>=</span>&gt; <span style=color:#000;font-weight:700>{</span><span style=color:#d14>&#34;ansible_facts&#34;</span>: <span style=color:#000;font-weight:700>{</span><span style=color:#d14>&#34;discovered_interpreter_python&#34;</span>: <span style=color:#d14>&#34;/usr/bin/python3.10&#34;</span><span style=color:#000;font-weight:700>}</span>,<span style=color:#d14>&#34;changed&#34;</span>: false,<span style=color:#d14>&#34;ping&#34;</span>: <span style=color:#d14>&#34;pong&#34;</span>,<span style=color:#d14>&#34;warnings&#34;</span>: <span style=color:#000;font-weight:700>[</span><span style=color:#d14>&#34;Platform linux on host node1 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.17/reference_appendices/interpreter_discovery.html for more information.&#34;</span><span style=color:#000;font-weight:700>]}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>手动输入金钥 <span style=color:#000;font-weight:700>(</span>密码<span style=color:#000;font-weight:700>)</span> 解密
+</span></span><span style=display:flex><span>执行 Playbook 并搭配 --ask-vault-pass 参数手动输入密码。
+</span></span><span style=display:flex><span>$ ansible-playbook hello_world.yml --ask-vault-pass
+</span></span><span style=display:flex><span>或通过 ansible.cfg 启用 ask_vault_pass，其预设值为 false。
+</span></span><span style=display:flex><span>设定 ansible.cfg。
+</span></span><span style=display:flex><span>$ vi ansible.cfg
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>defaults<span style=color:#000;font-weight:700>]</span>
+</span></span><span style=display:flex><span><span style=color:teal>ask_vault_pass</span> <span style=color:#000;font-weight:700>=</span> <span style=color:#0086b3>true</span>
+</span></span><span style=display:flex><span>执行 Playbook。
+</span></span><span style=display:flex><span>$ ansible-playbook hello_world.yml
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>透过金钥 <span style=color:#000;font-weight:700>(</span>密码<span style=color:#000;font-weight:700>)</span> 档解密
+</span></span><span style=display:flex><span>建立密码档：此例用的密码为 bGpvxx。
+</span></span><span style=display:flex><span>$ <span style=color:#0086b3>echo</span> <span style=color:#d14>&#39;bGpvxx&#39;</span> &gt; secret.txt
+</span></span><span style=display:flex><span>执行 Playbook 并搭配 --vault-password-file 参数指定金钥路径。
+</span></span><span style=display:flex><span>$ ansible-playbook hello_world.yml --vault-password-file secret.txt
+</span></span><span style=display:flex><span>或于 ansible.cfg 里新增 vault_password_file 参数，并指定金钥路径。
+</span></span><span style=display:flex><span>$ vi ansible.cfg
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>defaults<span style=color:#000;font-weight:700>]</span>
+</span></span><span style=display:flex><span><span style=color:teal>vault_password_file</span> <span style=color:#000;font-weight:700>=</span> secret.txt
+</span></span></code></pre></td></tr></table></div></div><p>如何让不同用户登录不同的主机?</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#998;font-style:italic># 在主机清单里设置</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>webservers<span style=color:#d14>`</span><span style=color:#000;font-weight:700>]</span>
+</span></span><span style=display:flex><span>you-men.com  <span style=color:teal>ansible_port</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>5000</span>   <span style=color:teal>ansible_user</span><span style=color:#000;font-weight:700>=</span>alice  <span style=color:teal>ansible_pass</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>123456</span>
+</span></span><span style=display:flex><span>flying.com   <span style=color:teal>ansible_port</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>5001</span>   <span style=color:teal>ansible_user</span><span style=color:#000;font-weight:700>=</span>bob   <span style=color:teal>ansible_pass</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>654321</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 判断主机地址为192.168.200.6的主机，关闭该主机</span>
+</span></span><span style=display:flex><span>- hosts: webserver
+</span></span><span style=display:flex><span>  tasks:
+</span></span><span style=display:flex><span>  - name: <span style=color:#d14>&#34;shut down 192.168.200.6 system&#34;</span>
+</span></span><span style=display:flex><span>    command: /usr/sbin/init <span style=color:#099>0</span>
+</span></span><span style=display:flex><span>    when: <span style=color:teal>ansible_all_ipv4_addresses</span> <span style=color:#000;font-weight:700>==</span> <span style=color:#d14>&#34;49.233.69.195&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 循环创建多个用户</span>
+</span></span><span style=display:flex><span>- hosts: webserver
+</span></span><span style=display:flex><span>  tasks:
+</span></span><span style=display:flex><span>  - name: add several users
+</span></span><span style=display:flex><span>    user: <span style=color:teal>name</span><span style=color:#000;font-weight:700>={{</span> item <span style=color:#000;font-weight:700>}}</span> <span style=color:teal>state</span><span style=color:#000;font-weight:700>=</span>present <span style=color:teal>groups</span><span style=color:#000;font-weight:700>=</span>wheel
+</span></span><span style=display:flex><span>    with_items:
+</span></span><span style=display:flex><span>       -　you-men
+</span></span><span style=display:flex><span>       -  you-men
+</span></span></code></pre></td></tr></table></div></div></div></div></div><div id=footer><div class=container-footer><div class=beian><a target=_blank href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode="></a><a href target=_blank><span class=some>icp...<span></a></div><div class=info><a href=https://github.com/loveminimal/hugo-theme-virgo>🕊️</a> 2021 - <span id=info-date></span></div></div></div><div class=cool-after></div></body></html>

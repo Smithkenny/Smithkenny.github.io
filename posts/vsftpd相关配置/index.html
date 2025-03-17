@@ -1,0 +1,470 @@
+<!doctype html><html lang=zh-CN><head><meta name=viewport content="width=device-width,initial-scale=1"><meta charset=utf-8><meta name=description content="Vsftpd相关配置 - https://t.haipengv.com/posts/vsftpd%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE/"><meta name=author content="Smith - https://t.haipengv.com/"><meta name=msvalidate.01 content="B46311949B856F2A7015F366FB3CE878"><title>Vsftpd相关配置</title><base target=_blank><link rel=icon type=image/png href=/favicon.ico><link rel=stylesheet href=https://t.haipengv.com/style.min.9a0cea23154ac1941e15c25aa2d31b77285a217d2606ec05b55236428cf1c3e6.css><script>const DARK=!1</script><script type=text/javascript src=/main.js defer></script></head><body class=active-animate><div class=cool-before></div><div id=header><div class=container-header><div class=right><h1 class=title>Vsftpd相关配置</h1><div id=toc>📜</div></div></div></div><div id=content><div class="container-main container-page"><div class=rel><div class=curtag-desc><a href=https://t.haipengv.com/tags/linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/><img src=/imgs/icons/tag.svg width=16> 相关文章：Linux基础知识 <sup>38</sup></a></div><div class=curtag-post><div class=curtag-post-item><a href=https://t.haipengv.com/posts/centos7-%E5%8D%87%E7%BA%A7%E5%86%85%E6%A0%B8/>CentOS7 升级内核</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/centos7.9%E5%AE%89%E8%A3%85mysql8.0/>Centos7.9安装Mysql8.0</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/centos7.9%E6%9B%B4%E6%8D%A2%E7%BD%91%E5%8D%A1%E5%90%8D%E7%A7%B0/>Centos7.9更换网卡名称</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/centos7%E4%BD%BF%E7%94%A8systemd%E7%AE%A1%E7%90%86%E7%A8%8B%E5%BA%8F/>Centos7使用systemd管理程序</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/centos7-%E5%B8%B8%E8%A7%84%E5%91%BD%E4%BB%A4/>CentOS7常规命令</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/centos7%E7%BD%91%E5%8D%A1%E6%94%B9%E5%9B%9Eeth0%E6%98%BE%E7%A4%BA/>Centos7网卡改回eth0显示</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/centos8%E9%85%8D%E7%BD%AEyum%E6%BA%90/>CentOS8配置yum源</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/centos%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8/>Centos搭建内网邮件服务器</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/crontab%E8%B8%A9%E5%9D%91%E8%AE%B0/>Crontab踩坑记</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/git%E5%85%A5%E9%97%A8/>Git入门</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/http%E5%92%8Chttps%E5%90%84%E7%A7%8D%E6%96%B9%E6%B3%95%E6%B5%8B%E8%AF%95/>Http和Https各种方法测试</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/iptables%E5%B8%B8%E7%94%A8%E6%80%BB%E7%BB%93/>Iptables常用总结</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/linux%E4%B8%8B%E6%B7%B7%E6%9D%82%E6%A8%A1%E5%BC%8F%E5%88%A4%E6%96%AD/>Linux下混杂模式判断</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/linux%E4%B8%AD%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/>Linux中环境变量</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/linux%E4%B8%AD%E7%9A%84%E9%9A%94%E7%A6%BB/>Linux中的隔离</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/linux%E4%BF%A1%E6%81%AF%E6%9F%A5%E8%AF%A2%E5%91%BD%E4%BB%A4/>Linux信息查询命令</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/linux%E5%9E%83%E5%9C%BE%E6%A1%B6/>Linux垃圾桶</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/linux%E5%B0%8F%E6%8A%80%E5%B7%A7%E6%B1%87%E6%80%BB/>Linux小技巧汇总</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/linux%E6%97%A5%E5%BF%97%E5%A4%A7%E6%96%87%E4%BB%B6%E5%88%87%E5%89%B2/>Linux日志大文件切割</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/linux%E6%9F%A5%E7%9C%8B%E7%A8%8B%E5%BA%8F%E8%BF%9B%E7%A8%8B%E5%90%AF%E5%8A%A8%E6%97%B6%E9%97%B4/>Linux查看程序进程启动时间</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/linux%E6%A0%B9%E5%88%86%E5%8C%BA%E6%BB%A1%E4%BA%86%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95/>Linux根分区满了处理方法</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/pam%E6%A8%A1%E5%9D%97%E9%99%90%E5%88%B6%E7%99%BB%E5%BD%95/>Pam模块限制登录</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/redhat6.3yum%E6%BA%90%E5%A4%B1%E6%95%88%E8%A7%A3%E5%86%B3/>Redhat6.3yum源失效解决</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/rsyslog%E6%97%A5%E5%BF%97%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/>Rsyslog日志服务器搭建</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/ssh%E7%9B%B8%E5%85%B3%E8%AF%B4%E6%98%8E/>SSH相关说明</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/ubuntu%E4%BD%BF%E7%94%A8%E4%B8%8A%E7%AF%87/>Ubuntu使用上篇</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/ubuntu%E4%BD%BF%E7%94%A8%E4%B8%8B%E7%AF%87/>Ubuntu使用下篇</a></div><div class="curtag-post-item curtag-post-item--active"><a href=https://t.haipengv.com/posts/vsftpd%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE/>Vsftpd相关配置</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/vsftp%E4%B8%8D%E5%90%8C%E7%94%A8%E6%88%B7%E6%8B%A5%E6%9C%89%E4%B8%8D%E5%90%8C%E6%9D%83%E9%99%90/>Vsftp不同用户拥有不同权限</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E4%BD%BF%E7%94%A8logrotate%E8%BF%9B%E8%A1%8C%E6%97%A5%E5%BF%97%E5%88%87%E5%89%B2/>使用logrotate进行日志切割</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E4%BD%BF%E7%94%A8sed%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E7%BD%91%E5%9D%80/>使用sed批量修改网址</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E4%BD%BF%E7%94%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E7%99%BB%E5%BD%95linux%E6%9C%8D%E5%8A%A1%E5%99%A8/>使用浏览器登录linux服务器</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E5%8A%9F%E8%83%BD%E5%BC%BA%E5%A4%A7%E7%9A%84%E7%A1%AC%E4%BB%B6%E4%BF%A1%E6%81%AF%E8%8E%B7%E5%8F%96%E5%B7%A5%E5%85%B7-inxi/>功能强大的硬件信息获取工具-Inxi</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E5%8E%8B%E7%BC%A9%E4%B8%8E%E8%A7%A3%E5%8E%8B/>压缩与解压</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E5%A6%82%E4%BD%95%E7%AD%9B%E9%80%89%E6%8C%87%E5%AE%9A%E6%97%B6%E9%97%B4%E6%AE%B5%E5%86%85%E7%9A%84%E6%97%A5%E5%BF%97/>如何筛选指定时间段内的日志</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E6%90%AD%E5%BB%BArss%E8%AE%A2%E9%98%85%E5%99%A8/>搭建rss订阅器</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E6%9F%A5%E7%9C%8B%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E6%97%B6%E9%97%B4/>查看系统安装时间</a></div><div class=curtag-post-item><a href=https://t.haipengv.com/posts/%E6%A8%A1%E6%8B%9Fssh%E6%89%A7%E8%A1%8C%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4/>模拟ssh执行远程命令</a></div></div></div><div class=desc><span><svg t="1656736000388" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="7409" width="12" height="12"><path d="M524.885333 338.986667l-324.522666 324.48c-17.28 15.274667-27.989333 36.693333-29.696 56.234666v133.76l130.730666.085334c22.784-1.621333 43.989333-12.245333 61.013334-31.701334L685.098667 499.2 524.885333 338.986667zM585.258667 278.656l160.170666 160.213333 102.144-102.144a19.712 19.712.0 000-27.861333l-132.48-132.437333a19.456 19.456.0 00-27.605333.0L585.258667 278.613333zM701.312 85.333333c27.946667.0 54.741333 11.136 74.282667 30.848L907.904 248.490667a105.045333 105.045333.0 010 148.565333L424.874667 879.957333C395.050667 914.304 352.768 935.424 304.426667 938.752H85.333333v-42.666667l.128-179.84c3.626667-44.970667 24.576-86.826667 56.448-114.944l485.12-485.034666a104.789333 104.789333.0 0174.24-30.933334z" p-id="7410" fill="#adb5bd"/></svg>2025-03-16&nbsp;&nbsp;&nbsp;<svg t="1656737270708" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="23838" width="11" height="11"><path d="M824.264 95.36c0-23.859 25.043-44.16 48.902-44.16s49.714 20.301 49.714 44.16v190.08c0 23.859-19.054 52.868-42.913 52.868h-190.08c-23.859.0-46.696-25.96-46.696-49.819s22.55-46.249 46.409-46.249h82.025C702.344 175.534 610.22 155.853 512 155.853c-206.775.0-360.398 149.372-360.398 356.147S305.225 870.23 512 870.23c206.775.0 357.467-151.455 357.467-358.23.0-23.859 23.634-50.706 53.413-50.706 29.78.0 49.92 26.847 49.92 50.706.0 254.493-206.307 460.8-460.8 460.8s-460.8-206.307-460.8-460.8C51.2 257.507 257.507 51.2 512 51.2c122.4.0 226.684 33.296 312.264 117.369.358.351.358-24.052.0-73.209z" p-id="23839" fill="#adb5bd"/></svg>
+2025-03-16&nbsp;&nbsp;&nbsp;</span>
+<span><svg t="1656737548689" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="33866" width="12" height="12"><path d="M832.038608 64.662657H192.030028c-70.774903.0-128.089859 57.325793-128.089859 128.03206v446.793671c0 70.7171050000001 57.314956 128.154884 128.089859 128.154884h133.353183a63.940169 63.940169.0 0155.219742 31.576328l76.099638 129.83828c12.358154 21.093031 33.790754 31.626903 55.216129 31.626903s42.832688-10.544709 55.198067-31.619678l76.222461-129.870792a63.940169 63.940169.0 0155.212517-31.551041h133.54103c70.576219.0 127.732228-57.289669 127.732227-127.800865V192.391272c0-70.536482-57.181295-127.728615-127.786414-127.728615zM895.884854 639.842407A63.85347 63.85347.0 01832.092795 703.703103h-133.54103a127.753903 127.753903.0 00-110.349172 63.09847l-76.222461 129.856342a.274545.274545.0 010-.050574h-.032512s-.021675.061411-.032512.061412l-76.1466-129.85273a127.804477 127.804477.0 00-110.385297-63.11292H192.030028A64.207489 64.207489.0 01127.880338 639.488388V192.694717a64.102729 64.102729.0 0164.14969-64.091891h640.00858a63.799284 63.799284.0 0163.846246 63.788446v447.451135z" fill="#adb5bd" p-id="33867"/><path d="M608.154093 288.092004a31.970084 31.970084.0 00-31.970084 31.970085v160.078006L441.53396 300.861976a31.970084 31.970084.0 00-57.531702 19.200113v255.760676a31.970084 31.970084.0 0063.940169.0V415.863969l134.650048 179.274507a31.970084 31.970084.0 0057.531703-19.200113V320.062089a31.970084 31.970084.0 00-31.970085-31.970085z" fill="#adb5bd" p-id="33868"/></svg>5130 字</span>&nbsp;
+<span><svg t="1656737462334" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="32892" width="12" height="12"><path d="M512 74.666667C270.933333 74.666667 74.666667 270.933333 74.666667 512S270.933333 949.333333 512 949.333333 949.333333 753.066667 949.333333 512 753.066667 74.666667 512 74.666667zm0 810.666666C307.2 885.333333 138.666667 716.8 138.666667 512S307.2 138.666667 512 138.666667 885.333333 307.2 885.333333 512 716.8 885.333333 512 885.333333z" p-id="32893" fill="#adb5bd"/><path d="M695.466667 567.466667 544 497.066667V277.333333c0-17.066667-14.933333-32-32-32s-32 14.933333-32 32v238.933334c0 12.8 6.4 23.466667 19.2 29.866666L669.866667 627.2c4.266667 2.133333 8.533333 2.133333 12.8 2.133333 12.8.0 23.466667-6.4 29.866666-19.2 6.4-14.933333.0-34.133333-17.066666-42.666666z" p-id="32894" fill="#adb5bd"/></svg>11 分钟</span><div class=container-ctgtag><div class=taxonomy><div class=tag><a href=/tags/linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86>Linux基础知识</a></div></div></div></div><div class=toc><div class=container-page-operation><div class=page-operation><div><a href=/><img src=/imgs/icons/home-2.svg alt></a></div><div><a href=/nav><img src=/imgs/icons/iov-navigate-1.svg alt></a></div><div><a href=/wiki><img src=/imgs/icons/wiki.svg alt></a></div><div><a href=/tags><img src=/imgs/icons/treetags.svg alt></a></div><div id=light-dark><a><img src=/imgs/icons/moon2.svg alt></a></div><div><a href=#><img src=/imgs/icons/up2.svg alt></a></div></div></div><nav id=TableOfContents><ul><li><ul><li><a href=#ftp基本配置>ftp基本配置</a></li><li><a href=#vsftpd-被动模式普通用户登录配置>vsftpd 被动模式普通用户登录配置</a></li><li><a href=#vsftpd-匿名用户登录配置>vsftpd 匿名用户登录配置</a></li><li><a href=#提高vsftp的访问速度>提高vsftp的访问速度</a></li><li><a href=#需求>需求</a></li></ul></li></ul></nav></div><div class=content><h3 id=ftp基本配置>ftp基本配置</h3><p>系统：<code>centos7</code></p><p>安装<code>vsftpd 、ftp客户端</code></p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>yum install vsftpd -y 
+</span></span><span style=display:flex><span>yum install ftp -y
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@localhost vsftpd<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># rpm -qa | grep ftp</span>
+</span></span><span style=display:flex><span>vsftpd-sysvinit-3.0.2-29.el7_9.x86_64
+</span></span><span style=display:flex><span>vsftpd-3.0.2-29.el7_9.x86_64
+</span></span><span style=display:flex><span>ftp-0.17-67.el7.x86_64
+</span></span></code></pre></td></tr></table></div></div><p>防火墙设置</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>firewall-cmd --list-services //查看防火墙允许的服务。
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>firewall-cmd --add-service<span style=color:#000;font-weight:700>=</span>ftp --permanent //永久开放ftp服务
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>firewall-cmd --add-port<span style=color:#000;font-weight:700>=</span>20/tcp --permanent
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>firewall-cmd --add-port<span style=color:#000;font-weight:700>=</span>21/tcp --permanent //允许外网访问
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>firewall-cmd --reload //重新载入配置
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>setsebool ftpd_full_access <span style=color:#099>1</span> //selinux设置
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>setsebool tftp_home_dir <span style=color:#099>1</span>
+</span></span></code></pre></td></tr></table></div></div><p>创建用户，登录</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>useradd <span style=color:#0086b3>test</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>passwd <span style=color:#0086b3>test</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>ftp localhost <span style=color:#998;font-style:italic>#ftp本地测试</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@localhost vsftpd<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># ftp localhost</span>
+</span></span><span style=display:flex><span>Trying ::1...
+</span></span><span style=display:flex><span>ftp: connect to address ::1Connection refused
+</span></span><span style=display:flex><span>Trying 127.0.0.1...
+</span></span><span style=display:flex><span>Connected to localhost <span style=color:#000;font-weight:700>(</span>127.0.0.1<span style=color:#000;font-weight:700>)</span>.
+</span></span><span style=display:flex><span><span style=color:#099>220</span> Welcome to blah FTP service.
+</span></span><span style=display:flex><span>Name <span style=color:#000;font-weight:700>(</span>localhost:root<span style=color:#000;font-weight:700>)</span>: <span style=color:#0086b3>test</span>
+</span></span><span style=display:flex><span><span style=color:#099>331</span> Please specify the password.
+</span></span><span style=display:flex><span>Password:
+</span></span><span style=display:flex><span><span style=color:#099>230</span> Login successful.
+</span></span><span style=display:flex><span>Remote system <span style=color:#0086b3>type</span> is UNIX.
+</span></span><span style=display:flex><span>Using binary mode to transfer files.
+</span></span><span style=display:flex><span>ftp&gt; 
+</span></span></code></pre></td></tr></table></div></div><p>局域网测试：</p><p>虚拟机<code>IP:10.4.7.140 ftp：21</code>被动模式</p><p>接下来在<code>windows平台用FileZilla Client</code>软件登陆.</p><p><img src=/postimages/filezila-1.webp alt=filezila-1></p><p><img src=/postimages/filezila-2.webp alt=filezila-2></p><p>连接成功：</p><p><img src=/postimages/filezila-success.webp alt=filezila-success></p><p>系统账号默认登陆是在账号的家目录，可以切换到其它目录。</p><p>到这里，基本的<code>vsftpd</code>搭建成功。</p><p>开机自启<code>vsftpd</code></p><pre tabindex=0><code>systemctl enable vsftpd
+</code></pre><h3 id=vsftpd-被动模式普通用户登录配置>vsftpd 被动模式普通用户登录配置</h3><p>主程序：<code>/usr/sbin/vsftpd</code></p><p>主配置文件：<code>/etc/vsftpd/vsftpd.conf</code></p><p>数据根目录：<code>/var/ftp</code></p><p>就算是经验丰富的老手也会做好备份工作</p><p><code>cp /etc/vsftpd/vsftpd.conf /etc/vsftpd/vsftpd.conf.bak</code></p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">41
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">42
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">43
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">44
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">45
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">46
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">47
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">48
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">49
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">50
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">51
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">52
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">53
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">54
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">55
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">56
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">57
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">58
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">59
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">60
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">61
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">62
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">63
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">64
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">65
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">66
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">67
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">68
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">69
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">70
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">71
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:teal>anonymous_enable</span><span style=color:#000;font-weight:700>=</span>NO //设定不允许匿名访问
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:teal>local_enable</span><span style=color:#000;font-weight:700>=</span>YES //设定本地用户可以访问
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:teal>write_enable</span><span style=color:#000;font-weight:700>=</span>YES //设定可以进行写操作
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:teal>local_umask</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>022</span> //设定上传后文件的权限掩码
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:teal>anon_upload_enable</span><span style=color:#000;font-weight:700>=</span>NO //禁止匿名用户上传
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:teal>anon_mkdir_write_enable</span><span style=color:#000;font-weight:700>=</span>NO //禁止匿名用户建立目录
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:teal>dirmessage_enable</span><span style=color:#000;font-weight:700>=</span>YES //设定开启目录标语功能
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:teal>xferlog_enable</span><span style=color:#000;font-weight:700>=</span>YES //设定开启日志记录功能
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:teal>connect_from_port_20</span><span style=color:#000;font-weight:700>=</span>YES //设定端口20进行数据连接<span style=color:#000;font-weight:700>(</span>主动模式<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:teal>chown_uploads</span><span style=color:#000;font-weight:700>=</span>NO //设定禁止上传文件更改宿主
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#chown_username=whoever</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:teal>xferlog_file</span><span style=color:#000;font-weight:700>=</span>/var/log/xferlog //设定Vsftpd的服务日志保存路径。
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:teal>xferlog_std_format</span><span style=color:#000;font-weight:700>=</span>YES //设定日志使用标准的记录格式。
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#idle_session_timeout=600 //设定空闲连接超时时间，单位为秒，这里默认</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#data_connection_timeout=120 //设定空闲连接超时时间，单位为秒，这里默认。</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#nopriv_user=ftptest</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:teal>async_abor_enable</span><span style=color:#000;font-weight:700>=</span>YES //设定支持异步传输功能。
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:teal>ascii_upload_enable</span><span style=color:#000;font-weight:700>=</span>YES
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:teal>ascii_download_enable</span><span style=color:#000;font-weight:700>=</span>YES //设定支持ASCII模式的上传和下载功能。
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:teal>ftpd_banner</span><span style=color:#000;font-weight:700>=</span>Welcome to blah FTP service. //设定Vsftpd的登陆标语。
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#deny_email_enable=YES // (default follows)</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#banned_email_file=/etc/vsftpd/banned_emails</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:teal>chroot_local_user</span><span style=color:#000;font-weight:700>=</span>YES
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:teal>chroot_list_enable</span><span style=color:#000;font-weight:700>=</span>YES //禁止用户登出自己的FTP主目录。
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:teal>chroot_list_file</span><span style=color:#000;font-weight:700>=</span>/etc/vsftpd/chroot_list //这个文件里的用户不受限制，不限制在本目录。
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:teal>ls_recurse_enable</span><span style=color:#000;font-weight:700>=</span>NO //禁止用户登陆FTP后使用<span style=color:#d14>&#34;ls -R&#34;</span>的命令。
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>该命令会对服务器性能造成巨大开销。
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#listen=NO</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#listen_ipv6=YES</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:teal>userlist_enable</span><span style=color:#000;font-weight:700>=</span>YES //设定userlist_file中的用户将不得使用FTP。
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:teal>tcp_wrappers</span><span style=color:#000;font-weight:700>=</span>YES //设定支持TCP Wrappers
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:teal>allow_writeable_chroot</span><span style=color:#000;font-weight:700>=</span>YES //这个可以解决chroot权限问题
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:teal>pasv_enable</span><span style=color:#000;font-weight:700>=</span>YES
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:teal>pasv_min_port</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>40000</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:teal>pasv_max_port</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>40080</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:teal>pasv_promiscuous</span><span style=color:#000;font-weight:700>=</span>YES
+</span></span></code></pre></td></tr></table></div></div><p><code>systemctl restart vsftpd</code> //重启<code>vsftpd服务</code></p><p><img src=/postimages/filezila-3.webp alt=filezila-3></p><p>如果登录失败提示500，需要在服务器上创建<code>chroot_lis</code>t把<code>test</code>加进列表</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#0086b3>echo</span> <span style=color:#0086b3>test</span> &gt;&gt; /etc/vsftpd/chroot_list
+</span></span></code></pre></td></tr></table></div></div><p><img src=/postimages/chroot_limit.webp alt=chroot_limit></p><p>创建另一个用户<code>aaa</code>。目前<code>test</code> 和<code>aaa</code>都可以登录<code>ftp</code></p><p>由于<code>test</code>加入到了<code>chroot_list</code>列表中，可以随意切换目录。而<code>aaa</code>用户不在了列表中，只能在<code>aaa用户</code>家目录中活动，不能自由切换目录。</p><p><img src=/postimages/test-1.webp alt=test-1></p><p><img src=/postimages/aaa-1.webp alt=aaa-1></p><p>————————————————</p><p>解释：<code>chroot_local_user=YES</code>将所有用户限定在主目录内，<code>chroot_list_enable=YES</code>表示要启用<code>chroot_list_file</code>, 因为<code>chroot_local_user=YES</code>，即全体用户都被“限定在主目录内”,所以总是作为“例外列表”的<code>chroot_list_file</code>这时列出的是那些<code>不会被限制在主目录下</code>的用户。</p><h3 id=vsftpd-匿名用户登录配置>vsftpd 匿名用户登录配置</h3><p>建立虚拟FTP用户数据库文件</p><p>建立一个虚拟用户名单文件，这个文件就是来记录<code>vsftpd</code>虚拟用户的用户名和口令的数据文件，我这里给它命名为<code>vuser.list</code>，保存在<code>/etc/vsftpd/</code>目录下。一行账号，一行密码</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>$ vim vuser.list
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>vuser
+</span></span><span style=display:flex><span><span style=color:#099>123456</span>
+</span></span></code></pre></td></tr></table></div></div><p>安装<code>Berkeley DB</code> #有db_load 命令可以忽略。</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>yum install libdb-utils-5.3.21-25.el7.x86_64
+</span></span></code></pre></td></tr></table></div></div><p>安装后在<code>/etc/vsftpd/</code>目录下执行。</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>db_load -T -t <span style=color:#0086b3>hash</span> -f vuser.list vuser.db//生成用户加密文件
+</span></span><span style=display:flex><span>chmod <span style=color:#099>600</span> vuser.db //敏感文件限制只允许属主读写
+</span></span></code></pre></td></tr></table></div></div><p>创建虚拟用户及虚拟用户的家目录</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>useradd -d /var/vusers -s /sbin/nologin vftp //创建系统用户vftp，并制定其家目录为/var/vusers
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>chmod -Rf <span style=color:#099>755</span> /var/vusers/ //修改目录的权限使得其他用户也可以访问。
+</span></span></code></pre></td></tr></table></div></div><p>建立支持虚拟用户的PAM认证文件</p><p><code>vsftpd</code>的<code>pam文件</code>在<code>/etc/pam.d/目录</code>下，先做备份工作。</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>cp vsftpd vsftpd.bak
+</span></span><span style=display:flex><span>vim vsftpd
+</span></span><span style=display:flex><span>重要：先注释掉所有的内容后添加以下内容：
+</span></span><span style=display:flex><span>auth required /lib64/security/pam_userdb.so <span style=color:teal>db</span><span style=color:#000;font-weight:700>=</span>/etc/vsftpd/vuser //此句用于检查用户密码，数据库文件不要写后缀.db
+</span></span><span style=display:flex><span>account required /lib64/security/pam_userdb.so <span style=color:teal>db</span><span style=color:#000;font-weight:700>=</span>/etc/vsftpd/vuser //此句用于检查用户是否在有效期内，数据库支持虚拟用户的PAM认证文件。
+</span></span></code></pre></td></tr></table></div></div><p>在<code>vsftpd.conf</code>中添加支持配置</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">9
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:teal>guest_enable</span><span style=color:#000;font-weight:700>=</span>YES //开启虚拟用户模式
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:teal>guest_username</span><span style=color:#000;font-weight:700>=</span>vftp //指定虚拟用户账号
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:teal>pam_service_name</span><span style=color:#000;font-weight:700>=</span>vsftpd //指定pam文件
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:teal>user_config_dir</span><span style=color:#000;font-weight:700>=</span>/etc/vsftpd/vusers_profile //指定虚拟用户的权限配置目录。
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:teal>virtual_use_local_privs</span><span style=color:#000;font-weight:700>=</span>NO //虚拟用户和匿名用户有相同的权限
+</span></span></code></pre></td></tr></table></div></div><p>为虚拟用户设置不同的权限。</p><p><code>mkdir -p /etc/vsftpd/vusers_profile</code>/新建虚拟用户目录</p><p><code>vim /etc/vsftpd/vusers_profile/vuser</code>/新建虚拟用户配置文件，文件名要和上面的虚拟用户名单里的账号名字对等。</p><p><code>mkdir -p /var/vusers/vuser</code>/创建虚拟用户家目录</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:teal>local_root</span><span style=color:#000;font-weight:700>=</span>/var/vusers/vuser //虚拟账号的家目录
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:teal>write_enable</span><span style=color:#000;font-weight:700>=</span>YES
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:teal>anonymous_enable</span><span style=color:#000;font-weight:700>=</span>NO
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:teal>local_umask</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>022</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:teal>anon_upload_enable</span><span style=color:#000;font-weight:700>=</span>YES //上传权限
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:teal>anon_mkdir_write_enable</span><span style=color:#000;font-weight:700>=</span>YES //创建文件和目录的权限
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:teal>anon_other_write_enable</span><span style=color:#000;font-weight:700>=</span>YES //删除文件和目录的权限
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:teal>anon_world_readable_only</span><span style=color:#000;font-weight:700>=</span>YES //当文件的“其他人”有读权限的时候可以下载
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:teal>download_enable</span><span style=color:#000;font-weight:700>=</span>YES //下载权限
+</span></span></code></pre></td></tr></table></div></div><p>保存配置，重启服务。</p><p><code>systemctl restart vsftpd</code></p><p>登录查看：</p><p><img src=/postimages/filezila-niming.webp alt=filezila-niming></p><p><img src=/postimages/filezila-niming-1.webp alt=filezila-niming-1></p><p>此处<code>/</code>指的是<code>vuser用户家目录</code>而不是根目录。</p><p>本实验中匿名用户登录后有查看下载权限，没有创建文件权限。并且限制了只能查看匿名用户的家目录，不能切换到其他目录。</p><p><code>vsftpd</code>传输模式</p><p>主动模式：服务端主动连客户端</p><p><img src=/postimages/ftp-%E4%B8%BB%E5%8A%A8.webp alt=ftp-主动></p><p>在主动模式下，FTP客户端从任意端口5150（端口号>1023）发起一个FTP请求，并携带自己监听的端口号5151（发送的端口号+1=监听端口号）；随后服务器返回确认，然后从服务器本地的20端口主动发起连接请求到客户端的监听端口5151，最后客户端返回确认。</p><p>被动模式：客户端主动连服务端</p><p><img src=/postimages/ftp-%E8%A2%AB%E5%8A%A8.webp alt=ftp-被动></p><p>在被动模式中，命令连接和数据连接都由客户端来发起，如上图所示，客户端用随机命令端口5150向服务器的21命令端口发送一个<code>PASV请求</code>，然后服务器返回数据端口3267，告诉客户端我在哪个端口监听数据连接。然后客户端向服务器的监听端口3268发起数据连接，最后服务器回复确认。</p><p>**vsftpd默认是被动模式。**所以客户端要设置被动模式连接，如果到现在还没连接成功的看客户端有没有设置被动传输模式。</p><h4 id=ftp工作原理介绍>FTP工作原理介绍</h4><p>文件传输协议：<code>File Transfer Protocol</code> 早期的三个应用级协议之一，基于<code>C/S结构</code>
+数据传输格式：二进制（默认）和文本
+双通道协议：命令和数据连接</p><p><strong>两种模式</strong>：从服务器角度</p><ul><li>主动(PORT style)：服务器主动连接
+命令（控制）：客户端：随机port —> 服务器：21/tcp
+数据：客户端：随机port &lt;—服务器：20/tcp</li><li>被动(PASV style)：客户端主动连接
+命令（控制）：客户端：随机port —> 服务器：21/tcp
+数据：客户端：随机port —> 服务器：随机port /tcp</li></ul><p>范例：服务器被动模式数据端口
+227 Entering Passive Mode (172,16,0,1,224,59)
+服务器数据端口为：224*256+59</p><p><strong>FTP服务状态码：</strong>
+<code>1XX</code>：信息 125：数据连接打开
+<code>2XX</code>：成功类状态 200：命令OK 230：登录成功
+<code>3XX</code>：补充类 331：用户名OK
+<code>4XX</code>：客户端错误 425：不能打开数据连接
+<code>5XX</code>：服务器错误 530：不能登录</p><p><strong>用户认证：</strong></p><p>匿名用户：<code>ftp,anonymous</code>,对应<code>Linux用户ftp</code>
+​ 系统用户：<code>Linux用户</code>,用户<code>/etc/passwd</code>,密码<code>/etc/shadow</code>
+​ 虚拟用户：特定服务的专用用户，独立的用户/密码文件</p><h4 id=vsftpd-软件介绍>vsftpd 软件介绍</h4><p>由 <code>vsftpd</code> 包提供，不再由<code>xinetd</code>管理
+用户认证配置文件：<code>/etc/pam.d/vsftpd</code></p><p><strong>启动服务相关文件：</strong></p><p><code>/usr/lib/systemd/system/vsftpd.service</code>
+<code>/etc/rc.d/init.d/vsftpd</code></p><p><strong>配置文件：</strong></p><p><code>/etc/vsftpd/vsftpd.conf</code></p><p>帮助：<code>man 5 vsftpd.conf</code></p><p>配置文件格式：</p><pre tabindex=0><code>option=value 
+</code></pre><p>注意：<code>=</code> 前后不要有空格</p><p>用户和其共享目录</p><ul><li>匿名用户（映射为系统用户<code>ftp</code> ）共享文件位置：<code>/var/ftp</code></li><li>系统用户共享文件位置：用户家目录</li><li>虚拟用户共享文件位置：为其映射的系统用户的家目录</li></ul><h3 id=提高vsftp的访问速度>提高vsftp的访问速度</h3><p>vsftp连接时很慢，因为默认开启了reverse_lookup（反向解析）.</p><p>在(vsftpd.conf)主文件中添加</p><pre tabindex=0><code>reverse_lookup_enable=NO
+</code></pre><p>重启<code>vsftpd</code>服务</p><pre tabindex=0><code>systemctl restart vsftpd
+</code></pre><h3 id=需求>需求</h3><p>1.设立管理员用户拥有所有权限（上传、下载、文件删除）。</p><p>2.其他用户只允许下载，不允许上传、文件修改和删除。</p><p>3.禁止使用匿名用户登录</p><table><thead><tr><th style=text-align:center>用户名</th><th style=text-align:center>权限说明</th></tr></thead><tbody><tr><td style=text-align:center>admin</td><td style=text-align:center>管理员，可以上传、下载、新建文件夹、删除和更改文件和文件夹名。</td></tr><tr><td style=text-align:center>upload</td><td style=text-align:center>可以上传、新建文件夹。不可以下载，不能删除文件和文件夹，不能重命名原有文件和文件夹。</td></tr><tr><td style=text-align:center>download</td><td style=text-align:center>只能下载，不能进行其他操作。</td></tr></tbody></table><h4 id=实验环境>实验环境</h4><p><code>centos7.9 x86_64</code></p><p>以上三个虚拟用户均不允许登录系统，并且使用ftp时会被锁定在指定目录内不可进入系统其他目录。</p><h4 id=安装配置vsftpd>安装配置<code>vsftpd</code></h4><pre tabindex=0><code>yum -y install vsftpd
+cd /etc/vsftpd/
+cp vsftpd.conf vsftpd.conf.bak #先备份
+</code></pre><h4 id=添加一个不能登录系统用户用来做虚拟用户映射>添加一个不能登录系统用户，用来做虚拟用户映射。</h4><pre tabindex=0><code>useradd www2013 -s /sbin/nologin -d /home/www2013
+passwd www2013
+</code></pre><h4 id=创建虚拟用户列表分别是uploaddownload和admin>创建虚拟用户列表，分别是<code>upload、download和admin</code></h4><pre tabindex=0><code>touch /etc/vsftpd/vu_list.txt
+
+cat &gt;&gt;vu_list&lt;&lt;eof
+upload
+111111
+download
+111111
+admin
+111111
+eof
+</code></pre><p>查看列表内容</p><pre tabindex=0><code>#cat /etc/vsftpd/vu_list.txt
+upload
+111111
+download
+111111
+admin
+111111
+</code></pre><h4 id=创建db文件>创建<code>db</code>文件</h4><p>保存虚拟帐号和密码的文本文件无法被系统帐号直接调用，需要创建用于系统认证的<code>db</code>文件</p><pre tabindex=0><code>db_load -T -t hash -f /etc/vsftpd/vu_list.txt /etc/vsftpd/vu_list.db
+</code></pre><pre tabindex=0><code>-T 用于轻松地将文本文件导入数据库。
+-t 表示指定底层访问方法。
+hash 是我们指定的底层访问方法。
+-f 表示从指定文件中读取。
+指定的文件是vu_list.txt
+我们正在创建或添加的数据库是vu_list.db
+</code></pre><p>注意：创建db文件需要db4支持，如果系统没安装请安装</p><pre tabindex=0><code>yum -y install db4 db4-devel db4-utils
+</code></pre><h4 id=修改db文件的权限以免被非法用户修改>修改db文件的权限，以免被非法用户修改</h4><pre tabindex=0><code>chmod 600 /etc/vsftpd/vu_list.db
+</code></pre><h4 id=并删除vu_listtxt-文件>并删除<code>vu_list.txt </code>文件</h4><pre tabindex=0><code>rm vu_list.txt
+</code></pre><p>添加新用户时，只需使用<code>vi</code>新建一个<code>vu_list.txt </code>文件，然后重新运行<code>db_load</code>命令，即可将新用户添加到数据库中。</p><h4 id=配置pam文件>配置<code>PAM</code>文件</h4><p>由于服务器通过调用系统PAM模块来对客户端进行身份验证，因此需要修改指定的配置文件来调整认证方式。PAM模块的配置文件路径为：<code>/etc/pam.d/</code>,这个目录下存放只许多与用户认证有关的配置文件。</p><p>备份原文件</p><pre tabindex=0><code>cp /etc/pam.d/vsftpd /etc/pam.d/vsftpd.old
+</code></pre><p>编辑<code>vsftpd文件</code>，除了<code>#%PAM-1.0</code>其他都注释掉，然后再添加。</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>32位系统添加：
+</span></span><span style=display:flex><span>auth       required     /lib/security/pam_userdb.so     <span style=color:teal>db</span><span style=color:#000;font-weight:700>=</span>/etc/vsftpd/vu_list
+</span></span><span style=display:flex><span>account    required     /lib/security/pam_userdb.so     <span style=color:teal>db</span><span style=color:#000;font-weight:700>=</span>/etc/vsftpd/vu_list
+</span></span><span style=display:flex><span>64位系统添加：
+</span></span><span style=display:flex><span>auth       required     /lib64/security/pam_userdb.so   <span style=color:teal>db</span><span style=color:#000;font-weight:700>=</span>/etc/vsftpd/vu_list
+</span></span><span style=display:flex><span>account    required     /lib64/security/pam_userdb.so   <span style=color:teal>db</span><span style=color:#000;font-weight:700>=</span>/etc/vsftpd/vu_list
+</span></span></code></pre></td></tr></table></div></div><h4 id=创建虚拟用户配置文件>创建虚拟用户配置文件</h4><pre tabindex=0><code>#创建conf文件夹
+cd /etc/vsftpd
+mkdir conf
+cd conf
+#创建admin用户的配置文件
+cat &gt;&gt;admin&lt;&lt; EOF
+anon_world_readable_only=NO
+write_enable=YES
+anon_mkdir_write_enable=YES
+anon_other_write_enable=YES
+anon_upload_enable=YES
+EOF
+#创建upload用户的配置文件
+cat &gt;&gt;upload&lt;&lt; EOF
+write_enable=YES
+anon_upload_enable=YES
+anon_mkdir_write_enable=YES
+anon_world_readable_only=NO
+download_enable=NO
+EOF
+#创建download用户的配置文件
+cat &gt;&gt;download&lt;&lt; EOF
+anon_world_readable_only=NO
+EOF
+</code></pre><h4 id=修改vsftpdconf文件>修改<code>vsftpd.conf文件</code></h4><p><code>vi vsftpd.conf</code></p><pre tabindex=0><code>#修改内容如下
+anonymous_enable=NO
+local_enable=YES
+anon_mkdir_write_enable=NO
+dirmessage_enable=YES
+xferlog_enable=YES
+connect_from_port_20=YES
+chown_uploads=NO
+chroot_local_user=YES
+chroot_list_enable=YES
+chroot_list_file=/etc/vsftpd/chroot_list
+allow_writeable_chroot=YES
+xferlog_file=/var/log/vsftpd.log
+xferlog_std_format=YES
+nopriv_user=www2013
+async_abor_enable=YES
+ascii_upload_enable=YES
+ascii_download_enable=YES
+ftpd_banner=Welcome to blah FTP service ^_^
+ls_recurse_enable=NO
+listen=YES
+pam_service_name=vsftpd
+userlist_enable=YES
+tcp_wrappers=YES
+local_root=/home/www2013
+guest_enable=YES
+guest_username=www2013
+virtual_use_local_privs=YES
+user_config_dir=/etc/vsftpd/conf
+reverse_lookup_enable=NO
+</code></pre><h4 id=注意>注意</h4><p><code>guest_username</code>要和之前建立的不能登陆的系统用户匹配。</p><p><code>chroot_list_enable和chroot_local_user</code>取值的不同组合情况</p><table><thead><tr><th style=text-align:center>参数</th><th style=text-align:center>取值</th><th style=text-align:center>取值</th><th style=text-align:center>取值</th><th style=text-align:center>取值</th></tr></thead><tbody><tr><td style=text-align:center>chroot_list_enable</td><td style=text-align:center>YES</td><td style=text-align:center>YES</td><td style=text-align:center>NO</td><td style=text-align:center>NO</td></tr><tr><td style=text-align:center>chroot_local_user</td><td style=text-align:center>YES</td><td style=text-align:center>NO</td><td style=text-align:center>YES</td><td style=text-align:center>NO</td></tr><tr><td style=text-align:center>意义</td><td style=text-align:center>文件中列出的用户根目录为系统根目录，其它用户根目录为自己主目录。</td><td style=text-align:center>文件中列出的用户根目录为自己主目录，其它用户根目录为系统根目录。</td><td style=text-align:center>全部用户根目录都是自己主目录。</td><td style=text-align:center>全部用户根目录都是系统根目录。</td></tr></tbody></table><h5 id=禁锢系统用户>禁锢系统用户</h5><p><strong>禁锢所有系统用户在家目录中</strong></p><p><code>chroot_local_user=YES</code> 禁锢系统用户，默认NO，即不禁锢。</p><p><strong>禁锢或不禁锢特定的系统用户在家目录中，与上面设置功能相反</strong></p><p><code>chroot_list_enable=YES</code> #默认是NO
+​ <code>chroot_list_file=/etc/vsftpd/chroot_list</code> #默认值</p><ul><li>当<code>chroot_local_user=YES</code>和<code>chroot_list_enable=YES</code>时，则<code>chroot_list</code>中用户不禁锢，即白名单</li><li>当<code>chroot_local_user=NO</code>和<code>chroot_list_enable=YES</code>时，则<code>chroot_list</code>中用户禁锢，即黑名单</li></ul><h4 id=设置ssl提高安全性>设置ssl，提高安全性。</h4><p><code>vi /etc/vsftpd/vsftpd.conf</code>添加到文件末尾。</p><pre tabindex=0><code>rsa_cert_file=/etc/vsftpd/vsftpd.pem
+rsa_private_key_file=/etc/vsftpd/vsftpd.key
+ssl_enable=YES
+allow_anon_ssl=NO
+force_local_data_ssl=YES
+force_local_logins_ssl=YES
+ssl_tlsv1=YES
+ssl_sslv2=NO
+ssl_sslv3=NO
+
+pasv_min_port=7000
+pasv_max_port=7500
+</code></pre><h4 id=设置rsa证书>设置RSA证书</h4><pre tabindex=0><code>openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout /etc/vsftpd/vsftpd.key -out /etc/vsftpd/vsftpd.pem
+</code></pre><pre tabindex=0><code>第一个字段是国家代码字段，填写您所在国家的两个字母代码：
+
+Country Name (2 letter code) [XX]:
+
+接下来是州或省，通过输入全名而不是缩写来填写：
+
+State or Province Name (full name) []:
+
+接下来是地区名称。这是你的城市：
+
+Locality Name (eg, city) [Default City]:
+
+接下来是公司或组织名称。您可以将此留空或根据需要填写：
+
+Organization Name (eg, company) [Default Company Ltd]:
+
+接下来是组织单位名称。如果服务器用于特定部门，您可以填写此内容，或将其留空：
+
+Organizational Unit Name (eg, section) []:
+
+应该填写下一个字段，但是您可以决定如何填写。这是您的服务器的通用名称。示例webftp.domainname.ext：：
+
+Common Name (eg, your name or your server&#39;s hostname) []:
+
+最后是电子邮件字段，您当然可以将其留空而不会出现问题：
+
+Email Address []:
+
+完成表格后，将创建证书。
+</code></pre><p>最后重启<code>vsftpd服务</code></p><pre tabindex=0><code>systemctl restart vsftpd
+</code></pre><h4 id=使用filezilla连接测试>使用<code>Filezilla</code>连接测试</h4><p><img src=/postimages/vsftpd%E6%B5%8B%E8%AF%951.webp alt=vsftpd测试1></p><h4 id=使用lftp连接测试>使用<code>lftp</code>连接测试</h4><p><img src=/postimages/vsftpd%E6%B5%8B%E8%AF%952.webp alt=vsftpd测试2></p><p>注意：</p><p>关闭<code>lftp</code>客户端认证。否则会报错。</p><p>报错如下:</p><pre tabindex=0><code>ls: Fatal error: Certificate verification: Not trusted (DB:40:CE:56:E3:56:6C:75:9C:8D:1F:08:CF:9F:22:9D:8D:9B:E8:D3)
+</code></pre><p><code>vi /etc/lftp.conf</code></p><pre tabindex=0><code>set ssl:verify-certificate no
+</code></pre><p>参考资料：</p><p><a href=https://docs.rockylinux.org/guides/file_sharing/secure_ftp_server_vsftpd/>https://docs.rockylinux.org/guides/file_sharing/secure_ftp_server_vsftpd/</a></p></div></div></div><div id=footer><div class=container-footer><div class=beian><a target=_blank href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode="></a><a href target=_blank><span class=some>icp...<span></a></div><div class=info><a href=https://github.com/loveminimal/hugo-theme-virgo>🕊️</a> 2021 - <span id=info-date></span></div></div></div><div class=cool-after></div></body></html>
