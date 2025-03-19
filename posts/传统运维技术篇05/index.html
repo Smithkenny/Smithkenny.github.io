@@ -1,0 +1,1086 @@
+<!doctype html><html lang=zh-CN><head><meta name=viewport content="width=device-width,initial-scale=1"><meta charset=utf-8><meta name=description content="传统运维技术篇05 - https://www.haipengv.com/posts/%E4%BC%A0%E7%BB%9F%E8%BF%90%E7%BB%B4%E6%8A%80%E6%9C%AF%E7%AF%8705/"><meta name=author content="Smith - https://www.haipengv.com/"><meta name=msvalidate.01 content="B46311949B856F2A7015F366FB3CE878"><title>传统运维技术篇05</title><base target=_self><link rel=icon type=image/png href=/favicon.ico><link rel=stylesheet href=https://www.haipengv.com/style.min.9a0cea23154ac1941e15c25aa2d31b77285a217d2606ec05b55236428cf1c3e6.css><script>const DARK=!1</script><script type=text/javascript src=/main.js defer></script></head><body class=active-animate><div class=cool-before></div><div id=header><div class=container-header><div class=right><h1 class=title>传统运维技术篇05</h1><div id=toc>📜</div></div></div></div><div id=content><div class="container-main container-page"><div class=rel><div class=curtag-desc><a href=https://www.haipengv.com/tags/issue/><img src=/imgs/icons/tag.svg width=16> 相关文章：Issue <sup>18</sup></a></div><div class=curtag-post><div class=curtag-post-item><a href=https://www.haipengv.com/posts/crontab%E6%89%A7%E8%A1%8Cshell%E8%84%9A%E6%9C%AC%E6%8A%A5%E9%94%99/>Crontab执行shell脚本报错</a></div><div class=curtag-post-item><a href=https://www.haipengv.com/posts/dmesg%E6%97%B6%E9%97%B4%E6%98%BE%E7%A4%BA%E9%97%AE%E9%A2%98/>Dmesg时间显示问题</a></div><div class=curtag-post-item><a href=https://www.haipengv.com/posts/idea2023%E6%9B%B4%E6%94%B9maven%E9%BB%98%E8%AE%A4%E4%BB%93%E5%BA%93%E6%BA%90/>Idea2023更改maven默认仓库源</a></div><div class=curtag-post-item><a href=https://www.haipengv.com/posts/idea%E5%A6%82%E4%BD%95%E5%9B%9E%E9%80%80%E5%88%B0%E4%B9%8B%E5%89%8D%E7%9A%84%E5%B7%A5%E7%A8%8B/>Idea如何回退到之前的工程</a></div><div class=curtag-post-item><a href=https://www.haipengv.com/posts/windows%E4%B8%8Bmysql%E5%92%8Cpython3%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B/>Windows下mysql和python3安装过程</a></div><div class=curtag-post-item><a href=https://www.haipengv.com/posts/windows%E7%BB%93%E6%9D%9F%E8%BF%9B%E7%A8%8B/>Windows结束进程</a></div><div class=curtag-post-item><a href=https://www.haipengv.com/posts/%E4%BC%A0%E7%BB%9F%E8%BF%90%E7%BB%B4%E6%8A%80%E6%9C%AF%E7%AF%8701/>传统运维技术篇01</a></div><div class=curtag-post-item><a href=https://www.haipengv.com/posts/%E4%BC%A0%E7%BB%9F%E8%BF%90%E7%BB%B4%E6%8A%80%E6%9C%AF%E7%AF%8702/>传统运维技术篇02</a></div><div class=curtag-post-item><a href=https://www.haipengv.com/posts/%E4%BC%A0%E7%BB%9F%E8%BF%90%E7%BB%B4%E6%8A%80%E6%9C%AF%E7%AF%8703/>传统运维技术篇03</a></div><div class=curtag-post-item><a href=https://www.haipengv.com/posts/%E4%BC%A0%E7%BB%9F%E8%BF%90%E7%BB%B4%E6%8A%80%E6%9C%AF%E7%AF%8704/>传统运维技术篇04</a></div><div class="curtag-post-item curtag-post-item--active"><a href=https://www.haipengv.com/posts/%E4%BC%A0%E7%BB%9F%E8%BF%90%E7%BB%B4%E6%8A%80%E6%9C%AF%E7%AF%8705/>传统运维技术篇05</a></div><div class=curtag-post-item><a href=https://www.haipengv.com/posts/%E4%BC%A0%E7%BB%9F%E8%BF%90%E7%BB%B4%E6%8A%80%E6%9C%AF%E7%AF%8706/>传统运维技术篇06</a></div><div class=curtag-post-item><a href=https://www.haipengv.com/posts/%E4%BC%A0%E7%BB%9F%E8%BF%90%E7%BB%B4%E6%8A%80%E6%9C%AF%E7%AF%8707/>传统运维技术篇07</a></div><div class=curtag-post-item><a href=https://www.haipengv.com/posts/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/>常见问题总结</a></div><div class=curtag-post-item><a href=https://www.haipengv.com/posts/%E5%BF%AB%E9%80%9F%E5%88%A0%E9%99%A4%E5%A4%A7%E9%87%8F%E5%B0%8F%E6%96%87%E4%BB%B6-%E5%A4%9A%E7%A7%8D%E6%96%B9%E5%BC%8F%E9%80%9F%E5%BA%A6%E5%AF%B9%E6%AF%94/>快速删除大量小文件多种方式速度对比</a></div><div class=curtag-post-item><a href=https://www.haipengv.com/posts/%E8%AE%B0%E4%B8%80%E6%AC%A1%E7%94%B1%E4%BA%8Ekswapd0%E8%BF%9B%E7%A8%8B%E5%AF%BC%E8%87%B4%E7%B3%BB%E7%BB%9F%E5%BC%82%E5%B8%B8/>记一次由于kswapd0进程导致系统异常</a></div><div class=curtag-post-item><a href=https://www.haipengv.com/posts/%E9%9D%A2%E8%AF%95%E9%A2%98%E6%95%B4%E7%90%86/>面试题整理</a></div><div class=curtag-post-item><a href=https://www.haipengv.com/posts/%E9%BB%91%E7%BE%A4%E6%99%96%E5%A4%96%E9%83%A8%E8%AE%BF%E9%97%AEfrp%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/>黑群晖外部访问frp搭建过程</a></div></div></div><div class=desc><span><svg t="1656736000388" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="7409" width="12" height="12"><path d="M524.885333 338.986667l-324.522666 324.48c-17.28 15.274667-27.989333 36.693333-29.696 56.234666v133.76l130.730666.085334c22.784-1.621333 43.989333-12.245333 61.013334-31.701334L685.098667 499.2 524.885333 338.986667zM585.258667 278.656l160.170666 160.213333 102.144-102.144a19.712 19.712.0 000-27.861333l-132.48-132.437333a19.456 19.456.0 00-27.605333.0L585.258667 278.613333zM701.312 85.333333c27.946667.0 54.741333 11.136 74.282667 30.848L907.904 248.490667a105.045333 105.045333.0 010 148.565333L424.874667 879.957333C395.050667 914.304 352.768 935.424 304.426667 938.752H85.333333v-42.666667l.128-179.84c3.626667-44.970667 24.576-86.826667 56.448-114.944l485.12-485.034666a104.789333 104.789333.0 0174.24-30.933334z" p-id="7410" fill="#adb5bd"/></svg>2025-03-19&nbsp;&nbsp;&nbsp;<svg t="1656737270708" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="23838" width="11" height="11"><path d="M824.264 95.36c0-23.859 25.043-44.16 48.902-44.16s49.714 20.301 49.714 44.16v190.08c0 23.859-19.054 52.868-42.913 52.868h-190.08c-23.859.0-46.696-25.96-46.696-49.819s22.55-46.249 46.409-46.249h82.025C702.344 175.534 610.22 155.853 512 155.853c-206.775.0-360.398 149.372-360.398 356.147S305.225 870.23 512 870.23c206.775.0 357.467-151.455 357.467-358.23.0-23.859 23.634-50.706 53.413-50.706 29.78.0 49.92 26.847 49.92 50.706.0 254.493-206.307 460.8-460.8 460.8s-460.8-206.307-460.8-460.8C51.2 257.507 257.507 51.2 512 51.2c122.4.0 226.684 33.296 312.264 117.369.358.351.358-24.052.0-73.209z" p-id="23839" fill="#adb5bd"/></svg>
+2025-03-19&nbsp;&nbsp;&nbsp;</span>
+<span><svg t="1656737548689" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="33866" width="12" height="12"><path d="M832.038608 64.662657H192.030028c-70.774903.0-128.089859 57.325793-128.089859 128.03206v446.793671c0 70.7171050000001 57.314956 128.154884 128.089859 128.154884h133.353183a63.940169 63.940169.0 0155.219742 31.576328l76.099638 129.83828c12.358154 21.093031 33.790754 31.626903 55.216129 31.626903s42.832688-10.544709 55.198067-31.619678l76.222461-129.870792a63.940169 63.940169.0 0155.212517-31.551041h133.54103c70.576219.0 127.732228-57.289669 127.732227-127.800865V192.391272c0-70.536482-57.181295-127.728615-127.786414-127.728615zM895.884854 639.842407A63.85347 63.85347.0 01832.092795 703.703103h-133.54103a127.753903 127.753903.0 00-110.349172 63.09847l-76.222461 129.856342a.274545.274545.0 010-.050574h-.032512s-.021675.061411-.032512.061412l-76.1466-129.85273a127.804477 127.804477.0 00-110.385297-63.11292H192.030028A64.207489 64.207489.0 01127.880338 639.488388V192.694717a64.102729 64.102729.0 0164.14969-64.091891h640.00858a63.799284 63.799284.0 0163.846246 63.788446v447.451135z" fill="#adb5bd" p-id="33867"/><path d="M608.154093 288.092004a31.970084 31.970084.0 00-31.970084 31.970085v160.078006L441.53396 300.861976a31.970084 31.970084.0 00-57.531702 19.200113v255.760676a31.970084 31.970084.0 0063.940169.0V415.863969l134.650048 179.274507a31.970084 31.970084.0 0057.531703-19.200113V320.062089a31.970084 31.970084.0 00-31.970085-31.970085z" fill="#adb5bd" p-id="33868"/></svg>5579 字</span>&nbsp;
+<span><svg t="1656737462334" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="32892" width="12" height="12"><path d="M512 74.666667C270.933333 74.666667 74.666667 270.933333 74.666667 512S270.933333 949.333333 512 949.333333 949.333333 753.066667 949.333333 512 753.066667 74.666667 512 74.666667zm0 810.666666C307.2 885.333333 138.666667 716.8 138.666667 512S307.2 138.666667 512 138.666667 885.333333 307.2 885.333333 512 716.8 885.333333 512 885.333333z" p-id="32893" fill="#adb5bd"/><path d="M695.466667 567.466667 544 497.066667V277.333333c0-17.066667-14.933333-32-32-32s-32 14.933333-32 32v238.933334c0 12.8 6.4 23.466667 19.2 29.866666L669.866667 627.2c4.266667 2.133333 8.533333 2.133333 12.8 2.133333 12.8.0 23.466667-6.4 29.866666-19.2 6.4-14.933333.0-34.133333-17.066666-42.666666z" p-id="32894" fill="#adb5bd"/></svg>12 分钟</span><div class=container-ctgtag><div class=taxonomy><div class=tag><a href=/tags/issue>Issue</a></div></div></div></div><div class=toc><div class=container-page-operation><div class=page-operation><div><a href=/><img src=/imgs/icons/home-2.svg alt></a></div><div><a href=/nav><img src=/imgs/icons/iov-navigate-1.svg alt></a></div><div><a href=/wiki><img src=/imgs/icons/wiki.svg alt></a></div><div><a href=/tags><img src=/imgs/icons/treetags.svg alt></a></div><div id=light-dark><a><img src=/imgs/icons/moon2.svg alt></a></div><div><a href=#><img src=/imgs/icons/up2.svg alt></a></div></div></div><nav id=TableOfContents><ul><li><a href=#一环境介绍>一、环境介绍</a></li><li><a href=#二使用ansible部署业务>二、使用ansible部署业务</a></li><li><a href=#三nginx负载均衡>三、Nginx负载均衡</a></li><li><a href=#四部署新项目>四、部署新项目</a></li><li><a href=#五使用nginx充当war防火墙>五、使用nginx充当war防火墙</a><ul><li><a href=#1-limit_conn限制连接数>1. <code>limit_conn</code>（限制连接数）</a></li><li><a href=#2-limit_req限制请求频率>2. <code>limit_req</code>（限制请求频率）</a></li></ul></li></ul></nav></div><div class=content><h2 id=一环境介绍>一、环境介绍</h2><p>根据前几篇的部署环境，现实情况中我们向代理服务器（31）发送请求的服务器不止一台，今天我们还是使用71来克隆两台jx-busi-21和jx-busi-22充当应用服务器。由于我们是连接克隆的系统，原系统/opt目录内的文件都删除。我们在运维服务器（81）上使用ansible统一部署业务到jx-busi-21和jx-busi-22上。</p><h2 id=二使用ansible部署业务>二、使用ansible部署业务</h2><p><strong>部署环境</strong></p><ul><li><p>控制端：运维服务器（81）</p></li><li><p>被控端：jx-busi-21和jx-busi-22</p></li></ul><p><strong>Ansible软件介绍</strong></p><p>Ansible是新出现的自动化运维工具，基于Python开发，集合了众多运维工具（puppet、chef、func、fabric）的优点，实现了批量系统配置、批量程序部署、批量运行命令等功能。他是基于ssh协议通信的。它每次执行命令，先通过ssh登录到被控端，执行命令结束后再退出被控端。</p><p>控制端安装Ansible软件</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>yum install ansible -y 
+</span></span></code></pre></td></tr></table></div></div><p>需求：</p><p>在控制端上分发软件包到被控端jx-busi-21和jx-busi-22，然后解压软件，配置环境变量。</p><p>先配置ansible:</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>v
+</span></span></code></pre></td></tr></table></div></div><p>测试发现报错:</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-ops-81 ansible<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># ansible jxbusi -m shell -a &#34;ls /tmp&#34;</span>
+</span></span><span style=display:flex><span>10.10.10.21 | FAILED | <span style=color:teal>rc</span><span style=color:#000;font-weight:700>=</span>-1 &gt;&gt;
+</span></span><span style=display:flex><span>Using a SSH password instead of a key is not possible because Host Key checking is enabled and sshpass does not support this.  Please add this host<span style=color:#d14>&#39;s fingerprint to your known_hosts file to manage this host.
+</span></span></span><span style=display:flex><span><span style=color:#d14>
+</span></span></span><span style=display:flex><span><span style=color:#d14>10.10.10.22 | FAILED | rc=-1 &gt;&gt;
+</span></span></span><span style=display:flex><span><span style=color:#d14>Using a SSH password instead of a key is not possible because Host Key checking is enabled and sshpass does not support this.  Please add this host&#39;</span>s fingerprint to your known_hosts file to manage this host.
+</span></span></code></pre></td></tr></table></div></div><p>报错原因，ssh通信默认开启检查。</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-ops-81 ansible<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># ssh 10.10.10.21 </span>
+</span></span><span style=display:flex><span>The authenticity of host <span style=color:#d14>&#39;10.10.10.21 (10.10.10.21)&#39;</span> can<span style=color:#a61717;background-color:#e3d2d2>&#39;</span>t be established.
+</span></span><span style=display:flex><span>ECDSA key fingerprint is SHA256:DD1XCbgvMyHExH5xCNV7ofghwH2pEey2a9RnSsBt0Co.
+</span></span><span style=display:flex><span>Are you sure you want to <span style=color:#000;font-weight:700>continue</span> connecting <span style=color:#000;font-weight:700>(</span>yes/no/<span style=color:#000;font-weight:700>[</span>fingerprint<span style=color:#000;font-weight:700>])</span>?
+</span></span></code></pre></td></tr></table></div></div><p>关闭检查：</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>vim /etc/ansible/ansible.cfg
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:teal>host_key_checking</span> <span style=color:#000;font-weight:700>=</span> False
+</span></span></code></pre></td></tr></table></div></div><p>再次执行成功了，说明此时控制端和被控端通信正常了，可以进行后续操作。</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-ops-81 ansible<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># ansible jxbusi -m shell -a &#34;ls /tmp&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>WARNING<span style=color:#000;font-weight:700>]</span>: Platform linux on host 10.10.10.21 is using the discovered Python interpreter at /usr/bin/python3.7, but future installation of another Python interpreter
+</span></span><span style=display:flex><span>could change this. See https://docs.ansible.com/ansible/2.8/reference_appendices/interpreter_discovery.html <span style=color:#000;font-weight:700>for</span> more information.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>10.10.10.21 | CHANGED | <span style=color:teal>rc</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>0</span> &gt;&gt;
+</span></span><span style=display:flex><span>ansible_command_payload_0q6k2tlh
+</span></span><span style=display:flex><span>systemd-private-d7a0e27ce8ad451ab4d963e639867ff0-chronyd.service-XTeKsb
+</span></span><span style=display:flex><span>systemd-private-d7a0e27ce8ad451ab4d963e639867ff0-systemd-logind.service-WUFqgT
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>WARNING<span style=color:#000;font-weight:700>]</span>: Platform linux on host 10.10.10.22 is using the discovered Python interpreter at /usr/bin/python3.7, but future installation of another Python interpreter
+</span></span><span style=display:flex><span>could change this. See https://docs.ansible.com/ansible/2.8/reference_appendices/interpreter_discovery.html <span style=color:#000;font-weight:700>for</span> more information.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>10.10.10.22 | CHANGED | <span style=color:teal>rc</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>0</span> &gt;&gt;
+</span></span><span style=display:flex><span>ansible_command_payload_cp1oa154
+</span></span><span style=display:flex><span>systemd-private-a444e71b97e04aa2b5a4e683ad063d2d-chronyd.service-Mp5vVg
+</span></span><span style=display:flex><span>systemd-private-a444e71b97e04aa2b5a4e683ad063d2d-systemd-logind.service-s7Nb4D
+</span></span></code></pre></td></tr></table></div></div><p>先看一下21 和22上/opt内有什么文件</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-ops-81 opt<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># ansible jxbusi -m shell -a &#34;ls /opt&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>WARNING<span style=color:#000;font-weight:700>]</span>: Platform linux on host 10.10.10.21 is using the discovered Python interpreter at /usr/bin/python3.7, but future installation of another Python interpreter
+</span></span><span style=display:flex><span>could change this. See https://docs.ansible.com/ansible/2.8/reference_appendices/interpreter_discovery.html <span style=color:#000;font-weight:700>for</span> more information.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>10.10.10.21 | CHANGED | <span style=color:teal>rc</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>0</span> &gt;&gt;
+</span></span><span style=display:flex><span>kylin-sm-package
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>WARNING<span style=color:#000;font-weight:700>]</span>: Platform linux on host 10.10.10.22 is using the discovered Python interpreter at /usr/bin/python3.7, but future installation of another Python interpreter
+</span></span><span style=display:flex><span>could change this. See https://docs.ansible.com/ansible/2.8/reference_appendices/interpreter_discovery.html <span style=color:#000;font-weight:700>for</span> more information.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>10.10.10.22 | CHANGED | <span style=color:teal>rc</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>0</span> &gt;&gt;
+</span></span><span style=display:flex><span>kylin-sm-package
+</span></span></code></pre></td></tr></table></div></div><p>从控制端拷贝文件到被控端。（这个过程较长。。）</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">41
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-ops-81 opt<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># ansible jxbusi -m copy -a &#34;src=/opt/jdk-8u151-linux-x64.tar.gz dest=/opt&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>WARNING<span style=color:#000;font-weight:700>]</span>: Platform linux on host 10.10.10.21 is using the discovered Python interpreter at /usr/bin/python3.7, but future installation of another Python interpreter
+</span></span><span style=display:flex><span>could change this. See https://docs.ansible.com/ansible/2.8/reference_appendices/interpreter_discovery.html <span style=color:#000;font-weight:700>for</span> more information.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>10.10.10.21 | <span style=color:teal>CHANGED</span> <span style=color:#000;font-weight:700>=</span>&gt; <span style=color:#000;font-weight:700>{</span>
+</span></span><span style=display:flex><span>    <span style=color:#d14>&#34;ansible_facts&#34;</span>: <span style=color:#000;font-weight:700>{</span>
+</span></span><span style=display:flex><span>        <span style=color:#d14>&#34;discovered_interpreter_python&#34;</span>: <span style=color:#d14>&#34;/usr/bin/python3.7&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#000;font-weight:700>}</span>,
+</span></span><span style=display:flex><span>    <span style=color:#d14>&#34;changed&#34;</span>: true,
+</span></span><span style=display:flex><span>    <span style=color:#d14>&#34;checksum&#34;</span>: <span style=color:#d14>&#34;5598835566f55c1a785892d9e4e7868179987ed3&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#d14>&#34;dest&#34;</span>: <span style=color:#d14>&#34;/opt/jdk-8u151-linux-x64.tar.gz&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#d14>&#34;gid&#34;</span>: 0,
+</span></span><span style=display:flex><span>    <span style=color:#d14>&#34;group&#34;</span>: <span style=color:#d14>&#34;root&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#d14>&#34;md5sum&#34;</span>: <span style=color:#d14>&#34;774d8cb584d9ebedef8eba9ee2dfe113&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#d14>&#34;mode&#34;</span>: <span style=color:#d14>&#34;0644&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#d14>&#34;owner&#34;</span>: <span style=color:#d14>&#34;root&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#d14>&#34;size&#34;</span>: 189736377,
+</span></span><span style=display:flex><span>    <span style=color:#d14>&#34;src&#34;</span>: <span style=color:#d14>&#34;/root/.ansible/tmp/ansible-tmp-1733729480.176557-170987315504901/source&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#d14>&#34;state&#34;</span>: <span style=color:#d14>&#34;file&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#d14>&#34;uid&#34;</span>: <span style=color:#099>0</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>WARNING<span style=color:#000;font-weight:700>]</span>: Platform linux on host 10.10.10.22 is using the discovered Python interpreter at /usr/bin/python3.7, but future installation of another Python interpreter
+</span></span><span style=display:flex><span>could change this. See https://docs.ansible.com/ansible/2.8/reference_appendices/interpreter_discovery.html <span style=color:#000;font-weight:700>for</span> more information.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>10.10.10.22 | <span style=color:teal>CHANGED</span> <span style=color:#000;font-weight:700>=</span>&gt; <span style=color:#000;font-weight:700>{</span>
+</span></span><span style=display:flex><span>    <span style=color:#d14>&#34;ansible_facts&#34;</span>: <span style=color:#000;font-weight:700>{</span>
+</span></span><span style=display:flex><span>        <span style=color:#d14>&#34;discovered_interpreter_python&#34;</span>: <span style=color:#d14>&#34;/usr/bin/python3.7&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#000;font-weight:700>}</span>,
+</span></span><span style=display:flex><span>    <span style=color:#d14>&#34;changed&#34;</span>: true,
+</span></span><span style=display:flex><span>    <span style=color:#d14>&#34;checksum&#34;</span>: <span style=color:#d14>&#34;5598835566f55c1a785892d9e4e7868179987ed3&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#d14>&#34;dest&#34;</span>: <span style=color:#d14>&#34;/opt/jdk-8u151-linux-x64.tar.gz&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#d14>&#34;gid&#34;</span>: 0,
+</span></span><span style=display:flex><span>    <span style=color:#d14>&#34;group&#34;</span>: <span style=color:#d14>&#34;root&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#d14>&#34;md5sum&#34;</span>: <span style=color:#d14>&#34;774d8cb584d9ebedef8eba9ee2dfe113&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#d14>&#34;mode&#34;</span>: <span style=color:#d14>&#34;0644&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#d14>&#34;owner&#34;</span>: <span style=color:#d14>&#34;root&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#d14>&#34;size&#34;</span>: 189736377,
+</span></span><span style=display:flex><span>    <span style=color:#d14>&#34;src&#34;</span>: <span style=color:#d14>&#34;/root/.ansible/tmp/ansible-tmp-1733729480.176511-128929210165902/source&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#d14>&#34;state&#34;</span>: <span style=color:#d14>&#34;file&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#d14>&#34;uid&#34;</span>: <span style=color:#099>0</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>检查被控端对应目录下有没有文件</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-ops-81 opt<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># ansible jxbusi -m shell -a &#34;ls /opt&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>WARNING<span style=color:#000;font-weight:700>]</span>: Platform linux on host 10.10.10.21 is using the discovered Python interpreter at /usr/bin/python3.7, but future installation of another Python interpreter
+</span></span><span style=display:flex><span>could change this. See https://docs.ansible.com/ansible/2.8/reference_appendices/interpreter_discovery.html <span style=color:#000;font-weight:700>for</span> more information.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>10.10.10.21 | CHANGED | <span style=color:teal>rc</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>0</span> &gt;&gt;
+</span></span><span style=display:flex><span>jdk-8u151-linux-x64.tar.gz
+</span></span><span style=display:flex><span>kylin-sm-package
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>WARNING<span style=color:#000;font-weight:700>]</span>: Platform linux on host 10.10.10.22 is using the discovered Python interpreter at /usr/bin/python3.7, but future installation of another Python interpreter
+</span></span><span style=display:flex><span>could change this. See https://docs.ansible.com/ansible/2.8/reference_appendices/interpreter_discovery.html <span style=color:#000;font-weight:700>for</span> more information.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>10.10.10.22 | CHANGED | <span style=color:teal>rc</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>0</span> &gt;&gt;
+</span></span><span style=display:flex><span>jdk-8u151-linux-x64.tar.gz
+</span></span><span style=display:flex><span>kylin-sm-package
+</span></span></code></pre></td></tr></table></div></div><p>解压被控端压缩包，并再次查看解压成功了没</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#998;font-style:italic># ansible jxbusi -m shell -a &#34;tar -xvf /opt/jdk-8u151-linux-x64.tar.gz -C /opt&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-ops-81 opt<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># ansible jxbusi -m shell -a &#34;ls /opt&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>WARNING<span style=color:#000;font-weight:700>]</span>: Platform linux on host 10.10.10.21 is using the discovered Python interpreter at /usr/bin/python3.7, but future installation of another Python interpreter
+</span></span><span style=display:flex><span>could change this. See https://docs.ansible.com/ansible/2.8/reference_appendices/interpreter_discovery.html <span style=color:#000;font-weight:700>for</span> more information.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>10.10.10.21 | CHANGED | <span style=color:teal>rc</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>0</span> &gt;&gt;
+</span></span><span style=display:flex><span>jdk1.8.0_151
+</span></span><span style=display:flex><span>jdk-8u151-linux-x64.tar.gz
+</span></span><span style=display:flex><span>kylin-sm-package
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>WARNING<span style=color:#000;font-weight:700>]</span>: Platform linux on host 10.10.10.22 is using the discovered Python interpreter at /usr/bin/python3.7, but future installation of another Python interpreter
+</span></span><span style=display:flex><span>could change this. See https://docs.ansible.com/ansible/2.8/reference_appendices/interpreter_discovery.html <span style=color:#000;font-weight:700>for</span> more information.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>10.10.10.22 | CHANGED | <span style=color:teal>rc</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>0</span> &gt;&gt;
+</span></span><span style=display:flex><span>jdk1.8.0_151
+</span></span><span style=display:flex><span>jdk-8u151-linux-x64.tar.gz
+</span></span><span style=display:flex><span>kylin-sm-package
+</span></span></code></pre></td></tr></table></div></div><p>被控端tomcat安装过程也是这样，最后被控端21 21 /opt目录内文件</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-ops-81 opt<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># ansible jxbusi -m shell -a &#34;ls /opt&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>WARNING<span style=color:#000;font-weight:700>]</span>: Platform linux on host 10.10.10.21 is using the discovered Python interpreter at /usr/bin/python3.7, but future installation of another Python interpreter
+</span></span><span style=display:flex><span>could change this. See https://docs.ansible.com/ansible/2.8/reference_appendices/interpreter_discovery.html <span style=color:#000;font-weight:700>for</span> more information.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>10.10.10.21 | CHANGED | <span style=color:teal>rc</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>0</span> &gt;&gt;
+</span></span><span style=display:flex><span>jdk1.8.0_151
+</span></span><span style=display:flex><span>jdk-8u151-linux-x64.tar.gz
+</span></span><span style=display:flex><span>kylin-sm-package
+</span></span><span style=display:flex><span>tomcat8
+</span></span><span style=display:flex><span>tomcat8-cgi.tar.gz
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>WARNING<span style=color:#000;font-weight:700>]</span>: Platform linux on host 10.10.10.22 is using the discovered Python interpreter at /usr/bin/python3.7, but future installation of another Python interpreter
+</span></span><span style=display:flex><span>could change this. See https://docs.ansible.com/ansible/2.8/reference_appendices/interpreter_discovery.html <span style=color:#000;font-weight:700>for</span> more information.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>10.10.10.22 | CHANGED | <span style=color:teal>rc</span><span style=color:#000;font-weight:700>=</span><span style=color:#099>0</span> &gt;&gt;
+</span></span><span style=display:flex><span>jdk1.8.0_151
+</span></span><span style=display:flex><span>jdk-8u151-linux-x64.tar.gz
+</span></span><span style=display:flex><span>kylin-sm-package
+</span></span><span style=display:flex><span>tomcat8
+</span></span><span style=display:flex><span>tomcat8-cgi.tar.gz
+</span></span></code></pre></td></tr></table></div></div><p>下面配置被控端环境变量：</p><p>最简单的方法先查看21 22 上环境变量，然后在本地编辑好文件后再统一替换被控端的文件。</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-ops-81 opt<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># ansible jxbusi -m shell -a &#34;cat /etc/profile&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-ops-81 opt<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># ansible jxbusi -m copy -a &#34;src=/opt/aa dest=/etc/profile&#34;</span>
+</span></span></code></pre></td></tr></table></div></div><p>其实添加了这两行</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#0086b3>export</span> <span style=color:teal>JAVA_HOME</span><span style=color:#000;font-weight:700>=</span>/opt/jdk1.8.0_151
+</span></span><span style=display:flex><span><span style=color:#0086b3>export</span> <span style=color:teal>PATH</span><span style=color:#000;font-weight:700>=</span><span style=color:teal>$PATH</span>:<span style=color:teal>$JAVA_HOME</span>/bin
+</span></span></code></pre></td></tr></table></div></div><p>使用ansible执行部署脚本，批量部署业务，开启业务。</p><p>脚本pro.sh</p><p>注意：脚本中需要写环境变量。不然脚本不会执行成功。</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">35
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span><span style=color:#999;font-weight:700;font-style:italic>#!/bin/bash
+</span></span></span><span style=display:flex><span><span style=color:#999;font-weight:700;font-style:italic></span>  
+</span></span><span style=display:flex><span><span style=color:#0086b3>export</span> <span style=color:teal>JAVA_HOME</span><span style=color:#000;font-weight:700>=</span>/opt/jdk1.8.0_151
+</span></span><span style=display:flex><span><span style=color:#0086b3>export</span> <span style=color:teal>PATH</span><span style=color:#000;font-weight:700>=</span><span style=color:teal>$PATH</span>:<span style=color:teal>$JAVA_HOME</span>/bin
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 结束java进程</span>
+</span></span><span style=display:flex><span>killall java
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 删除旧war包</span>
+</span></span><span style=display:flex><span>rm  /opt/tomcat8/webapps/ROOT/* -rf
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 更新war包</span>
+</span></span><span style=display:flex><span>curl http://10.10.10.81:88/virstu.war -o /opt/tomcat8/webapps/ROOT.war
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#循环等待80端口释放</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>while</span> true; <span style=color:#000;font-weight:700>do</span>
+</span></span><span style=display:flex><span> <span style=color:teal>have</span><span style=color:#000;font-weight:700>=</span><span style=color:#000;font-weight:700>$(</span>netstat -anp | grep <span style=color:#099>80</span> -w<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span> <span style=color:#000;font-weight:700>if</span> <span style=color:#000;font-weight:700>[</span> -n <span style=color:#d14>&#34;</span><span style=color:teal>$have</span><span style=color:#d14>&#34;</span> <span style=color:#000;font-weight:700>]</span>; <span style=color:#000;font-weight:700>then</span>
+</span></span><span style=display:flex><span>  sleep <span style=color:#099>2</span>
+</span></span><span style=display:flex><span> <span style=color:#000;font-weight:700>else</span>
+</span></span><span style=display:flex><span>  <span style=color:#0086b3>break</span>
+</span></span><span style=display:flex><span> <span style=color:#000;font-weight:700>fi</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>done</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 启动tomcat</span>
+</span></span><span style=display:flex><span>nohup /opt/tomcat8/bin/startup.sh &amp;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 测试访问</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 一直循环访问，直到访问成功，脚本退出</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 访问成功是：$?环境变量的值为0</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>while</span> true; <span style=color:#000;font-weight:700>do</span>
+</span></span><span style=display:flex><span> curl 127.0.0.1/a.html
+</span></span><span style=display:flex><span> <span style=color:#000;font-weight:700>if</span> <span style=color:#000;font-weight:700>[</span> <span style=color:teal>$?</span> -eq <span style=color:#099>0</span> <span style=color:#000;font-weight:700>]</span>; <span style=color:#000;font-weight:700>then</span>
+</span></span><span style=display:flex><span>  <span style=color:#0086b3>break</span>
+</span></span><span style=display:flex><span> <span style=color:#000;font-weight:700>fi</span>
+</span></span><span style=display:flex><span> sleep <span style=color:#099>3</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>done</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#0086b3>echo</span> <span style=color:#d14>&#34;deploy done...&#34;</span>
+</span></span></code></pre></td></tr></table></div></div><p>由于脚本文件中使用curl下载我们本地服务器（81）的一个文件，我们需要在81的/root/jx1206/target目录内开启http文件共享，以此目录为根目录将文件共享出去可以使用python来实现。</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>n
+</span></span></code></pre></td></tr></table></div></div><p>开启后在控制端(81)执行脚本：</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-ops-81 jx1206<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># ansible jxbusi -m script -a &#34;/opt/jx1206/pro.sh&#34; </span>
+</span></span></code></pre></td></tr></table></div></div><p>执行成功后，可以测试业务是否部署、启动成功。</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-ops-81 target<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># curl 10.10.10.21/a.html </span>
+</span></span><span style=display:flex><span>&lt;p&gt;ffffffffff&lt;/p&gt;
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-ops-81 target<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># curl 10.10.10.22/a.html </span>
+</span></span><span style=display:flex><span>&lt;p&gt;ffffffffff&lt;/p&gt;
+</span></span></code></pre></td></tr></table></div></div><h2 id=三nginx负载均衡>三、Nginx负载均衡</h2><p>我们在访问应用的时候往往需要一台负载均衡服务器来实现业务的分流。我们可以在21 、22 前面搭建一台nginx负载均衡服务器，所有的请求都由这台服务器来分配。我们还是从71上链接克隆一台服务器jx-nginx-11。</p><p>部署方式：编译安装Nginx</p><p>下载Nginx源码文件并解压</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>curl -o nginx.tar.gz https://nginx.org/download/nginx-1.24.0.tar.gz
+</span></span><span style=display:flex><span>tar -xvf nginx.tar.gz
+</span></span></code></pre></td></tr></table></div></div><p>进入文件夹测试编译环境</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">9
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-nginx-11 opt<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># cd nginx-1.24.0/</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-nginx-11 nginx-1.24.0<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># ls</span>
+</span></span><span style=display:flex><span>auto  CHANGES  CHANGES.ru  conf  configure  contrib  html  LICENSE  man  README  src
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-nginx-11 nginx-1.24.0<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># ./configure </span>
+</span></span><span style=display:flex><span>checking <span style=color:#000;font-weight:700>for</span> OS
+</span></span><span style=display:flex><span> + Linux 4.19.90-52.22.v2207.ky10.x86_64 x86_64
+</span></span><span style=display:flex><span>checking <span style=color:#000;font-weight:700>for</span> C compiler ... not found
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>./configure: error: C compiler cc is not found
+</span></span></code></pre></td></tr></table></div></div><p>系统缺少gcc编译器，yum安装下</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>yum install gcc -y
+</span></span></code></pre></td></tr></table></div></div><p>再次检查环境发现缺少PCRE library 库。</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-nginx-11 nginx-1.24.0<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># ./configure</span>
+</span></span></code></pre></td></tr></table></div></div><p>安装库文件</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-nginx-11 nginx-1.24.0<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># yum install pcre2-devel -y</span>
+</span></span></code></pre></td></tr></table></div></div><p>这里说下查询方式：</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-nginx-11 nginx-1.24.0<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># yum provides &#34;*pcre*&#34;</span>
+</span></span></code></pre></td></tr></table></div></div><p>安装后再次检查环境，发现还少zlib library。</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-nginx-11 nginx-1.24.0<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># ./configure</span>
+</span></span><span style=display:flex><span>./configure: error: the HTTP gzip module requires the zlib library.
+</span></span><span style=display:flex><span>You can either disable the module by using --without-http_gzip_module
+</span></span><span style=display:flex><span>option, or install the zlib library into the system, or build the zlib library
+</span></span><span style=display:flex><span>statically from the <span style=color:#0086b3>source</span> with nginx by using --with-zlib<span style=color:#000;font-weight:700>=</span>&lt;path&gt; option.
+</span></span></code></pre></td></tr></table></div></div><p>继续安装库文件：</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-nginx-11 nginx-1.24.0<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># yum install zlib-devel -y</span>
+</span></span></code></pre></td></tr></table></div></div><p>再次检查编译环境</p><p>当文件夹出现Makefile文件时，说明预编译环境已经完成。</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-nginx-11 nginx-1.24.0<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># ls</span>
+</span></span><span style=display:flex><span>auto  CHANGES  CHANGES.ru  conf  configure  contrib  html  LICENSE  Makefile  man  objs  README  src
+</span></span></code></pre></td></tr></table></div></div><p>开始编译，make命令没找到，安装下</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-nginx-11 nginx-1.24.0<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># make </span>
+</span></span><span style=display:flex><span>-bash: make: <span style=color:#0086b3>command</span> not found
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-nginx-11 nginx-1.24.0<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># yum install make -y</span>
+</span></span></code></pre></td></tr></table></div></div><p>再次执行make。当出现以下内容说明编译成功。</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">9
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>objs/ngx_modules.o <span style=color:#d14>\
+</span></span></span><span style=display:flex><span><span style=color:#d14></span>-ldl -lpthread -lcrypt -lpcre2-8 -lz <span style=color:#d14>\
+</span></span></span><span style=display:flex><span><span style=color:#d14></span>-Wl,-E
+</span></span><span style=display:flex><span>sed -e <span style=color:#d14>&#34;s|%%PREFIX%%|/usr/local/nginx|&#34;</span> <span style=color:#d14>\
+</span></span></span><span style=display:flex><span><span style=color:#d14></span>	-e <span style=color:#d14>&#34;s|%%PID_PATH%%|/usr/local/nginx/logs/nginx.pid|&#34;</span> <span style=color:#d14>\
+</span></span></span><span style=display:flex><span><span style=color:#d14></span>	-e <span style=color:#d14>&#34;s|%%CONF_PATH%%|/usr/local/nginx/conf/nginx.conf|&#34;</span> <span style=color:#d14>\
+</span></span></span><span style=display:flex><span><span style=color:#d14></span>	-e <span style=color:#d14>&#34;s|%%ERROR_LOG_PATH%%|/usr/local/nginx/logs/error.log|&#34;</span> <span style=color:#d14>\
+</span></span></span><span style=display:flex><span><span style=color:#d14></span>	&lt; man/nginx.8 &gt; objs/nginx.8
+</span></span><span style=display:flex><span>make<span style=color:#000;font-weight:700>[</span>1<span style=color:#000;font-weight:700>]</span>: Leaving directory <span style=color:#d14>&#39;/opt/nginx-1.24.0&#39;</span>
+</span></span></code></pre></td></tr></table></div></div><p>开始安装：</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-nginx-11 nginx-1.24.0<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># make install </span>
+</span></span><span style=display:flex><span>make -f objs/Makefile install
+</span></span></code></pre></td></tr></table></div></div><p>注意：它是根据Makefile 文件中内容安装的。</p><p>编译完成后</p><p>它的执行文件在：/usr/local/nginx/sbin</p><p>配置文件在：/usr/local/nginx/conf</p><p>开始配置我们的负载均衡：</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">40
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>vim /usr/local/nginx/conf/nginx.conf
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#user  nobody;</span>
+</span></span><span style=display:flex><span>worker_processes  2;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#error_log  logs/error.log;</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#error_log  logs/error.log  notice;</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#error_log  logs/error.log  info;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#pid        logs/nginx.pid;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>events <span style=color:#000;font-weight:700>{</span>
+</span></span><span style=display:flex><span>    worker_connections  65535;
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>http <span style=color:#000;font-weight:700>{</span>
+</span></span><span style=display:flex><span>    include       mime.types;
+</span></span><span style=display:flex><span>    default_type  application/octet-stream;
+</span></span><span style=display:flex><span>    sendfile        on;
+</span></span><span style=display:flex><span>    <span style=color:#998;font-style:italic>#tcp_nopush     on;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#998;font-style:italic>#keepalive_timeout  0;</span>
+</span></span><span style=display:flex><span>    keepalive_timeout  65;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#998;font-style:italic>#gzip  on;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    upstream jxbusi <span style=color:#000;font-weight:700>{</span>
+</span></span><span style=display:flex><span>        server 10.10.10.21:80;
+</span></span><span style=display:flex><span>        server 10.10.10.22:80;
+</span></span><span style=display:flex><span>    <span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>    server <span style=color:#000;font-weight:700>{</span>
+</span></span><span style=display:flex><span>        listen       80;
+</span></span><span style=display:flex><span>        server_name  _;
+</span></span><span style=display:flex><span>        location / <span style=color:#000;font-weight:700>{</span>
+</span></span><span style=display:flex><span>                proxy_pass http://jxbusi;
+</span></span><span style=display:flex><span>        <span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>     <span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>启动nginx:</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">7
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-nginx-11 conf<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># /usr/local/nginx/sbin/nginx </span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-nginx-11 conf<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># ps aux | grep nginx </span>
+</span></span><span style=display:flex><span>root        <span style=color:#099>6892</span>  0.0  0.0   <span style=color:#099>4436</span>   <span style=color:#099>396</span> ?        Ss   19:11   0:00 nginx: master process /usr/local/nginx/sbin/nginx
+</span></span><span style=display:flex><span>nobody      <span style=color:#099>6893</span>  0.1  1.4  <span style=color:#099>31660</span> <span style=color:#099>29316</span> ?        S    19:11   0:00 nginx: worker process
+</span></span><span style=display:flex><span>nobody      <span style=color:#099>6894</span>  0.0  1.4  <span style=color:#099>31660</span> <span style=color:#099>29316</span> ?        S    19:11   0:00 nginx: worker process
+</span></span><span style=display:flex><span>root        <span style=color:#099>6896</span>  0.0  0.0 <span style=color:#099>213136</span>   <span style=color:#099>892</span> pts/0    S+   19:12   0:00 grep nginx
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-nginx-11 conf<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># </span>
+</span></span></code></pre></td></tr></table></div></div><p>测试：</p><p>可以在网关服务器（254）上发起请求，然后在nginx服务器（11）上抓80 包。多请求几次，可以看到11到后端21和22轮询。</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-gateway-254 opt<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># curl 10.10.10.11/cgi-bin/a.sh </span>
+</span></span><span style=display:flex><span>aaaaaaaaaaaaaaa
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-nginx-11 ~<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># tcpdump -i enp0s3 -p port 80 -vv -nn </span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=四部署新项目>四、部署新项目</h2><p>整体部署及访问流程</p><p>我们将项目部署在应用服务器（21、22）上，项目需要访问数据库服务器（36），将sql语句在数据库服务器上执行。我们从笔记本访问到nginx（11）负载均衡，它会自动选择应用服务器，登录的时候会将请求发送到mysql服务器。MySQL服务器收到请求后，在做出回应。</p><p>将试验项目拉至运维服务器(81)上</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>git clone https://gitee.com/laoyang103/jxsy.git
+</span></span></code></pre></td></tr></table></div></div><p>先安装依赖</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-ops-81 jxsy<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># cat doc/qdcloud.sh  | grep jar </span>
+</span></span><span style=display:flex><span>mvn install:install-file -Dfile<span style=color:#000;font-weight:700>=</span>lib/tangyuan-0.9.0.jar -DgroupId<span style=color:#000;font-weight:700>=</span>org.xson -DartifactId<span style=color:#000;font-weight:700>=</span>tangyuan -Dversion<span style=color:#000;font-weight:700>=</span>0.9.0 -Dpackaging<span style=color:#000;font-weight:700>=</span>jar
+</span></span><span style=display:flex><span>mvn install:install-file -Dfile<span style=color:#000;font-weight:700>=</span>lib/rpc-util-1.0.jar -DgroupId<span style=color:#000;font-weight:700>=</span>cn.gatherlife -DartifactId<span style=color:#000;font-weight:700>=</span>rpc-util -Dversion<span style=color:#000;font-weight:700>=</span>1.0 -Dpackaging<span style=color:#000;font-weight:700>=</span>jar
+</span></span><span style=display:flex><span>mvn install:install-file -Dfile<span style=color:#000;font-weight:700>=</span>lib/patchca-0.5.0-SNAPSHOT.jar -DgroupId<span style=color:#000;font-weight:700>=</span>net.pusuo -DartifactId<span style=color:#000;font-weight:700>=</span>patchca -Dversion<span style=color:#000;font-weight:700>=</span>0.5.0-SNAPSHOT -Dpackaging<span style=color:#000;font-weight:700>=</span>jar
+</span></span><span style=display:flex><span>mvn install:install-file -Dfile<span style=color:#000;font-weight:700>=</span>lib/common-object-0.0.1-SNAPSHOT.jar -DgroupId<span style=color:#000;font-weight:700>=</span>org.xson -DartifactId<span style=color:#000;font-weight:700>=</span>common-object -Dversion<span style=color:#000;font-weight:700>=</span>0.0.1-SNAPSHOT -Dpackaging<span style=color:#000;font-weight:700>=</span>jar
+</span></span></code></pre></td></tr></table></div></div><p>打包</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-ops-81 jxsy<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># cat doc/qdcloud.sh  | grep package</span>
+</span></span><span style=display:flex><span>mvn package -Dmaven.test.skip<span style=color:#000;font-weight:700>=</span><span style=color:#0086b3>true</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-ops-81 jxsy<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># mvn package -Dmaven.test.skip=true</span>
+</span></span></code></pre></td></tr></table></div></div><p>我们要访问的应用涉及到数据库的查询，所以要先找到那张表，过滤出路径上传到mysql数据库（36）.</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>root@jx-ops-81 jxsy<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># cat doc/jxcms.sql | grep CREATE | wc -l </span>
+</span></span><span style=display:flex><span><span style=color:#099>29</span>
+</span></span><span style=display:flex><span>将表上传到数据库36上
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-ops-81 jxsy<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># scp doc/jxcms.sql root@10.10.10.36:/root</span>
+</span></span></code></pre></td></tr></table></div></div><p>登录数据库并创建jxsy库。</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-mysql-master-36 ~<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># mysql -uroot -p123456 </span>
+</span></span><span style=display:flex><span>Welcome to the MariaDB monitor.  Commands end with ; or <span style=color:#d14>\g</span>.
+</span></span><span style=display:flex><span>Your MariaDB connection id is <span style=color:#099>9</span>
+</span></span><span style=display:flex><span>Server version: 10.3.39-MariaDB-log MariaDB Server
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Copyright <span style=color:#000;font-weight:700>(</span>c<span style=color:#000;font-weight:700>)</span> 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Type <span style=color:#d14>&#39;help;&#39;</span> or <span style=color:#d14>&#39;\h&#39;</span> <span style=color:#000;font-weight:700>for</span> help. Type <span style=color:#d14>&#39;\c&#39;</span> to clear the current input statement.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>MariaDB <span style=color:#000;font-weight:700>[(</span>none<span style=color:#000;font-weight:700>)]</span>&gt; create database jxsy;
+</span></span></code></pre></td></tr></table></div></div><p>将表导入jxsy数据库</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-mysql-master-36 ~<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># mysql -uroot -p123456 jxsy &lt; jxcms.sql</span>
+</span></span></code></pre></td></tr></table></div></div><p>更改nginx服务器（11）负载均衡配置。</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">41
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">42
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">43
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">44
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">45
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">46
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">47
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">48
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">49
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">50
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">51
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>vim /usr/local/nginx/conf/nginx.conf
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-nginx-11 conf<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># cat  nginx.conf</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#user  nobody;</span>
+</span></span><span style=display:flex><span>worker_processes  2;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#error_log  logs/error.log;</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#error_log  logs/error.log  notice;</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#error_log  logs/error.log  info;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#pid        logs/nginx.pid;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>events <span style=color:#000;font-weight:700>{</span>
+</span></span><span style=display:flex><span>    worker_connections  65535;
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>http <span style=color:#000;font-weight:700>{</span>
+</span></span><span style=display:flex><span>    include       mime.types;
+</span></span><span style=display:flex><span>    default_type  application/octet-stream;
+</span></span><span style=display:flex><span>    sendfile        on;
+</span></span><span style=display:flex><span>    <span style=color:#998;font-style:italic>#tcp_nopush     on;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#998;font-style:italic>#keepalive_timeout  0;</span>
+</span></span><span style=display:flex><span>    keepalive_timeout  65;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#998;font-style:italic>#gzip  on;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    upstream jxsy <span style=color:#000;font-weight:700>{</span>
+</span></span><span style=display:flex><span>        server 10.10.10.21:81;
+</span></span><span style=display:flex><span>        server 10.10.10.22:81;
+</span></span><span style=display:flex><span>    <span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>    server <span style=color:#000;font-weight:700>{</span>
+</span></span><span style=display:flex><span>        listen       80;
+</span></span><span style=display:flex><span>        server_name  jxsy.jxit.net.cn;
+</span></span><span style=display:flex><span>        location / <span style=color:#000;font-weight:700>{</span>
+</span></span><span style=display:flex><span>		proxy_pass http://jxsy;
+</span></span><span style=display:flex><span>        <span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>     <span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>    upstream jxbusi <span style=color:#000;font-weight:700>{</span>
+</span></span><span style=display:flex><span>        server 10.10.10.21:80;
+</span></span><span style=display:flex><span>        server 10.10.10.22:80;
+</span></span><span style=display:flex><span>    <span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>    server <span style=color:#000;font-weight:700>{</span>
+</span></span><span style=display:flex><span>        listen       80;
+</span></span><span style=display:flex><span>        server_name  jxcms.jxit.net.cn;
+</span></span><span style=display:flex><span>        location / <span style=color:#000;font-weight:700>{</span>
+</span></span><span style=display:flex><span>                proxy_pass http://jxbusi;
+</span></span><span style=display:flex><span>        <span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>重新加载nginx</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-nginx-11 conf<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># /usr/local/nginx/sbin/nginx -s reload </span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-nginx-11 conf<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># ps -ef | grep nginx </span>
+</span></span><span style=display:flex><span>root         <span style=color:#099>777</span>       <span style=color:#099>1</span>  <span style=color:#099>0</span> 17:17 ?        00:00:00 nginx: master process /usr/local/nginx/sbin/nginx
+</span></span><span style=display:flex><span>nobody      <span style=color:#099>1516</span>     <span style=color:#099>777</span>  <span style=color:#099>0</span> 17:58 ?        00:00:00 nginx: worker process
+</span></span><span style=display:flex><span>nobody      <span style=color:#099>1517</span>     <span style=color:#099>777</span>  <span style=color:#099>0</span> 17:58 ?        00:00:00 nginx: worker process
+</span></span><span style=display:flex><span>root        <span style=color:#099>1519</span>    <span style=color:#099>1437</span>  <span style=color:#099>0</span> 17:58 pts/0    00:00:00 grep nginx
+</span></span></code></pre></td></tr></table></div></div><p>运维服务器上找到项目中关于mysql的配置文件</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-ops-81 jxsy<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># grep mysql -rwn | grep -v target</span>
+</span></span></code></pre></td></tr></table></div></div><p>更改关于mysql连接的配置：</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-ops-81 jxsy<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># vim src/main/resources/tangyuan-configuration.xml</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        &lt;property <span style=color:teal>name</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#34;username&#34;</span> <span style=color:teal>value</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#34;jxadmin&#34;</span>/&gt;
+</span></span><span style=display:flex><span>        &lt;property <span style=color:teal>name</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#34;password&#34;</span> <span style=color:teal>value</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#34;123456&#34;</span>/&gt;
+</span></span><span style=display:flex><span>        &lt;property <span style=color:teal>name</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#34;url&#34;</span> <span style=color:teal>value</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#34;jdbc:mysql://10.10.10.36:3306/jxsy?Unicode=true&amp;amp;characterEncoding=utf8&#34;</span>/&gt;
+</span></span></code></pre></td></tr></table></div></div><p>再重新打包生成war包</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-ops-81 jxsy<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># mvn package -Dmaven.test.skip=true</span>
+</span></span></code></pre></td></tr></table></div></div><p>将包拷贝给应用服务器21，在21上部署业务。确保我们/data/tomcat8/webapps这个目录内没有任何文件，然后将qdcloud.war拷贝到webapps目录。</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-ops-81 jxsy<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># scp target/qdcloud.war  root@10.10.10.21:/tmp</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-busi-21 webapps<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># /data/tomcat8/bin/startup.sh </span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-busi-21 webapps<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># ls </span>
+</span></span><span style=display:flex><span>ROOT  ROOT.war
+</span></span></code></pre></td></tr></table></div></div><p>我们需要做一条映射。</p><p>127.0.0.1 80 -》 网关服务器（254）80 -》 nginx(80)-》应用服务器21（81）、应用服务器22（81）.</p><p>然后我们配置域名http://jxsy.jxit.net.cn/和127.0.0.1映射。在windows 的hosts文件中配置。</p><p>之后我们就可以使用http://jxsy.jxit.net.cn来访问服务了。</p><p>网关服务器上的映射规则</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>iptables -t nat -A PREROUTING -d 10.0.3.15/32 -p tcp -m tcp --dport <span style=color:#099>80</span> -j DNAT --to-destination 10.10.10.11:80
+</span></span></code></pre></td></tr></table></div></div><p>windows上hosts文件映射，从笔记本上pingjxsy.jxit.net.cn,返回地址是127.0.0.1，说明映射成功了。</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>127.0.0.1 jxsy.jxit.net.cn
+</span></span></code></pre></td></tr></table></div></div><p>登录测试：</p><p><a href=http://jxsy.jxit.net.cn/>http://jxsy.jxit.net.cn/</a></p><p>jx00000003/123456</p><p>登陆后提示验证码错误，这是由于nginx负载均衡算法导致的，我们需要保证来自相同 IP 地址的请求总是转发到相同的后端服务器，从而实现会话保持。这样相同客户端每次请求都会转给同一台后端服务器。</p><p>更改nginx.conf配置，添加ip_hash参数。</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">41
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">42
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">43
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">44
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">45
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">46
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">47
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">48
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">49
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">50
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">51
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">52
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">53
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">54
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">55
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>vim /usr/local/nginx/conf/nginx.conf
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-nginx-11 conf<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># cat  nginx.conf</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#user  nobody;</span>
+</span></span><span style=display:flex><span>worker_processes  2;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#error_log  logs/error.log;</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#error_log  logs/error.log  notice;</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#error_log  logs/error.log  info;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#pid        logs/nginx.pid;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>events <span style=color:#000;font-weight:700>{</span>
+</span></span><span style=display:flex><span>    worker_connections  65535;
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>http <span style=color:#000;font-weight:700>{</span>
+</span></span><span style=display:flex><span>    include       mime.types;
+</span></span><span style=display:flex><span>    default_type  application/octet-stream;
+</span></span><span style=display:flex><span>    sendfile        on;
+</span></span><span style=display:flex><span>    <span style=color:#998;font-style:italic>#tcp_nopush     on;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#998;font-style:italic>#keepalive_timeout  0;</span>
+</span></span><span style=display:flex><span>    keepalive_timeout  65;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#998;font-style:italic>#gzip  on;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    upstream jxsy <span style=color:#000;font-weight:700>{</span>
+</span></span><span style=display:flex><span>        server 10.10.10.21:81;
+</span></span><span style=display:flex><span>        server 10.10.10.22:81;
+</span></span><span style=display:flex><span>        ip_hash;
+</span></span><span style=display:flex><span>    <span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>    server <span style=color:#000;font-weight:700>{</span>
+</span></span><span style=display:flex><span>        listen       80;
+</span></span><span style=display:flex><span>        server_name  jxsy.jxit.net.cn;
+</span></span><span style=display:flex><span>        location / <span style=color:#000;font-weight:700>{</span>
+</span></span><span style=display:flex><span>		proxy_pass http://jxsy;
+</span></span><span style=display:flex><span>        <span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>     <span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>    upstream jxbusi <span style=color:#000;font-weight:700>{</span>
+</span></span><span style=display:flex><span>        server 10.10.10.21:80;
+</span></span><span style=display:flex><span>        server 10.10.10.22:80;
+</span></span><span style=display:flex><span>    <span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>    server <span style=color:#000;font-weight:700>{</span>
+</span></span><span style=display:flex><span>        listen       80;
+</span></span><span style=display:flex><span>        server_name  jxcms.jxit.net.cn;
+</span></span><span style=display:flex><span>        location / <span style=color:#000;font-weight:700>{</span>
+</span></span><span style=display:flex><span>                proxy_pass http://jxbusi;
+</span></span><span style=display:flex><span>        <span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>重启nginx服务
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-nginx-11 conf<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># /usr/local/nginx/sbin/nginx -s reload</span>
+</span></span></code></pre></td></tr></table></div></div><p>再次测试发现服务能够正常登录访问了。</p><p>总结：nginx负载均衡常见的几种算法：</p><p>轮询（rr）:第一个请求发送到第一个后端服务器，第二个请求发送到第二个后端服务器。如果有多个请求轮询从头开始，重复分发。</p><p>权重(weight)：允许你为不同的后端服务器设置不同的权重值，数字越大，机会越高。</p><p>哈希(ip_hash)：来自相同 IP 地址的请求总是转发到相同的后端服务器，从而实现会话保持。</p><h2 id=五使用nginx充当war防火墙>五、使用nginx充当war防火墙</h2><p><strong>大文件共享，不限速。</strong></p><p>nginx(11)上定义共享目录/opt/jxdl</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>mkdir -p /opt/jxdl
+</span></span><span style=display:flex><span>vim /usr/local/nginx/conf/nginx.conf
+</span></span><span style=display:flex><span>    server <span style=color:#000;font-weight:700>{</span>
+</span></span><span style=display:flex><span>        listen       80;
+</span></span><span style=display:flex><span>        server_name  jxdl.jxit.net.cn;
+</span></span><span style=display:flex><span>        location / <span style=color:#000;font-weight:700>{</span>
+</span></span><span style=display:flex><span>                autoindex on;
+</span></span><span style=display:flex><span>                root /opt/jxdl;
+</span></span><span style=display:flex><span>        <span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>    <span style=color:#000;font-weight:700>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>重启服务</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-nginx-11 ~<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># /usr/local/nginx/sbin/nginx -s reload </span>
+</span></span></code></pre></td></tr></table></div></div><p>访问http:// jxdl.jxit.net.cn，下载文件测试下载速度很快，此时没有限速。</p><p><strong>大文件共享，限速1k。</strong></p><p>添加：limit_rate 1k;</p><p>重启服务。</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>vim /usr/local/nginx/conf/nginx.conf
+</span></span><span style=display:flex><span>    server <span style=color:#000;font-weight:700>{</span>
+</span></span><span style=display:flex><span>        listen       80;
+</span></span><span style=display:flex><span>        server_name  jxdl.jxit.net.cn;
+</span></span><span style=display:flex><span>        location / <span style=color:#000;font-weight:700>{</span>
+</span></span><span style=display:flex><span>                limit_rate 1k;
+</span></span><span style=display:flex><span>                autoindex on;
+</span></span><span style=display:flex><span>                root /opt/jxdl;
+</span></span><span style=display:flex><span>        <span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>    <span style=color:#000;font-weight:700>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>下载文件发现速度很慢，说明限速生效了。</p><p>我们有时下载文件时，刚开始下载很快，中间开始就变慢了。这个可以在nginx上实现，比如规定文件前50m不限速，50m之后限速1m。</p><p>看配置：</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>vim /usr/local/nginx/conf/nginx.conf
+</span></span><span style=display:flex><span>    server <span style=color:#000;font-weight:700>{</span>
+</span></span><span style=display:flex><span>        listen       80;
+</span></span><span style=display:flex><span>        server_name  jxdl.jxit.net.cn;
+</span></span><span style=display:flex><span>        location / <span style=color:#000;font-weight:700>{</span>
+</span></span><span style=display:flex><span>                limit_rate 1m;
+</span></span><span style=display:flex><span>                limit_rate_after 50m;
+</span></span><span style=display:flex><span>                autoindex on;
+</span></span><span style=display:flex><span>                root /opt/jxdl;
+</span></span><span style=display:flex><span>        <span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>    <span style=color:#000;font-weight:700>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>重启服务。</p><p>重新下载文件观察速度变化。</p><p><strong>还可限制访问资源路径内文件下载频率。</strong></p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>vim /usr/local/nginx/conf/nginx.conf
+</span></span><span style=display:flex><span>    限制每个 IP 地址的请求速率，防止过度请求。
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    limit_req_zone <span style=color:teal>$binary_remote_addr</span> <span style=color:teal>zone</span><span style=color:#000;font-weight:700>=</span>jxlimit:1m <span style=color:teal>rate</span><span style=color:#000;font-weight:700>=</span>1r/s;
+</span></span><span style=display:flex><span>然后在需要限制的资源服务内设置
+</span></span><span style=display:flex><span>    server <span style=color:#000;font-weight:700>{</span>
+</span></span><span style=display:flex><span>        listen       80;
+</span></span><span style=display:flex><span>        server_name  jxcms.jxit.net.cn;
+</span></span><span style=display:flex><span>        location / <span style=color:#000;font-weight:700>{</span>
+</span></span><span style=display:flex><span>                limit_req <span style=color:teal>zone</span><span style=color:#000;font-weight:700>=</span>jxlimit;
+</span></span><span style=display:flex><span>                proxy_pass http://jxbusi;
+</span></span><span style=display:flex><span>        <span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>    <span style=color:#000;font-weight:700>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>这行配置的作用是限制每个 IP 地址在每秒内最多只能发起 1 次请求。如果超过了这个速率，NGINX 将根据 limit_req 配置中的规则处理这些请求（比如返回 503 错误）。这种机制通常用于防止 DoS（拒绝服务）攻击或防止滥用。</p><p>浏览器多次访问资源，发现多次访问后显示503.这样我们就限制了每个IP每次请求资源的次数。</p><p><a href=http://jxcms.jxit.net.cn/a.html>http://jxcms.jxit.net.cn/a.html</a></p><p><strong>nginx还可以限制连接数量。</strong></p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>    limit_conn_zone <span style=color:teal>$binary_remote_addr</span> <span style=color:teal>zone</span><span style=color:#000;font-weight:700>=</span>addr:1m;
+</span></span><span style=display:flex><span>    server <span style=color:#000;font-weight:700>{</span>
+</span></span><span style=display:flex><span>        listen       80;
+</span></span><span style=display:flex><span>        server_name  jxdl.jxit.net.cn;
+</span></span><span style=display:flex><span>        location / <span style=color:#000;font-weight:700>{</span>
+</span></span><span style=display:flex><span>                limit_conn addr 2;
+</span></span><span style=display:flex><span>                limit_rate 1m;
+</span></span><span style=display:flex><span>                limit_rate_after 50m;
+</span></span><span style=display:flex><span>                autoindex on;
+</span></span><span style=display:flex><span>                root /opt/jxdl;
+</span></span><span style=display:flex><span>        <span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>    <span style=color:#000;font-weight:700>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>测试：连续多次下载文件，当数量超过2时，访问失败报错503，说明限制成功了。</p><p>整个试验的nginx配置文件</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">41
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">42
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">43
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">44
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">45
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">46
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">47
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">48
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">49
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">50
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">51
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">52
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">53
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">54
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">55
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">56
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">57
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">58
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">59
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">60
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">61
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">62
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">63
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">64
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">65
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-nginx-11 ~<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># cat /usr/local/nginx/conf/nginx.conf</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#user  nobody;</span>
+</span></span><span style=display:flex><span>worker_processes  2;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#error_log  logs/error.log;</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#error_log  logs/error.log  notice;</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#error_log  logs/error.log  info;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic>#pid        logs/nginx.pid;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>events <span style=color:#000;font-weight:700>{</span>
+</span></span><span style=display:flex><span>    worker_connections  65535;
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>http <span style=color:#000;font-weight:700>{</span>
+</span></span><span style=display:flex><span>    include       mime.types;
+</span></span><span style=display:flex><span>    default_type  application/octet-stream;
+</span></span><span style=display:flex><span>    sendfile        on;
+</span></span><span style=display:flex><span>    <span style=color:#998;font-style:italic>#tcp_nopush     on;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#998;font-style:italic>#keepalive_timeout  0;</span>
+</span></span><span style=display:flex><span>    keepalive_timeout  65;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    limit_req_zone <span style=color:teal>$binary_remote_addr</span> <span style=color:teal>zone</span><span style=color:#000;font-weight:700>=</span>jxlimit:1m <span style=color:teal>rate</span><span style=color:#000;font-weight:700>=</span>1r/s;
+</span></span><span style=display:flex><span>    <span style=color:#998;font-style:italic>#gzip  on;</span>
+</span></span><span style=display:flex><span>    upstream jxsy <span style=color:#000;font-weight:700>{</span>
+</span></span><span style=display:flex><span>        server 10.10.10.21:81;
+</span></span><span style=display:flex><span>        server 10.10.10.22:81;
+</span></span><span style=display:flex><span>        ip_hash;
+</span></span><span style=display:flex><span>    <span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>    server <span style=color:#000;font-weight:700>{</span>
+</span></span><span style=display:flex><span>        listen       80;
+</span></span><span style=display:flex><span>        server_name  jxsy.jxit.net.cn;
+</span></span><span style=display:flex><span>        location / <span style=color:#000;font-weight:700>{</span>
+</span></span><span style=display:flex><span>		proxy_pass http://jxsy;
+</span></span><span style=display:flex><span>        <span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>     <span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>    upstream jxbusi <span style=color:#000;font-weight:700>{</span>
+</span></span><span style=display:flex><span>        server 10.10.10.21:80;
+</span></span><span style=display:flex><span>        server 10.10.10.22:80;
+</span></span><span style=display:flex><span>    <span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>    server <span style=color:#000;font-weight:700>{</span>
+</span></span><span style=display:flex><span>        listen       80;
+</span></span><span style=display:flex><span>        server_name  jxcms.jxit.net.cn;
+</span></span><span style=display:flex><span>        location / <span style=color:#000;font-weight:700>{</span>
+</span></span><span style=display:flex><span>		limit_req <span style=color:teal>zone</span><span style=color:#000;font-weight:700>=</span>jxlimit;
+</span></span><span style=display:flex><span>                proxy_pass http://jxbusi;
+</span></span><span style=display:flex><span>        <span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>    <span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    limit_conn_zone <span style=color:teal>$binary_remote_addr</span> <span style=color:teal>zone</span><span style=color:#000;font-weight:700>=</span>addr:1m;
+</span></span><span style=display:flex><span>    server <span style=color:#000;font-weight:700>{</span>
+</span></span><span style=display:flex><span>        listen       80;
+</span></span><span style=display:flex><span>        server_name  jxdl.jxit.net.cn;
+</span></span><span style=display:flex><span>        location / <span style=color:#000;font-weight:700>{</span>
+</span></span><span style=display:flex><span>		limit_conn addr 2;
+</span></span><span style=display:flex><span>	        limit_rate 1m;
+</span></span><span style=display:flex><span>                limit_rate_after 50m;
+</span></span><span style=display:flex><span>                autoindex on;
+</span></span><span style=display:flex><span>		root /opt/jxdl;
+</span></span><span style=display:flex><span>        <span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span>    <span style=color:#000;font-weight:700>}</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>windows hosts文件</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>127.0.0.1 jxsy.jxit.net.cn
+</span></span><span style=display:flex><span>127.0.0.1 jxcms.jxit.net.cn
+</span></span><span style=display:flex><span>127.0.0.1 jxdl.jxit.net.cn
+</span></span></code></pre></td></tr></table></div></div><p>测试主要访问以下网站测试：</p><p><a href=http://jxcms.jxit.net.cn/a.html>http://jxcms.jxit.net.cn/a.html</a></p><p><a href=http://jxdl.jxit.net.cn>http://jxdl.jxit.net.cn</a></p><p>nginx（11）服务器上/opt/jxdl内放一个大文件即可。</p><p>总结：</p><h3 id=1-limit_conn限制连接数>1. <code>limit_conn</code>（限制连接数）</h3><p><strong>作用：</strong> <code>limit_conn</code> 指令用于限制每个客户端（或每个特定的连接单元）在特定时间内可以打开的最大连接数。</p><p><strong>常见应用：</strong></p><ul><li><p>防止单个客户端（IP 地址）消耗过多的连接资源。</p></li><li><p>减少恶意爬虫或不良行为者的影响。</p></li></ul><h3 id=2-limit_req限制请求频率>2. <code>limit_req</code>（限制请求频率）</h3><p><strong>作用：</strong> <code>limit_req</code> 指令用于限制某个客户端在单位时间内发起的请求数量。这个指令通常用于防止频繁请求对服务器造成的负担，避免请求风暴。</p><p><strong>常见应用：</strong></p><ul><li><p>防止同一客户端进行过高频次的请求（如恶意请求、爬虫等）。</p></li><li><p>保护特定的 API 或网页，避免其被过度请求。</p></li></ul></div></div></div><div id=footer><div class=container-footer><div class=beian><a target=_blank href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode="></a><a href target=_blank><span class=some>icp...<span></a></div><div class=info><a href=https://github.com/loveminimal/hugo-theme-virgo>🕊️</a> 2021 - <span id=info-date></span></div></div></div><div class=cool-after></div></body></html>

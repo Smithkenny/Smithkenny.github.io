@@ -1,0 +1,972 @@
+<!doctype html><html lang=zh-CN><head><meta name=viewport content="width=device-width,initial-scale=1"><meta charset=utf-8><meta name=description content="传统运维技术篇04 - https://www.haipengv.com/posts/%E4%BC%A0%E7%BB%9F%E8%BF%90%E7%BB%B4%E6%8A%80%E6%9C%AF%E7%AF%8704/"><meta name=author content="Smith - https://www.haipengv.com/"><meta name=msvalidate.01 content="B46311949B856F2A7015F366FB3CE878"><title>传统运维技术篇04</title><base target=_self><link rel=icon type=image/png href=/favicon.ico><link rel=stylesheet href=https://www.haipengv.com/style.min.9a0cea23154ac1941e15c25aa2d31b77285a217d2606ec05b55236428cf1c3e6.css><script>const DARK=!1</script><script type=text/javascript src=/main.js defer></script></head><body class=active-animate><div class=cool-before></div><div id=header><div class=container-header><div class=right><h1 class=title>传统运维技术篇04</h1><div id=toc>📜</div></div></div></div><div id=content><div class="container-main container-page"><div class=rel><div class=curtag-desc><a href=https://www.haipengv.com/tags/issue/><img src=/imgs/icons/tag.svg width=16> 相关文章：Issue <sup>18</sup></a></div><div class=curtag-post><div class=curtag-post-item><a href=https://www.haipengv.com/posts/crontab%E6%89%A7%E8%A1%8Cshell%E8%84%9A%E6%9C%AC%E6%8A%A5%E9%94%99/>Crontab执行shell脚本报错</a></div><div class=curtag-post-item><a href=https://www.haipengv.com/posts/dmesg%E6%97%B6%E9%97%B4%E6%98%BE%E7%A4%BA%E9%97%AE%E9%A2%98/>Dmesg时间显示问题</a></div><div class=curtag-post-item><a href=https://www.haipengv.com/posts/idea2023%E6%9B%B4%E6%94%B9maven%E9%BB%98%E8%AE%A4%E4%BB%93%E5%BA%93%E6%BA%90/>Idea2023更改maven默认仓库源</a></div><div class=curtag-post-item><a href=https://www.haipengv.com/posts/idea%E5%A6%82%E4%BD%95%E5%9B%9E%E9%80%80%E5%88%B0%E4%B9%8B%E5%89%8D%E7%9A%84%E5%B7%A5%E7%A8%8B/>Idea如何回退到之前的工程</a></div><div class=curtag-post-item><a href=https://www.haipengv.com/posts/windows%E4%B8%8Bmysql%E5%92%8Cpython3%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B/>Windows下mysql和python3安装过程</a></div><div class=curtag-post-item><a href=https://www.haipengv.com/posts/windows%E7%BB%93%E6%9D%9F%E8%BF%9B%E7%A8%8B/>Windows结束进程</a></div><div class=curtag-post-item><a href=https://www.haipengv.com/posts/%E4%BC%A0%E7%BB%9F%E8%BF%90%E7%BB%B4%E6%8A%80%E6%9C%AF%E7%AF%8701/>传统运维技术篇01</a></div><div class=curtag-post-item><a href=https://www.haipengv.com/posts/%E4%BC%A0%E7%BB%9F%E8%BF%90%E7%BB%B4%E6%8A%80%E6%9C%AF%E7%AF%8702/>传统运维技术篇02</a></div><div class=curtag-post-item><a href=https://www.haipengv.com/posts/%E4%BC%A0%E7%BB%9F%E8%BF%90%E7%BB%B4%E6%8A%80%E6%9C%AF%E7%AF%8703/>传统运维技术篇03</a></div><div class="curtag-post-item curtag-post-item--active"><a href=https://www.haipengv.com/posts/%E4%BC%A0%E7%BB%9F%E8%BF%90%E7%BB%B4%E6%8A%80%E6%9C%AF%E7%AF%8704/>传统运维技术篇04</a></div><div class=curtag-post-item><a href=https://www.haipengv.com/posts/%E4%BC%A0%E7%BB%9F%E8%BF%90%E7%BB%B4%E6%8A%80%E6%9C%AF%E7%AF%8705/>传统运维技术篇05</a></div><div class=curtag-post-item><a href=https://www.haipengv.com/posts/%E4%BC%A0%E7%BB%9F%E8%BF%90%E7%BB%B4%E6%8A%80%E6%9C%AF%E7%AF%8706/>传统运维技术篇06</a></div><div class=curtag-post-item><a href=https://www.haipengv.com/posts/%E4%BC%A0%E7%BB%9F%E8%BF%90%E7%BB%B4%E6%8A%80%E6%9C%AF%E7%AF%8707/>传统运维技术篇07</a></div><div class=curtag-post-item><a href=https://www.haipengv.com/posts/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/>常见问题总结</a></div><div class=curtag-post-item><a href=https://www.haipengv.com/posts/%E5%BF%AB%E9%80%9F%E5%88%A0%E9%99%A4%E5%A4%A7%E9%87%8F%E5%B0%8F%E6%96%87%E4%BB%B6-%E5%A4%9A%E7%A7%8D%E6%96%B9%E5%BC%8F%E9%80%9F%E5%BA%A6%E5%AF%B9%E6%AF%94/>快速删除大量小文件多种方式速度对比</a></div><div class=curtag-post-item><a href=https://www.haipengv.com/posts/%E8%AE%B0%E4%B8%80%E6%AC%A1%E7%94%B1%E4%BA%8Ekswapd0%E8%BF%9B%E7%A8%8B%E5%AF%BC%E8%87%B4%E7%B3%BB%E7%BB%9F%E5%BC%82%E5%B8%B8/>记一次由于kswapd0进程导致系统异常</a></div><div class=curtag-post-item><a href=https://www.haipengv.com/posts/%E9%9D%A2%E8%AF%95%E9%A2%98%E6%95%B4%E7%90%86/>面试题整理</a></div><div class=curtag-post-item><a href=https://www.haipengv.com/posts/%E9%BB%91%E7%BE%A4%E6%99%96%E5%A4%96%E9%83%A8%E8%AE%BF%E9%97%AEfrp%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/>黑群晖外部访问frp搭建过程</a></div></div></div><div class=desc><span><svg t="1656736000388" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="7409" width="12" height="12"><path d="M524.885333 338.986667l-324.522666 324.48c-17.28 15.274667-27.989333 36.693333-29.696 56.234666v133.76l130.730666.085334c22.784-1.621333 43.989333-12.245333 61.013334-31.701334L685.098667 499.2 524.885333 338.986667zM585.258667 278.656l160.170666 160.213333 102.144-102.144a19.712 19.712.0 000-27.861333l-132.48-132.437333a19.456 19.456.0 00-27.605333.0L585.258667 278.613333zM701.312 85.333333c27.946667.0 54.741333 11.136 74.282667 30.848L907.904 248.490667a105.045333 105.045333.0 010 148.565333L424.874667 879.957333C395.050667 914.304 352.768 935.424 304.426667 938.752H85.333333v-42.666667l.128-179.84c3.626667-44.970667 24.576-86.826667 56.448-114.944l485.12-485.034666a104.789333 104.789333.0 0174.24-30.933334z" p-id="7410" fill="#adb5bd"/></svg>2025-03-19&nbsp;&nbsp;&nbsp;<svg t="1656737270708" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="23838" width="11" height="11"><path d="M824.264 95.36c0-23.859 25.043-44.16 48.902-44.16s49.714 20.301 49.714 44.16v190.08c0 23.859-19.054 52.868-42.913 52.868h-190.08c-23.859.0-46.696-25.96-46.696-49.819s22.55-46.249 46.409-46.249h82.025C702.344 175.534 610.22 155.853 512 155.853c-206.775.0-360.398 149.372-360.398 356.147S305.225 870.23 512 870.23c206.775.0 357.467-151.455 357.467-358.23.0-23.859 23.634-50.706 53.413-50.706 29.78.0 49.92 26.847 49.92 50.706.0 254.493-206.307 460.8-460.8 460.8s-460.8-206.307-460.8-460.8C51.2 257.507 257.507 51.2 512 51.2c122.4.0 226.684 33.296 312.264 117.369.358.351.358-24.052.0-73.209z" p-id="23839" fill="#adb5bd"/></svg>
+2025-03-19&nbsp;&nbsp;&nbsp;</span>
+<span><svg t="1656737548689" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="33866" width="12" height="12"><path d="M832.038608 64.662657H192.030028c-70.774903.0-128.089859 57.325793-128.089859 128.03206v446.793671c0 70.7171050000001 57.314956 128.154884 128.089859 128.154884h133.353183a63.940169 63.940169.0 0155.219742 31.576328l76.099638 129.83828c12.358154 21.093031 33.790754 31.626903 55.216129 31.626903s42.832688-10.544709 55.198067-31.619678l76.222461-129.870792a63.940169 63.940169.0 0155.212517-31.551041h133.54103c70.576219.0 127.732228-57.289669 127.732227-127.800865V192.391272c0-70.536482-57.181295-127.728615-127.786414-127.728615zM895.884854 639.842407A63.85347 63.85347.0 01832.092795 703.703103h-133.54103a127.753903 127.753903.0 00-110.349172 63.09847l-76.222461 129.856342a.274545.274545.0 010-.050574h-.032512s-.021675.061411-.032512.061412l-76.1466-129.85273a127.804477 127.804477.0 00-110.385297-63.11292H192.030028A64.207489 64.207489.0 01127.880338 639.488388V192.694717a64.102729 64.102729.0 0164.14969-64.091891h640.00858a63.799284 63.799284.0 0163.846246 63.788446v447.451135z" fill="#adb5bd" p-id="33867"/><path d="M608.154093 288.092004a31.970084 31.970084.0 00-31.970084 31.970085v160.078006L441.53396 300.861976a31.970084 31.970084.0 00-57.531702 19.200113v255.760676a31.970084 31.970084.0 0063.940169.0V415.863969l134.650048 179.274507a31.970084 31.970084.0 0057.531703-19.200113V320.062089a31.970084 31.970084.0 00-31.970085-31.970085z" fill="#adb5bd" p-id="33868"/></svg>5247 字</span>&nbsp;
+<span><svg t="1656737462334" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="32892" width="12" height="12"><path d="M512 74.666667C270.933333 74.666667 74.666667 270.933333 74.666667 512S270.933333 949.333333 512 949.333333 949.333333 753.066667 949.333333 512 753.066667 74.666667 512 74.666667zm0 810.666666C307.2 885.333333 138.666667 716.8 138.666667 512S307.2 138.666667 512 138.666667 885.333333 307.2 885.333333 512 716.8 885.333333 512 885.333333z" p-id="32893" fill="#adb5bd"/><path d="M695.466667 567.466667 544 497.066667V277.333333c0-17.066667-14.933333-32-32-32s-32 14.933333-32 32v238.933334c0 12.8 6.4 23.466667 19.2 29.866666L669.866667 627.2c4.266667 2.133333 8.533333 2.133333 12.8 2.133333 12.8.0 23.466667-6.4 29.866666-19.2 6.4-14.933333.0-34.133333-17.066666-42.666666z" p-id="32894" fill="#adb5bd"/></svg>11 分钟</span><div class=container-ctgtag><div class=taxonomy><div class=tag><a href=/tags/issue>Issue</a></div></div></div></div><div class=toc><div class=container-page-operation><div class=page-operation><div><a href=/><img src=/imgs/icons/home-2.svg alt></a></div><div><a href=/nav><img src=/imgs/icons/iov-navigate-1.svg alt></a></div><div><a href=/wiki><img src=/imgs/icons/wiki.svg alt></a></div><div><a href=/tags><img src=/imgs/icons/treetags.svg alt></a></div><div id=light-dark><a><img src=/imgs/icons/moon2.svg alt></a></div><div><a href=#><img src=/imgs/icons/up2.svg alt></a></div></div></div><nav id=TableOfContents><ul><li><a href=#一试验环境>一、试验环境</a></li><li><a href=#二搭建环境>二、搭建环境</a></li><li><a href=#三所需环境>三、所需环境</a></li><li><a href=#四搭建过程>四、搭建过程</a></li></ul></nav></div><div class=content><p><strong>MYSQL主从搭建</strong></p><h2 id=一试验环境>一、试验环境</h2><p>新搭建两台机器（从71上链接克隆过去）</p><ul><li><p>MYSQL主：jx-mysql-master-36(10.10.10.36/24)</p></li><li><p>MySQL备：jx-mysql-slave-37(10.10.10.37/24)</p></li></ul><h2 id=二搭建环境>二、搭建环境</h2><p>安装数据库</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>yum install -y mariadb-server
+</span></span><span style=display:flex><span>systemctl restart mariadb 
+</span></span></code></pre></td></tr></table></div></div><p>修改密码</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-mysql-master-36 ~<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># mysqladmin  -uroot password 123456</span>
+</span></span></code></pre></td></tr></table></div></div><p>主数据库开启binlog</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-mysql-master-36 ~<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># vim /etc/my.cnf.d/mariadb-server.cnf </span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>mysqld<span style=color:#000;font-weight:700>]</span>
+</span></span><span style=display:flex><span>log-bin<span style=color:#000;font-weight:700>=</span>jx
+</span></span><span style=display:flex><span>server-id<span style=color:#000;font-weight:700>=</span><span style=color:#099>36</span>
+</span></span><span style=display:flex><span><span style=color:teal>binlog_do_db</span><span style=color:#000;font-weight:700>=</span>jxcms
+</span></span></code></pre></td></tr></table></div></div><p>修改完之后需要重启数据库</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>systemctl restart mariadb 
+</span></span></code></pre></td></tr></table></div></div><p>binlog工作过程：</p><p>开启binlog后无论做什么操作，binlog都会增加，Position会一直增加。</p><p><strong>举例说明</strong></p><p>进入数据库，查看binlog状态，重启binlog并记录下此时binlog状态。创建jx_cms数据库，查看binlog状态，删除jx_cms数据库再次查看binlog状态。</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">39
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>MariaDB <span style=color:#000;font-weight:700>[(</span>none<span style=color:#000;font-weight:700>)]</span>&gt; show master status;
+</span></span><span style=display:flex><span>+-----------+----------+--------------+------------------+
+</span></span><span style=display:flex><span>| File      | Position | Binlog_Do_DB | Binlog_Ignore_DB |
+</span></span><span style=display:flex><span>+-----------+----------+--------------+------------------+
+</span></span><span style=display:flex><span>| jx.000002 |      <span style=color:#099>321</span> | jxcms        |                  |
+</span></span><span style=display:flex><span>+-----------+----------+--------------+------------------+
+</span></span><span style=display:flex><span><span style=color:#099>1</span> row in <span style=color:#0086b3>set</span> <span style=color:#000;font-weight:700>(</span>0.000 sec<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>MariaDB <span style=color:#000;font-weight:700>[(</span>none<span style=color:#000;font-weight:700>)]</span>&gt; reset master;
+</span></span><span style=display:flex><span>Query OK, <span style=color:#099>0</span> rows affected <span style=color:#000;font-weight:700>(</span>0.018 sec<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>MariaDB <span style=color:#000;font-weight:700>[(</span>none<span style=color:#000;font-weight:700>)]</span>&gt; show master status;
+</span></span><span style=display:flex><span>+-----------+----------+--------------+------------------+
+</span></span><span style=display:flex><span>| File      | Position | Binlog_Do_DB | Binlog_Ignore_DB |
+</span></span><span style=display:flex><span>+-----------+----------+--------------+------------------+
+</span></span><span style=display:flex><span>| jx.000001 |      <span style=color:#099>321</span> | jxcms        |                  |
+</span></span><span style=display:flex><span>+-----------+----------+--------------+------------------+
+</span></span><span style=display:flex><span><span style=color:#099>1</span> row in <span style=color:#0086b3>set</span> <span style=color:#000;font-weight:700>(</span>0.000 sec<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>MariaDB <span style=color:#000;font-weight:700>[(</span>none<span style=color:#000;font-weight:700>)]</span>&gt; create database jxcms;
+</span></span><span style=display:flex><span>Query OK, <span style=color:#099>1</span> row affected <span style=color:#000;font-weight:700>(</span>0.000 sec<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>MariaDB <span style=color:#000;font-weight:700>[(</span>none<span style=color:#000;font-weight:700>)]</span>&gt; show master status;
+</span></span><span style=display:flex><span>+-----------+----------+--------------+------------------+
+</span></span><span style=display:flex><span>| File      | Position | Binlog_Do_DB | Binlog_Ignore_DB |
+</span></span><span style=display:flex><span>+-----------+----------+--------------+------------------+
+</span></span><span style=display:flex><span>| jx.000001 |      <span style=color:#099>452</span> | jxcms        |                  |
+</span></span><span style=display:flex><span>+-----------+----------+--------------+------------------+
+</span></span><span style=display:flex><span><span style=color:#099>1</span> row in <span style=color:#0086b3>set</span> <span style=color:#000;font-weight:700>(</span>0.000 sec<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>MariaDB <span style=color:#000;font-weight:700>[(</span>none<span style=color:#000;font-weight:700>)]</span>&gt; drop database jxcms;
+</span></span><span style=display:flex><span>Query OK, <span style=color:#099>0</span> rows affected <span style=color:#000;font-weight:700>(</span>0.001 sec<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>MariaDB <span style=color:#000;font-weight:700>[(</span>none<span style=color:#000;font-weight:700>)]</span>&gt; show master status;
+</span></span><span style=display:flex><span>+-----------+----------+--------------+------------------+
+</span></span><span style=display:flex><span>| File      | Position | Binlog_Do_DB | Binlog_Ignore_DB |
+</span></span><span style=display:flex><span>+-----------+----------+--------------+------------------+
+</span></span><span style=display:flex><span>| jx.000001 |      <span style=color:#099>581</span> | jxcms        |                  |
+</span></span><span style=display:flex><span>+-----------+----------+--------------+------------------+
+</span></span><span style=display:flex><span><span style=color:#099>1</span> row in <span style=color:#0086b3>set</span> <span style=color:#000;font-weight:700>(</span>0.001 sec<span style=color:#000;font-weight:700>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>最后会发现开启binlog后无论做什么操作，binlog都会增加，Position会一直增加。</p><p>现在重置恢复初始状态。</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>MariaDB <span style=color:#000;font-weight:700>[(</span>none<span style=color:#000;font-weight:700>)]</span>&gt; reset master;
+</span></span><span style=display:flex><span>Query OK, <span style=color:#099>0</span> rows affected <span style=color:#000;font-weight:700>(</span>0.019 sec<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>MariaDB <span style=color:#000;font-weight:700>[(</span>none<span style=color:#000;font-weight:700>)]</span>&gt; show master status;
+</span></span><span style=display:flex><span>+-----------+----------+--------------+------------------+
+</span></span><span style=display:flex><span>| File      | Position | Binlog_Do_DB | Binlog_Ignore_DB |
+</span></span><span style=display:flex><span>+-----------+----------+--------------+------------------+
+</span></span><span style=display:flex><span>| jx.000001 |      <span style=color:#099>321</span> | jxcms        |                  |
+</span></span><span style=display:flex><span>+-----------+----------+--------------+------------------+
+</span></span><span style=display:flex><span><span style=color:#099>1</span> row in <span style=color:#0086b3>set</span> <span style=color:#000;font-weight:700>(</span>0.000 sec<span style=color:#000;font-weight:700>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>binglog文件存储在`/var/lib/mysql/`目录内</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-mysql-master-36 ~<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># cd /var/lib/mysql/</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-mysql-master-36 mysql<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># ls -la </span>
+</span></span><span style=display:flex><span>total <span style=color:#099>122928</span>
+</span></span><span style=display:flex><span>drwxr-xr-x  <span style=color:#099>4</span> mysql mysql      <span style=color:#099>315</span> Dec  <span style=color:#099>8</span> 16:22 .
+</span></span><span style=display:flex><span>drwxr-xr-x <span style=color:#099>30</span> root  root      <span style=color:#099>4096</span> Dec  <span style=color:#099>8</span> 15:54 ..
+</span></span><span style=display:flex><span>-rw-rw----  <span style=color:#099>1</span> mysql mysql    <span style=color:#099>16384</span> Dec  <span style=color:#099>8</span> 16:07 aria_log.00000001
+</span></span><span style=display:flex><span>-rw-rw----  <span style=color:#099>1</span> mysql mysql       <span style=color:#099>52</span> Dec  <span style=color:#099>8</span> 16:07 aria_log_control
+</span></span><span style=display:flex><span>-rw-rw----  <span style=color:#099>1</span> mysql mysql      <span style=color:#099>976</span> Dec  <span style=color:#099>8</span> 16:07 ib_buffer_pool
+</span></span><span style=display:flex><span>-rw-rw----  <span style=color:#099>1</span> mysql mysql <span style=color:#099>12582912</span> Dec  <span style=color:#099>8</span> 16:07 ibdata1
+</span></span><span style=display:flex><span>-rw-rw----  <span style=color:#099>1</span> mysql mysql <span style=color:#099>50331648</span> Dec  <span style=color:#099>8</span> 16:07 ib_logfile0
+</span></span><span style=display:flex><span>-rw-rw----  <span style=color:#099>1</span> mysql mysql <span style=color:#099>50331648</span> Dec  <span style=color:#099>8</span> 15:54 ib_logfile1
+</span></span><span style=display:flex><span>-rw-rw----  <span style=color:#099>1</span> mysql mysql <span style=color:#099>12582912</span> Dec  <span style=color:#099>8</span> 16:07 ibtmp1
+</span></span><span style=display:flex><span>-rw-rw----  <span style=color:#099>1</span> mysql mysql      <span style=color:#099>321</span> Dec  <span style=color:#099>8</span> 16:22 jx.000001
+</span></span><span style=display:flex><span>-rw-rw----  <span style=color:#099>1</span> mysql mysql       <span style=color:#099>12</span> Dec  <span style=color:#099>8</span> 16:22 jx.index
+</span></span><span style=display:flex><span>-rw-rw----  <span style=color:#099>1</span> mysql mysql        <span style=color:#099>5</span> Dec  <span style=color:#099>8</span> 16:07 jx-mysql-master-36.pid
+</span></span><span style=display:flex><span>-rw-rw----  <span style=color:#099>1</span> mysql mysql        <span style=color:#099>0</span> Dec  <span style=color:#099>8</span> 15:54 multi-master.info
+</span></span><span style=display:flex><span>drwx------  <span style=color:#099>2</span> mysql mysql     <span style=color:#099>4096</span> Dec  <span style=color:#099>8</span> 15:54 mysql
+</span></span><span style=display:flex><span>srwxrwxrwx  <span style=color:#099>1</span> mysql mysql        <span style=color:#099>0</span> Dec  <span style=color:#099>8</span> 16:07 mysql.sock
+</span></span><span style=display:flex><span>-rw-rw----  <span style=color:#099>1</span> root  root        <span style=color:#099>15</span> Dec  <span style=color:#099>8</span> 16:07 mysql_upgrade_info
+</span></span><span style=display:flex><span>drwx------  <span style=color:#099>2</span> mysql mysql       <span style=color:#099>20</span> Dec  <span style=color:#099>8</span> 16:07 performance_schema
+</span></span></code></pre></td></tr></table></div></div><p>从服务器上更改配置，</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span> vim /etc/my.cnf.d/mariadb-server.cnf 
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>mysqld<span style=color:#000;font-weight:700>]</span>
+</span></span><span style=display:flex><span>server-id<span style=color:#000;font-weight:700>=</span><span style=color:#099>37</span>
+</span></span><span style=display:flex><span>重启MySQL
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-mysql-slave-37 ~<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># systemctl restart mysql </span>
+</span></span></code></pre></td></tr></table></div></div><p>主库MASTER节点上创建从数据库用于同步事件的用户：</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>grant replication slave on *.* to <span style=color:#d14>&#39;jxslave&#39;</span>@<span style=color:#d14>&#39;%&#39;</span> identified by <span style=color:#d14>&#39;123456&#39;</span>;
+</span></span></code></pre></td></tr></table></div></div><p><strong>注意：上面SQL的作用是创建一个jxslave用户，密码为123456，并且给jxsalve用户授予replication salve权限。常用于建立复制时所需要用到的用户权限，也就是slave必须被master授权具有该权限的用户，才能通过该用户复制。</strong></p><p>从库slave节点上告知从数据库同步参数</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>change master to <span style=color:teal>master_host</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#39;10.10.10.36&#39;</span>,master_user<span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#39;jxslave&#39;</span>,master_password<span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#39;123456&#39;</span>,master_log_file<span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#39;jx.000001&#39;</span>,master_log_pos<span style=color:#000;font-weight:700>=</span>321;
+</span></span></code></pre></td></tr></table></div></div><p>登录到从服务器上开启从服务器</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>MariaDB <span style=color:#000;font-weight:700>[(</span>none<span style=color:#000;font-weight:700>)]</span>&gt; start slave;
+</span></span><span style=display:flex><span>Query OK, <span style=color:#099>0</span> rows affected <span style=color:#000;font-weight:700>(</span>0.001 sec<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>查看状态：
+</span></span><span style=display:flex><span>MariaDB <span style=color:#000;font-weight:700>[(</span>none<span style=color:#000;font-weight:700>)]</span>&gt; show slave status <span style=color:#d14>\G</span>;
+</span></span><span style=display:flex><span>*************************** 1. row ***************************
+</span></span><span style=display:flex><span>                Slave_IO_State: Waiting <span style=color:#000;font-weight:700>for</span> master to send event
+</span></span><span style=display:flex><span>                   Master_Host: 10.10.10.36
+</span></span><span style=display:flex><span>                   Master_User: jxslave
+</span></span><span style=display:flex><span>                   Master_Port: <span style=color:#099>3306</span>
+</span></span><span style=display:flex><span>                 Connect_Retry: <span style=color:#099>60</span>
+</span></span><span style=display:flex><span>               Master_Log_File: jx.000001
+</span></span><span style=display:flex><span>           Read_Master_Log_Pos: <span style=color:#099>321</span>
+</span></span><span style=display:flex><span>                Relay_Log_File: jx-mysql-slave-37-relay-bin.000002
+</span></span><span style=display:flex><span>                 Relay_Log_Pos: <span style=color:#099>548</span>
+</span></span><span style=display:flex><span>         Relay_Master_Log_File: jx.000001
+</span></span><span style=display:flex><span>              Slave_IO_Running: Yes              <span style=color:#998;font-style:italic>#主要看这2行</span>
+</span></span><span style=display:flex><span>             Slave_SQL_Running: Yes              <span style=color:#998;font-style:italic>#主要看这2行</span>
+</span></span><span style=display:flex><span>               Replicate_Do_DB: 
+</span></span></code></pre></td></tr></table></div></div><p>注意：如果slave是connecting状态那么，测试从服务器到主服务器的3306端口通不通。放开防火墙。放开之后从服务器上重启io进程（stop slave; start slave）。</p><p>下面做个测试：主创建数据库，查看从上有没有同步过来。</p><p>master：</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>MariaDB <span style=color:#000;font-weight:700>[(</span>none<span style=color:#000;font-weight:700>)]</span>&gt; create database jxcms;
+</span></span><span style=display:flex><span>Query OK, <span style=color:#099>1</span> row affected <span style=color:#000;font-weight:700>(</span>0.000 sec<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>MariaDB <span style=color:#000;font-weight:700>[(</span>none<span style=color:#000;font-weight:700>)]</span>&gt; show master status;
+</span></span><span style=display:flex><span>+-----------+----------+--------------+------------------+
+</span></span><span style=display:flex><span>| File      | Position | Binlog_Do_DB | Binlog_Ignore_DB |
+</span></span><span style=display:flex><span>+-----------+----------+--------------+------------------+
+</span></span><span style=display:flex><span>| jx.000001 |      <span style=color:#099>452</span> | jxcms        |                  |
+</span></span><span style=display:flex><span>+-----------+----------+--------------+------------------+
+</span></span><span style=display:flex><span><span style=color:#099>1</span> row in <span style=color:#0086b3>set</span> <span style=color:#000;font-weight:700>(</span>0.001 sec<span style=color:#000;font-weight:700>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>slave:</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>MariaDB <span style=color:#000;font-weight:700>[(</span>none<span style=color:#000;font-weight:700>)]</span>&gt; show databases;
+</span></span><span style=display:flex><span>+--------------------+
+</span></span><span style=display:flex><span>| Database           |
+</span></span><span style=display:flex><span>+--------------------+
+</span></span><span style=display:flex><span>| information_schema |
+</span></span><span style=display:flex><span>| jxcms              |
+</span></span><span style=display:flex><span>| mysql              |
+</span></span><span style=display:flex><span>| performance_schema |
+</span></span><span style=display:flex><span>+--------------------+
+</span></span><span style=display:flex><span><span style=color:#099>4</span> rows in <span style=color:#0086b3>set</span> <span style=color:#000;font-weight:700>(</span>0.001 sec<span style=color:#000;font-weight:700>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>把之前的表导入主数据库</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-mysql-master-36 ~<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># mysql -uroot -p123456 jxcms &lt; /opt/jx1206/jx_class.sql  </span>
+</span></span></code></pre></td></tr></table></div></div><p>从数据库同步成功：</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>MariaDB <span style=color:#000;font-weight:700>[(</span>none<span style=color:#000;font-weight:700>)]</span>&gt; use jxcms;
+</span></span><span style=display:flex><span>Reading table information <span style=color:#000;font-weight:700>for</span> completion of table and column names
+</span></span><span style=display:flex><span>You can turn off this feature to get a quicker startup with -A
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Database changed
+</span></span><span style=display:flex><span>MariaDB <span style=color:#000;font-weight:700>[</span>jxcms<span style=color:#000;font-weight:700>]</span>&gt; show tables;
+</span></span><span style=display:flex><span>+-----------------+
+</span></span><span style=display:flex><span>| Tables_in_jxcms |
+</span></span><span style=display:flex><span>+-----------------+
+</span></span><span style=display:flex><span>| jx_class        |
+</span></span><span style=display:flex><span>| jx_score        |
+</span></span><span style=display:flex><span>| jx_stu          |
+</span></span><span style=display:flex><span>| jx_subject      |
+</span></span><span style=display:flex><span>| jx_test         |
+</span></span><span style=display:flex><span>+-----------------+
+</span></span><span style=display:flex><span><span style=color:#099>5</span> rows in <span style=color:#0086b3>set</span> <span style=color:#000;font-weight:700>(</span>0.000 sec<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>MariaDB <span style=color:#000;font-weight:700>[</span>jxcms<span style=color:#000;font-weight:700>]</span>&gt; 
+</span></span></code></pre></td></tr></table></div></div><p>MYSQL主从同步原理</p><p><img src=/postimages/mysql-master-sync-slave.webp alt=mysql主从同步原理-min.webp></p><p><strong>MYSQL读写分离</strong></p><h2 id=三所需环境>三、所需环境</h2><ul><li><p>使用上次试验的36、37主从</p></li><li><p>代理服务器（从71上克隆一台叫做jx-mysql-proxy-31，ip:10.10.10.31/24）</p></li><li><p>软件：amoeba</p></li></ul><h2 id=四搭建过程>四、搭建过程</h2><p>使用amoeba软件实现mysql读写分离：</p><p>总结：</p><ul><li><p><strong>写操作（Write）</strong> 是指对数据库数据的修改，包括插入、更新和删除。</p></li><li><p><strong>读操作（Read）</strong> 是指从数据库中查询数据，不做修改。</p></li><li><p>在读写分离架构中，写操作发生在主数据库，读操作通常分配给从数据库。</p></li></ul><p>把`amoeba-mysql-binary-2.1.0-RC5.tar.gz`通过网关服务器（254）上传到代理服务器(31)上，创建目录并解压到该目录。</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#998;font-style:italic># mkdir -p /opt/amoeba</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># tar -xvf amoeba-mysql-binary-2.1.0-RC5.tar.gz -C /opt/amoeba</span>
+</span></span></code></pre></td></tr></table></div></div><p>master(36)上创建一个数据库用户jxadmin，密码123456。现在数据库使用了主从模式，我们只需在主上创建用户，从上会自动同步。</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#998;font-style:italic># master 36上</span>
+</span></span><span style=display:flex><span>grant all on *.* to <span style=color:#d14>&#34;jxadmin&#34;</span>@<span style=color:#d14>&#34;%&#34;</span> identified by <span style=color:#d14>&#34;123456&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># slave 37 上查看是否有这个用户</span>
+</span></span><span style=display:flex><span>MariaDB <span style=color:#000;font-weight:700>[(</span>none<span style=color:#000;font-weight:700>)]</span>&gt; use mysql;
+</span></span><span style=display:flex><span>MariaDB <span style=color:#000;font-weight:700>[</span>mysql<span style=color:#000;font-weight:700>]</span>&gt; <span style=color:#000;font-weight:700>select</span> user,host from user;
+</span></span><span style=display:flex><span>+---------+-------------------+
+</span></span><span style=display:flex><span>| user    | host              |
+</span></span><span style=display:flex><span>+---------+-------------------+
+</span></span><span style=display:flex><span>| jxadmin | %                 |
+</span></span><span style=display:flex><span>| root    | 127.0.0.1         |
+</span></span><span style=display:flex><span>| root    | ::1               |
+</span></span><span style=display:flex><span>| root    | jx-mysql-slave-37 |
+</span></span><span style=display:flex><span>| root    | localhost         |
+</span></span><span style=display:flex><span>+---------+-------------------+
+</span></span><span style=display:flex><span><span style=color:#099>5</span> rows in <span style=color:#0086b3>set</span> <span style=color:#000;font-weight:700>(</span>0.001 sec<span style=color:#000;font-weight:700>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>读写分离的原理是：</p><p><img src=/postimages/mysql-rwspea.webp alt=mysql读写分离原理-min.webp></p><p>用户从客户端访问进来，先到代理服务器（amoeba），如果是写动作，代理会将动作传递到master（36）上，master（36）写入后binlog中记录了这次写入，同步给slave。如果是读动作，代理会将动作随机分配到master（36）或者slave(37)上。这样相当于写都是由master处理，读是由master和slave共同承担，减轻了master负担。</p><p>开始配置代理（amoeba）:</p><p>首先需要配置两个组（<strong>读组 readGroup、写组 writeGroup</strong>），master同时属于<strong>读组 readGroup和写组 writeGroup，而slave只属于读组 readGroup。</strong></p><p>下面看代理软件配置：</p><p>conf/dbServers.xml</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">41
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">42
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">43
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">44
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">45
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">46
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">47
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">48
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">49
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">50
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">51
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>                &lt;factoryConfig <span style=color:teal>class</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#34;com.meidusa.amoeba.mysql.net.MysqlServerConnectionFactory&#34;</span>&gt;
+</span></span><span style=display:flex><span>                        &lt;property <span style=color:teal>name</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#34;manager&#34;</span>&gt;<span style=color:#d14>${</span><span style=color:teal>defaultManager</span><span style=color:#d14>}</span>&lt;/property&gt;
+</span></span><span style=display:flex><span>                        &lt;property <span style=color:teal>name</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#34;sendBufferSize&#34;</span>&gt;64&lt;/property&gt;
+</span></span><span style=display:flex><span>                        &lt;property <span style=color:teal>name</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#34;receiveBufferSize&#34;</span>&gt;128&lt;/property&gt;
+</span></span><span style=display:flex><span>                        <span style=color:#998;font-style:italic>#设置amoeba要连接mysql数据库的端口，默认3306</span>
+</span></span><span style=display:flex><span>                        &lt;!-- mysql port --&gt;
+</span></span><span style=display:flex><span>                        &lt;property <span style=color:teal>name</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#34;port&#34;</span>&gt;3306&lt;/property&gt;
+</span></span><span style=display:flex><span>                        <span style=color:#998;font-style:italic>#设置缺省的数据库</span>
+</span></span><span style=display:flex><span>                        &lt;!-- mysql schema --&gt;
+</span></span><span style=display:flex><span>                        &lt;property <span style=color:teal>name</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#34;schema&#34;</span>&gt;jxcms&lt;/property&gt;
+</span></span><span style=display:flex><span>                        <span style=color:#998;font-style:italic>#设置amoeba连接后端数据库服务器的账户密码</span>
+</span></span><span style=display:flex><span>                        &lt;!-- mysql user --&gt;
+</span></span><span style=display:flex><span>                        &lt;property <span style=color:teal>name</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#34;user&#34;</span>&gt;jxadmin&lt;/property&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>                        &lt;!--  mysql password --&gt;
+</span></span><span style=display:flex><span>                        &lt;property <span style=color:teal>name</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#34;password&#34;</span>&gt;123456&lt;/property&gt;
+</span></span><span style=display:flex><span>                &lt;/factoryConfig&gt;
+</span></span><span style=display:flex><span>                        <span style=color:#998;font-style:italic>#设置后端可写的数据库</span>
+</span></span><span style=display:flex><span>        &lt;dbServer <span style=color:teal>name</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#34;master-36&#34;</span>  <span style=color:teal>parent</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#34;abstractServer&#34;</span>&gt;
+</span></span><span style=display:flex><span>                &lt;factoryConfig&gt;
+</span></span><span style=display:flex><span>                        &lt;!-- mysql ip --&gt;
+</span></span><span style=display:flex><span>                        &lt;property <span style=color:teal>name</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#34;ipAddress&#34;</span>&gt;10.10.10.36&lt;/property&gt;
+</span></span><span style=display:flex><span>                &lt;/factoryConfig&gt;
+</span></span><span style=display:flex><span>        &lt;/dbServer&gt;
+</span></span><span style=display:flex><span>                        <span style=color:#998;font-style:italic>#设置后端可读的数据库</span>
+</span></span><span style=display:flex><span>        &lt;dbServer <span style=color:teal>name</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#34;slave-37&#34;</span>  <span style=color:teal>parent</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#34;abstractServer&#34;</span>&gt;
+</span></span><span style=display:flex><span>                &lt;factoryConfig&gt;
+</span></span><span style=display:flex><span>                        &lt;!-- mysql ip --&gt;
+</span></span><span style=display:flex><span>                        &lt;property <span style=color:teal>name</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#34;ipAddress&#34;</span>&gt;10.10.10.37&lt;/property&gt;
+</span></span><span style=display:flex><span>                &lt;/factoryConfig&gt;
+</span></span><span style=display:flex><span>        &lt;/dbServer&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>         <span style=color:#998;font-style:italic>#定义一个虚拟的dbserver，相当于一个dbserver组，将可读的数据库ip统一放到一个组内，可写的数据库ip统一放到一个组内。</span>
+</span></span><span style=display:flex><span>        &lt;dbServer <span style=color:teal>name</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#34;readGroup&#34;</span> <span style=color:teal>virtual</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#34;true&#34;</span>&gt;
+</span></span><span style=display:flex><span>                &lt;poolConfig <span style=color:teal>class</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#34;com.meidusa.amoeba.server.MultipleServerPool&#34;</span>&gt;
+</span></span><span style=display:flex><span>                        &lt;!-- Load balancing strategy: <span style=color:teal>1</span><span style=color:#000;font-weight:700>=</span>ROUNDROBIN , <span style=color:teal>2</span><span style=color:#000;font-weight:700>=</span>WEIGHTBASED , <span style=color:teal>3</span><span style=color:#000;font-weight:700>=</span>HA--&gt;
+</span></span><span style=display:flex><span>                        &lt;property <span style=color:teal>name</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#34;loadbalance&#34;</span>&gt;1&lt;/property&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>                        &lt;!-- Separated by commas,such as: server1,server2,server1 --&gt;
+</span></span><span style=display:flex><span>                        &lt;property <span style=color:teal>name</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#34;poolNames&#34;</span>&gt;master-36,slave-37&lt;/property&gt;
+</span></span><span style=display:flex><span>                &lt;/poolConfig&gt;
+</span></span><span style=display:flex><span>        &lt;/dbServer&gt;
+</span></span><span style=display:flex><span>        &lt;dbServer <span style=color:teal>name</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#34;writeGroup&#34;</span> <span style=color:teal>virtual</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#34;true&#34;</span>&gt;
+</span></span><span style=display:flex><span>                &lt;poolConfig <span style=color:teal>class</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#34;com.meidusa.amoeba.server.MultipleServerPool&#34;</span>&gt;
+</span></span><span style=display:flex><span>                        &lt;!-- Load balancing strategy: <span style=color:teal>1</span><span style=color:#000;font-weight:700>=</span>ROUNDROBIN , <span style=color:teal>2</span><span style=color:#000;font-weight:700>=</span>WEIGHTBASED , <span style=color:teal>3</span><span style=color:#000;font-weight:700>=</span>HA--&gt;
+</span></span><span style=display:flex><span>                        &lt;property <span style=color:teal>name</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#34;loadbalance&#34;</span>&gt;1&lt;/property&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>                        &lt;!-- Separated by commas,such as: server1,server2,server1 --&gt;
+</span></span><span style=display:flex><span>                        &lt;property <span style=color:teal>name</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#34;poolNames&#34;</span>&gt;master-36&lt;/property&gt;
+</span></span><span style=display:flex><span>                &lt;/poolConfig&gt;
+</span></span><span style=display:flex><span>        &lt;/dbServer&gt;
+</span></span></code></pre></td></tr></table></div></div><p>conf/amoeba.xml</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 41
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 42
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 43
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 44
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 45
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 46
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 47
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 48
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 49
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 50
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 51
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 52
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 53
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 54
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 55
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 56
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 57
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 58
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 59
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 60
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 61
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 62
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 63
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 64
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 65
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 66
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 67
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 68
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 69
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 70
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 71
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 72
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 73
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 74
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 75
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 76
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 77
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 78
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 79
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 80
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 81
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 82
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 83
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 84
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 85
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 86
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 87
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 88
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 89
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 90
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 91
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 92
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 93
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 94
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 95
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 96
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 97
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 98
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 99
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">100
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">101
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">102
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">103
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">104
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">105
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">106
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">107
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">108
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">109
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">110
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">111
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">112
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">113
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">114
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">115
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">116
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">117
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">118
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">119
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">120
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">121
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">122
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">123
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">124
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">125
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">126
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#999;font-weight:700;font-style:italic>&lt;?xml version=&#34;1.0&#34; encoding=&#34;gbk&#34;?&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#999;font-weight:700;font-style:italic>&lt;!DOCTYPE amoeba:configuration SYSTEM &#34;amoeba.dtd&#34;&gt;</span>
+</span></span><span style=display:flex><span><span style=color:navy>&lt;amoeba:configuration</span> <span style=color:teal>xmlns:amoeba=</span><span style=color:#d14>&#34;http://amoeba.meidusa.com/&#34;</span><span style=color:navy>&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:navy>&lt;proxy&gt;</span>
+</span></span><span style=display:flex><span>	
+</span></span><span style=display:flex><span>		<span style=color:#998;font-style:italic>&lt;!-- service class must implements com.meidusa.amoeba.service.Service --&gt;</span>
+</span></span><span style=display:flex><span>		<span style=color:navy>&lt;service</span> <span style=color:teal>name=</span><span style=color:#d14>&#34;Amoeba for Mysql&#34;</span> <span style=color:teal>class=</span><span style=color:#d14>&#34;com.meidusa.amoeba.net.ServerableConnectionManager&#34;</span><span style=color:navy>&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:#998;font-style:italic>&lt;!-- port --&gt;</span>
+</span></span><span style=display:flex><span>                #设置amoeba监听的端口，默认8066,#配置客户端连接amoeba时的账号，与后端服务器密码无关
+</span></span><span style=display:flex><span>			<span style=color:navy>&lt;property</span> <span style=color:teal>name=</span><span style=color:#d14>&#34;port&#34;</span><span style=color:navy>&gt;</span>3306<span style=color:navy>&lt;/property&gt;</span>
+</span></span><span style=display:flex><span>			
+</span></span><span style=display:flex><span>			<span style=color:#998;font-style:italic>&lt;!-- bind ipAddress --&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:#998;font-style:italic>&lt;!-- &lt;property name=&#34;ipAddress&#34;&gt;10.10.10.31&lt;/property&gt; --&gt;</span>
+</span></span><span style=display:flex><span>	
+</span></span><span style=display:flex><span>			
+</span></span><span style=display:flex><span>			<span style=color:navy>&lt;property</span> <span style=color:teal>name=</span><span style=color:#d14>&#34;manager&#34;</span><span style=color:navy>&gt;</span>${clientConnectioneManager}<span style=color:navy>&lt;/property&gt;</span>
+</span></span><span style=display:flex><span>			
+</span></span><span style=display:flex><span>			<span style=color:navy>&lt;property</span> <span style=color:teal>name=</span><span style=color:#d14>&#34;connectionFactory&#34;</span><span style=color:navy>&gt;</span>
+</span></span><span style=display:flex><span>				<span style=color:navy>&lt;bean</span> <span style=color:teal>class=</span><span style=color:#d14>&#34;com.meidusa.amoeba.mysql.net.MysqlClientConnectionFactory&#34;</span><span style=color:navy>&gt;</span>
+</span></span><span style=display:flex><span>					<span style=color:navy>&lt;property</span> <span style=color:teal>name=</span><span style=color:#d14>&#34;sendBufferSize&#34;</span><span style=color:navy>&gt;</span>128<span style=color:navy>&lt;/property&gt;</span>
+</span></span><span style=display:flex><span>					<span style=color:navy>&lt;property</span> <span style=color:teal>name=</span><span style=color:#d14>&#34;receiveBufferSize&#34;</span><span style=color:navy>&gt;</span>64<span style=color:navy>&lt;/property&gt;</span>
+</span></span><span style=display:flex><span>				<span style=color:navy>&lt;/bean&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:navy>&lt;/property&gt;</span>
+</span></span><span style=display:flex><span>			
+</span></span><span style=display:flex><span>			<span style=color:navy>&lt;property</span> <span style=color:teal>name=</span><span style=color:#d14>&#34;authenticator&#34;</span><span style=color:navy>&gt;</span>
+</span></span><span style=display:flex><span>				<span style=color:navy>&lt;bean</span> <span style=color:teal>class=</span><span style=color:#d14>&#34;com.meidusa.amoeba.mysql.server.MysqlClientAuthenticator&#34;</span><span style=color:navy>&gt;</span>
+</span></span><span style=display:flex><span>					
+</span></span><span style=display:flex><span>					<span style=color:navy>&lt;property</span> <span style=color:teal>name=</span><span style=color:#d14>&#34;user&#34;</span><span style=color:navy>&gt;</span>jxadmin<span style=color:navy>&lt;/property&gt;</span>
+</span></span><span style=display:flex><span>					
+</span></span><span style=display:flex><span>					<span style=color:navy>&lt;property</span> <span style=color:teal>name=</span><span style=color:#d14>&#34;password&#34;</span><span style=color:navy>&gt;</span>123456<span style=color:navy>&lt;/property&gt;</span>
+</span></span><span style=display:flex><span>					
+</span></span><span style=display:flex><span>					<span style=color:navy>&lt;property</span> <span style=color:teal>name=</span><span style=color:#d14>&#34;filter&#34;</span><span style=color:navy>&gt;</span>
+</span></span><span style=display:flex><span>						<span style=color:navy>&lt;bean</span> <span style=color:teal>class=</span><span style=color:#d14>&#34;com.meidusa.amoeba.server.IPAccessController&#34;</span><span style=color:navy>&gt;</span>
+</span></span><span style=display:flex><span>							<span style=color:navy>&lt;property</span> <span style=color:teal>name=</span><span style=color:#d14>&#34;ipFile&#34;</span><span style=color:navy>&gt;</span>${amoeba.home}/conf/access_list.conf<span style=color:navy>&lt;/property&gt;</span>
+</span></span><span style=display:flex><span>						<span style=color:navy>&lt;/bean&gt;</span>
+</span></span><span style=display:flex><span>					<span style=color:navy>&lt;/property&gt;</span>
+</span></span><span style=display:flex><span>				<span style=color:navy>&lt;/bean&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:navy>&lt;/property&gt;</span>
+</span></span><span style=display:flex><span>			
+</span></span><span style=display:flex><span>		<span style=color:navy>&lt;/service&gt;</span>
+</span></span><span style=display:flex><span>		
+</span></span><span style=display:flex><span>		<span style=color:#998;font-style:italic>&lt;!-- server class must implements com.meidusa.amoeba.service.Service --&gt;</span>
+</span></span><span style=display:flex><span>		<span style=color:navy>&lt;service</span> <span style=color:teal>name=</span><span style=color:#d14>&#34;Amoeba Monitor Server&#34;</span> <span style=color:teal>class=</span><span style=color:#d14>&#34;com.meidusa.amoeba.monitor.MonitorServer&#34;</span><span style=color:navy>&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:#998;font-style:italic>&lt;!-- port --&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:#998;font-style:italic>&lt;!--  default value: random number
+</span></span></span><span style=display:flex><span><span style=color:#998;font-style:italic>			&lt;property name=&#34;port&#34;&gt;9066&lt;/property&gt;
+</span></span></span><span style=display:flex><span><span style=color:#998;font-style:italic>			--&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:#998;font-style:italic>&lt;!-- bind ipAddress --&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:navy>&lt;property</span> <span style=color:teal>name=</span><span style=color:#d14>&#34;ipAddress&#34;</span><span style=color:navy>&gt;</span>0.0.0.0<span style=color:navy>&lt;/property&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:navy>&lt;property</span> <span style=color:teal>name=</span><span style=color:#d14>&#34;daemon&#34;</span><span style=color:navy>&gt;</span>true<span style=color:navy>&lt;/property&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:navy>&lt;property</span> <span style=color:teal>name=</span><span style=color:#d14>&#34;manager&#34;</span><span style=color:navy>&gt;</span>${clientConnectioneManager}<span style=color:navy>&lt;/property&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:navy>&lt;property</span> <span style=color:teal>name=</span><span style=color:#d14>&#34;connectionFactory&#34;</span><span style=color:navy>&gt;</span>
+</span></span><span style=display:flex><span>				<span style=color:navy>&lt;bean</span> <span style=color:teal>class=</span><span style=color:#d14>&#34;com.meidusa.amoeba.monitor.net.MonitorClientConnectionFactory&#34;</span><span style=color:navy>&gt;&lt;/bean&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:navy>&lt;/property&gt;</span>
+</span></span><span style=display:flex><span>			
+</span></span><span style=display:flex><span>		<span style=color:navy>&lt;/service&gt;</span>
+</span></span><span style=display:flex><span>		
+</span></span><span style=display:flex><span>		<span style=color:navy>&lt;runtime</span> <span style=color:teal>class=</span><span style=color:#d14>&#34;com.meidusa.amoeba.mysql.context.MysqlRuntimeContext&#34;</span><span style=color:navy>&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:#998;font-style:italic>&lt;!-- proxy server net IO Read thread size --&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:navy>&lt;property</span> <span style=color:teal>name=</span><span style=color:#d14>&#34;readThreadPoolSize&#34;</span><span style=color:navy>&gt;</span>20<span style=color:navy>&lt;/property&gt;</span>
+</span></span><span style=display:flex><span>			
+</span></span><span style=display:flex><span>			<span style=color:#998;font-style:italic>&lt;!-- proxy server client process thread size --&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:navy>&lt;property</span> <span style=color:teal>name=</span><span style=color:#d14>&#34;clientSideThreadPoolSize&#34;</span><span style=color:navy>&gt;</span>30<span style=color:navy>&lt;/property&gt;</span>
+</span></span><span style=display:flex><span>			
+</span></span><span style=display:flex><span>			<span style=color:#998;font-style:italic>&lt;!-- mysql server data packet process thread size --&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:navy>&lt;property</span> <span style=color:teal>name=</span><span style=color:#d14>&#34;serverSideThreadPoolSize&#34;</span><span style=color:navy>&gt;</span>30<span style=color:navy>&lt;/property&gt;</span>
+</span></span><span style=display:flex><span>			
+</span></span><span style=display:flex><span>			<span style=color:#998;font-style:italic>&lt;!-- per connection cache prepared statement size  --&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:navy>&lt;property</span> <span style=color:teal>name=</span><span style=color:#d14>&#34;statementCacheSize&#34;</span><span style=color:navy>&gt;</span>500<span style=color:navy>&lt;/property&gt;</span>
+</span></span><span style=display:flex><span>			
+</span></span><span style=display:flex><span>			<span style=color:#998;font-style:italic>&lt;!-- query timeout( default: 60 second , TimeUnit:second) --&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:navy>&lt;property</span> <span style=color:teal>name=</span><span style=color:#d14>&#34;queryTimeout&#34;</span><span style=color:navy>&gt;</span>60<span style=color:navy>&lt;/property&gt;</span>
+</span></span><span style=display:flex><span>		<span style=color:navy>&lt;/runtime&gt;</span>
+</span></span><span style=display:flex><span>		
+</span></span><span style=display:flex><span>	<span style=color:navy>&lt;/proxy&gt;</span>
+</span></span><span style=display:flex><span>	
+</span></span><span style=display:flex><span>	<span style=color:#998;font-style:italic>&lt;!-- 
+</span></span></span><span style=display:flex><span><span style=color:#998;font-style:italic>		Each ConnectionManager will start as thread
+</span></span></span><span style=display:flex><span><span style=color:#998;font-style:italic>		manager responsible for the Connection IO read , Death Detection
+</span></span></span><span style=display:flex><span><span style=color:#998;font-style:italic>	--&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:navy>&lt;connectionManagerList&gt;</span>
+</span></span><span style=display:flex><span>		<span style=color:navy>&lt;connectionManager</span> <span style=color:teal>name=</span><span style=color:#d14>&#34;clientConnectioneManager&#34;</span> <span style=color:teal>class=</span><span style=color:#d14>&#34;com.meidusa.amoeba.net.MultiConnectionManagerWrapper&#34;</span><span style=color:navy>&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:navy>&lt;property</span> <span style=color:teal>name=</span><span style=color:#d14>&#34;subManagerClassName&#34;</span><span style=color:navy>&gt;</span>com.meidusa.amoeba.net.ConnectionManager<span style=color:navy>&lt;/property&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:#998;font-style:italic>&lt;!-- 
+</span></span></span><span style=display:flex><span><span style=color:#998;font-style:italic>			  default value is avaliable Processors 
+</span></span></span><span style=display:flex><span><span style=color:#998;font-style:italic>			&lt;property name=&#34;processors&#34;&gt;5&lt;/property&gt;
+</span></span></span><span style=display:flex><span><span style=color:#998;font-style:italic>			 --&gt;</span>
+</span></span><span style=display:flex><span>		<span style=color:navy>&lt;/connectionManager&gt;</span>
+</span></span><span style=display:flex><span>		<span style=color:navy>&lt;connectionManager</span> <span style=color:teal>name=</span><span style=color:#d14>&#34;defaultManager&#34;</span> <span style=color:teal>class=</span><span style=color:#d14>&#34;com.meidusa.amoeba.net.MultiConnectionManagerWrapper&#34;</span><span style=color:navy>&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:navy>&lt;property</span> <span style=color:teal>name=</span><span style=color:#d14>&#34;subManagerClassName&#34;</span><span style=color:navy>&gt;</span>com.meidusa.amoeba.net.AuthingableConnectionManager<span style=color:navy>&lt;/property&gt;</span>
+</span></span><span style=display:flex><span>			
+</span></span><span style=display:flex><span>			<span style=color:#998;font-style:italic>&lt;!-- 
+</span></span></span><span style=display:flex><span><span style=color:#998;font-style:italic>			  default value is avaliable Processors 
+</span></span></span><span style=display:flex><span><span style=color:#998;font-style:italic>			&lt;property name=&#34;processors&#34;&gt;5&lt;/property&gt;
+</span></span></span><span style=display:flex><span><span style=color:#998;font-style:italic>			 --&gt;</span>
+</span></span><span style=display:flex><span>		<span style=color:navy>&lt;/connectionManager&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:navy>&lt;/connectionManagerList&gt;</span>
+</span></span><span style=display:flex><span>	
+</span></span><span style=display:flex><span>		<span style=color:#998;font-style:italic>&lt;!-- default using file loader --&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:navy>&lt;dbServerLoader</span> <span style=color:teal>class=</span><span style=color:#d14>&#34;com.meidusa.amoeba.context.DBServerConfigFileLoader&#34;</span><span style=color:navy>&gt;</span>
+</span></span><span style=display:flex><span>		<span style=color:navy>&lt;property</span> <span style=color:teal>name=</span><span style=color:#d14>&#34;configFile&#34;</span><span style=color:navy>&gt;</span>${amoeba.home}/conf/dbServers.xml<span style=color:navy>&lt;/property&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:navy>&lt;/dbServerLoader&gt;</span>
+</span></span><span style=display:flex><span>	
+</span></span><span style=display:flex><span>	<span style=color:navy>&lt;queryRouter</span> <span style=color:teal>class=</span><span style=color:#d14>&#34;com.meidusa.amoeba.mysql.parser.MysqlQueryRouter&#34;</span><span style=color:navy>&gt;</span>
+</span></span><span style=display:flex><span>		<span style=color:navy>&lt;property</span> <span style=color:teal>name=</span><span style=color:#d14>&#34;ruleLoader&#34;</span><span style=color:navy>&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:navy>&lt;bean</span> <span style=color:teal>class=</span><span style=color:#d14>&#34;com.meidusa.amoeba.route.TableRuleFileLoader&#34;</span><span style=color:navy>&gt;</span>
+</span></span><span style=display:flex><span>				<span style=color:navy>&lt;property</span> <span style=color:teal>name=</span><span style=color:#d14>&#34;ruleFile&#34;</span><span style=color:navy>&gt;</span>${amoeba.home}/conf/rule.xml<span style=color:navy>&lt;/property&gt;</span>
+</span></span><span style=display:flex><span>				<span style=color:navy>&lt;property</span> <span style=color:teal>name=</span><span style=color:#d14>&#34;functionFile&#34;</span><span style=color:navy>&gt;</span>${amoeba.home}/conf/ruleFunctionMap.xml<span style=color:navy>&lt;/property&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:navy>&lt;/bean&gt;</span>
+</span></span><span style=display:flex><span>		<span style=color:navy>&lt;/property&gt;</span>
+</span></span><span style=display:flex><span>		<span style=color:navy>&lt;property</span> <span style=color:teal>name=</span><span style=color:#d14>&#34;sqlFunctionFile&#34;</span><span style=color:navy>&gt;</span>${amoeba.home}/conf/functionMap.xml<span style=color:navy>&lt;/property&gt;</span>
+</span></span><span style=display:flex><span>		<span style=color:navy>&lt;property</span> <span style=color:teal>name=</span><span style=color:#d14>&#34;LRUMapSize&#34;</span><span style=color:navy>&gt;</span>1500<span style=color:navy>&lt;/property&gt;</span>
+</span></span><span style=display:flex><span>		
+</span></span><span style=display:flex><span>		<span style=color:#998;font-style:italic>&lt;!-- --&gt;</span>
+</span></span><span style=display:flex><span>           
+</span></span><span style=display:flex><span>          #设置amoeba默认的池 
+</span></span><span style=display:flex><span>		<span style=color:navy>&lt;property</span> <span style=color:teal>name=</span><span style=color:#d14>&#34;defaultPool&#34;</span><span style=color:navy>&gt;</span>writeGroup<span style=color:navy>&lt;/property&gt;</span>
+</span></span><span style=display:flex><span>        #取消注释，这里用来指定前面定义好的两个读写池
+</span></span><span style=display:flex><span>		<span style=color:navy>&lt;property</span> <span style=color:teal>name=</span><span style=color:#d14>&#34;writePool&#34;</span><span style=color:navy>&gt;</span>writeGroup<span style=color:navy>&lt;/property&gt;</span>
+</span></span><span style=display:flex><span>		<span style=color:navy>&lt;property</span> <span style=color:teal>name=</span><span style=color:#d14>&#34;readPool&#34;</span><span style=color:navy>&gt;</span>readGroup<span style=color:navy>&lt;/property&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>		<span style=color:navy>&lt;property</span> <span style=color:teal>name=</span><span style=color:#d14>&#34;needParse&#34;</span><span style=color:navy>&gt;</span>true<span style=color:navy>&lt;/property&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:navy>&lt;/queryRouter&gt;</span>
+</span></span><span style=display:flex><span><span style=color:navy>&lt;/amoeba:configuration&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><p>bin/amoeba</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:teal>DEFAULT_OPTS</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#34;-server -Xms256m -Xmx256m -Xss256k&#34;</span>
+</span></span></code></pre></td></tr></table></div></div><p>xss参数需要大于128k才能启动。</p><p>启动amoeba。</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-mysql-proxy-31 ~<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># /opt/amoeba/bin/amoeba start </span>
+</span></span><span style=display:flex><span>log4j:WARN log4j config load completed from file:/opt/amoeba/conf/log4j.xml
+</span></span><span style=display:flex><span>2024-12-09 13:29:07,202 INFO  context.MysqlRuntimeContext - Amoeba <span style=color:#000;font-weight:700>for</span> Mysql current <span style=color:teal>versoin</span><span style=color:#000;font-weight:700>=</span>5.1.45-mysql-amoeba-proxy-2.1.0-RC5
+</span></span><span style=display:flex><span>log4j:WARN ip access config load completed from file:/opt/amoeba/conf/access_list.conf
+</span></span><span style=display:flex><span>2024-12-09 13:29:07,351 INFO  net.ServerableConnectionManager - Amoeba <span style=color:#000;font-weight:700>for</span> Mysql listening on 0.0.0.0/0.0.0.0:3306.
+</span></span><span style=display:flex><span>2024-12-09 13:29:07,354 INFO  net.ServerableConnectionManager - Amoeba Monitor Server listening on /0.0.0.0:25667.
+</span></span></code></pre></td></tr></table></div></div><p>下面开始测试。开启运维服务器（81）安装mysql客户端向代理（31）请求数据。</p><p>由于我们代理软件默认设置的算法是轮询（robin），所以查询请求通过代理软件会轮流发送给master(36)和slave（37）。这个算法可以选择1=ROUNDROBIN , 2=WEIGHTBASED , 3=HA。在conf/dbServer.conf中配置。</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>        &lt;dbServer <span style=color:teal>name</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#34;readGroup&#34;</span> <span style=color:teal>virtual</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#34;true&#34;</span>&gt;
+</span></span><span style=display:flex><span>                &lt;poolConfig <span style=color:teal>class</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#34;com.meidusa.amoeba.server.MultipleServerPool&#34;</span>&gt;
+</span></span><span style=display:flex><span>                        &lt;!-- Load balancing strategy: <span style=color:teal>1</span><span style=color:#000;font-weight:700>=</span>ROUNDROBIN , <span style=color:teal>2</span><span style=color:#000;font-weight:700>=</span>WEIGHTBASED , <span style=color:teal>3</span><span style=color:#000;font-weight:700>=</span>HA--&gt;
+</span></span><span style=display:flex><span>                        &lt;property <span style=color:teal>name</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#34;loadbalance&#34;</span>&gt;1&lt;/property&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>                        &lt;!-- Separated by commas,such as: server1,server2,server1 --&gt;
+</span></span><span style=display:flex><span>                        &lt;property <span style=color:teal>name</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#34;poolNames&#34;</span>&gt;master-36,slave-37&lt;/property&gt;
+</span></span><span style=display:flex><span>                &lt;/poolConfig&gt;
+</span></span><span style=display:flex><span>        &lt;/dbServer&gt;
+</span></span><span style=display:flex><span>        &lt;dbServer <span style=color:teal>name</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#34;writeGroup&#34;</span> <span style=color:teal>virtual</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#34;true&#34;</span>&gt;
+</span></span><span style=display:flex><span>                &lt;poolConfig <span style=color:teal>class</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#34;com.meidusa.amoeba.server.MultipleServerPool&#34;</span>&gt;
+</span></span><span style=display:flex><span>                        &lt;!-- Load balancing strategy: <span style=color:teal>1</span><span style=color:#000;font-weight:700>=</span>ROUNDROBIN , <span style=color:teal>2</span><span style=color:#000;font-weight:700>=</span>WEIGHTBASED , <span style=color:teal>3</span><span style=color:#000;font-weight:700>=</span>HA--&gt;
+</span></span><span style=display:flex><span>                        &lt;property <span style=color:teal>name</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#34;loadbalance&#34;</span>&gt;1&lt;/property&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>                        &lt;!-- Separated by commas,such as: server1,server2,server1 --&gt;
+</span></span><span style=display:flex><span>                        &lt;property <span style=color:teal>name</span><span style=color:#000;font-weight:700>=</span><span style=color:#d14>&#34;poolNames&#34;</span>&gt;master-36&lt;/property&gt;
+</span></span><span style=display:flex><span>                &lt;/poolConfig&gt;
+</span></span><span style=display:flex><span>        &lt;/dbServer&gt;
+</span></span></code></pre></td></tr></table></div></div><p>运维服务器连接代理软件。注意此时代理软件监听端口是3306</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-ops-81 ~<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># mysql -h10.10.10.31 -ujxadmin -p123456</span>
+</span></span></code></pre></td></tr></table></div></div><p>使用查询功能，同时在代理软件（31）上开启抓包，抓3306端口。多次查询观察数据包走向。</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>MySQL <span style=color:#000;font-weight:700>[(</span>none<span style=color:#000;font-weight:700>)]</span>&gt; <span style=color:#000;font-weight:700>select</span> * from jx_stu;
+</span></span><span style=display:flex><span>+----+---------+--------+-----+
+</span></span><span style=display:flex><span>| id | classId | name   | age |
+</span></span><span style=display:flex><span>+----+---------+--------+-----+
+</span></span><span style=display:flex><span>|  <span style=color:#099>1</span> |       <span style=color:#099>1</span> | 张三   |  <span style=color:#099>18</span> |
+</span></span><span style=display:flex><span>|  <span style=color:#099>2</span> |       <span style=color:#099>1</span> | 李四   |  <span style=color:#099>19</span> |
+</span></span><span style=display:flex><span>|  <span style=color:#099>3</span> |       <span style=color:#099>2</span> | 王五   |  <span style=color:#099>20</span> |
+</span></span><span style=display:flex><span>|  <span style=color:#099>4</span> |       <span style=color:#099>2</span> | 马六   |  <span style=color:#099>21</span> |
+</span></span><span style=display:flex><span>+----+---------+--------+-----+
+</span></span><span style=display:flex><span><span style=color:#099>4</span> rows in <span style=color:#0086b3>set</span> <span style=color:#000;font-weight:700>(</span>0.009 sec<span style=color:#000;font-weight:700>)</span>
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#998;font-style:italic># 第一次查询</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-mysql-proxy-31 ~<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># tcpdump -i enp0s3 -p port 3306 -vv -nn </span>
+</span></span><span style=display:flex><span>dropped privs to tcpdump
+</span></span><span style=display:flex><span>tcpdump: listening on enp0s3, link-type EN10MB <span style=color:#000;font-weight:700>(</span>Ethernet<span style=color:#000;font-weight:700>)</span>, capture size <span style=color:#099>262144</span> bytes
+</span></span><span style=display:flex><span>13:43:01.483145 IP <span style=color:#000;font-weight:700>(</span>tos 0x8, ttl 64, id 15783, offset 0, flags <span style=color:#000;font-weight:700>[</span>DF<span style=color:#000;font-weight:700>]</span>, proto TCP <span style=color:#000;font-weight:700>(</span>6<span style=color:#000;font-weight:700>)</span>, length 77<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>    10.10.10.81.38478 &gt; 10.10.10.31.3306: Flags <span style=color:#000;font-weight:700>[</span>P.<span style=color:#000;font-weight:700>]</span>, cksum 0x7f30 <span style=color:#000;font-weight:700>(</span>correct<span style=color:#000;font-weight:700>)</span>, seq 2088286888:2088286913, ack 2006920818, win 501, options <span style=color:#000;font-weight:700>[</span>nop,nop,TS val <span style=color:#099>3974975417</span> ecr 1230302698<span style=color:#000;font-weight:700>]</span>, length <span style=color:#099>25</span>
+</span></span><span style=display:flex><span>13:43:01.484639 IP <span style=color:#000;font-weight:700>(</span>tos 0x0, ttl 64, id 34595, offset 0, flags <span style=color:#000;font-weight:700>[</span>DF<span style=color:#000;font-weight:700>]</span>, proto TCP <span style=color:#000;font-weight:700>(</span>6<span style=color:#000;font-weight:700>)</span>, length 77<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>    10.10.10.31.41820 &gt; 10.10.10.37.3306: Flags <span style=color:#000;font-weight:700>[</span>P.<span style=color:#000;font-weight:700>]</span>, cksum 0x2897 <span style=color:#000;font-weight:700>(</span>incorrect -&gt; 0xfde7<span style=color:#000;font-weight:700>)</span>, seq 3778517649:3778517674, ack 4284329884, win 502, options <span style=color:#000;font-weight:700>[</span>nop,nop,TS val <span style=color:#099>3190076538</span> ecr 1151198077<span style=color:#000;font-weight:700>]</span>, length <span style=color:#099>25</span>
+</span></span><span style=display:flex><span>13:43:01.485688 IP <span style=color:#000;font-weight:700>(</span>tos 0x8, ttl 64, id 19710, offset 0, flags <span style=color:#000;font-weight:700>[</span>DF<span style=color:#000;font-weight:700>]</span>, proto TCP <span style=color:#000;font-weight:700>(</span>6<span style=color:#000;font-weight:700>)</span>, length 351<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>    10.10.10.37.3306 &gt; 10.10.10.31.41820: Flags <span style=color:#000;font-weight:700>[</span>P.<span style=color:#000;font-weight:700>]</span>, cksum 0xe235 <span style=color:#000;font-weight:700>(</span>correct<span style=color:#000;font-weight:700>)</span>, seq 1:300, ack 25, win 510, options <span style=color:#000;font-weight:700>[</span>nop,nop,TS val <span style=color:#099>1151432309</span> ecr 3190076538<span style=color:#000;font-weight:700>]</span>, length <span style=color:#099>299</span>
+</span></span><span style=display:flex><span>13:43:01.485737 IP <span style=color:#000;font-weight:700>(</span>tos 0x0, ttl 64, id 34596, offset 0, flags <span style=color:#000;font-weight:700>[</span>DF<span style=color:#000;font-weight:700>]</span>, proto TCP <span style=color:#000;font-weight:700>(</span>6<span style=color:#000;font-weight:700>)</span>, length 52<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>    10.10.10.31.41820 &gt; 10.10.10.37.3306: Flags <span style=color:#000;font-weight:700>[</span>.<span style=color:#000;font-weight:700>]</span>, cksum 0x287e <span style=color:#000;font-weight:700>(</span>incorrect -&gt; 0x426a<span style=color:#000;font-weight:700>)</span>, seq 25, ack 300, win 501, options <span style=color:#000;font-weight:700>[</span>nop,nop,TS val <span style=color:#099>3190076540</span> ecr 1151432309<span style=color:#000;font-weight:700>]</span>, length <span style=color:#099>0</span>
+</span></span><span style=display:flex><span>13:43:01.488493 IP <span style=color:#000;font-weight:700>(</span>tos 0x0, ttl 64, id 17617, offset 0, flags <span style=color:#000;font-weight:700>[</span>DF<span style=color:#000;font-weight:700>]</span>, proto TCP <span style=color:#000;font-weight:700>(</span>6<span style=color:#000;font-weight:700>)</span>, length 351<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>    10.10.10.31.3306 &gt; 10.10.10.81.38478: Flags <span style=color:#000;font-weight:700>[</span>P.<span style=color:#000;font-weight:700>]</span>, cksum 0x29d5 <span style=color:#000;font-weight:700>(</span>incorrect -&gt; 0xb245<span style=color:#000;font-weight:700>)</span>, seq 1:300, ack 25, win 510, options <span style=color:#000;font-weight:700>[</span>nop,nop,TS val <span style=color:#099>1230713367</span> ecr 3974975417<span style=color:#000;font-weight:700>]</span>, length <span style=color:#099>299</span>
+</span></span><span style=display:flex><span>13:43:01.489187 IP <span style=color:#000;font-weight:700>(</span>tos 0x8, ttl 64, id 15784, offset 0, flags <span style=color:#000;font-weight:700>[</span>DF<span style=color:#000;font-weight:700>]</span>, proto TCP <span style=color:#000;font-weight:700>(</span>6<span style=color:#000;font-weight:700>)</span>, length 52<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>    10.10.10.81.38478 &gt; 10.10.10.31.3306: Flags <span style=color:#000;font-weight:700>[</span>.<span style=color:#000;font-weight:700>]</span>, cksum 0x1276 <span style=color:#000;font-weight:700>(</span>correct<span style=color:#000;font-weight:700>)</span>, seq 25, ack 300, win 501, options <span style=color:#000;font-weight:700>[</span>nop,nop,TS val <span style=color:#099>3974975423</span> ecr 1230713367<span style=color:#000;font-weight:700>]</span>, length <span style=color:#099>0</span>
+</span></span><span style=display:flex><span>13:43:03.501750 IP <span style=color:#000;font-weight:700>(</span>tos 0x8, ttl 64, id 15785, offset 0, flags <span style=color:#000;font-weight:700>[</span>DF<span style=color:#000;font-weight:700>]</span>, proto TCP <span style=color:#000;font-weight:700>(</span>6<span style=color:#000;font-weight:700>)</span>, length 77<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 第二次查询</span>
+</span></span><span style=display:flex><span>    10.10.10.81.38478 &gt; 10.10.10.31.3306: Flags <span style=color:#000;font-weight:700>[</span>P.<span style=color:#000;font-weight:700>]</span>, cksum 0x31d6 <span style=color:#000;font-weight:700>(</span>correct<span style=color:#000;font-weight:700>)</span>, seq 25:50, ack 300, win 501, options <span style=color:#000;font-weight:700>[</span>nop,nop,TS val <span style=color:#099>3974977436</span> ecr 1230713367<span style=color:#000;font-weight:700>]</span>, length <span style=color:#099>25</span>
+</span></span><span style=display:flex><span>13:43:03.503360 IP <span style=color:#000;font-weight:700>(</span>tos 0x0, ttl 64, id 20279, offset 0, flags <span style=color:#000;font-weight:700>[</span>DF<span style=color:#000;font-weight:700>]</span>, proto TCP <span style=color:#000;font-weight:700>(</span>6<span style=color:#000;font-weight:700>)</span>, length 77<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>    10.10.10.31.43088 &gt; 10.10.10.36.3306: Flags <span style=color:#000;font-weight:700>[</span>P.<span style=color:#000;font-weight:700>]</span>, cksum 0x2896 <span style=color:#000;font-weight:700>(</span>incorrect -&gt; 0x46de<span style=color:#000;font-weight:700>)</span>, seq 951384415:951384440, ack 1423004894, win 502, options <span style=color:#000;font-weight:700>[</span>nop,nop,TS val <span style=color:#099>1338891573</span> ecr 42560581<span style=color:#000;font-weight:700>]</span>, length <span style=color:#099>25</span>
+</span></span><span style=display:flex><span>13:43:03.504750 IP <span style=color:#000;font-weight:700>(</span>tos 0x8, ttl 64, id 6648, offset 0, flags <span style=color:#000;font-weight:700>[</span>DF<span style=color:#000;font-weight:700>]</span>, proto TCP <span style=color:#000;font-weight:700>(</span>6<span style=color:#000;font-weight:700>)</span>, length 351<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>    10.10.10.36.3306 &gt; 10.10.10.31.43088: Flags <span style=color:#000;font-weight:700>[</span>P.<span style=color:#000;font-weight:700>]</span>, cksum 0x2366 <span style=color:#000;font-weight:700>(</span>correct<span style=color:#000;font-weight:700>)</span>, seq 1:300, ack 25, win 510, options <span style=color:#000;font-weight:700>[</span>nop,nop,TS val <span style=color:#099>42796803</span> ecr 1338891573<span style=color:#000;font-weight:700>]</span>, length <span style=color:#099>299</span>
+</span></span><span style=display:flex><span>13:43:03.504761 IP <span style=color:#000;font-weight:700>(</span>tos 0x0, ttl 64, id 20280, offset 0, flags <span style=color:#000;font-weight:700>[</span>DF<span style=color:#000;font-weight:700>]</span>, proto TCP <span style=color:#000;font-weight:700>(</span>6<span style=color:#000;font-weight:700>)</span>, length 52<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>    10.10.10.31.43088 &gt; 10.10.10.36.3306: Flags <span style=color:#000;font-weight:700>[</span>.<span style=color:#000;font-weight:700>]</span>, cksum 0x287d <span style=color:#000;font-weight:700>(</span>incorrect -&gt; 0x839a<span style=color:#000;font-weight:700>)</span>, seq 25, ack 300, win 501, options <span style=color:#000;font-weight:700>[</span>nop,nop,TS val <span style=color:#099>1338891575</span> ecr 42796803<span style=color:#000;font-weight:700>]</span>, length <span style=color:#099>0</span>
+</span></span><span style=display:flex><span>13:43:03.506561 IP <span style=color:#000;font-weight:700>(</span>tos 0x0, ttl 64, id 17618, offset 0, flags <span style=color:#000;font-weight:700>[</span>DF<span style=color:#000;font-weight:700>]</span>, proto TCP <span style=color:#000;font-weight:700>(</span>6<span style=color:#000;font-weight:700>)</span>, length 351<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>    10.10.10.31.3306 &gt; 10.10.10.81.38478: Flags <span style=color:#000;font-weight:700>[</span>P.<span style=color:#000;font-weight:700>]</span>, cksum 0x29d5 <span style=color:#000;font-weight:700>(</span>incorrect -&gt; 0xa13c<span style=color:#000;font-weight:700>)</span>, seq 300:599, ack 50, win 510, options <span style=color:#000;font-weight:700>[</span>nop,nop,TS val <span style=color:#099>1230715385</span> ecr 3974977436<span style=color:#000;font-weight:700>]</span>, length <span style=color:#099>299</span>
+</span></span><span style=display:flex><span>13:43:03.506948 IP <span style=color:#000;font-weight:700>(</span>tos 0x8, ttl 64, id 15786, offset 0, flags <span style=color:#000;font-weight:700>[</span>DF<span style=color:#000;font-weight:700>]</span>, proto TCP <span style=color:#000;font-weight:700>(</span>6<span style=color:#000;font-weight:700>)</span>, length 52<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>    10.10.10.81.38478 &gt; 10.10.10.31.3306: Flags <span style=color:#000;font-weight:700>[</span>.<span style=color:#000;font-weight:700>]</span>, cksum 0x016e <span style=color:#000;font-weight:700>(</span>correct<span style=color:#000;font-weight:700>)</span>, seq 50, ack 599, win 501, options <span style=color:#000;font-weight:700>[</span>nop,nop,TS val <span style=color:#099>3974977441</span> ecr 1230715385<span style=color:#000;font-weight:700>]</span>, length <span style=color:#099>0</span>
+</span></span></code></pre></td></tr></table></div></div><p>测试写入，多次插入数据，观察数据包走向。</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>insert into jx_stu values<span style=color:#000;font-weight:700>(</span>NULL, 1, <span style=color:#d14>&#34;赵六&#34;</span>, 22<span style=color:#000;font-weight:700>)</span>;
+</span></span></code></pre></td></tr></table></div></div><p>第一次插入数据：</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>13:50:06.166385 IP <span style=color:#000;font-weight:700>(</span>tos 0x8, ttl 64, id 50446, offset 0, flags <span style=color:#000;font-weight:700>[</span>DF<span style=color:#000;font-weight:700>]</span>, proto TCP <span style=color:#000;font-weight:700>(</span>6<span style=color:#000;font-weight:700>)</span>, length 105<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>    10.10.10.81.42170 &gt; 10.10.10.31.3306: Flags <span style=color:#000;font-weight:700>[</span>P.<span style=color:#000;font-weight:700>]</span>, cksum 0x5ede <span style=color:#000;font-weight:700>(</span>correct<span style=color:#000;font-weight:700>)</span>, seq 2426399156:2426399209, ack 2620453011, win 501, options <span style=color:#000;font-weight:700>[</span>nop,nop,TS val <span style=color:#099>3975400102</span> ecr 1231029962<span style=color:#000;font-weight:700>]</span>, length <span style=color:#099>53</span>
+</span></span><span style=display:flex><span>13:50:06.167965 IP <span style=color:#000;font-weight:700>(</span>tos 0x0, ttl 64, id 31543, offset 0, flags <span style=color:#000;font-weight:700>[</span>DF<span style=color:#000;font-weight:700>]</span>, proto TCP <span style=color:#000;font-weight:700>(</span>6<span style=color:#000;font-weight:700>)</span>, length 105<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>    10.10.10.31.46312 &gt; 10.10.10.36.3306: Flags <span style=color:#000;font-weight:700>[</span>P.<span style=color:#000;font-weight:700>]</span>, cksum 0x28b2 <span style=color:#000;font-weight:700>(</span>incorrect -&gt; 0xfe53<span style=color:#000;font-weight:700>)</span>, seq 1397525989:1397526042, ack 1295252074, win 502, options <span style=color:#000;font-weight:700>[</span>nop,nop,TS val <span style=color:#099>1339314238</span> ecr 43160561<span style=color:#000;font-weight:700>]</span>, length <span style=color:#099>53</span>
+</span></span><span style=display:flex><span>13:50:06.206841 IP <span style=color:#000;font-weight:700>(</span>tos 0x0, ttl 64, id 58918, offset 0, flags <span style=color:#000;font-weight:700>[</span>DF<span style=color:#000;font-weight:700>]</span>, proto TCP <span style=color:#000;font-weight:700>(</span>6<span style=color:#000;font-weight:700>)</span>, length 52<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>    10.10.10.31.3306 &gt; 10.10.10.81.42170: Flags <span style=color:#000;font-weight:700>[</span>.<span style=color:#000;font-weight:700>]</span>, cksum 0x28aa <span style=color:#000;font-weight:700>(</span>incorrect -&gt; 0xe526<span style=color:#000;font-weight:700>)</span>, seq 1, ack 53, win 510, options <span style=color:#000;font-weight:700>[</span>nop,nop,TS val <span style=color:#099>1231138086</span> ecr 3975400102<span style=color:#000;font-weight:700>]</span>, length <span style=color:#099>0</span>
+</span></span><span style=display:flex><span>13:50:06.210011 IP <span style=color:#000;font-weight:700>(</span>tos 0x8, ttl 64, id 47026, offset 0, flags <span style=color:#000;font-weight:700>[</span>DF<span style=color:#000;font-weight:700>]</span>, proto TCP <span style=color:#000;font-weight:700>(</span>6<span style=color:#000;font-weight:700>)</span>, length 52<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>    10.10.10.36.3306 &gt; 10.10.10.31.46312: Flags <span style=color:#000;font-weight:700>[</span>.<span style=color:#000;font-weight:700>]</span>, cksum 0x44b6 <span style=color:#000;font-weight:700>(</span>correct<span style=color:#000;font-weight:700>)</span>, seq 1, ack 53, win 510, options <span style=color:#000;font-weight:700>[</span>nop,nop,TS val <span style=color:#099>43219509</span> ecr 1339314238<span style=color:#000;font-weight:700>]</span>, length <span style=color:#099>0</span>
+</span></span><span style=display:flex><span>13:50:06.313916 IP <span style=color:#000;font-weight:700>(</span>tos 0x8, ttl 64, id 47027, offset 0, flags <span style=color:#000;font-weight:700>[</span>DF<span style=color:#000;font-weight:700>]</span>, proto TCP <span style=color:#000;font-weight:700>(</span>6<span style=color:#000;font-weight:700>)</span>, length 63<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>    10.10.10.36.3306 &gt; 10.10.10.31.46312: Flags <span style=color:#000;font-weight:700>[</span>P.<span style=color:#000;font-weight:700>]</span>, cksum 0x3837 <span style=color:#000;font-weight:700>(</span>correct<span style=color:#000;font-weight:700>)</span>, seq 1:12, ack 53, win 510, options <span style=color:#000;font-weight:700>[</span>nop,nop,TS val <span style=color:#099>43219613</span> ecr 1339314238<span style=color:#000;font-weight:700>]</span>, length <span style=color:#099>11</span>
+</span></span><span style=display:flex><span>13:50:06.313938 IP <span style=color:#000;font-weight:700>(</span>tos 0x0, ttl 64, id 31544, offset 0, flags <span style=color:#000;font-weight:700>[</span>DF<span style=color:#000;font-weight:700>]</span>, proto TCP <span style=color:#000;font-weight:700>(</span>6<span style=color:#000;font-weight:700>)</span>, length 52<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>    10.10.10.31.46312 &gt; 10.10.10.36.3306: Flags <span style=color:#000;font-weight:700>[</span>.<span style=color:#000;font-weight:700>]</span>, cksum 0x287d <span style=color:#000;font-weight:700>(</span>incorrect -&gt; 0x43b9<span style=color:#000;font-weight:700>)</span>, seq 53, ack 12, win 502, options <span style=color:#000;font-weight:700>[</span>nop,nop,TS val <span style=color:#099>1339314384</span> ecr 43219613<span style=color:#000;font-weight:700>]</span>, length <span style=color:#099>0</span>
+</span></span><span style=display:flex><span>13:50:06.316125 IP <span style=color:#000;font-weight:700>(</span>tos 0x0, ttl 64, id 58919, offset 0, flags <span style=color:#000;font-weight:700>[</span>DF<span style=color:#000;font-weight:700>]</span>, proto TCP <span style=color:#000;font-weight:700>(</span>6<span style=color:#000;font-weight:700>)</span>, length 63<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>    10.10.10.31.3306 &gt; 10.10.10.81.42170: Flags <span style=color:#000;font-weight:700>[</span>P.<span style=color:#000;font-weight:700>]</span>, cksum 0x28b5 <span style=color:#000;font-weight:700>(</span>incorrect -&gt; 0xd8a2<span style=color:#000;font-weight:700>)</span>, seq 1:12, ack 53, win 510, options <span style=color:#000;font-weight:700>[</span>nop,nop,TS val <span style=color:#099>1231138195</span> ecr 3975400102<span style=color:#000;font-weight:700>]</span>, length <span style=color:#099>11</span>
+</span></span><span style=display:flex><span>13:50:06.316821 IP <span style=color:#000;font-weight:700>(</span>tos 0x8, ttl 64, id 50447, offset 0, flags <span style=color:#000;font-weight:700>[</span>DF<span style=color:#000;font-weight:700>]</span>, proto TCP <span style=color:#000;font-weight:700>(</span>6<span style=color:#000;font-weight:700>)</span>, length 52<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>    10.10.10.81.42170 &gt; 10.10.10.31.3306: Flags <span style=color:#000;font-weight:700>[</span>.<span style=color:#000;font-weight:700>]</span>, cksum 0xe420 <span style=color:#000;font-weight:700>(</span>correct<span style=color:#000;font-weight:700>)</span>, seq 53, ack 12, win 501, options <span style=color:#000;font-weight:700>[</span>nop,nop,TS val <span style=color:#099>3975400253</span> ecr 1231138195<span style=color:#000;font-weight:700>]</span>, length <span style=color:#099>0</span>
+</span></span></code></pre></td></tr></table></div></div><p>第二次插入数据</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>13:50:22.318452 IP <span style=color:#000;font-weight:700>(</span>tos 0x8, ttl 64, id 50448, offset 0, flags <span style=color:#000;font-weight:700>[</span>DF<span style=color:#000;font-weight:700>]</span>, proto TCP <span style=color:#000;font-weight:700>(</span>6<span style=color:#000;font-weight:700>)</span>, length 105<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>    10.10.10.81.42170 &gt; 10.10.10.31.3306: Flags <span style=color:#000;font-weight:700>[</span>P.<span style=color:#000;font-weight:700>]</span>, cksum 0x78bb <span style=color:#000;font-weight:700>(</span>correct<span style=color:#000;font-weight:700>)</span>, seq 53:106, ack 12, win 501, options <span style=color:#000;font-weight:700>[</span>nop,nop,TS val <span style=color:#099>3975416254</span> ecr 1231138195<span style=color:#000;font-weight:700>]</span>, length <span style=color:#099>53</span>
+</span></span><span style=display:flex><span>13:50:22.318533 IP <span style=color:#000;font-weight:700>(</span>tos 0x0, ttl 64, id 58920, offset 0, flags <span style=color:#000;font-weight:700>[</span>DF<span style=color:#000;font-weight:700>]</span>, proto TCP <span style=color:#000;font-weight:700>(</span>6<span style=color:#000;font-weight:700>)</span>, length 52<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>    10.10.10.31.3306 &gt; 10.10.10.81.42170: Flags <span style=color:#000;font-weight:700>[</span>.<span style=color:#000;font-weight:700>]</span>, cksum 0x28aa <span style=color:#000;font-weight:700>(</span>incorrect -&gt; 0x66df<span style=color:#000;font-weight:700>)</span>, seq 12, ack 106, win 510, options <span style=color:#000;font-weight:700>[</span>nop,nop,TS val <span style=color:#099>1231154197</span> ecr 3975416254<span style=color:#000;font-weight:700>]</span>, length <span style=color:#099>0</span>
+</span></span><span style=display:flex><span>13:50:22.320014 IP <span style=color:#000;font-weight:700>(</span>tos 0x0, ttl 64, id 31545, offset 0, flags <span style=color:#000;font-weight:700>[</span>DF<span style=color:#000;font-weight:700>]</span>, proto TCP <span style=color:#000;font-weight:700>(</span>6<span style=color:#000;font-weight:700>)</span>, length 105<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>    10.10.10.31.46312 &gt; 10.10.10.36.3306: Flags <span style=color:#000;font-weight:700>[</span>P.<span style=color:#000;font-weight:700>]</span>, cksum 0x28b2 <span style=color:#000;font-weight:700>(</span>incorrect -&gt; 0xd84e<span style=color:#000;font-weight:700>)</span>, seq 53:106, ack 12, win 502, options <span style=color:#000;font-weight:700>[</span>nop,nop,TS val <span style=color:#099>1339330390</span> ecr 43219613<span style=color:#000;font-weight:700>]</span>, length <span style=color:#099>53</span>
+</span></span><span style=display:flex><span>13:50:22.320543 IP <span style=color:#000;font-weight:700>(</span>tos 0x8, ttl 64, id 47028, offset 0, flags <span style=color:#000;font-weight:700>[</span>DF<span style=color:#000;font-weight:700>]</span>, proto TCP <span style=color:#000;font-weight:700>(</span>6<span style=color:#000;font-weight:700>)</span>, length 52<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>    10.10.10.36.3306 &gt; 10.10.10.31.46312: Flags <span style=color:#000;font-weight:700>[</span>.<span style=color:#000;font-weight:700>]</span>, cksum 0xc66e <span style=color:#000;font-weight:700>(</span>correct<span style=color:#000;font-weight:700>)</span>, seq 12, ack 106, win 510, options <span style=color:#000;font-weight:700>[</span>nop,nop,TS val <span style=color:#099>43235620</span> ecr 1339330390<span style=color:#000;font-weight:700>]</span>, length <span style=color:#099>0</span>
+</span></span><span style=display:flex><span>13:50:22.327966 IP <span style=color:#000;font-weight:700>(</span>tos 0x8, ttl 64, id 47029, offset 0, flags <span style=color:#000;font-weight:700>[</span>DF<span style=color:#000;font-weight:700>]</span>, proto TCP <span style=color:#000;font-weight:700>(</span>6<span style=color:#000;font-weight:700>)</span>, length 63<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>    10.10.10.36.3306 &gt; 10.10.10.31.46312: Flags <span style=color:#000;font-weight:700>[</span>P.<span style=color:#000;font-weight:700>]</span>, cksum 0xb950 <span style=color:#000;font-weight:700>(</span>correct<span style=color:#000;font-weight:700>)</span>, seq 12:23, ack 106, win 510, options <span style=color:#000;font-weight:700>[</span>nop,nop,TS val <span style=color:#099>43235627</span> ecr 1339330390<span style=color:#000;font-weight:700>]</span>, length <span style=color:#099>11</span>
+</span></span><span style=display:flex><span>13:50:22.328025 IP <span style=color:#000;font-weight:700>(</span>tos 0x0, ttl 64, id 31546, offset 0, flags <span style=color:#000;font-weight:700>[</span>DF<span style=color:#000;font-weight:700>]</span>, proto TCP <span style=color:#000;font-weight:700>(</span>6<span style=color:#000;font-weight:700>)</span>, length 52<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>    10.10.10.31.46312 &gt; 10.10.10.36.3306: Flags <span style=color:#000;font-weight:700>[</span>.<span style=color:#000;font-weight:700>]</span>, cksum 0x287d <span style=color:#000;font-weight:700>(</span>incorrect -&gt; 0xc65c<span style=color:#000;font-weight:700>)</span>, seq 106, ack 23, win 502, options <span style=color:#000;font-weight:700>[</span>nop,nop,TS val <span style=color:#099>1339330398</span> ecr 43235627<span style=color:#000;font-weight:700>]</span>, length <span style=color:#099>0</span>
+</span></span><span style=display:flex><span>13:50:22.330141 IP <span style=color:#000;font-weight:700>(</span>tos 0x0, ttl 64, id 58921, offset 0, flags <span style=color:#000;font-weight:700>[</span>DF<span style=color:#000;font-weight:700>]</span>, proto TCP <span style=color:#000;font-weight:700>(</span>6<span style=color:#000;font-weight:700>)</span>, length 63<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>    10.10.10.31.3306 &gt; 10.10.10.81.42170: Flags <span style=color:#000;font-weight:700>[</span>P.<span style=color:#000;font-weight:700>]</span>, cksum 0x28b5 <span style=color:#000;font-weight:700>(</span>incorrect -&gt; 0x59bc<span style=color:#000;font-weight:700>)</span>, seq 12:23, ack 106, win 510, options <span style=color:#000;font-weight:700>[</span>nop,nop,TS val <span style=color:#099>1231154209</span> ecr 3975416254<span style=color:#000;font-weight:700>]</span>, length <span style=color:#099>11</span>
+</span></span><span style=display:flex><span>13:50:22.330686 IP <span style=color:#000;font-weight:700>(</span>tos 0x8, ttl 64, id 50449, offset 0, flags <span style=color:#000;font-weight:700>[</span>DF<span style=color:#000;font-weight:700>]</span>, proto TCP <span style=color:#000;font-weight:700>(</span>6<span style=color:#000;font-weight:700>)</span>, length 52<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>    10.10.10.81.42170 &gt; 10.10.10.31.3306: Flags <span style=color:#000;font-weight:700>[</span>.<span style=color:#000;font-weight:700>]</span>, cksum 0x66c4 <span style=color:#000;font-weight:700>(</span>correct<span style=color:#000;font-weight:700>)</span>, seq 106, ack 23, win 501, options <span style=color:#000;font-weight:700>[</span>nop,nop,TS val <span style=color:#099>3975416267</span> ecr 1231154209<span style=color:#000;font-weight:700>]</span>, length <span style=color:#099>0</span>
+</span></span></code></pre></td></tr></table></div></div><p>为了验证读写分离是否生效,我们将master上mysql服务停止，然后从运维服务器（81）上连接代理（31）进行写操作。</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#998;font-style:italic>#停止master mysql</span>
+</span></span><span style=display:flex><span>systemctl stop mysql
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 写操作：</span>
+</span></span><span style=display:flex><span>MySQL <span style=color:#000;font-weight:700>[(</span>none<span style=color:#000;font-weight:700>)]</span>&gt; insert into jx_stu values<span style=color:#000;font-weight:700>(</span>NULL, 1, <span style=color:#d14>&#34;赵七&#34;</span>, 22<span style=color:#000;font-weight:700>)</span>;
+</span></span><span style=display:flex><span>ERROR <span style=color:#099>10000</span> <span style=color:#000;font-weight:700>(</span>null <span style=color:#000;font-weight:700>)</span>: session was killed!!
+</span></span><span style=display:flex><span><span style=color:#998;font-style:italic># 读操作，第一次读取失败（master节点服务关闭），第二次读取成功，此时已切换到slave节点上。</span>
+</span></span><span style=display:flex><span>MySQL <span style=color:#000;font-weight:700>[(</span>none<span style=color:#000;font-weight:700>)]</span>&gt; <span style=color:#000;font-weight:700>select</span> * from jx_stu;
+</span></span><span style=display:flex><span>ERROR <span style=color:#099>1044</span> <span style=color:#000;font-weight:700>(</span>42000<span style=color:#000;font-weight:700>)</span>: <span style=color:teal>poolName</span><span style=color:#000;font-weight:700>=</span>writeGroup, no valid pools
+</span></span><span style=display:flex><span>MySQL <span style=color:#000;font-weight:700>[(</span>none<span style=color:#000;font-weight:700>)]</span>&gt; <span style=color:#000;font-weight:700>select</span> * from jx_stu;
+</span></span><span style=display:flex><span>ERROR <span style=color:#099>2006</span> <span style=color:#000;font-weight:700>(</span>HY000<span style=color:#000;font-weight:700>)</span>: MySQL server has gone away
+</span></span><span style=display:flex><span>No connection. Trying to reconnect...
+</span></span><span style=display:flex><span>Connection id:    <span style=color:#099>614793363</span>
+</span></span><span style=display:flex><span>Current database: *** NONE ***
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>+----+---------+--------+-----+
+</span></span><span style=display:flex><span>| id | classId | name   | age |
+</span></span><span style=display:flex><span>+----+---------+--------+-----+
+</span></span><span style=display:flex><span>|  <span style=color:#099>1</span> |       <span style=color:#099>1</span> | 张三   |  <span style=color:#099>18</span> |
+</span></span><span style=display:flex><span>|  <span style=color:#099>2</span> |       <span style=color:#099>1</span> | 李四   |  <span style=color:#099>19</span> |
+</span></span><span style=display:flex><span>|  <span style=color:#099>3</span> |       <span style=color:#099>2</span> | 王五   |  <span style=color:#099>20</span> |
+</span></span><span style=display:flex><span>|  <span style=color:#099>4</span> |       <span style=color:#099>2</span> | 马六   |  <span style=color:#099>21</span> |
+</span></span><span style=display:flex><span>|  <span style=color:#099>5</span> |       <span style=color:#099>1</span> | 赵六   |  <span style=color:#099>22</span> |
+</span></span><span style=display:flex><span>|  <span style=color:#099>6</span> |       <span style=color:#099>1</span> | 赵六   |  <span style=color:#099>22</span> |
+</span></span><span style=display:flex><span>|  <span style=color:#099>7</span> |       <span style=color:#099>1</span> | 赵六   |  <span style=color:#099>22</span> |
+</span></span><span style=display:flex><span>|  <span style=color:#099>8</span> |       <span style=color:#099>1</span> | 赵六   |  <span style=color:#099>22</span> |
+</span></span><span style=display:flex><span>+----+---------+--------+-----+
+</span></span><span style=display:flex><span><span style=color:#099>8</span> rows in <span style=color:#0086b3>set</span> <span style=color:#000;font-weight:700>(</span>0.014 sec<span style=color:#000;font-weight:700>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>此时代理软件报错信息如下：</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#000;font-weight:700>[</span>root@jx-mysql-proxy-31 ~<span style=color:#000;font-weight:700>]</span><span style=color:#998;font-style:italic># /opt/amoeba/bin/amoeba start </span>
+</span></span><span style=display:flex><span>log4j:WARN log4j config load completed from file:/opt/amoeba/conf/log4j.xml
+</span></span><span style=display:flex><span>2024-12-09 13:29:07,202 INFO  context.MysqlRuntimeContext - Amoeba <span style=color:#000;font-weight:700>for</span> Mysql current <span style=color:teal>versoin</span><span style=color:#000;font-weight:700>=</span>5.1.45-mysql-amoeba-proxy-2.1.0-RC5
+</span></span><span style=display:flex><span>log4j:WARN ip access config load completed from file:/opt/amoeba/conf/access_list.conf
+</span></span><span style=display:flex><span>2024-12-09 13:29:07,351 INFO  net.ServerableConnectionManager - Amoeba <span style=color:#000;font-weight:700>for</span> Mysql listening on 0.0.0.0/0.0.0.0:3306.
+</span></span><span style=display:flex><span>2024-12-09 13:29:07,354 INFO  net.ServerableConnectionManager - Amoeba Monitor Server listening on /0.0.0.0:25667.
+</span></span><span style=display:flex><span>java.lang.Exception: <span style=color:teal>poolName</span><span style=color:#000;font-weight:700>=</span>writeGroup, no valid pools
+</span></span><span style=display:flex><span>	at com.meidusa.amoeba.net.poolable.MultipleLoadBalanceObjectPool.borrowObject<span style=color:#000;font-weight:700>(</span>MultipleLoadBalanceObjectPool.java:183<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>	at com.meidusa.amoeba.mysql.handler.CommandMessageHandler.startSession<span style=color:#000;font-weight:700>(</span>CommandMessageHandler.java:629<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>	at com.meidusa.amoeba.mysql.handler.MySqlCommandDispatcher.handleMessage<span style=color:#000;font-weight:700>(</span>MySqlCommandDispatcher.java:123<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>	at com.meidusa.amoeba.mysql.net.MysqlClientConnection<span style=color:teal>$2</span>.run<span style=color:#000;font-weight:700>(</span>MysqlClientConnection.java:291<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>	at java.util.concurrent.ThreadPoolExecutor.runWorker<span style=color:#000;font-weight:700>(</span>ThreadPoolExecutor.java:1149<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>	at java.util.concurrent.ThreadPoolExecutor<span style=color:teal>$Worker</span>.run<span style=color:#000;font-weight:700>(</span>ThreadPoolExecutor.java:624<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>	at java.lang.Thread.run<span style=color:#000;font-weight:700>(</span>Thread.java:748<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>java.lang.Exception: <span style=color:teal>poolName</span><span style=color:#000;font-weight:700>=</span>writeGroup, no valid pools
+</span></span><span style=display:flex><span>	at com.meidusa.amoeba.net.poolable.MultipleLoadBalanceObjectPool.borrowObject<span style=color:#000;font-weight:700>(</span>MultipleLoadBalanceObjectPool.java:183<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>	at com.meidusa.amoeba.mysql.handler.CommandMessageHandler.startSession<span style=color:#000;font-weight:700>(</span>CommandMessageHandler.java:629<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>	at com.meidusa.amoeba.mysql.handler.MySqlCommandDispatcher.handleMessage<span style=color:#000;font-weight:700>(</span>MySqlCommandDispatcher.java:123<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>	at com.meidusa.amoeba.mysql.net.MysqlClientConnection<span style=color:teal>$2</span>.run<span style=color:#000;font-weight:700>(</span>MysqlClientConnection.java:291<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>	at java.util.concurrent.ThreadPoolExecutor.runWorker<span style=color:#000;font-weight:700>(</span>ThreadPoolExecutor.java:1149<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>	at java.util.concurrent.ThreadPoolExecutor<span style=color:teal>$Worker</span>.run<span style=color:#000;font-weight:700>(</span>ThreadPoolExecutor.java:624<span style=color:#000;font-weight:700>)</span>
+</span></span><span style=display:flex><span>	at java.lang.Thread.run<span style=color:#000;font-weight:700>(</span>Thread.java:748<span style=color:#000;font-weight:700>)</span>
+</span></span></code></pre></td></tr></table></div></div></div></div></div><div id=footer><div class=container-footer><div class=beian><a target=_blank href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode="></a><a href target=_blank><span class=some>icp...<span></a></div><div class=info><a href=https://github.com/loveminimal/hugo-theme-virgo>🕊️</a> 2021 - <span id=info-date></span></div></div></div><div class=cool-after></div></body></html>
